@@ -1,7 +1,7 @@
 'use strict';
 /* ---------- Opslag in de browser (IndexedDB), nooit naar een server ----------
    - dossiers: per dossier (vingerafdruk van rekeningen en transacties) de rekeningrollen, leden, besluiten en
-     de invoer van de analist (krediet, meldingen, checklist, conclusie) plus de audittrail.
+     de afhandeling van risicomeldingen en eigen bevindingen plus de audittrail.
    - iban: besluiten per tegenpartij (IBAN), die ook in volgende dossiers gelden.
    Valt IndexedDB weg (privévenster, geblokkeerd), dan werkt alles in het geheugen en verdwijnt het bij herladen. */
 const STORE = { db: null, available: false, error: null };

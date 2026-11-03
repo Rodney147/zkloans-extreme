@@ -9,12 +9,11 @@ const { createCore, run, loadFixture, analyseView } = require('./harness');
 const expected = name => JSON.parse(fs.readFileSync(path.join(__dirname, 'fixtures', name, 'expected.json'), 'utf8'));
 const total = values => values.reduce((sum, value) => sum + value, 0);
 const near = (actual, wanted, tolerance = 0.01, label = '') => assert.ok(Math.abs(actual - wanted) <= tolerance, `${label}: ${actual} ≠ ${wanted}`);
-async function model(folder, loan) {
+async function model(folder) {
   const core = createCore();
   await loadFixture(core, folder);
-  if (loan) { core.__loan = loan; run(core, 'INPUT.loan = __loan'); }
-  run(core, "overlay = 'zakelijk'; A = analyse(); globalThis.Az = A; globalThis.Ap = DOSSIER.accounts.some(account => account.role === 'prive') ? analyseFor('prive') : null; globalThis.CAP = capacity(A); globalThis.RISKS = risks(Az, Ap, CAP); globalThis.CHECKS = checklist(Az, Ap, CAP, RISKS);");
-  return { core, Az: run(core, 'Az'), Ap: run(core, 'Ap'), cap: run(core, 'CAP'), risks: run(core, 'RISKS'), checks: run(core, 'CHECKS'), dossier: run(core, 'DOSSIER') };
+  run(core, "overlay = 'zakelijk'; A = analyse(); globalThis.Az = A; globalThis.Ap = DOSSIER.accounts.some(account => account.role === 'prive') ? analyseFor('prive') : null; globalThis.RISKS = risks(Az, Ap);");
+  return { core, Az: run(core, 'Az'), Ap: run(core, 'Ap'), risks: run(core, 'RISKS'), dossier: run(core, 'DOSSIER') };
 }
 
 /* ---------- Losse regels ---------- */
@@ -27,13 +26,6 @@ test('rechtsvorm normaliseren', () => {
   const core = createCore();
   [['Besloten Vennootschap', 'bv'], ['Eenmanszaak', 'eenmanszaak'], ['Vennootschap onder firma', 'vof'], ['V.O.F.', 'vof'], ['B.V.', 'bv']].forEach(([input, output]) => assert.equal(run(core, `normalizeLegalForm(${JSON.stringify(input)})`), output, input));
 });
-test('maandlast nieuwe financiering', () => {
-  const core = createCore();
-  near(run(core, "loanPayment({ amount: 100000, rate: 7, months: 60, form: 'annuitair' }).first"), 1980.12, 0.01, 'annuïtair');
-  near(run(core, "loanPayment({ amount: 120000, rate: 6, months: 60, form: 'lineair' }).first"), 2000 + 600, 0.01, 'lineair');
-  near(run(core, "loanPayment({ amount: 100000, rate: 6, months: 60, form: 'aflossingsvrij' }).first"), 500, 0.01, 'aflossingsvrij');
-  assert.equal(run(core, "loanPayment({ amount: 100000, rate: null, months: 60 })"), null);
-});
 test('geen vaste acceptatienorm in de code: DSCR zonder norm geeft geen oordeel', () => {
   const core = createCore();
   assert.equal(run(core, 'dscrVerdict(0.5)'), 'info');
@@ -45,7 +37,7 @@ test('geen vaste acceptatienorm in de code: DSCR zonder norm geeft geen oordeel'
 /* ---------- Hocus Pocus B.V. (Enable Now, 2.132 transacties) ---------- */
 test('Hocus Pocus: ijkpunten', async () => {
   const want = expected('hocus-pocus');
-  const { Az, Ap, cap, risks, checks, dossier } = await model('hocus-pocus', { amount: 100000, rate: 7, months: 60, form: 'annuitair' });
+  const { Az, Ap, risks, dossier } = await model('hocus-pocus');
   assert.equal(dossier.legalForm, want.legalForm);
   assert.equal(dossier.transactions.length, want.transactions);
   const balance = role => total(dossier.accounts.filter(account => account.role === role).map(account => account.balance));
@@ -89,15 +81,11 @@ test('Hocus Pocus: ijkpunten', async () => {
   /* buffer ING → Rabo en terug is intern */
   assert.ok(Az.rows.filter(row => Math.abs(row.amount) === 10000 && /buffer/i.test(row.description)).every(row => row.rule === 1), 'buffer intern');
   /* draagkracht en DSCR rekenen met dezelfde basis */
-  near(cap.carrying * 12, total(Az.freeCash), 1, 'draagkracht capaciteit = kasstroomopbouw');
   near(total(Az.operating) - total(Az.freeCash), want.dgaSalary + (want.rcOut - want.rcIn), 0.05, 'aftrek bv = loon DGA + netto rekening-courant');
-  near(cap.newMonthly, 1980.12, 0.01, 'nieuwe maandlast');
-  assert.ok(cap.dscrAfter < cap.dscrBefore);
+  assert.ok(Az.dscr < Az.dscrBefore, 'DSCR na aftrek lager dan operationeel');
   want.expectRisks.forEach(id => assert.ok(risks.some(item => item.id === id), `melding ${id}`));
   want.noRisks.forEach(id => assert.ok(!risks.some(item => item.id === id), `geen melding ${id}`));
   assert.ok(risks.every(item => item.wat && item.waarom && item.onderzoek && Number.isFinite(item.zekerheid) && item.type), 'elke melding is volledig');
-  assert.equal(checks.find(check => check.id === 'F1').voorstel, 'niet_beoordeeld', 'zonder norm geen oordeel');
-  assert.equal(checks.find(check => check.id === 'E1b').voorstel, 'nvt');
 });
 test('Hocus Pocus: totalen per rekening sluiten aan op het geheel', async () => {
   const { core, Az } = await model('hocus-pocus');
@@ -112,10 +100,9 @@ test('Hocus Pocus: handmatige correctie werkt overal door', async () => {
   const before = run(core, "overlay = 'zakelijk'; A = analyse(); ({ revenue: A.revenue12, free: A.freeCash.reduce((s, v) => s + v, 0) })");
   const key = run(core, "A.debtors[0].key");
   core.__key = key;
-  const after = run(core, "decisions[decisionKey('debtor', __key)] = 'no'; A = analyse(); ({ revenue: A.revenue12, free: A.freeCash.reduce((s, v) => s + v, 0), cap: capacity(A).carrying })");
+  const after = run(core, "decisions[decisionKey('debtor', __key)] = 'no'; A = analyse(); ({ revenue: A.revenue12, free: A.freeCash.reduce((s, v) => s + v, 0) })");
   assert.ok(after.revenue < before.revenue - 100000, 'omzet daalt na "geen omzet"');
   assert.ok(after.free < before.free, 'draagkracht daalt mee');
-  near(after.cap * 12, after.free, 1, 'capaciteit volgt (afronding per maand)');
 });
 test('Hocus Pocus: Samen bij een bv is een huishoudoverzicht', async () => {
   const { core } = await model('hocus-pocus');
@@ -123,23 +110,10 @@ test('Hocus Pocus: Samen bij een bv is een huishoudoverzicht', async () => {
   assert.equal(analyseView(core, 'zakelijk').householdOnly, false);
 });
 
-test('Scenario’s: variabele kosten bewegen mee met de omzet', async () => {
-  const { cap } = await model('hocus-pocus', { amount: 100000, rate: 7, months: 60, form: 'annuitair' });
-  const share = cap.costStructure.variableShare;
-  assert.ok(share > 0 && share < 1, 'variabel aandeel tussen 0 en 1');
-  const neg = cap.scenarios.negatief;
-  const vat = 21 / 121;
-  const revenueMonthly = cap.scenarios.basis.revenueMonthly;
-  const costsFixed = cap.carrying + revenueMonthly * neg.omzet * (1 - vat);
-  assert.ok(neg.carrying > costsFixed, 'minder omzet = ook minder inkoop');
-  near(cap.carrying + (revenueMonthly * (1 - vat) - cap.costStructure.variableMonthly * (1 - vat * 0.85)) * cap.breakEven, cap.debtAfter, 0.5, 'break-even geeft DSCR 1');
-  assert.ok(['negatief', 'stress', 'positief'].every(key => cap.scenarios[key]), 'drie scenario’s naast basis');
-});
-
 /* ---------- Eenmanszaak met gemengde rekening ---------- */
 test('Eenmanszaak gemengd: privé uit omzet en kosten, draagkracht zonder dubbeltelling', async () => {
   const want = expected('ez-gemengd');
-  const { Az, risks, checks, dossier } = await model('ez-gemengd');
+  const { Az, risks, dossier } = await model('ez-gemengd');
   assert.equal(dossier.legalForm, want.legalForm);
   Object.entries(want.accountRole).forEach(([iban, role]) => assert.equal(dossier.accounts.find(account => account.iban === iban).role, role, 'rol voorgesteld'));
   near(Az.revenue12, want.revenue12, 0.01, 'omzet = alleen facturen');
@@ -159,13 +133,12 @@ test('Eenmanszaak gemengd: privé uit omzet en kosten, draagkracht zonder dubbel
   near(total(Az.operating) - total(Az.freeCash), member.used * 12 + ib, 0.1, 'aftrek = opname + IB, niet dubbel');
   want.expectRisks.forEach(id => assert.ok(risks.some(item => item.id === id), `melding ${id}`));
   want.noRisks.forEach(id => assert.ok(!risks.some(item => item.id === id), `geen melding ${id}`));
-  Object.entries(want.checklistProposal).forEach(([id, value]) => assert.equal(checks.find(check => check.id === id).voorstel, value, `check ${id}`));
 });
 
 /* ---------- Vof met twee vennoten ---------- */
 test('Vof: opnamen per vennoot, partner is vennoot, hoofdelijkheid', async () => {
   const want = expected('vof');
-  const { Az, risks, checks, dossier } = await model('vof');
+  const { Az, risks, dossier } = await model('vof');
   assert.equal(dossier.legalForm, want.legalForm);
   near(Az.revenue12, want.revenue12, 0.01, 'omzet');
   Object.entries(want.draws).forEach(([name, value]) => near(Az.memberDraws.find(member => member.name === name).out, value, 0.01, `opnamen ${name}`));
@@ -179,7 +152,6 @@ test('Vof: opnamen per vennoot, partner is vennoot, hoofdelijkheid', async () =>
   want.noRisks.forEach(id => assert.ok(!risks.some(item => item.id === id), `geen melding ${id}`));
   /* betalingen tussen vennoten zijn geen omzet of kosten */
   assert.ok(!Az.rows.some(row => [10, 11].includes(row.rule) && /de Vries/.test(row.name ?? '')));
-  Object.entries(want.checklistProposal).forEach(([id, value]) => assert.equal(checks.find(check => check.id === id).voorstel, value, `check ${id}`));
 });
 
 /* ---------- Twee eenmanszaken in één huishouden (Project Pizza en Project Patat) ---------- */

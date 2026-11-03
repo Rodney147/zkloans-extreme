@@ -1,7 +1,7 @@
 'use strict';
 /* ---------- Risicomeldingen: één lijst, elke melding herleidbaar ----------
    type: feit (feitelijke constatering) · risico (mogelijk risico) · classificatie (onzekere classificatie)
-         · ontbreekt (ontbrekende informatie) · beleid (beleidsmatige afwijking).
+         · ontbreekt (ontbrekende informatie) · beleid (beleidsmatige afwijking, zodra Risk normen vaststelt).
    Een melding op een classificatie onder de drempel is nooit een harde conclusie: zij krijgt type 'classificatie'. */
 const RISK_TYPES = { feit: 'Feitelijke constatering', risico: 'Mogelijk risico', classificatie: 'Onzekere classificatie', ontbreekt: 'Ontbrekende informatie', beleid: 'Beleidsmatige afwijking' };
 
@@ -12,7 +12,7 @@ function analyseFor(view) {
   try { return analyse(); } finally { overlay = previous; }
 }
 
-function risks(Az, Ap, cap) {
+function risks(Az, Ap) {
   const list = [];
   const add = item => list.push({ zekerheid: 95, rows: [], berekening: '', ...item });
   const months = Az?.MONTHS.length ?? 12;
@@ -67,10 +67,6 @@ function risks(Az, Ap, cap) {
     if (crypto.length) add({ id: 'crypto', titel: 'Crypto-aankopen', type: 'feit', ernst: 'info', wat: `${crypto.length}× ${eur(outflow(crypto))}.`, waarom: 'Volatiel vermogen; geen zekerheid.', onderzoek: 'Ter info.', zekerheid: 95, rows: crypto, berekening: 'tegenpartij cryptobeurs of E1 investment.crypto' });
     const bigIn = Ap.debtors.filter(entity => entity.total >= SIGNAALGRENZEN.rondBedrag && entity.score < 50);
     if (bigIn.length) add({ id: 'herkomst', titel: 'Grote ontvangst privé zonder verklaring', type: 'ontbreekt', ernst: 'warn', wat: bigIn.map(entity => `${entity.name ?? '(geen naam)'} ${eur(entity.total)}`).join(', '), waarom: 'Herkomst onbekend (schenking, lening, verkoop?).', onderzoek: 'Herkomst en eventuele terugbetalingsplicht vragen.', zekerheid: 60, rows: bigIn.flatMap(entity => entity.rows), berekening: 'privé-inkomsten ≥ rond bedrag met zekerheid < 50%' });
-  }
-  if (cap) {
-    if (cap.verdict.dscr === false) add({ id: 'beleid-dscr', titel: 'DSCR onder de norm', type: 'beleid', ernst: 'bad', wat: `DSCR na nieuwe financiering ${dec(cap.dscrAfter)} (norm ${dec(NORMEN.dscrMinimum)}).`, waarom: 'Afwijking van het acceptatiebeleid.', onderzoek: 'Motiveren of financiering aanpassen.', zekerheid: 90, berekening: 'Kredietcapaciteit' });
-    if (cap.verdict.room === false) add({ id: 'beleid-ruimte', titel: 'Ruimte na nieuwe last onder de norm', type: 'beleid', ernst: 'bad', wat: `${eur(cap.room)}/mnd (norm ${eur(NORMEN.ruimtePerMaand)}).`, waarom: 'Afwijking van het acceptatiebeleid.', onderzoek: 'Motiveren of financiering aanpassen.', zekerheid: 90, berekening: 'Kredietcapaciteit' });
   }
   return list.map(item => ({ ...item, state: INPUT.risks[item.id] ?? { status: 'open', toelichting: '' } }));
 }

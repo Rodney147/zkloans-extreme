@@ -167,10 +167,8 @@ const GROUPS = [
   ['klanten', 'Klanten en leveranciers', ['tegenpartijen', 'verbonden']],
   ['verplichtingen', 'Verplichtingen', ['verplichtingen', 'belasting']],
   ['risico', 'Risicoanalyse', ['risico', 'signalen']],
-  ['capaciteit', 'Kredietcapaciteit', ['capaciteit']],
-  ['acceptatie', 'Acceptatie en rapport', ['acceptatie', 'rapport']],
 ];
-const TAB_LABELS = { overzicht: 'Overzicht', controle: 'Datakwaliteit en controle', resultaat: 'Kasstroomopbouw', omzet: 'Omzet', kosten: 'Kosten', cashflow: 'Saldo en kasstroom per kopje', categorieen: 'Categorieën', transacties: 'Transacties', maanden: 'Maandoverzicht', regels: 'Regels', tegenpartijen: 'Tegenpartijen', verbonden: 'Verbonden partijen', verplichtingen: 'Verplichtingen', belasting: 'Belasting', risico: 'Risicomeldingen', signalen: 'E1-signalen', capaciteit: 'Kredietcapaciteit', acceptatie: 'Acceptatiechecklist', rapport: 'Conceptrapport' };
+const TAB_LABELS = { overzicht: 'Overzicht', controle: 'Datakwaliteit en controle', resultaat: 'Kasstroomopbouw', omzet: 'Omzet', kosten: 'Kosten', cashflow: 'Saldo en kasstroom per kopje', categorieen: 'Categorieën', transacties: 'Transacties', maanden: 'Maandoverzicht', regels: 'Regels', tegenpartijen: 'Tegenpartijen', verbonden: 'Verbonden partijen', verplichtingen: 'Verplichtingen', belasting: 'Belasting', risico: 'Risicomeldingen', signalen: 'E1-signalen' };
 const TABS = Object.entries(TAB_LABELS);
 const groupOfTab = id => GROUPS.find(([, , tabs]) => tabs.includes(id)) ?? GROUPS[0];
 const tabLabel = (id, label) => overlay === 'prive' && id === 'omzet' ? 'Inkomsten' : overlay === 'prive' && id === 'kosten' ? 'Uitgaven' : label;
@@ -314,10 +312,8 @@ function buildModel() {
   const privateAccounts = DOSSIER.accounts.some(account => account.enabled !== false && account.role === 'prive');
   const Az = !business ? null : overlay === 'zakelijk' ? A : analyseFor('zakelijk');
   const Ap = !privateAccounts ? null : overlay === 'prive' ? A : analyseFor('prive');
-  const cap = Az ? capacity(Az) : null;
-  const riskList = risks(Az, Ap, cap).concat((INPUT.manualRisks ?? []).map(item => ({ ...item, type: item.type ?? 'risico', ernst: item.ernst ?? 'warn', zekerheid: 100, rows: [], berekening: 'handmatige bevinding analist', state: INPUT.risks[item.id] ?? { status: 'open', toelichting: '' } })));
-  const checks = Az ? checklist(Az, Ap, cap, riskList) : [];
-  return { Az, Ap, cap, risks: riskList, checks };
+  const riskList = risks(Az, Ap).concat((INPUT.manualRisks ?? []).map(item => ({ ...item, type: item.type ?? 'risico', ernst: item.ernst ?? 'warn', zekerheid: 100, rows: [], berekening: 'handmatige bevinding analist', state: INPUT.risks[item.id] ?? { status: 'open', toelichting: '' } })));
+  return { Az, Ap, risks: riskList };
 }
 async function startSample() {
   DOSSIER = buildSampleDossier();
