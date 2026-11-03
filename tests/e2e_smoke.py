@@ -1,7 +1,7 @@
 """Rooktest van de gebruikersstromen in een echte browser (Playwright, Chromium).
 Draaien: python3 tests/e2e_smoke.py   (pip install playwright && playwright install chromium)
-Controleert: inladen per dataset, alle tabbladen zonder JavaScript-fouten, invoer kredietcapaciteit,
-een besluit in Controle dat doorwerkt, en dat besluiten en invoer bewaard blijven na herladen."""
+Controleert: inladen per dataset, alle tabbladen zonder JavaScript-fouten, een besluit in Controle dat
+doorwerkt tot de DSCR, en dat besluiten en de afhandeling van meldingen bewaard blijven na herladen."""
 import glob
 import os
 import sys
@@ -10,7 +10,7 @@ from playwright.sync_api import sync_playwright
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAGE = 'file://' + os.path.join(ROOT, 'index.html')
 TABS = ['overzicht', 'controle', 'resultaat', 'omzet', 'kosten', 'cashflow', 'categorieen', 'transacties', 'maanden', 'regels', 'tegenpartijen',
-        'verbonden', 'verplichtingen', 'belasting', 'risico', 'signalen', 'capaciteit', 'acceptatie', 'rapport']
+        'verbonden', 'verplichtingen', 'belasting', 'risico', 'signalen']
 failures = []
 
 
@@ -48,30 +48,24 @@ with sync_playwright() as playwright:
 
     # Kredietcapaciteit en doorwerking op Hocus Pocus
     load(page, 'hocus-pocus')
-    page.evaluate("showTab('capaciteit')")
-    for field, value in [('loan.amount', '100000'), ('loan.rate', '7'), ('loan.months', '60')]:
-        page.fill(f'[data-input="{field}"]', value)
-        page.dispatch_event(f'[data-input="{field}"]', 'change')
-    text = page.inner_text('#panel-capaciteit')
-    check('1.980' in text, 'nieuwe maandlast € 1.980 getoond')
-    check('norm niet ingesteld' in text, 'zonder norm geen oordeel')
-    dscr_before = page.evaluate('MODEL.cap.dscrAfter')
+    dscr_before = page.evaluate('A.dscr')
     page.evaluate("showTab('controle')")
     page.evaluate("decisions[decisionKey('debtor', A.debtors[0].key)] = 'no'; renderAll();")
-    check(page.evaluate('MODEL.cap.dscrAfter') < dscr_before, 'besluit "geen omzet" verlaagt de DSCR in Kredietcapaciteit')
+    check(page.evaluate('A.dscr') < dscr_before, 'besluit "geen omzet" verlaagt de DSCR')
     page.evaluate("delete decisions[decisionKey('debtor', A.debtors[0].key)]; renderAll();")
+    check(page.evaluate("document.querySelectorAll('#panel-capaciteit, #panel-acceptatie, #panel-rapport').length") == 0, 'kredietcapaciteit, acceptatie en rapport verwijderd')
 
     # Bewaren in de browser
-    page.evaluate("showTab('acceptatie')")
-    page.select_option('[data-check-status="A3"]', 'voldoet')
+    page.evaluate("showTab('risico')")
+    risk_id = page.evaluate('MODEL.risks[0].id')
+    page.select_option(f'[data-risk-status="{risk_id}"]', 'beoordeeld')
     page.wait_for_timeout(300)
     if page.evaluate('STORE.available'):
         page.reload()
         page.wait_for_timeout(800)
         load(page, 'hocus-pocus')
         page.wait_for_timeout(300)
-        check(page.evaluate('INPUT.loan.amount') == 100000, 'invoer krediet hersteld na herladen')
-        check(page.evaluate("INPUT.checklist.A3?.status") == 'voldoet', 'checklist hersteld na herladen')
+        check(page.evaluate(f"INPUT.risks['{risk_id}']?.status") == 'beoordeeld', 'afhandeling melding hersteld na herladen')
         check(page.evaluate('INPUT.audit.length') > 0, 'audittrail bewaard')
     else:
         print('let op: IndexedDB niet beschikbaar in deze browsercontext; opslag niet getest')
