@@ -21,6 +21,7 @@ function collectLoanwise(node, found, parentAccount = null) {
   if ('booking_date' in node && 'transaction_amount' in node) { found.loanwise.push({ ...node, account_number: node.account_number ?? parentAccount }); return; }
   if (Array.isArray(node.members)) found.members.push(...node.members);
   if (node.legal_form) found.legalForm = String(node.legal_form).toLowerCase();
+  if (node.stated_revenue != null) found.stated = { revenue: Number(node.stated_revenue) / 100 };
   if (node.company && typeof node.company === 'object') found.company = node.company;
   if ('account_number' in node && !('booking_date' in node)) found.loanwiseAccounts.push(node);
   Object.entries(node).forEach(([key, value]) => { if (value && typeof value === 'object' && key !== 'members') collectLoanwise(value, found, node.account_number ?? parentAccount); });
@@ -48,11 +49,21 @@ function fromLoanwise(row, index) {
   };
 }
 const normalizeE1 = e1 => ({ category: e1.category, confidence: Number(e1.confidence ?? 0), flags: e1.flags ?? [], profile: e1.model?.profile ?? e1.profile ?? null });
+/* Enable Now kent geen transaction_type: afleiden met vaste regels uit E1-flags en categorie, met de bron erbij */
+function deriveType(row) {
+  const flags = row.category?.e1?.flags ?? [];
+  const category = row.category?.e1?.category ?? '';
+  if (flags.includes('reversal_payment') || /terugboeking|storno/i.test(row.description ?? '')) return ['reversal', flags.includes('reversal_payment') ? 'E1-flag reversal_payment' : 'omschrijving'];
+  if (category === 'expense.operations.bank_fees') return ['banking_costs', 'E1-categorie bank_fees'];
+  if (category.startsWith('cash.') || /geldautomaat|geldopname/i.test(row.description ?? '')) return ['cash_terminal', category.startsWith('cash.') ? 'E1-categorie cash' : 'omschrijving'];
+  return [null, null];
+}
 function fromEnableNow(row) {
+  const [type, typeSource] = deriveType(row);
   return {
     id: String(row.id), account: normalizeIban(row.accountNumber), accountId: row.accountId ?? null, date: String(row.bookDate).slice(0, 10), time: row.transactionDateTime ?? '', amount: round2(Number(row.amount)),
     name: row.counterpartDescription || null, counterAccount: normalizeIban(row.counterpartAccountNumber), description: String(row.description ?? ''),
-    type: null, balanceAfter: row.balanceAfterTransaction != null ? Number(row.balanceAfterTransaction) : null, e1: row.category?.e1 ? normalizeE1(row.category.e1) : null,
+    type, typeSource, balanceAfter: row.balanceAfterTransaction != null ? Number(row.balanceAfterTransaction) : null, e1: row.category?.e1 ? normalizeE1(row.category.e1) : null,
   };
 }
 
@@ -125,21 +136,83 @@ async function readDataset(files) {
   found.analyses.forEach(entry => { entry.profile = entry.profile ?? (entry.analysis.companyInfo ? 'corporate' : 'retail'); });
   const analyses = Object.fromEntries(found.analyses.map(entry => [entry.profile, entry.analysis]));
   const company = found.company ?? analyses.corporate?.companyInfo ?? null;
-  const legalForm = found.legalForm ?? (company?.legalForm ? String(company.legalForm).toLowerCase().replace('besloten vennootschap', 'bv').replace(/\./g, '') : null) ?? 'eenmanszaak';
-  const memberNames = found.members.map(member => `${member.initials ?? ''} ${member.last_name_prefix ? `${member.last_name_prefix} ` : ''}${member.last_name ?? ''}`.trim().toLowerCase());
+  const legalForm = normalizeLegalForm(found.legalForm ?? company?.legalForm ?? (found.loanwise.length ? null : null)) ?? 'eenmanszaak';
+  const memberNames = found.members.map(member => memberName(member).toLowerCase());
   accounts.forEach(account => {
     const profiles = rows.filter(row => row.account === account.iban && row.e1?.profile).map(row => row.e1.profile);
     const retail = profiles.length && profiles.filter(profile => profile === 'retail').length / profiles.length > 0.5;
-    const isMember = memberNames.includes(String(account.name).toLowerCase());
-    account.role = account.role ?? (retail || (!profiles.length && isMember) ? 'prive' : 'zakelijk');
+    const isMember = memberNames.includes(String(account.name).toLowerCase()) || /\bh\.?o\.?d\.?n\b/i.test(account.name);
+    account.role = ['zakelijk', 'prive', 'gemengd'].includes(account.role) ? account.role : (retail || (!profiles.length && isMember) ? 'prive' : 'zakelijk');
     account.kind = /spaar|deposito/i.test(account.name) ? 'Spaarrekening' : 'Betaalrekening';
     account.enabled = true;
+    account.roleConfirmed = false;
   });
-  const members = found.members.length ? found.members : accounts.filter(account => account.role === 'prive').map(account => String(account.name).trim().match(/^([A-Z])\S*\.?\s+(.+)$/)).filter(Boolean).map(match => ({ initials: `${match[1]}.`, last_name: match[2], derived: true }));
+  /* leden: uit members (Loanwise), anders afgeleid uit de namen op privérekeningen; dubbelen samenvoegen */
+  const rawMembers = found.members.length ? found.members : accounts.filter(account => account.role === 'prive').map(account => String(account.name).trim().match(/^([A-Z])\S*\.?\s+(.+)$/)).filter(Boolean).map(match => ({ initials: `${match[1]}.`, last_name: match[2], derived: true }));
+  /* eenmanszaak/vof zonder members en zonder privérekening: eigenaar afleiden uit "initiaal + achternaam" van een tegenpartij waarvan de achternaam in de bedrijfsnaam staat */
+  if (!rawMembers.length && ['eenmanszaak', 'vof'].includes(legalForm) && company?.name) {
+    const companyWords = String(company.name).toLowerCase().split(/[^a-zà-ÿ]+/);
+    const candidates = [...new Set(rows.map(row => row.name).filter(name => /^[A-Z]\.\s?[A-Za-zÀ-ÿ'-]+$/.test(name ?? '')))];
+    candidates.forEach(name => { const [, initial, surname] = name.match(/^([A-Z])\.\s?(.+)$/); if (companyWords.includes(surname.toLowerCase())) rawMembers.push({ initials: `${initial}.`, last_name: surname, derived: true, derivedHow: 'achternaam in bedrijfsnaam' }); });
+  }
+  const members = dedupeMembers(rawMembers, legalForm);
+  suggestMixedAccounts(accounts, rows, legalForm, members);
+  assignOwners(accounts, members);
   orderBySaldo(accounts, rows);
   finishBalances(accounts, rows);
   return {
     source: format, label: company?.name ?? accounts.find(account => account.role === 'zakelijk')?.name ?? 'Ingeladen dossier', files: texts.length,
     legalForm, members, company, accounts, transactions: rows, analyses: Object.keys(analyses).length ? analyses : null, knownSuppliers: [],
+    consents: found.consents, stated: found.stated ?? null,
   };
+}
+
+/* ---------- Rechtsvorm, leden en eigenaar per rekening ---------- */
+function normalizeLegalForm(value) {
+  if (!value) return null;
+  const text = String(value).toLowerCase().replace(/\./g, '');
+  if (/eenmanszaak|zzp/.test(text)) return 'eenmanszaak';
+  if (/vennootschap onder firma|\bvof\b/.test(text)) return 'vof';
+  if (/maatschap/.test(text)) return 'vof';
+  if (/besloten vennootschap|\bbv\b/.test(text)) return 'bv';
+  if (/naamloze vennootschap|\bnv\b/.test(text)) return 'bv';
+  if (/holding/.test(text)) return 'bv';
+  return text;
+}
+const memberName = member => `${member.initials ?? ''} ${member.last_name_prefix ? `${member.last_name_prefix} ` : ''}${member.last_name ?? ''}`.trim();
+const MEMBER_ROLE = { bv: 'DGA', eenmanszaak: 'Eigenaar', vof: 'Vennoot' };
+function dedupeMembers(list, legalForm) {
+  const seen = new Map();
+  list.forEach(member => {
+    const key = `${String(member.initials ?? '').replace(/\./g, '').charAt(0).toLowerCase()}|${String(member.last_name ?? '').toLowerCase()}|${String(member.last_name_prefix ?? '').toLowerCase()}`;
+    if (!seen.has(key)) seen.set(key, { ...member });
+  });
+  return [...seen.values()].map((member, index) => ({ ...member, id: member.id ?? `m${index + 1}`, role: member.role ?? MEMBER_ROLE[legalForm] ?? 'Eigenaar' }));
+}
+/* Wie is eigenaar van een rekening: zakelijk = de onderneming; privé of gemengd = het lid wiens naam erop staat */
+function ownerForName(name, members) {
+  const lower = String(name ?? '').toLowerCase();
+  const match = members.find(member => {
+    const surname = `${member.last_name_prefix ? `${member.last_name_prefix} ` : ''}${member.last_name ?? ''}`.toLowerCase();
+    return surname && lower.includes(surname) && (lower.startsWith(String(member.initials ?? '').charAt(0).toLowerCase()) || lower.includes(` ${String(member.initials ?? '').charAt(0).toLowerCase()}`));
+  });
+  return match?.id ?? null;
+}
+function assignOwners(accounts, members) {
+  accounts.forEach(account => {
+    if (account.owner) return;
+    account.owner = account.role === 'zakelijk' ? 'onderneming' : ownerForName(account.name, members) ?? members[0]?.id ?? 'onderneming';
+  });
+}
+/* Eenmanszaak met één rekening op eigen naam met zowel klanten als huishouden: voorstel "gemengd" */
+function suggestMixedAccounts(accounts, rows, legalForm, members) {
+  if (legalForm !== 'eenmanszaak') return;
+  accounts.forEach(account => {
+    if (account.role === 'gemengd') return;
+    const own = rows.filter(row => row.account === account.iban);
+    const privateRows = own.filter(row => (row.amount < 0 && (GEMENGD.privéUitgaveNaam.test(row.name ?? '') || GEMENGD.privéUitgaveE1.test(row.e1?.category ?? ''))) || (row.amount > 0 && GEMENGD.privéInkomenNaam.test(row.name ?? '')));
+    const invoices = own.filter(row => row.amount > 0 && /factuur|nota|\b20\d{2}-\d{2,}/i.test(row.description));
+    const onOwnName = ownerForName(account.name, members) || /h\.?o\.?d\.?n/i.test(account.name);
+    if (onOwnName && privateRows.length >= 6 && invoices.length >= 6) { account.role = 'gemengd'; account.roleSuggested = 'gemengd: klanten én huishouden op één rekening'; }
+  });
 }

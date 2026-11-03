@@ -1,0 +1,2915 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/Transactions",
+    "query": {
+      "PageSize": 100,
+      "PageToken": "page-16"
+    }
+  },
+  "response_200": {
+    "data": [
+      {
+        "id": "2fd3fef7-8358-40a7-a46e-fc3639922fd3",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0433",
+        "bookDate": "2026-07-17",
+        "transactionDateTime": "2026-07-17T11:00:00Z",
+        "amount": 381.13,
+        "balanceAfterTransaction": 82928.87,
+        "currency": "EUR",
+        "counterpartDescription": "Basisschool De Toverbal",
+        "counterpartAccountNumber": "NL24 ABNA •••• ••11",
+        "normalized": {
+          "description": "factuur hp-2026-0433",
+          "counterpartDescription": "basisschool de toverbal"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.79,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "8f87aa4d-e30b-46a2-aa69-5be9e4e88f87",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-17",
+        "transactionDateTime": "2026-07-17T12:07:00Z",
+        "amount": -41,
+        "balanceAfterTransaction": 1428.87,
+        "currency": "EUR",
+        "counterpartDescription": "Google Workspace",
+        "counterpartAccountNumber": "NL18 ABNA •••• ••21",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "google workspace"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.it",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "cbf69daf-1f7a-4a69-ae30-9858d84acbf6",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-17",
+        "transactionDateTime": "2026-07-17T13:14:00Z",
+        "amount": -41,
+        "balanceAfterTransaction": 1387.87,
+        "currency": "EUR",
+        "counterpartDescription": "Google Workspace",
+        "counterpartAccountNumber": "NL18 ABNA •••• ••21",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "google workspace"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.it",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "5676e06d-a9fb-4311-a6d8-22d91b085676",
+        "accountId": "d4c3f5a7-8e9b-4fa0-b1c2-3d4e5f6a7b84",
+        "accountNumber": "NL57 ABNA •••• ••26",
+        "description": "Afschrijving creditcard",
+        "bookDate": "2026-07-18",
+        "transactionDateTime": "2026-07-18T14:21:00Z",
+        "amount": -888.02,
+        "balanceAfterTransaction": -218.6,
+        "currency": "EUR",
+        "counterpartDescription": "Creditcard Services B.V.",
+        "counterpartAccountNumber": "NL14 INGB •••• ••82",
+        "normalized": {
+          "description": "afschrijving creditcard",
+          "counterpartDescription": "creditcard services bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.credit_card",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "f2997f25-461d-4cd3-a09a-befbb9c0f299",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Geldopname",
+        "bookDate": "2026-07-18",
+        "transactionDateTime": "2026-07-18T15:28:00Z",
+        "amount": -50,
+        "balanceAfterTransaction": 2661.9,
+        "currency": "EUR",
+        "counterpartDescription": "Geldautomaat Eindhoven",
+        "counterpartAccountNumber": "NL·· GELDAUTOMAAT",
+        "normalized": {
+          "description": "geldopname",
+          "counterpartDescription": "geldautomaat eindhoven"
+        },
+        "category": {
+          "e1": {
+            "category": "cash.other",
+            "confidence": 0.98,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "dfadd4a2-3332-4ba5-af6c-ac100f3ddfad",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 28708",
+        "bookDate": "2026-07-18",
+        "transactionDateTime": "2026-07-18T16:35:00Z",
+        "amount": -426.2,
+        "balanceAfterTransaction": 82502.67,
+        "currency": "EUR",
+        "counterpartDescription": "Freelance artiest K. Bos",
+        "counterpartAccountNumber": "NL81 RABO •••• ••92",
+        "normalized": {
+          "description": "factuur 28708",
+          "counterpartDescription": "freelance artiest k bos"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.79,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "787249d8-cbf6-4531-a8f8-44d484737872",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-18",
+        "transactionDateTime": "2026-07-18T17:42:00Z",
+        "amount": -49.68,
+        "balanceAfterTransaction": 1338.19,
+        "currency": "EUR",
+        "counterpartDescription": "Action Eindhoven",
+        "counterpartAccountNumber": "NL87 RABO •••• ••63",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "action eindhoven"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.89,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "0650b618-59d5-4e0f-a1d6-d2b2f0b30650",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-19",
+        "transactionDateTime": "2026-07-19T07:49:00Z",
+        "amount": -107.72,
+        "balanceAfterTransaction": 2554.18,
+        "currency": "EUR",
+        "counterpartDescription": "Bakkerij Klokje",
+        "counterpartAccountNumber": "NL94 INGB •••• ••79",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "bakkerij klokje"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "347b7702-87ff-40f2-a4b9-00ddb19d347b",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-19",
+        "transactionDateTime": "2026-07-19T08:56:00Z",
+        "amount": -42.36,
+        "balanceAfterTransaction": 2511.82,
+        "currency": "EUR",
+        "counterpartDescription": "Pizzeria Abra",
+        "counterpartAccountNumber": "NL37 INGB •••• ••71",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "pizzeria abra"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.lifestyle.restaurants_bars",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "134b9a07-66cf-4edf-a2a6-dfadd4a2134b",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 87532",
+        "bookDate": "2026-07-19",
+        "transactionDateTime": "2026-07-19T09:03:00Z",
+        "amount": -219.56,
+        "balanceAfterTransaction": 82283.11,
+        "currency": "EUR",
+        "counterpartDescription": "Ballonnen Groothandel B.V.",
+        "counterpartAccountNumber": "NL44 ABNA •••• ••25",
+        "normalized": {
+          "description": "factuur 87532",
+          "counterpartDescription": "ballonnen groothandel bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.85,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "38a52cf4-8c29-4134-a4fb-0507678f38a5",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0446",
+        "bookDate": "2026-07-19",
+        "transactionDateTime": "2026-07-19T10:10:00Z",
+        "amount": 1993.35,
+        "balanceAfterTransaction": 84276.46,
+        "currency": "EUR",
+        "counterpartDescription": "Toverland Events B.V.",
+        "counterpartAccountNumber": "NL94 INGB •••• ••52",
+        "normalized": {
+          "description": "factuur hp-2026-0446",
+          "counterpartDescription": "toverland events bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "81736f97-d4f7-45c1-a988-4dd5aa328173",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Leasetermijn Tesla Model Y aug en sep",
+        "bookDate": "2026-07-19",
+        "transactionDateTime": "2026-07-19T11:17:00Z",
+        "amount": -1691.8,
+        "balanceAfterTransaction": 82584.66,
+        "currency": "EUR",
+        "counterpartDescription": "Autolease Premium B.V.",
+        "counterpartAccountNumber": "NL84 SNSB •••• ••49",
+        "normalized": {
+          "description": "leasetermijn tesla model y aug en sep",
+          "counterpartDescription": "autolease premium bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.vehicle_lease",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a9fb3444-fd7f-484a-ac11-765d6edfa9fb",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-20",
+        "transactionDateTime": "2026-07-20T12:24:00Z",
+        "amount": -18.46,
+        "balanceAfterTransaction": 2493.36,
+        "currency": "EUR",
+        "counterpartDescription": "Bakkerij Klokje",
+        "counterpartAccountNumber": "NL94 INGB •••• ••79",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "bakkerij klokje"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "fd7f881b-5103-4d82-a149-c9e1c2b6fd7f",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-20",
+        "transactionDateTime": "2026-07-20T13:31:00Z",
+        "amount": -24.39,
+        "balanceAfterTransaction": 2468.97,
+        "currency": "EUR",
+        "counterpartDescription": "Bakkerij Klokje",
+        "counterpartAccountNumber": "NL94 INGB •••• ••79",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "bakkerij klokje"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "ebdd2c21-3f61-4c68-a02f-b83f66bcebdd",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Voorlopige aanslag Vpb 2026 2812345608000000",
+        "bookDate": "2026-07-20",
+        "transactionDateTime": "2026-07-20T14:38:00Z",
+        "amount": -1180,
+        "balanceAfterTransaction": 81404.66,
+        "currency": "EUR",
+        "counterpartDescription": "Belastingdienst",
+        "counterpartAccountNumber": "NL04 RABO 0200 1122 44",
+        "normalized": {
+          "description": "voorlopige aanslag vpb 2026 2812345608000000",
+          "counterpartDescription": "belastingdienst"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.corporate",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "2dbf23fe-8143-4086-a44d-fa215e992dbf",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-20",
+        "transactionDateTime": "2026-07-20T15:45:00Z",
+        "amount": -43.44,
+        "balanceAfterTransaction": 1294.75,
+        "currency": "EUR",
+        "counterpartDescription": "NS Zakelijk",
+        "counterpartAccountNumber": "NL29 BUNQ •••• ••16",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "ns zakelijk"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.public_transport",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "da3ad027-2dbf-4b4e-af15-a69d0ac2da3a",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-20",
+        "transactionDateTime": "2026-07-20T16:52:00Z",
+        "amount": -41,
+        "balanceAfterTransaction": 1253.75,
+        "currency": "EUR",
+        "counterpartDescription": "Google Workspace",
+        "counterpartAccountNumber": "NL18 ABNA •••• ••21",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "google workspace"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.it",
+            "confidence": 0.86,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "311d4d80-84a1-40bc-a483-fd7f881b311d",
+        "accountId": "d4c3f5a7-8e9b-4fa0-b1c2-3d4e5f6a7b84",
+        "accountNumber": "NL57 ABNA •••• ••26",
+        "description": "Voorlopige aanslag IB 2026 3812345677060001",
+        "bookDate": "2026-07-21",
+        "transactionDateTime": "2026-07-21T17:59:00Z",
+        "amount": -410,
+        "balanceAfterTransaction": -628.6,
+        "currency": "EUR",
+        "counterpartDescription": "Belastingdienst",
+        "counterpartAccountNumber": "NL04 RABO 0200 1122 44",
+        "normalized": {
+          "description": "voorlopige aanslag ib 2026 3812345677060001",
+          "counterpartDescription": "belastingdienst"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.income",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "218fcc7f-7514-4fc3-a38a-edf2071a218f",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0441",
+        "bookDate": "2026-07-21",
+        "transactionDateTime": "2026-07-21T07:06:00Z",
+        "amount": 1413.85,
+        "balanceAfterTransaction": 82818.51,
+        "currency": "EUR",
+        "counterpartDescription": "Theater De Kleine Komedie",
+        "counterpartAccountNumber": "NL17 RABO •••• ••17",
+        "normalized": {
+          "description": "factuur hp-2026-0441",
+          "counterpartDescription": "theater de kleine komedie"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.71,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a2a34c92-f627-47d4-ab9b-6f05872da2a3",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Afroming ontvangstrekening",
+        "bookDate": "2026-07-21",
+        "transactionDateTime": "2026-07-21T08:13:00Z",
+        "amount": 7350,
+        "balanceAfterTransaction": 90168.51,
+        "currency": "EUR",
+        "counterpartDescription": "Hocus Pocus B.V.",
+        "counterpartAccountNumber": "NL62 RABO •••• ••19",
+        "normalized": {
+          "description": "afroming ontvangstrekening",
+          "counterpartDescription": "hocus pocus bv"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "046bd2e1-57f0-4df1-a1b8-d0ce0d7c046b",
+        "accountId": "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "accountNumber": "NL62 RABO •••• ••19",
+        "description": "Afroming ontvangstrekening",
+        "bookDate": "2026-07-21",
+        "transactionDateTime": "2026-07-21T09:20:00Z",
+        "amount": -7350,
+        "balanceAfterTransaction": -4725.26,
+        "currency": "EUR",
+        "counterpartDescription": "Hocus Pocus B.V.",
+        "counterpartAccountNumber": "NL31 INGB •••• ••47",
+        "normalized": {
+          "description": "afroming ontvangstrekening",
+          "counterpartDescription": "hocus pocus bv"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "3e18316f-919c-418b-a552-0a7a6c0a3e18",
+        "accountId": "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "accountNumber": "NL62 RABO •••• ••19",
+        "description": "Factuur HP-2026-0425",
+        "bookDate": "2026-07-21",
+        "transactionDateTime": "2026-07-21T10:27:00Z",
+        "amount": 1743.3,
+        "balanceAfterTransaction": -2981.96,
+        "currency": "EUR",
+        "counterpartDescription": "Magic Moments Entertainment B.V.",
+        "counterpartAccountNumber": "NL46 KNAB •••• ••34",
+        "normalized": {
+          "description": "factuur hp-2026-0425",
+          "counterpartDescription": "magic moments entertainment bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "bfc74630-134b-49a6-ad6d-8c2980cbbfc7",
+        "accountId": "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "accountNumber": "NL62 RABO •••• ••19",
+        "description": "Factuur HP-2026-0442",
+        "bookDate": "2026-07-21",
+        "transactionDateTime": "2026-07-21T11:34:00Z",
+        "amount": 4991.59,
+        "balanceAfterTransaction": 2009.63,
+        "currency": "EUR",
+        "counterpartDescription": "Efteling Zakelijk B.V.",
+        "counterpartAccountNumber": "NL77 BUNQ •••• ••83",
+        "normalized": {
+          "description": "factuur hp-2026-0442",
+          "counterpartDescription": "efteling zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "46e95f6c-9a6d-4218-a5df-134b9a0746e9",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0438",
+        "bookDate": "2026-07-22",
+        "transactionDateTime": "2026-07-22T12:41:00Z",
+        "amount": 2278.84,
+        "balanceAfterTransaction": 92447.35,
+        "currency": "EUR",
+        "counterpartDescription": "Gemeente Eindhoven",
+        "counterpartAccountNumber": "NL15 BUNQ •••• ••96",
+        "normalized": {
+          "description": "factuur hp-2026-0438",
+          "counterpartDescription": "gemeente eindhoven"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.87,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "588bbb66-ac10-4333-a6fa-24edf601588b",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 73446",
+        "bookDate": "2026-07-22",
+        "transactionDateTime": "2026-07-22T13:48:00Z",
+        "amount": -292.72,
+        "balanceAfterTransaction": 92154.63,
+        "currency": "EUR",
+        "counterpartDescription": "Transport Snel B.V.",
+        "counterpartAccountNumber": "NL74 RABO •••• ••75",
+        "normalized": {
+          "description": "factuur 73446",
+          "counterpartDescription": "transport snel bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.81,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "f6c33517-4a47-4d16-a0dd-c3256fb2f6c3",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-22",
+        "transactionDateTime": "2026-07-22T14:55:00Z",
+        "amount": -29.24,
+        "balanceAfterTransaction": 1224.51,
+        "currency": "EUR",
+        "counterpartDescription": "Action Eindhoven",
+        "counterpartAccountNumber": "NL87 RABO •••• ••63",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "action eindhoven"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "2a60fa7c-7de5-4050-a417-f6c335172a60",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 98413",
+        "bookDate": "2026-07-23",
+        "transactionDateTime": "2026-07-23T15:02:00Z",
+        "amount": -279.72,
+        "balanceAfterTransaction": 91874.91,
+        "currency": "EUR",
+        "counterpartDescription": "Transport Snel B.V.",
+        "counterpartAccountNumber": "NL74 RABO •••• ••75",
+        "normalized": {
+          "description": "factuur 98413",
+          "counterpartDescription": "transport snel bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.81,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "94faaec8-e87f-46fa-aac1-615ce96394fa",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-23",
+        "transactionDateTime": "2026-07-23T16:09:00Z",
+        "amount": -41,
+        "balanceAfterTransaction": 1183.51,
+        "currency": "EUR",
+        "counterpartDescription": "Google Workspace",
+        "counterpartAccountNumber": "NL18 ABNA •••• ••21",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "google workspace"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.it",
+            "confidence": 0.87,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "9dcbdcc5-f150-4787-ab4e-6a2e17609dcb",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-23",
+        "transactionDateTime": "2026-07-23T17:16:00Z",
+        "amount": -24.71,
+        "balanceAfterTransaction": 1158.8,
+        "currency": "EUR",
+        "counterpartDescription": "Q-Park Centrum",
+        "counterpartAccountNumber": "NL85 KNAB •••• ••64",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "q-park centrum"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.parking",
+            "confidence": 0.85,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "af6e38bf-02f2-48a1-ac68-7bd0735aaf6e",
+        "accountId": "d4c3f5a7-8e9b-4fa0-b1c2-3d4e5f6a7b84",
+        "accountNumber": "NL57 ABNA •••• ••26",
+        "description": "Salaris DGA jul",
+        "bookDate": "2026-07-24",
+        "transactionDateTime": "2026-07-24T07:23:00Z",
+        "amount": 7250,
+        "balanceAfterTransaction": 6621.4,
+        "currency": "EUR",
+        "counterpartDescription": "Hocus Pocus B.V.",
+        "counterpartAccountNumber": "NL31 INGB •••• ••47",
+        "normalized": {
+          "description": "salaris dga jul",
+          "counterpartDescription": "hocus pocus bv"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "765d6edf-c9e1-4510-a8d7-42bfa97a765d",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-24",
+        "transactionDateTime": "2026-07-24T08:30:00Z",
+        "amount": -94.6,
+        "balanceAfterTransaction": 2374.37,
+        "currency": "EUR",
+        "counterpartDescription": "Bakkerij Klokje",
+        "counterpartAccountNumber": "NL94 INGB •••• ••79",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "bakkerij klokje"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a4882fc9-f80c-47f2-abb9-70ea6a64a488",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-24",
+        "transactionDateTime": "2026-07-24T09:37:00Z",
+        "amount": -131.48,
+        "balanceAfterTransaction": 2242.89,
+        "currency": "EUR",
+        "counterpartDescription": "Bakkerij Klokje",
+        "counterpartAccountNumber": "NL94 INGB •••• ••79",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "bakkerij klokje"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "1136bf0e-64bb-4ebd-a284-dd98f9a91136",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Salaris DGA jul",
+        "bookDate": "2026-07-24",
+        "transactionDateTime": "2026-07-24T10:44:00Z",
+        "amount": -7250,
+        "balanceAfterTransaction": 84624.91,
+        "currency": "EUR",
+        "counterpartDescription": "Hansie Klokkie",
+        "counterpartAccountNumber": "NL57 ABNA •••• ••26",
+        "normalized": {
+          "description": "salaris dga jul",
+          "counterpartDescription": "hansie klokkie"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "369051fb-8a14-4113-a4da-02f28c963690",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Salaris jul",
+        "bookDate": "2026-07-24",
+        "transactionDateTime": "2026-07-24T11:51:00Z",
+        "amount": -2869.89,
+        "balanceAfterTransaction": 81755.02,
+        "currency": "EUR",
+        "counterpartDescription": "A. Jansen",
+        "counterpartAccountNumber": "NL12 BUNQ •••• ••22",
+        "normalized": {
+          "description": "salaris jul",
+          "counterpartDescription": "a jansen"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "72ff455d-c683-44da-a8a1-3f617ff872ff",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Salaris jul",
+        "bookDate": "2026-07-24",
+        "transactionDateTime": "2026-07-24T12:58:00Z",
+        "amount": -2457.6,
+        "balanceAfterTransaction": 79297.42,
+        "currency": "EUR",
+        "counterpartDescription": "T. Smits",
+        "counterpartAccountNumber": "NL72 KNAB •••• ••70",
+        "normalized": {
+          "description": "salaris jul",
+          "counterpartDescription": "t smits"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "919c8546-e520-46c4-aa8b-5dfebfe1919c",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0432",
+        "bookDate": "2026-07-24",
+        "transactionDateTime": "2026-07-24T13:05:00Z",
+        "amount": 925.2,
+        "balanceAfterTransaction": 80222.62,
+        "currency": "EUR",
+        "counterpartDescription": "Kinderfeestjes Brabant V.O.F.",
+        "counterpartAccountNumber": "NL83 BUNQ •••• ••78",
+        "normalized": {
+          "description": "factuur hp-2026-0432",
+          "counterpartDescription": "kinderfeestjes brabant vof"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "d4c7cbac-284c-4af6-aebd-a12a0647d4c7",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Salaris jul",
+        "bookDate": "2026-07-24",
+        "transactionDateTime": "2026-07-24T14:12:00Z",
+        "amount": -3110.17,
+        "balanceAfterTransaction": 77112.45,
+        "currency": "EUR",
+        "counterpartDescription": "L. de Vries",
+        "counterpartAccountNumber": "NL58 INGB •••• ••39",
+        "normalized": {
+          "description": "salaris jul",
+          "counterpartDescription": "l de vries"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "ce0b78a8-218f-4a8b-ae52-9a6db343ce0b",
+        "accountId": "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "accountNumber": "NL62 RABO •••• ••19",
+        "description": "Factuur HP-2026-0434",
+        "bookDate": "2026-07-24",
+        "transactionDateTime": "2026-07-24T15:19:00Z",
+        "amount": 559.33,
+        "balanceAfterTransaction": 2568.96,
+        "currency": "EUR",
+        "counterpartDescription": "Basisschool De Toverbal",
+        "counterpartAccountNumber": "NL24 ABNA •••• ••11",
+        "normalized": {
+          "description": "factuur hp-2026-0434",
+          "counterpartDescription": "basisschool de toverbal"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.8,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4a4788ee-9dcb-424e-a615-16a9c3894a47",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-24",
+        "transactionDateTime": "2026-07-24T16:26:00Z",
+        "amount": -115.77,
+        "balanceAfterTransaction": 1043.03,
+        "currency": "EUR",
+        "counterpartDescription": "Bol.com Zakelijk",
+        "counterpartAccountNumber": "NL35 ABNA •••• ••48",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "bolcom zakelijk"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.office_supplies",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "62a637ec-b62a-43d4-a79b-2f08728762a6",
+        "accountId": "d4c3f5a7-8e9b-4fa0-b1c2-3d4e5f6a7b84",
+        "accountNumber": "NL57 ABNA •••• ••26",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-25",
+        "transactionDateTime": "2026-07-25T17:33:00Z",
+        "amount": -75.55,
+        "balanceAfterTransaction": 6545.85,
+        "currency": "EUR",
+        "counterpartDescription": "Esso Eindhoven",
+        "counterpartAccountNumber": "NL45 RABO •••• ••66",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "esso eindhoven"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.fuel",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "5103dbf2-a488-42ba-a681-1d66168d5103",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-25",
+        "transactionDateTime": "2026-07-25T07:40:00Z",
+        "amount": -56.79,
+        "balanceAfterTransaction": 2186.1,
+        "currency": "EUR",
+        "counterpartDescription": "Lidl Strijp",
+        "counterpartAccountNumber": "NL19 RABO •••• ••27",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "lidl strijp"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "6c42f259-bfc7-446e-a835-38a52cf46c42",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0435",
+        "bookDate": "2026-07-25",
+        "transactionDateTime": "2026-07-25T08:47:00Z",
+        "amount": 550.49,
+        "balanceAfterTransaction": 77662.94,
+        "currency": "EUR",
+        "counterpartDescription": "Feestverhuur Pieters",
+        "counterpartAccountNumber": "NL94 TRIO •••• ••68",
+        "normalized": {
+          "description": "factuur hp-2026-0435",
+          "counterpartDescription": "feestverhuur pieters"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.8,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "ac100f3d-ff94-486b-ac32-787249d8ac10",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-25",
+        "transactionDateTime": "2026-07-25T09:54:00Z",
+        "amount": -30.98,
+        "balanceAfterTransaction": 1012.05,
+        "currency": "EUR",
+        "counterpartDescription": "Bol.com Zakelijk",
+        "counterpartAccountNumber": "NL35 ABNA •••• ••48",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "bolcom zakelijk"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.office_supplies",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "d169a22a-24ed-4ac1-ae87-9dcbdcc5d169",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-25",
+        "transactionDateTime": "2026-07-25T10:01:00Z",
+        "amount": -41,
+        "balanceAfterTransaction": 971.05,
+        "currency": "EUR",
+        "counterpartDescription": "Google Workspace",
+        "counterpartAccountNumber": "NL18 ABNA •••• ••21",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "google workspace"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.it",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "3d4ca4ff-90d0-417f-a546-09aedf9a3d4c",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "iDEAL betaling",
+        "bookDate": "2026-07-26",
+        "transactionDateTime": "2026-07-26T11:08:00Z",
+        "amount": -34.09,
+        "balanceAfterTransaction": 2152.01,
+        "currency": "EUR",
+        "counterpartDescription": "Kruidvat",
+        "counterpartAccountNumber": "NL48 SNSB •••• ••41",
+        "normalized": {
+          "description": "ideal betaling",
+          "counterpartDescription": "kruidvat"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.personal_care",
+            "confidence": 0.8,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "e9c85128-3d4c-4c46-a00d-b62a8bc3e9c8",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "iDEAL betaling",
+        "bookDate": "2026-07-26",
+        "transactionDateTime": "2026-07-26T12:15:00Z",
+        "amount": -28.2,
+        "balanceAfterTransaction": 2123.81,
+        "currency": "EUR",
+        "counterpartDescription": "Zalando",
+        "counterpartAccountNumber": "NL37 INGB •••• ••66",
+        "normalized": {
+          "description": "ideal betaling",
+          "counterpartDescription": "zalando"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.clothing",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "01a93e0d-552d-4dc4-a18b-ce0b78a801a9",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0423",
+        "bookDate": "2026-07-26",
+        "transactionDateTime": "2026-07-26T13:22:00Z",
+        "amount": 747.22,
+        "balanceAfterTransaction": 78410.16,
+        "currency": "EUR",
+        "counterpartDescription": "Feestverhuur Pieters",
+        "counterpartAccountNumber": "NL94 TRIO •••• ••68",
+        "normalized": {
+          "description": "factuur hp-2026-0423",
+          "counterpartDescription": "feestverhuur pieters"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.74,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "0507678f-588b-4dfa-a1c1-d169a22a0507",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 57249",
+        "bookDate": "2026-07-26",
+        "transactionDateTime": "2026-07-26T14:29:00Z",
+        "amount": -882.21,
+        "balanceAfterTransaction": 77527.95,
+        "currency": "EUR",
+        "counterpartDescription": "Goochelgroothandel Merlijn B.V.",
+        "counterpartAccountNumber": "NL92 INGB •••• ••98",
+        "normalized": {
+          "description": "factuur 57249",
+          "counterpartDescription": "goochelgroothandel merlijn bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "1c1cc804-6fa1-4f6c-a333-e87f029f1c1c",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 13628",
+        "bookDate": "2026-07-26",
+        "transactionDateTime": "2026-07-26T15:36:00Z",
+        "amount": -343.62,
+        "balanceAfterTransaction": 77184.33,
+        "currency": "EUR",
+        "counterpartDescription": "Freelance artiest K. Bos",
+        "counterpartAccountNumber": "NL81 RABO •••• ••92",
+        "normalized": {
+          "description": "factuur 13628",
+          "counterpartDescription": "freelance artiest k bos"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.81,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4fba8d69-a33e-42a6-a66c-1c1cc8044fba",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 59748",
+        "bookDate": "2026-07-26",
+        "transactionDateTime": "2026-07-26T16:43:00Z",
+        "amount": -548.5,
+        "balanceAfterTransaction": 76635.83,
+        "currency": "EUR",
+        "counterpartDescription": "Freelance artiest S. de Wit",
+        "counterpartAccountNumber": "NL16 BUNQ •••• ••82",
+        "normalized": {
+          "description": "factuur 59748",
+          "counterpartDescription": "freelance artiest s de wit"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.79,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "5dfebfe1-b183-438a-a751-2a60fa7c5dfe",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0443",
+        "bookDate": "2026-07-26",
+        "transactionDateTime": "2026-07-26T17:50:00Z",
+        "amount": 1864.4,
+        "balanceAfterTransaction": 78500.23,
+        "currency": "EUR",
+        "counterpartDescription": "Hotel De Witte Raaf B.V.",
+        "counterpartAccountNumber": "NL17 INGB •••• ••50",
+        "normalized": {
+          "description": "factuur hp-2026-0443",
+          "counterpartDescription": "hotel de witte raaf bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "8c2980cb-dfad-466c-aa33-588bbb668c29",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 60899",
+        "bookDate": "2026-07-26",
+        "transactionDateTime": "2026-07-26T07:57:00Z",
+        "amount": -811.56,
+        "balanceAfterTransaction": 77688.67,
+        "currency": "EUR",
+        "counterpartDescription": "Licht en Geluid Verhuur B.V.",
+        "counterpartAccountNumber": "NL34 ABNA •••• ••26",
+        "normalized": {
+          "description": "factuur 60899",
+          "counterpartDescription": "licht en geluid verhuur bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.86,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "0dd8958c-615c-4e87-a24e-da3ad0270dd8",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-26",
+        "transactionDateTime": "2026-07-26T08:04:00Z",
+        "amount": -66,
+        "balanceAfterTransaction": 905.05,
+        "currency": "EUR",
+        "counterpartDescription": "Adobe Systems",
+        "counterpartAccountNumber": "NL55 TRIO •••• ••28",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "adobe systems"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.it",
+            "confidence": 0.89,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "ff946314-5318-4da3-a16a-cbf69dafff94",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-26",
+        "transactionDateTime": "2026-07-26T09:11:00Z",
+        "amount": -82.81,
+        "balanceAfterTransaction": 822.24,
+        "currency": "EUR",
+        "counterpartDescription": "Shell Eindhoven",
+        "counterpartAccountNumber": "NL16 RABO •••• ••74",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "shell eindhoven"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.fuel",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "cf54c731-22d9-4a9f-ae66-9bb701cccf54",
+        "accountId": "d4c3f5a7-8e9b-4fa0-b1c2-3d4e5f6a7b84",
+        "accountNumber": "NL57 ABNA •••• ••26",
+        "description": "Termijn gemeentelijke belastingen 2026",
+        "bookDate": "2026-07-27",
+        "transactionDateTime": "2026-07-27T10:18:00Z",
+        "amount": -118.6,
+        "balanceAfterTransaction": 6427.25,
+        "currency": "EUR",
+        "counterpartDescription": "Gemeente Eindhoven",
+        "counterpartAccountNumber": "NL15 BUNQ •••• ••96",
+        "normalized": {
+          "description": "termijn gemeentelijke belastingen 2026",
+          "counterpartDescription": "gemeente eindhoven"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.municipal",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4832adf5-9bb7-422d-a5f4-1494e8904832",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-27",
+        "transactionDateTime": "2026-07-27T11:25:00Z",
+        "amount": -136,
+        "balanceAfterTransaction": 1987.81,
+        "currency": "EUR",
+        "counterpartDescription": "Jumbo Woensel",
+        "counterpartAccountNumber": "NL41 ABNA •••• ••28",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "jumbo woensel"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "c9e1c2b6-1d66-4a48-ae0f-9643fd51c9e1",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-27",
+        "transactionDateTime": "2026-07-27T12:32:00Z",
+        "amount": -20.16,
+        "balanceAfterTransaction": 1967.65,
+        "currency": "EUR",
+        "counterpartDescription": "Jumbo Woensel",
+        "counterpartAccountNumber": "NL41 ABNA •••• ••28",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "jumbo woensel"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a33ee140-f6c3-47de-aba5-6fa11bdba33e",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 81899",
+        "bookDate": "2026-07-27",
+        "transactionDateTime": "2026-07-27T13:39:00Z",
+        "amount": -212.02,
+        "balanceAfterTransaction": 77476.65,
+        "currency": "EUR",
+        "counterpartDescription": "Transport Snel B.V.",
+        "counterpartAccountNumber": "NL74 RABO •••• ••75",
+        "normalized": {
+          "description": "factuur 81899",
+          "counterpartDescription": "transport snel bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "c898742d-1c1c-4a33-adfa-94faaec8c898",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 45328",
+        "bookDate": "2026-07-27",
+        "transactionDateTime": "2026-07-27T14:46:00Z",
+        "amount": -205.52,
+        "balanceAfterTransaction": 77271.13,
+        "currency": "EUR",
+        "counterpartDescription": "Drukkerij Abracadabra B.V.",
+        "counterpartAccountNumber": "NL36 INGB •••• ••84",
+        "normalized": {
+          "description": "factuur 45328",
+          "counterpartDescription": "drukkerij abracadabra bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.marketing",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "0a7a6c0a-5dfe-4e52-a218-d6dca6a50a7a",
+        "accountId": "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "accountNumber": "NL62 RABO •••• ••19",
+        "description": "Factuur HP-2026-0436",
+        "bookDate": "2026-07-27",
+        "transactionDateTime": "2026-07-27T15:53:00Z",
+        "amount": 5726.14,
+        "balanceAfterTransaction": 8295.1,
+        "currency": "EUR",
+        "counterpartDescription": "Efteling Zakelijk B.V.",
+        "counterpartAccountNumber": "NL77 BUNQ •••• ••83",
+        "normalized": {
+          "description": "factuur hp-2026-0436",
+          "counterpartDescription": "efteling zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "fc363992-4fba-4d6d-a134-c898742dfc36",
+        "accountId": "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "accountNumber": "NL62 RABO •••• ••19",
+        "description": "Factuur HP-2026-0444",
+        "bookDate": "2026-07-27",
+        "transactionDateTime": "2026-07-27T16:00:00Z",
+        "amount": 2305.52,
+        "balanceAfterTransaction": 10600.62,
+        "currency": "EUR",
+        "counterpartDescription": "Toverland Events B.V.",
+        "counterpartAccountNumber": "NL94 INGB •••• ••52",
+        "normalized": {
+          "description": "factuur hp-2026-0444",
+          "counterpartDescription": "toverland events bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "3c035676-8f87-416a-a531-086591113c03",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-27",
+        "transactionDateTime": "2026-07-27T17:07:00Z",
+        "amount": -25.09,
+        "balanceAfterTransaction": 797.15,
+        "currency": "EUR",
+        "counterpartDescription": "NS Zakelijk",
+        "counterpartAccountNumber": "NL29 BUNQ •••• ••16",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "ns zakelijk"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.public_transport",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4b90d777-9f15-4263-a62a-17f312124b90",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-28",
+        "transactionDateTime": "2026-07-28T07:14:00Z",
+        "amount": -92.73,
+        "balanceAfterTransaction": 1874.92,
+        "currency": "EUR",
+        "counterpartDescription": "Pizzeria Abra",
+        "counterpartAccountNumber": "NL37 INGB •••• ••71",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "pizzeria abra"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.lifestyle.restaurants_bars",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "9f152b4e-f299-479b-ab62-6b7765e99f15",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "iDEAL betaling",
+        "bookDate": "2026-07-28",
+        "transactionDateTime": "2026-07-28T08:21:00Z",
+        "amount": -68.36,
+        "balanceAfterTransaction": 1806.56,
+        "currency": "EUR",
+        "counterpartDescription": "Coolblue",
+        "counterpartAccountNumber": "NL33 ABNA •••• ••98",
+        "normalized": {
+          "description": "ideal betaling",
+          "counterpartDescription": "coolblue"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.other",
+            "confidence": 0.73,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "bb9d903e-0f21-4964-ad2b-87ffcad9bb9d",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-07-28",
+        "transactionDateTime": "2026-07-28T09:28:00Z",
+        "amount": -86.85,
+        "balanceAfterTransaction": 1719.71,
+        "currency": "EUR",
+        "counterpartDescription": "Lidl Strijp",
+        "counterpartAccountNumber": "NL19 RABO •••• ••27",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "lidl strijp"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4da5b270-a12a-4284-a64b-1a07ed0b4da5",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Loonheffingen jul 2026 1812345676600070",
+        "bookDate": "2026-07-28",
+        "transactionDateTime": "2026-07-28T10:35:00Z",
+        "amount": -5685.91,
+        "balanceAfterTransaction": 71585.22,
+        "currency": "EUR",
+        "counterpartDescription": "Belastingdienst",
+        "counterpartAccountNumber": "NL04 RABO 0200 1122 44",
+        "normalized": {
+          "description": "loonheffingen jul 2026 1812345676600070",
+          "counterpartDescription": "belastingdienst"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.payroll",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "ba5441b5-0dd8-494f-ad16-86b67c50ba54",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 78939",
+        "bookDate": "2026-07-28",
+        "transactionDateTime": "2026-07-28T11:42:00Z",
+        "amount": -605.56,
+        "balanceAfterTransaction": 70979.66,
+        "currency": "EUR",
+        "counterpartDescription": "Goochelgroothandel Merlijn B.V.",
+        "counterpartAccountNumber": "NL92 INGB •••• ••98",
+        "normalized": {
+          "description": "factuur 78939",
+          "counterpartDescription": "goochelgroothandel merlijn bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.79,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "df123ff4-3296-4b9b-af62-ab747a8fdf12",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Afroming ontvangstrekening",
+        "bookDate": "2026-07-28",
+        "transactionDateTime": "2026-07-28T12:49:00Z",
+        "amount": 10720,
+        "balanceAfterTransaction": 81699.66,
+        "currency": "EUR",
+        "counterpartDescription": "Hocus Pocus B.V.",
+        "counterpartAccountNumber": "NL62 RABO •••• ••19",
+        "normalized": {
+          "description": "afroming ontvangstrekening",
+          "counterpartDescription": "hocus pocus bv"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "40dac643-945f-41b8-a57f-0d3d00de40da",
+        "accountId": "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "accountNumber": "NL62 RABO •••• ••19",
+        "description": "Afroming ontvangstrekening",
+        "bookDate": "2026-07-28",
+        "transactionDateTime": "2026-07-28T13:56:00Z",
+        "amount": -10720,
+        "balanceAfterTransaction": -119.38,
+        "currency": "EUR",
+        "counterpartDescription": "Hocus Pocus B.V.",
+        "counterpartAccountNumber": "NL31 INGB •••• ••47",
+        "normalized": {
+          "description": "afroming ontvangstrekening",
+          "counterpartDescription": "hocus pocus bv"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "d6dca6a5-2a60-4b18-aedf-a33ee140d6dc",
+        "accountId": "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "accountNumber": "NL62 RABO •••• ••19",
+        "description": "Factuur HP-2026-0447",
+        "bookDate": "2026-07-28",
+        "transactionDateTime": "2026-07-28T14:03:00Z",
+        "amount": 3647.13,
+        "balanceAfterTransaction": 3527.75,
+        "currency": "EUR",
+        "counterpartDescription": "Toverland Events B.V.",
+        "counterpartAccountNumber": "NL94 INGB •••• ••52",
+        "normalized": {
+          "description": "factuur hp-2026-0447",
+          "counterpartDescription": "toverland events bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "e30bfe24-3690-4bdb-afa2-af6e38bfe30b",
+        "accountId": "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "accountNumber": "NL62 RABO •••• ••19",
+        "description": "Aflossing en rente bedrijfslening 32.11.906",
+        "bookDate": "2026-07-28",
+        "transactionDateTime": "2026-07-28T15:10:00Z",
+        "amount": -1520,
+        "balanceAfterTransaction": 2007.75,
+        "currency": "EUR",
+        "counterpartDescription": "Rabobank",
+        "counterpartAccountNumber": "NL·· RABOBANK",
+        "normalized": {
+          "description": "aflossing en rente bedrijfslening 32.11.906",
+          "counterpartDescription": "rabobank"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.bank",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "7e63106c-d1e7-4590-a957-4ac54b077e63",
+        "accountId": "d4c3f5a7-8e9b-4fa0-b1c2-3d4e5f6a7b84",
+        "accountNumber": "NL57 ABNA •••• ••26",
+        "description": "Huishoudgeld aug",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T16:17:00Z",
+        "amount": -4000,
+        "balanceAfterTransaction": 2427.25,
+        "currency": "EUR",
+        "counterpartDescription": "H. Klokkie",
+        "counterpartAccountNumber": "NL94 INGB •••• ••58",
+        "normalized": {
+          "description": "huishoudgeld aug",
+          "counterpartDescription": "h klokkie"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "bad203ce-0e56-4957-ad1e-87343e69bad2",
+        "accountId": "d4c3f5a7-8e9b-4fa0-b1c2-3d4e5f6a7b84",
+        "accountNumber": "NL57 ABNA •••• ••26",
+        "description": "Hypotheek leningdeel 1 en 2",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T17:24:00Z",
+        "amount": -1648.2,
+        "balanceAfterTransaction": 779.05,
+        "currency": "EUR",
+        "counterpartDescription": "Hypotheekbank Zuid N.V.",
+        "counterpartAccountNumber": "NL37 SNSB •••• ••70",
+        "normalized": {
+          "description": "hypotheek leningdeel 1 en 2",
+          "counterpartDescription": "hypotheekbank zuid nv"
+        },
+        "category": {
+          "e1": {
+            "category": "housing.mortgage",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "1c9a8a1d-701e-4f74-a33a-e8fcc4b81c9a",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Huishoudgeld aug",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T07:31:00Z",
+        "amount": 4000,
+        "balanceAfterTransaction": 5719.71,
+        "currency": "EUR",
+        "counterpartDescription": "Hansie Klokkie",
+        "counterpartAccountNumber": "NL57 ABNA •••• ••26",
+        "normalized": {
+          "description": "huishoudgeld aug",
+          "counterpartDescription": "hansie klokkie"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "8a9267eb-de16-4653-aa1a-56f4a2868a92",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T08:38:00Z",
+        "amount": -89.69,
+        "balanceAfterTransaction": 5630.02,
+        "currency": "EUR",
+        "counterpartDescription": "Brasserie De Markt",
+        "counterpartAccountNumber": "NL47 INGB •••• ••39",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "brasserie de markt"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.lifestyle.restaurants_bars",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "40aace81-942f-41b5-a57c-0d0d091c40aa",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0487",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T09:45:00Z",
+        "amount": 1580.06,
+        "balanceAfterTransaction": 83279.72,
+        "currency": "EUR",
+        "counterpartDescription": "Theater De Kleine Komedie",
+        "counterpartAccountNumber": "NL17 RABO •••• ••17",
+        "normalized": {
+          "description": "factuur hp-2026-0487",
+          "counterpartDescription": "theater de kleine komedie"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.75,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "5e7c81fa-b200-4392-a759-2adebc955e7c",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Huur kantoor en opslag aug",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T10:52:00Z",
+        "amount": -3250,
+        "balanceAfterTransaction": 80029.72,
+        "currency": "EUR",
+        "counterpartDescription": "Bedrijfsverzamelgebouw Strijp B.V.",
+        "counterpartAccountNumber": "NL37 RABO •••• ••11",
+        "normalized": {
+          "description": "huur kantoor en opslag aug",
+          "counterpartDescription": "bedrijfsverzamelgebouw strijp bv"
+        },
+        "category": {
+          "e1": {
+            "category": "office.rent",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "6b7765e9-befb-4461-a828-37d9a0846b77",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0463",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T11:59:00Z",
+        "amount": 4605.61,
+        "balanceAfterTransaction": 84635.33,
+        "currency": "EUR",
+        "counterpartDescription": "Congrescentrum Zuid B.V.",
+        "counterpartAccountNumber": "NL91 ABNA •••• ••50",
+        "normalized": {
+          "description": "factuur hp-2026-0463",
+          "counterpartDescription": "congrescentrum zuid bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.87,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "942f2258-e7b3-46ed-aab4-60915cf3942f",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0494",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T12:06:00Z",
+        "amount": 4377.93,
+        "balanceAfterTransaction": 89013.26,
+        "currency": "EUR",
+        "counterpartDescription": "Toverland Events B.V.",
+        "counterpartAccountNumber": "NL94 INGB •••• ••52",
+        "normalized": {
+          "description": "factuur hp-2026-0494",
+          "counterpartDescription": "toverland events bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "d75a68be-2ade-4b20-aee6-a3bca359d75a",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Kosten Zakelijk Basispakket",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T13:13:00Z",
+        "amount": -24.5,
+        "balanceAfterTransaction": 88988.76,
+        "currency": "EUR",
+        "counterpartDescription": "ING",
+        "counterpartAccountNumber": "NL·· INGBANK",
+        "normalized": {
+          "description": "kosten zakelijk basispakket",
+          "counterpartDescription": "ing"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.bank_fees",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "7591e26f-c916-4503-a8ca-41f41d0a7591",
+        "accountId": "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "accountNumber": "NL62 RABO •••• ••19",
+        "description": "Kosten Rabo BasisPakket",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T14:20:00Z",
+        "amount": -16.75,
+        "balanceAfterTransaction": 1991,
+        "currency": "EUR",
+        "counterpartDescription": "Rabobank",
+        "counterpartAccountNumber": "NL·· RABOBANK",
+        "normalized": {
+          "description": "kosten rabo basispakket",
+          "counterpartDescription": "rabobank"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.bank_fees",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "0af82e23-5e7c-4e59-a220-d75a68be0af8",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T15:27:00Z",
+        "amount": -27.28,
+        "balanceAfterTransaction": 769.87,
+        "currency": "EUR",
+        "counterpartDescription": "Q-Park Centrum",
+        "counterpartAccountNumber": "NL85 KNAB •••• ••64",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "q-park centrum"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.parking",
+            "confidence": 0.86,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "13c95c20-674d-4ee6-a2ad-e02b96bb13c9",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "bunq Business abonnement",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T16:34:00Z",
+        "amount": -9.99,
+        "balanceAfterTransaction": 759.88,
+        "currency": "EUR",
+        "counterpartDescription": "bunq",
+        "counterpartAccountNumber": "NL·· BUNQ",
+        "normalized": {
+          "description": "bunq business abonnement",
+          "counterpartDescription": "bunq"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.bank_fees",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "220d8e98-7591-4fcb-a392-ee6fc933220d",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T17:41:00Z",
+        "amount": -66,
+        "balanceAfterTransaction": 693.88,
+        "currency": "EUR",
+        "counterpartDescription": "Adobe Systems",
+        "counterpartAccountNumber": "NL55 TRIO •••• ••28",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "adobe systems"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.it",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "7233b8ed-c5b8-44cd-a894-3e95f3887233",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Betaalpas",
+        "bookDate": "2026-08-01",
+        "transactionDateTime": "2026-08-01T07:48:00Z",
+        "amount": -8.47,
+        "balanceAfterTransaction": 685.41,
+        "currency": "EUR",
+        "counterpartDescription": "Q-Park Centrum",
+        "counterpartAccountNumber": "NL85 KNAB •••• ••64",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "q-park centrum"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.parking",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4ac54b07-9e49-4256-a61d-172785a24ac5",
+        "accountId": "d4c3f5a7-8e9b-4fa0-b1c2-3d4e5f6a7b84",
+        "accountNumber": "NL57 ABNA •••• ••26",
+        "description": "Kosten BasisPakket",
+        "bookDate": "2026-08-02",
+        "transactionDateTime": "2026-08-02T08:55:00Z",
+        "amount": -2.95,
+        "balanceAfterTransaction": 776.1,
+        "currency": "EUR",
+        "counterpartDescription": "ABN AMRO",
+        "counterpartAccountNumber": "NL·· ABNAMRO",
+        "normalized": {
+          "description": "kosten basispakket",
+          "counterpartDescription": "abn amro"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.financial",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4e237489-a1a7-428c-a653-1a85af244e23",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-08-02",
+        "transactionDateTime": "2026-08-02T09:02:00Z",
+        "amount": -77.31,
+        "balanceAfterTransaction": 5552.71,
+        "currency": "EUR",
+        "counterpartDescription": "Brasserie De Markt",
+        "counterpartAccountNumber": "NL47 INGB •••• ••39",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "brasserie de markt"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.lifestyle.restaurants_bars",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "53967904-a71a-42e3-a6aa-1ff8b39f5396",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-08-02",
+        "transactionDateTime": "2026-08-02T10:09:00Z",
+        "amount": -40.01,
+        "balanceAfterTransaction": 5512.7,
+        "currency": "EUR",
+        "counterpartDescription": "Albert Heijn Eindhoven",
+        "counterpartAccountNumber": "NL64 RABO •••• ••82",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "albert heijn eindhoven"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a71accdb-fa9f-481c-abe3-737d0776a71a",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-08-02",
+        "transactionDateTime": "2026-08-02T11:16:00Z",
+        "amount": -55.52,
+        "balanceAfterTransaction": 5457.18,
+        "currency": "EUR",
+        "counterpartDescription": "Bakkerij Klokje",
+        "counterpartAccountNumber": "NL94 INGB •••• ••79",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "bakkerij klokje"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "e8fcc4b8-3c81-4c3a-a001-b55eff53e8fc",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Kosten Oranjepakket",
+        "bookDate": "2026-08-02",
+        "transactionDateTime": "2026-08-02T12:23:00Z",
+        "amount": -3.4,
+        "balanceAfterTransaction": 5453.78,
+        "currency": "EUR",
+        "counterpartDescription": "ING",
+        "counterpartAccountNumber": "NL·· INGBANK",
+        "normalized": {
+          "description": "kosten oranjepakket",
+          "counterpartDescription": "ing"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.financial",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "978d4bda-eb11-4723-aaea-63ef8675978d",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur 85215",
+        "bookDate": "2026-08-02",
+        "transactionDateTime": "2026-08-02T13:30:00Z",
+        "amount": -1079.22,
+        "balanceAfterTransaction": 87909.54,
+        "currency": "EUR",
+        "counterpartDescription": "Kostuumatelier Fantasia",
+        "counterpartAccountNumber": "NL64 INGB •••• ••52",
+        "normalized": {
+          "description": "factuur 85215",
+          "counterpartDescription": "kostuumatelier fantasia"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "9aeb755c-ee6f-4759-ab20-674daff79aeb",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Leasetermijn Tesla Model Y aug",
+        "bookDate": "2026-08-02",
+        "transactionDateTime": "2026-08-02T14:37:00Z",
+        "amount": -845.9,
+        "balanceAfterTransaction": 87063.64,
+        "currency": "EUR",
+        "counterpartDescription": "Autolease Premium B.V.",
+        "counterpartAccountNumber": "NL84 SNSB •••• ••49",
+        "normalized": {
+          "description": "leasetermijn tesla model y aug",
+          "counterpartDescription": "autolease premium bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.vehicle_lease",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "c7cce7bd-1b51-4a27-adee-942f2258c7cc",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Factuur HP-2026-0483",
+        "bookDate": "2026-08-02",
+        "transactionDateTime": "2026-08-02T15:44:00Z",
+        "amount": 1009.76,
+        "balanceAfterTransaction": 88073.4,
+        "currency": "EUR",
+        "counterpartDescription": "Feestverhuur Pieters",
+        "counterpartAccountNumber": "NL94 TRIO •••• ••68",
+        "normalized": {
+          "description": "factuur hp-2026-0483",
+          "counterpartDescription": "feestverhuur pieters"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.72,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "fcb3fbab-5038-4d75-a13c-c9163646fcb3",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Leasetermijn bestelbus contract 7781 aug",
+        "bookDate": "2026-08-02",
+        "transactionDateTime": "2026-08-02T16:51:00Z",
+        "amount": -612.4,
+        "balanceAfterTransaction": 87461,
+        "currency": "EUR",
+        "counterpartDescription": "Leasemaatschappij Zuid B.V.",
+        "counterpartAccountNumber": "NL96 ABNA •••• ••20",
+        "normalized": {
+          "description": "leasetermijn bestelbus contract 7781 aug",
+          "counterpartDescription": "leasemaatschappij zuid bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.vehicle_lease",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "57c02ef6-ab44-4326-a6ed-2422699157c0",
+        "accountId": "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "accountNumber": "NL62 RABO •••• ••19",
+        "description": "Factuur HP-2026-0492",
+        "bookDate": "2026-08-02",
+        "transactionDateTime": "2026-08-02T17:58:00Z",
+        "amount": 6157.31,
+        "balanceAfterTransaction": 8148.31,
+        "currency": "EUR",
+        "counterpartDescription": "Gemeente Eindhoven",
+        "counterpartAccountNumber": "NL15 BUNQ •••• ••96",
+        "normalized": {
+          "description": "factuur hp-2026-0492",
+          "counterpartDescription": "gemeente eindhoven"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "59097d7f-ac8d-433a-a701-256bb81a5909",
+        "accountId": "d4c3f5a7-8e9b-4fa0-b1c2-3d4e5f6a7b84",
+        "accountNumber": "NL57 ABNA •••• ••26",
+        "description": "Termijnbedrag energie",
+        "bookDate": "2026-08-03",
+        "transactionDateTime": "2026-08-03T07:05:00Z",
+        "amount": -224,
+        "balanceAfterTransaction": 552.1,
+        "currency": "EUR",
+        "counterpartDescription": "Energie Direct B.V.",
+        "counterpartAccountNumber": "NL51 TRIO •••• ••10",
+        "normalized": {
+          "description": "termijnbedrag energie",
+          "counterpartDescription": "energie direct bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.utilities.energy",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "0012252d-5396-4dab-a172-cc745fc80012",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "Betaalpas",
+        "bookDate": "2026-08-03",
+        "transactionDateTime": "2026-08-03T08:12:00Z",
+        "amount": -20.19,
+        "balanceAfterTransaction": 5433.59,
+        "currency": "EUR",
+        "counterpartDescription": "Jumbo Woensel",
+        "counterpartAccountNumber": "NL41 ABNA •••• ••28",
+        "normalized": {
+          "description": "betaalpas",
+          "counterpartDescription": "jumbo woensel"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.groceries",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "56f4a286-aa78-4319-a6e0-2356dd2156f4",
+        "accountId": "e5b4a6b8-9fac-40b1-c2d3-4e5f6a7b8c95",
+        "accountNumber": "NL94 INGB •••• ••58",
+        "description": "iDEAL betaling",
+        "bookDate": "2026-08-03",
+        "transactionDateTime": "2026-08-03T09:19:00Z",
+        "amount": -41.45,
+        "balanceAfterTransaction": 5392.14,
+        "currency": "EUR",
+        "counterpartDescription": "Coolblue",
+        "counterpartAccountNumber": "NL33 ABNA •••• ••98",
+        "normalized": {
+          "description": "ideal betaling",
+          "counterpartDescription": "coolblue"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.essential.personal_care",
+            "confidence": 0.71,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "retail",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "7d49b9a5-d0ce-457f-a945-49abf4407d49",
+        "accountId": "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "accountNumber": "NL31 INGB •••• ••47",
+        "description": "Aanvulling kaartrekening",
+        "bookDate": "2026-08-03",
+        "transactionDateTime": "2026-08-03T10:26:00Z",
+        "amount": -1150,
+        "balanceAfterTransaction": 86311,
+        "currency": "EUR",
+        "counterpartDescription": "Hocus Pocus B.V.",
+        "counterpartAccountNumber": "NL08 BUNQ •••• ••73",
+        "normalized": {
+          "description": "aanvulling kaartrekening",
+          "counterpartDescription": "hocus pocus bv"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "1b813356-6f05-4f62-a329-e7e36df11b81",
+        "accountId": "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73",
+        "accountNumber": "NL08 BUNQ •••• ••73",
+        "description": "Aanvulling kaartrekening",
+        "bookDate": "2026-08-03",
+        "transactionDateTime": "2026-08-03T11:33:00Z",
+        "amount": 1150,
+        "balanceAfterTransaction": 1835.41,
+        "currency": "EUR",
+        "counterpartDescription": "Hocus Pocus B.V.",
+        "counterpartAccountNumber": "NL31 INGB •••• ••47",
+        "normalized": {
+          "description": "aanvulling kaartrekening",
+          "counterpartDescription": "hocus pocus bv"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      }
+    ],
+    "nextPageToken": "page-17"
+  }
+}

@@ -1,7 +1,7 @@
 'use strict';
 /* ---------- Scorecard ---------- */
 const tone = (value, good, warn, higherIsBetter = true) => !Number.isFinite(value) ? 'info' : higherIsBetter ? (value >= good ? 'good' : value >= warn ? 'warn' : 'bad') : (value <= good ? 'good' : value <= warn ? 'warn' : 'bad');
-const isSoleTrader = () => /eenmanszaak|vof|v\.o\.f/.test(String(DOSSIER.legalForm).toLowerCase());
+const isSoleTrader = () => ['eenmanszaak', 'vof'].includes(DOSSIER.legalForm);
 function scorecard() {
   const groups = [];
   const rule = id => A.byRule(id);
@@ -15,19 +15,19 @@ function scorecard() {
     const band = bandwidth();
     const certainShare = band.revenue.max ? band.revenue.min / band.revenue.max : NaN;
     groups.push(['Omzet en klanten', [
-      { name: 'Omzettrend', desc: 'Gemiddelde omzet per maand', basis: `3 mnd ${eur(last3(A.revenue) / 3)} · 12 mnd ${eur(A.revenue12 / 12)}`, value: signedPct(revenueChange), verdict: tone(revenueChange, -0.1, -0.25), button: viewButton('Omzet (regel 10)', rule(10)) },
-      { name: 'Klantconcentratie', desc: `Grootste debiteur: ${top?.name ?? '-'}`, basis: `${eur(top?.total ?? 0)} van ${eur(A.revenue12)}`, value: pct(topShare), verdict: tone(topShare, 0.3, 0.5, false), button: top ? viewButton(top.name ?? '(geen naam)', top.rows) : '' },
-      { name: 'Zekerheid omzet', desc: 'Deel van de omzet met zekerheid ≥ 70% of bevestigd', basis: `${eur(band.revenue.min)} zeker van ${eur(band.revenue.max)}`, value: pct(certainShare), verdict: tone(certainShare, 0.9, 0.75), button: goButton('controle') },
+      { name: 'Omzettrend', desc: 'Gemiddelde omzet per maand', basis: `3 mnd ${eur(last3(A.revenue) / 3)} · 12 mnd ${eur(A.revenue12 / 12)}`, value: signedPct(revenueChange), verdict: tone(revenueChange, SIGNAALGRENZEN.omzettrend.warn, SIGNAALGRENZEN.omzettrend.bad), button: viewButton('Omzet (regel 10)', rule(10)) },
+      { name: 'Klantconcentratie', desc: `Grootste debiteur: ${top?.name ?? '-'}`, basis: `${eur(top?.total ?? 0)} van ${eur(A.revenue12)}`, value: pct(topShare), verdict: tone(topShare, SIGNAALGRENZEN.klantconcentratie.warn, SIGNAALGRENZEN.klantconcentratie.bad, false), button: top ? viewButton(top.name ?? '(geen naam)', top.rows) : '' },
+      { name: 'Zekerheid omzet', desc: 'Deel van de omzet met zekerheid ≥ 70% of bevestigd', basis: `${eur(band.revenue.min)} zeker van ${eur(band.revenue.max)}`, value: pct(certainShare), verdict: tone(certainShare, SIGNAALGRENZEN.zekerheidOmzet.warn, SIGNAALGRENZEN.zekerheidOmzet.bad), button: goButton('controle') },
     ]]);
-    const ownerNet12 = sum(A.ownerNet), result12 = sum(A.result);
+    const ownerNet12 = sum(A.ownerNet), result12 = sum(A.operating);
     groups.push(['Kasstroom en schuld', [
-      { name: overlay === 'zakelijk' && isSoleTrader() ? 'DSCR na privé-opnamen' : 'DSCR', desc: 'Kasstroom ÷ rente en aflossing', basis: overlay === 'zakelijk' && isSoleTrader() ? `${eur(sum(A.freeCash))} ÷ ${eur(sum(A.debtService))} · vóór opnamen ${dec(A.dscrBefore)}×` : `${eur(sum(A.freeCash))} ÷ ${eur(sum(A.debtService))}`, value: Number.isFinite(A.dscr) ? `${dec(A.dscr)}×` : 'geen schuld', verdict: Number.isFinite(A.dscr) ? dscrVerdict(A.dscr) : 'good', button: viewButton('Rente en aflossing', [...rule(6).filter(row => row.amount < 0), ...rule(5).filter(row => row.amount < 0 && /aflossing|lening/i.test(row.description) && row.role !== 'Eigenaar')]) },
-      { name: 'Negatief saldo', desc: 'Dagen met een saldo onder nul', basis: `12 mnd ${A.negativeDays} dagen · laagste ${eur(Math.min(...A.balance))}`, value: pct(A.negativeDays / A.days.length), verdict: A.negativeDays === 0 ? 'good' : A.negativeDays / A.days.length < 0.1 ? 'warn' : 'bad', button: goButton('cashflow') },
-      ...(overlay === 'zakelijk' && isSoleTrader() ? [{ name: 'Privé-opnamen', desc: 'Netto naar privé ÷ indicatief resultaat', basis: `${eur(ownerNet12)} ÷ ${eur(result12)}`, value: pct(result12 > 0 ? ownerNet12 / result12 : NaN), verdict: result12 <= 0 ? 'bad' : tone(ownerNet12 / result12, 0.8, 1, false), button: viewButton('Privé-opnamen en stortingen', rule(5).filter(row => ['Eigenaar'].includes(row.role))) }] : []),
+      { name: 'DSCR bestaande lasten', desc: `Draagkracht (${DOSSIER.legalForm}) ÷ rente en aflossing`, basis: `${eur(sum(A.freeCash))} ÷ ${eur(sum(A.debtService))} · operationeel ${dec(A.dscrBefore)}×`, value: Number.isFinite(A.dscr) ? `${dec(A.dscr)}×` : 'geen schuld', verdict: Number.isFinite(A.dscr) ? dscrVerdict(A.dscr) : 'good', button: viewButton('Rente en aflossing', [...rule(6).filter(row => row.amount < 0), ...A.informalDebtRows]) },
+      { name: 'Negatief saldo', desc: 'Dagen met een saldo onder nul', basis: `12 mnd ${A.negativeDays} dagen · laagste ${eur(Math.min(...A.balance))}`, value: pct(A.negativeDays / A.days.length), verdict: A.negativeDays === 0 ? 'good' : A.negativeDays / A.days.length < SIGNAALGRENZEN.negatiefSaldoAandeel ? 'warn' : 'bad', button: goButton('cashflow') },
+      ...(overlay === 'zakelijk' && isSoleTrader() ? [{ name: 'Privé-opnamen', desc: 'Aftrek privé ÷ operationele kasstroom', basis: `${eur(ownerNet12)} ÷ ${eur(result12)}`, value: pct(result12 > 0 ? ownerNet12 / result12 : NaN), verdict: result12 <= 0 ? 'bad' : tone(ownerNet12 / result12, SIGNAALGRENZEN.privéOpnamenVsKasstroom.warn, SIGNAALGRENZEN.privéOpnamenVsKasstroom.bad, false), button: viewButton('Privé-opnamen en stortingen', [...A.drawRows, ...A.depositRows]) }] : []),
     ]]);
     const vatRatio = sum(A.vatExpected) ? sum(A.vatPaid) / sum(A.vatExpected) : NaN;
     groups.push(['Belasting', [
-      { name: 'Btw betaald vs. verwacht', desc: '(omzet − NL-inkoop) × 21/121', basis: `${eur(sum(A.vatPaid))} betaald · ${eur(sum(A.vatExpected))} verwacht`, value: pct(vatRatio), verdict: !Number.isFinite(vatRatio) ? 'info' : vatRatio >= 0.8 && vatRatio <= 1.2 ? 'good' : vatRatio >= 0.6 && vatRatio <= 1.4 ? 'warn' : 'bad', button: viewButton('Omzetbelasting', A.taxOf('ob').rows) },
+      { name: 'Btw betaald vs. verwacht', desc: '(omzet − NL-inkoop) × 21/121', basis: `${eur(sum(A.vatPaid))} betaald · ${eur(sum(A.vatExpected))} verwacht`, value: pct(vatRatio), verdict: !Number.isFinite(vatRatio) ? 'info' : vatRatio >= SIGNAALGRENZEN.btwBetaaldVsVerwacht.goodMin && vatRatio <= SIGNAALGRENZEN.btwBetaaldVsVerwacht.goodMax ? 'good' : vatRatio >= SIGNAALGRENZEN.btwBetaaldVsVerwacht.warnMin && vatRatio <= SIGNAALGRENZEN.btwBetaaldVsVerwacht.warnMax ? 'warn' : 'bad', button: viewButton('Omzetbelasting', A.taxOf('ob').rows) },
       { name: 'Regelingen en naheffingen', desc: 'Gelijke termijnen zonder geldig kenmerk, of naheffing', basis: plans.filter(item => item.rule === 3).length ? plans.filter(item => item.rule === 3).map(item => `${eur(item.term)}/mnd`).join(', ') : 'niet gevonden', value: `${plans.filter(item => item.rule === 3).length + A.taxRows.filter(row => row.tax.kind === 'Naheffing').length}`, verdict: A.taxRows.some(row => row.tax.kind === 'Naheffing') ? 'bad' : plans.some(item => item.rule === 3) ? 'warn' : 'good', button: goButton('belasting') },
     ]]);
   }
@@ -43,9 +43,9 @@ function scorecard() {
     const fixedPrivate = sum(A.obligations.filter(item => item.rows.some(row => accountOf(row.account)?.role === 'prive')).map(item => item.term));
     const incomePrivate = (sum(A.ownerIn) + sum(A.series[10].in) + sum(A.series[8].in)) / 12;
     groups.push(['Privé (E1-profiel retail)', [
-      { name: 'Gokken', desc: 'Casino, toto en loterijen', basis: `3 mnd ${eur(outflow(recent(gambling)))} · 12 mnd ${eur(outflow(gambling))}`, value: gambling.length ? signedPct(gamblingChange) : '0', verdict: gambling.length ? (outflow(recent(gambling)) / 3 >= 100 || gamblingChange > 0.25 ? 'bad' : 'warn') : 'good', button: viewButton('Gokken', gambling) },
+      { name: 'Gokken', desc: 'Casino, toto en loterijen', basis: `3 mnd ${eur(outflow(recent(gambling)))} · 12 mnd ${eur(outflow(gambling))}`, value: gambling.length ? signedPct(gamblingChange) : '0', verdict: gambling.length ? (outflow(recent(gambling)) / 3 >= SIGNAALGRENZEN.gokkenPerMaand || gamblingChange > SIGNAALGRENZEN.gokkenStijging ? 'bad' : 'warn') : 'good', button: viewButton('Gokken', gambling) },
       { name: 'Crypto', desc: 'Aankopen bij cryptobeurzen', basis: `12 mnd ${crypto.length}× · ${eur(outflow(crypto))}`, value: `${crypto.length}`, verdict: crypto.length ? 'warn' : 'good', button: viewButton('Crypto', crypto) },
-      ...(overlay === 'prive' ? [{ name: 'Vaste lasten privé', desc: 'Terugkerende lasten ÷ inkomen per maand', basis: `${eur(fixedPrivate)} ÷ ${eur(incomePrivate)}`, value: pct(incomePrivate ? fixedPrivate / incomePrivate : NaN), verdict: tone(incomePrivate ? fixedPrivate / incomePrivate : NaN, 0.5, 0.7, false), button: goButton('verplichtingen') }] : []),
+      ...(overlay === 'prive' ? [{ name: 'Vaste lasten privé', desc: 'Terugkerende lasten ÷ inkomen per maand', basis: `${eur(fixedPrivate)} ÷ ${eur(incomePrivate)}`, value: pct(incomePrivate ? fixedPrivate / incomePrivate : NaN), verdict: tone(incomePrivate ? fixedPrivate / incomePrivate : NaN, SIGNAALGRENZEN.vasteLastenPrivé.warn, SIGNAALGRENZEN.vasteLastenPrivé.bad, false), button: goButton('verplichtingen') }] : []),
     ]]);
   }
   return groups;
@@ -58,7 +58,7 @@ function scorecardCard() {
     <div class="card-head"><div><h2>Scorecard</h2><p class="sub">${weergaveLabel()} · basis: laatste 3 maanden (${window3Label()}) naast 12 maanden</p></div>${legend([[`${counts.good} goed`, 'var(--green)'], [`${counts.warn} matig`, 'var(--amber-icon)'], [`${counts.bad} slecht`, 'var(--red-icon)']])}</div>
     <div class="sc-head"><span></span><span>Indicator</span><span>Basis</span><span>Waarde</span><span>Oordeel</span><span></span></div>
     ${groups.map(([title, items]) => `<div class="sc-group"><div class="sc-group-title">${title}</div>${items.map(item => `<div class="sc-row">${ICON[item.verdict]}<div class="sc-name">${item.name}<span>${item.desc}</span></div><div class="sc-basis">${item.basis}</div><div class="sc-value">${item.value}</div><div>${chip(item.verdict)}</div>${item.button}</div>`).join('')}</div>`).join('')}
-    <div class="source">Elke indicator volgt uit vaste regels op de transacties; <b>bekijken</b> toont de onderliggende transacties met controle-som. Grenzen: DSCR 1,25 / 1,0 · omzettrend −10% / −25% · concentratie 30% / 50% · btw 80–120%.</div>
+    <div class="source">Elke indicator volgt uit vaste regels op de transacties; <b>bekijken</b> toont de onderliggende transacties met controle-som. Signaalgrenzen (config/config.js, geen beleid): omzettrend ${pct(SIGNAALGRENZEN.omzettrend.warn)} / ${pct(SIGNAALGRENZEN.omzettrend.bad)} · concentratie ${pct(SIGNAALGRENZEN.klantconcentratie.warn)} / ${pct(SIGNAALGRENZEN.klantconcentratie.bad)} · btw ${pct(SIGNAALGRENZEN.btwBetaaldVsVerwacht.goodMin)}–${pct(SIGNAALGRENZEN.btwBetaaldVsVerwacht.goodMax)}. DSCR: ${NORMEN.dscrMinimum == null ? '<b>geen oordeel, norm niet ingesteld</b>' : `norm ${dec(NORMEN.dscrMinimum)}`}.</div>
   </div>`;
 }
 const tile = (label, value, unit, sub) => `<div class="tile"><span class="tile-label">${label}</span><span class="tile-value">${value}${unit ? `<small>${unit}</small>` : ''}</span><span class="tile-sub">${sub}</span></div>`;
@@ -74,23 +74,24 @@ function reviewSummaryText(state) {
   return state.needed ? `Met alleen zekere omzet is de DSCR ${show(state.worst)}, met alle omzet ${show(state.best)}. De onzekerheid kan het oordeel laten omslaan.` : `Slechtste geval DSCR ${show(state.worst)}, beste geval ${show(state.best)}: de onzekerheid verandert het oordeel niet.`;
 }
 RENDERERS.overzicht = () => {
-  const tiles = overlay === 'prive'
+  const priveLike = overlay === 'prive' || A.householdOnly;
+  const tiles = priveLike
     ? [tile('Inkomsten 12 mnd', eur(sum(A.ownerIn) + sum(A.series[10].in) + sum(A.series[8].in)), '', `waarvan uit eigen onderneming <b>${eur(sum(A.ownerIn))}</b>`),
       tile('Uitgaven 12 mnd', eur(A.costs12), '', `per maand <b>${eur(A.costs12 / 12)}</b>`),
       tile('Saldo nu', eur(A.balance.at(-1)), '', `negatief op <b>${A.negativeDays}</b> dagen`),
       tile('Vaste lasten', eur(sum(A.obligations.map(item => item.term))), '/mnd', `${A.obligations.length} terugkerende posten`)]
     : [tile('Omzet 12 mnd', eur(A.revenue12), '', `gem. <b>${eur(A.revenue12 / 12)}</b>/mnd · 3 mnd <b>${eur(last3(A.revenue) / 3)}</b>/mnd`),
       tile('Kosten 12 mnd', eur(A.costs12), '', `crediteuren · ${pct(A.costs12 / A.revenue12)} van de omzet`),
-      tile(overlay === 'zakelijk' && isSoleTrader() ? 'Vrije kasstroom na opnamen' : 'Kasstroom voor schuld', eur(sum(A.freeCash)), '', `rente + aflossing <b>${eur(sum(A.debtService))}</b> · DSCR <b>${Number.isFinite(A.dscr) ? `${dec(A.dscr)}×` : '-'}</b>`),
+      tile('Draagkracht 12 mnd', eur(sum(A.freeCash)), '', `${esc(DOSSIER.legalForm)} · rente + aflossing <b>${eur(sum(A.debtService))}</b> · DSCR <b>${Number.isFinite(A.dscr) ? `${dec(A.dscr)}×` : '-'}</b>`),
       tile('Saldo nu', eur(A.balance.at(-1)), '', `${A.visibleAccounts.length} rekening(en) · negatief op <b>${A.negativeDays}</b> dagen`)];
-  const inSeries = overlay === 'prive' ? MONTHS_SUM([A.ownerIn, A.series[10].in, A.series[8].in]) : A.revenue;
-  return `${reviewStrip()}
+  const inSeries = priveLike ? MONTHS_SUM([A.ownerIn, A.series[10].in, A.series[8].in]) : A.revenue;
+  return `${A.householdOnly ? `<div class="card review-strip amber">${ICON.alert}<div><strong>Huishoudoverzicht</strong><span>Bij een bv tonen we in Samen geen omzet en geen DSCR: geld tussen bv en DGA valt hier weg en privé-inkomsten zouden als omzet meetellen. Kies Zakelijk voor de kredietanalyse.</span></div></div>` : reviewStrip()}
     <div class="card"><div class="tiles" style="border-top:0">${tiles.join('')}</div></div>
     ${scorecardCard()}
-    ${card(overlay === 'prive' ? 'Inkomsten en uitgaven per maand' : 'Omzet en kosten per maand', `${windowLabel()} · lijn = ${overlay === 'prive' ? 'saldo inkomsten − uitgaven' : 'kasstroom voor schuld'}`,
-      `<div class="card-body scroll-x">${barChart([{ label: overlay === 'prive' ? 'Inkomsten' : 'Omzet', color: SERIES_COLORS.revenue, values: inSeries }, { label: overlay === 'prive' ? 'Uitgaven' : 'Kosten', color: SERIES_COLORS.costs, values: A.netCosts }], { line: { label: overlay === 'prive' ? 'Saldo' : 'Kasstroom', color: 'var(--amber-icon)', values: overlay === 'prive' ? inSeries.map((value, index) => round2(value - A.netCosts[index])) : A.operating } })}</div>`,
-      `<b>Herleiding:</b> ${overlay === 'prive' ? `inkomsten = ${ruleRef(10)} + ${ruleRef(8)} + ontvangsten van de eigen onderneming (${ruleRef(5)}); uitgaven = ${ruleRef(11)}.` : `omzet = ${ruleRef(10)}, kosten = ${ruleRef(11)} min retouren. Kasstroom = omzet − kosten − lonen − bankkosten − verwachte btw − loonheffing.`}`,
-      legend([[overlay === 'prive' ? 'Inkomsten' : 'Omzet', SERIES_COLORS.revenue], [overlay === 'prive' ? 'Uitgaven' : 'Kosten', SERIES_COLORS.costs]]))}`;
+    ${card(priveLike ? 'Inkomsten en uitgaven per maand' : 'Omzet en kosten per maand', `${windowLabel()} · lijn = ${priveLike ? 'saldo inkomsten − uitgaven' : 'kasstroom voor schuld'}`,
+      `<div class="card-body scroll-x">${barChart([{ label: priveLike ? 'Inkomsten' : 'Omzet', color: SERIES_COLORS.revenue, values: inSeries }, { label: priveLike ? 'Uitgaven' : 'Kosten', color: SERIES_COLORS.costs, values: A.netCosts }], { line: { label: priveLike ? 'Saldo' : 'Kasstroom', color: 'var(--amber-icon)', values: priveLike ? inSeries.map((value, index) => round2(value - A.netCosts[index])) : A.operating } })}</div>`,
+      `<b>Herleiding:</b> ${priveLike ? `inkomsten = ${ruleRef(10)} + ${ruleRef(8)} + ontvangsten van de eigen onderneming (${ruleRef(5)}); uitgaven = ${ruleRef(11)}.` : `omzet = ${ruleRef(10)}, kosten = ${ruleRef(11)} min retouren. Kasstroom = omzet − kosten − lonen − bankkosten − betaalde belasting (btw, loonheffing, vpb) − groepskosten; zie Kasstroomopbouw.`}`,
+      legend([[priveLike ? 'Inkomsten' : 'Omzet', SERIES_COLORS.revenue], [priveLike ? 'Uitgaven' : 'Kosten', SERIES_COLORS.costs]]))}`;
 };
 const MONTHS_SUM = list => A.MONTHS.map((key, index) => round2(sum(list.map(values => values[index]))));
 
@@ -116,12 +117,12 @@ function automaticControls() {
     { name: 'Σ in/uit = generalInfo', note: 'analyse-JSON van Enable Now', norm: 'gelijk', value: generalOk === null ? (overlay === 'samen' ? 'n.v.t. in Samen' : 'geen analyse-JSON') : generalOk ? `${eur(inflow(A.rows))} / ${eur(-outflow(A.rows))} ✓` : 'wijkt af', status: generalOk === null ? 'pending' : generalOk ? 'good' : 'bad' },
     { name: 'Controlecijfer betalingskenmerken', note: 'modulus 11 (OB, LH, IB, Zvw, Vpb)', norm: 'alle geldig', value: `${references.length - invalid.length} van ${references.length} geldig`, status: invalid.length ? 'warn' : references.length ? 'good' : 'pending', view: invalid.length ? ['Ongeldige kenmerken', invalid] : null },
     { name: 'Oude IBAN Belastingdienst', note: `na ${dateNl(TAX_IBAN_SWITCH)} nog naar ${formatIban(TAX_AUTHORITY_IBANS[0])}`, norm: '0', value: `${oldIban.length}`, status: oldIban.length ? 'warn' : 'good', view: oldIban.length ? ['Betalingen naar oude IBAN', oldIban] : null },
-    { name: 'Ongecategoriseerd', note: 'regel 12, aandeel van alle bedragen', norm: '≤ 2%', value: `${uncategorized.length}× · ${pct(uncategorizedShare, 1)}`, status: uncategorizedShare <= 0.02 ? 'good' : 'warn', view: uncategorized.length ? ['Ongecategoriseerd (regel 12)', uncategorized] : null },
+    { name: 'Ongecategoriseerd', note: 'regel 12, aandeel van alle bedragen', norm: `≤ ${pct(SIGNAALGRENZEN.ongecategoriseerdAandeel)}`, value: `${uncategorized.length}× · ${pct(uncategorizedShare, 1)}`, status: uncategorizedShare <= SIGNAALGRENZEN.ongecategoriseerdAandeel ? 'good' : 'warn', view: uncategorized.length ? ['Ongecategoriseerd (regel 12)', uncategorized] : null },
     { name: 'E1 wijkt af van eigen regel', note: 'Enable Now als tweede mening', norm: 'ter info', value: e1Rows.length ? `${disagree.length} van ${e1Rows.length} · ${eur(sum(disagree.map(row => Math.abs(row.amount))))}` : 'geen E1 in data', status: !e1Rows.length ? 'pending' : disagree.length ? 'warn' : 'good', view: disagree.length ? ['E1 wijkt af', disagree] : null },
     { name: 'Niet-gedeelde eigen rekening', note: 'tegenrekening op naam van de klant', norm: 'alles gedeeld', value: unshared.length ? unshared.map(maskIban).join(', ') : 'geen', status: unshared.length ? 'warn' : 'good', view: unshared.length ? ['Naar niet-gedeelde eigen rekening', A.byRule(1).filter(row => row.unshared)] : null },
     ...(overlay !== 'prive' ? [
-      { name: 'Btw betaald vs. verwacht', note: '(omzet − NL-inkoop) × 21/121', norm: '80–120%', value: pct(vatRatio), status: !Number.isFinite(vatRatio) ? 'pending' : vatRatio >= 0.8 && vatRatio <= 1.2 ? 'good' : 'warn', go: 'belasting' },
-      { name: 'Kostenquote', note: 'crediteuren ÷ omzet', norm: '15–60%', value: pct(costShare), status: costShare >= 0.15 && costShare <= 0.6 ? 'good' : 'warn', go: 'kosten' },
+      { name: 'Btw betaald vs. verwacht', note: '(omzet − NL-inkoop) × 21/121', norm: `${pct(SIGNAALGRENZEN.btwBetaaldVsVerwacht.goodMin)}–${pct(SIGNAALGRENZEN.btwBetaaldVsVerwacht.goodMax)}`, value: pct(vatRatio), status: !Number.isFinite(vatRatio) ? 'pending' : vatRatio >= SIGNAALGRENZEN.btwBetaaldVsVerwacht.goodMin && vatRatio <= SIGNAALGRENZEN.btwBetaaldVsVerwacht.goodMax ? 'good' : 'warn', go: 'belasting' },
+      { name: 'Kostenquote', note: 'crediteuren ÷ omzet', norm: `${pct(SIGNAALGRENZEN.kostenquote.min)}–${pct(SIGNAALGRENZEN.kostenquote.max)}`, value: pct(costShare), status: costShare >= SIGNAALGRENZEN.kostenquote.min && costShare <= SIGNAALGRENZEN.kostenquote.max ? 'good' : 'warn', go: 'kosten' },
     ] : []),
   ];
 }
@@ -136,7 +137,7 @@ RENDERERS.controle = () => {
     if (!entity.signals.some(([text]) => text.startsWith('Terugkerend'))) reasons.push('eenmalig');
     if (entity.rows.some(row => row.e1) && !entity.signals.some(([text]) => text.startsWith('E1'))) reasons.push(`E1-zekerheid ${dec(sum(entity.rows.map(row => row.e1?.confidence ?? 0)) / entity.rows.length)}`);
     return `<tr><td><b>${esc(entity.name ?? '(geen naam)')}</b><span class="muted">${sideLabel(entity.side)} · ${esc(maskIban(entity.iban))}</span></td><td>${entityChip(entity)}</td><td class="reasons">${reasons.join(' · ')}</td><td class="num">${eur(entity.total)}</td>
-      <td class="action"><div class="decide"><button type="button" class="btn-decide yes" data-decide="yes" data-side="${entity.side}" data-key="${esc(entity.key)}">${entity.side === 'debtor' ? 'Is omzet' : 'Is kosten'}</button><button type="button" class="btn-decide" data-decide="no" data-side="${entity.side}" data-key="${esc(entity.key)}">${entity.side === 'debtor' ? 'Geen omzet' : 'Geen kosten'}</button>${viewButton(entity.name ?? '(geen naam)', entity.rows)}</div></td></tr>`;
+      <td class="action"><div class="decide"><button type="button" class="btn-decide yes" data-decide="yes" data-side="${entity.side}" data-key="${esc(entity.key)}">${entity.side === 'debtor' ? 'Is omzet' : 'Is kosten'}</button><button type="button" class="btn-decide" data-decide="no" data-side="${entity.side}" data-key="${esc(entity.key)}">${entity.side === 'debtor' ? 'Geen omzet' : 'Geen kosten'}</button>${entity.rows.some(row => accountOf(row.account)?.role === 'gemengd') ? `<button type="button" class="btn-decide" data-decide="prive" data-side="${entity.side}" data-key="${esc(entity.key)}">Privé</button>` : ''}${viewButton(entity.name ?? '(geen naam)', entity.rows)}</div></td></tr>`;
   }).join('');
   const categories = categoryConfidence();
   const controls = automaticControls();
@@ -203,14 +204,17 @@ RENDERERS.kosten = () => {
     ${card(overlay === 'prive' ? 'Uitgaven per tegenpartij' : 'Crediteuren', `${A.creditors.length} tegenpartijen · ${ruleRef(11)}`, table(['Tegenpartij', 'E1-categorie', 'num:Aantal', 'Verloop', 'num:12 mnd', 'Zekerheid', ''], creditorRows))}`;
 };
 
-/* ---------- Resultaat (indicatief, kasbasis) ---------- */
+/* ---------- Kasstroomopbouw: alleen werkelijk ontvangen en betaald, geen winstcijfer ---------- */
 RENDERERS.resultaat = () => {
   const windows = [['Laatste maand', [11]], ['3 maanden', [9, 10, 11]], ['6 maanden', [6, 7, 8, 9, 10, 11]], ['12 maanden', A.MONTHS.map((key, index) => index)]];
   const valueIn = (values, indexes) => sum(indexes.map(index => values[index]));
-  const rows = A.resultLines.map(line => `<tr><td>${line.sign < 0 ? '− ' : ''}${line.label}<span class="muted">${line.how}</span></td>${windows.map(([, indexes]) => `<td class="num">${eur(valueIn(line.values, indexes))}</td>`).join('')}</tr>`).join('');
-  return `${card('Indicatief fiscaal resultaat', 'Kasbasis: betaald en ontvangen in de maand · geen afschrijvingen, voorraad of overlopende posten', table(['Post', ...windows.map(([label]) => `num:${label}`)], rows, `<tr><td>= Resultaat</td>${windows.map(([, indexes]) => `<td class="num">${eur(valueIn(A.result, indexes))}</td>`).join('')}</tr><tr><td>Per maand</td>${windows.map(([, indexes]) => `<td class="num">${eur(valueIn(A.result, indexes) / indexes.length)}</td>`).join('')}</tr>`),
-      `Inkomstenbelasting, Zvw en privé-opnamen zijn geen kosten van de onderneming en tellen niet mee. ${overlay === 'zakelijk' && isSoleTrader() ? `Privé-opnamen 12 mnd: <b>${eur(sum(A.ownerNet))}</b> (${pct(sum(A.ownerNet) / Math.max(1, sum(A.result)))} van het resultaat).` : ''}`)}
-    ${card('Resultaat per maand', windowLabel(), `<div class="card-body scroll-x">${barChart([{ label: 'Resultaat', color: SERIES_COLORS.revenue, values: A.result }], { line: overlay === 'zakelijk' && isSoleTrader() ? { label: 'Privé-opnamen', color: 'var(--amber-icon)', values: A.ownerNet } : null })}</div>`, '', overlay === 'zakelijk' && isSoleTrader() ? legend([['Resultaat', SERIES_COLORS.revenue], ['Privé-opnamen', 'var(--amber-icon)']]) : '')}`;
+  const line = item => `<tr><td>${item.sign < 0 ? '− ' : '+ '}${esc(item.label)}<span class="muted">${esc(item.how)}</span></td>${windows.map(([, indexes]) => `<td class="num">${eur(item.sign * valueIn(item.values, indexes))}</td>`).join('')}<td class="action">${item.rows ? viewButton(item.label, item.rows) : ''}</td></tr>`;
+  const totalRow = (label, values) => `<tr class="total-row"><td><b>${label}</b></td>${windows.map(([, indexes]) => `<td class="num"><b>${eur(valueIn(values, indexes))}</b></td>`).join('')}<td></td></tr>`;
+  const deduction = A.deductionLines.length ? `${A.deductionLines.map(line).join('')}${totalRow(`= Draagkracht (${esc(DOSSIER.legalForm)})`, A.freeCash)}` : '';
+  const notes = (A.capacityBase.notes ?? []).map(note => `<div>${ICON.warn} ${esc(note)}</div>`).join('');
+  return `${card('Kasstroomopbouw', `${weergaveLabel()} · bankkasstroom: wat werkelijk is ontvangen en betaald · geen winst of EBITDA`, table(['Post', ...windows.map(([label]) => `num:${label}`), ''], `${A.cashLines.map(line).join('')}${totalRow('= Operationele kasstroom', A.operating)}${deduction}`),
+      `<b>Herleiding:</b> bedragen inclusief btw zoals op de bank; de btw staat als werkelijk betaalde belasting (min teruggaaf) in de regel Belastingen. IB en Zvw zijn privébelasting en tellen alleen bij eenmanszaak en vof mee in de aftrek. Aftrek per rechtsvorm volgens <i>Draagkracht per rechtsvorm</i>: bv = loon DGA + netto rekening-courant; eenmanszaak en vof = het hoogste van werkelijke opnamen of vaste privélasten + leefgeld, per lid; nooit beide.${notes ? `<div class="notes">${notes}</div>` : ''}`)}
+    ${card('Operationele kasstroom en draagkracht per maand', windowLabel(), `<div class="card-body scroll-x">${barChart([{ label: 'Operationeel', color: SERIES_COLORS.revenue, values: A.operating }], { line: { label: 'Draagkracht', color: 'var(--amber-icon)', values: A.freeCash } })}</div>`, '', legend([['Operationele kasstroom', SERIES_COLORS.revenue], ['Draagkracht', 'var(--amber-icon)']]))}`;
 };
 
 /* ---------- Cashflow ---------- */
@@ -267,11 +271,12 @@ RENDERERS.verplichtingen = () => {
 
 /* ---------- Verbonden partijen ---------- */
 const TREATMENT = {
-  eenmanszaak: { Eigenaar: 'Privé-opname of storting: geen omzet en geen kosten. Telt wel mee in de vrije kasstroom na opnamen.', 'Eigen onderneming': 'Inkomen van de ondernemer (privé-opname). In Samen valt dit weg als interne overboeking.', Familie: 'Geen omzet tot bevestigd. Lening van familie = informele schuld; aflossing telt in de DSCR.', Groepsmaatschappij: 'Niet van toepassing bij een eenmanszaak; controleren.' },
-  bv: { Eigenaar: 'Salaris DGA, dividend of rekening-courant: geen omzet. Salaris = loonkosten; rekening-courant = schuld of vordering.', 'Eigen onderneming': 'Inkomen DGA.', Familie: 'Geen omzet tot bevestigd.', Groepsmaatschappij: 'Holding/werkmaatschappij: managementfee of rekening-courant; niet als externe omzet, wel als intercompany.' },
+  eenmanszaak: { Eigenaar: 'Privé-opname of storting: geen omzet en geen kosten. Telt mee in de benodigde privé-opname.', 'Eigen onderneming': 'Inkomen van de ondernemer (privé-opname).', 'Privé-uitgave': 'Huishoudelijke uitgave op de gemengde rekening: privé-opname, geen kosten.', 'Privé-inkomen': 'Uitkering, toeslag of loon op de gemengde rekening: geen omzet.', Familie: 'Analist bevestigt: klant, lening of privé. Geen omzet tot bevestigd.', Groepsmaatschappij: 'Apart tonen; onderlinge lening of omzet.', 'Ander lid': 'Privé tussen leden.' },
+  vof: { Vennoot: 'Privé-opname of storting per vennoot: geen omzet, geen kosten. Telt mee in de benodigde privé-opname van die vennoot.', 'Eigen onderneming': 'Inkomen van de vennoot (privé-opname).', 'Ander lid': 'Betaling tussen vennoten privé: geen omzet of kosten, apart tonen.', Familie: 'Analist bevestigt: klant, lening of privé. Geen omzet tot bevestigd.', Groepsmaatschappij: 'Vennoot kan een holding zijn: als vennoot behandelen.' },
+  bv: { DGA: 'Met salaris/loon in de omschrijving: loon DGA (aftrek in de draagkracht). Overig: rekening-courant DGA; storting = lening, geen omzet.', 'Eigen onderneming': 'Inkomen DGA.', Familie: 'Geen omzet tot bevestigd.', Groepsmaatschappij: 'Managementvergoeding = kosten (apart in de kasstroom). Lening, aflossing en dividend = financiering, geen omzet of kosten.', 'Ander lid': 'Privé tussen leden.' },
 };
 RENDERERS.verbonden = () => {
-  const treatment = TREATMENT[/bv|b\.v|vennootschap/.test(String(DOSSIER.legalForm)) ? 'bv' : 'eenmanszaak'];
+  const treatment = TREATMENT[DOSSIER.legalForm] ?? TREATMENT.eenmanszaak;
   const rows = A.related.map(item => `<tr><td><b>${esc(item.name)}</b><span class="muted mono">${esc(maskIban(item.iban))}</span></td><td><span class="chip outline">${esc(item.role)}</span><span class="muted">${esc(item.how ?? '')}${item.derived === 'own_off' ? ' · rekening niet meegenomen' : ''}</span></td>
     <td class="num">${item.in ? eur(item.in) : '-'}</td><td class="num">${item.out ? eur(-item.out) : '-'}</td><td class="treatment">${treatment[item.role] ?? ''}${item.loan ? ' <b>Bevat lening/aflossing.</b>' : ''}</td>
     <td>${item.status === 'Voorgesteld' ? `<div class="decide"><button type="button" class="btn-decide yes" data-decide="yes" data-side="related" data-key="${esc(item.key)}">Bevestig</button></div>` : `<span class="chip ${item.status.startsWith('Bevestigd') ? 'good' : ''}">${item.status}</span>`}</td><td class="action">${viewButton(item.name, item.rows)}</td></tr>`).join('');

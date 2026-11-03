@@ -115,7 +115,7 @@ const last3 = values => sum(A.lastThree.map(index => values[index]));
 const change3v12 = values => { const average12 = sum(values) / 12; return average12 ? last3(values) / 3 / average12 - 1 : NaN; };
 
 /* ---------- Dossierkop en gedeelde rekeningen ---------- */
-const hasRole = role => DOSSIER.accounts.some(account => account.role === role && account.enabled !== false);
+const hasRole = role => DOSSIER.accounts.some(account => (role === 'zakelijk' ? ['zakelijk', 'gemengd'] : [role]).includes(account.role) && account.enabled !== false);
 function renderDossier() {
   const company = DOSSIER.company;
   const showCompany = overlay !== 'prive' && company;
@@ -133,7 +133,9 @@ function renderDossier() {
       <td><label class="toggle"><input type="checkbox" data-account-toggle="${account.iban}" ${account.enabled !== false ? 'checked' : ''}><span>Mee</span></label></td>
       <td><span class="mono">${esc(formatIban(account.iban))}</span><span class="muted">${esc(account.name)}</span></td>
       <td>${esc(account.bank ?? '-')}</td>
-      <td><span class="chip outline">${account.role === 'prive' ? 'Privé' : 'Zakelijk'}</span> <span class="muted">${esc(account.kind)}</span></td>
+      <td><select class="inline-select" data-account-role="${account.iban}" aria-label="Rol">${[['zakelijk', 'Zakelijk'], ['prive', 'Privé'], ['gemengd', 'Gemengd']].map(([value, label]) => `<option value="${value}" ${account.role === value ? 'selected' : ''}>${label}</option>`).join('')}</select> <span class="muted">${esc(account.kind)}${account.roleSuggested ? ` · voorstel: ${esc(account.roleSuggested)}` : ''}</span></td>
+      <td><select class="inline-select" data-account-owner="${account.iban}" aria-label="Eigenaar"><option value="onderneming" ${account.owner === 'onderneming' ? 'selected' : ''}>Onderneming</option>${(DOSSIER.members ?? []).map(member => `<option value="${member.id}" ${account.owner === member.id ? 'selected' : ''}>${esc(memberName(member))} (${esc(member.role)})</option>`).join('')}</select></td>
+      <td><label class="toggle"><input type="checkbox" data-account-confirm="${account.iban}" ${account.roleConfirmed ? 'checked' : ''}><span>${account.roleConfirmed ? 'Bevestigd' : 'Bevestig'}</span></label></td>
       <td>${account.sharedOn ? dateNl(account.sharedOn) : '-'}</td>
       <td class="num">${count}</td>
       <td class="num">${account.balance != null ? eurCents(account.balance) : '-'}</td></tr>`;
@@ -145,31 +147,52 @@ function renderDossier() {
         <div class="dossier-meta">${meta}<span>Periode <b>${windowLabel()}</b></span></div></div>
       <div class="dossier-actions">${goButton('transacties', `${A.rows.length} transacties`)}</div>
     </div>
-    <details class="accounts" ${DOSSIER.accounts.length > 1 ? 'open' : ''}><summary>Gedeelde rekeningen <span class="muted" id="accounts-summary">${DOSSIER.accounts.filter(account => account.enabled !== false).length} van ${DOSSIER.accounts.length} tellen mee</span></summary>
-      ${table(['Mee', 'Rekening', 'Bank', 'Rol', 'Gedeeld op', 'num:Transacties', 'num:Saldo'], rows)}
-      <div class="source">Rol per rekening: E1-profiel van de transacties (retail = privé), anders de naam van de rekeninghouder tegen <code>members</code>. Zet een rekening uit en de analyse rekent opnieuw; overboekingen naar die rekening tellen dan als <b>naar of van uitgezette eigen rekening</b>.${unshared.length ? ` <b>Niet gedeeld:</b> ${unshared.map(iban => `<span class="mono">${esc(maskIban(iban))}</span>`).join(', ')} staat op naam van de klant maar is niet gedeeld (vermoedelijk spaarrekening).` : ''}</div>
+    <details class="accounts" ${DOSSIER.accounts.length > 1 || DOSSIER.accounts.some(account => !account.roleConfirmed) ? 'open' : ''}><summary>Gedeelde rekeningen <span class="muted" id="accounts-summary">${DOSSIER.accounts.filter(account => account.enabled !== false).length} van ${DOSSIER.accounts.length} tellen mee</span></summary>
+      ${table(['Mee', 'Rekening', 'Bank', 'Rol', 'Eigenaar', 'Rol bevestigd', 'Gedeeld op', 'num:Transacties', 'num:Saldo'], rows)}
+      <div class="members">
+        <span class="muted">Rechtsvorm</span> <select class="inline-select" data-legal-form aria-label="Rechtsvorm">${[['eenmanszaak', 'Eenmanszaak'], ['vof', 'Vof'], ['bv', 'Bv']].map(([value, label]) => `<option value="${value}" ${DOSSIER.legalForm === value ? 'selected' : ''}>${label}</option>`).join('')}</select>
+        <span class="muted">Leden</span> ${(DOSSIER.members ?? []).map(member => `<span class="chip outline">${esc(memberName(member))} · ${esc(member.role)}${member.derived ? ' · afgeleid' : ''} <button type="button" class="chip-x" data-member-remove="${member.id}" aria-label="Verwijder ${esc(memberName(member))}">×</button></span>`).join(' ') || '<span class="muted">geen</span>'}
+        <span class="member-add"><input type="text" id="member-initials" placeholder="Initialen" size="6" aria-label="Initialen"><input type="text" id="member-surname" placeholder="Achternaam" size="14" aria-label="Achternaam"><select id="member-role" class="inline-select" aria-label="Rol lid"><option>Eigenaar</option><option>Vennoot</option><option>DGA</option></select><button type="button" class="btn-outline" data-action="member-add">Lid toevoegen</button></span>
+      </div>
+      <div class="source">Rol en eigenaar per rekening: voorstel uit het E1-profiel (retail = privé) en de naam van de rekeninghouder; de analist bevestigt. Geld tussen rekeningen van <b>dezelfde eigenaar</b> is intern (${ruleRef(1)}); tussen verschillende eigenaars (bv ↔ DGA, vof ↔ vennoot) verbonden partij (${ruleRef(5)}). Gemengd = zakelijk en privé op één rekening: classificatie per transactie. Zet een rekening uit en de analyse rekent opnieuw; overboekingen naar die rekening tellen dan als <b>naar of van uitgezette eigen rekening</b>.${unshared.length ? ` <b>Niet gedeeld:</b> ${unshared.map(iban => `<span class="mono">${esc(maskIban(iban))}</span>`).join(', ')} staat op naam van de klant maar is niet gedeeld (vermoedelijk spaarrekening).` : ''}</div>
     </details></div>`;
 }
 
 /* ---------- Tabbladen ---------- */
-const TABS = [
-  ['overzicht', 'Overzicht'], ['controle', 'Controle'], ['omzet', 'Omzet'], ['kosten', 'Kosten'], ['resultaat', 'Resultaat'], ['cashflow', 'Cashflow'],
-  ['belasting', 'Belasting'], ['verplichtingen', 'Verplichtingen'], ['verbonden', 'Verbonden partijen'], ['signalen', 'Signalen'],
-  ['categorieen', 'Categorieën'], ['tegenpartijen', 'Tegenpartijen'], ['regels', 'Regels'],
+/* Navigatie: 8 hoofdonderdelen, elk met een of meer tabbladen (de bestaande tabbladen blijven allemaal bestaan) */
+const GROUPS = [
+  ['dossier', 'Dossieroverzicht', ['overzicht', 'controle']],
+  ['financieel', 'Financiële analyse', ['resultaat', 'omzet', 'kosten', 'cashflow', 'categorieen']],
+  ['transacties', 'Transacties en rekeningen', ['transacties', 'regels']],
+  ['klanten', 'Klanten en leveranciers', ['tegenpartijen', 'verbonden']],
+  ['verplichtingen', 'Verplichtingen', ['verplichtingen', 'belasting']],
+  ['risico', 'Risicoanalyse', ['risico', 'signalen']],
+  ['capaciteit', 'Kredietcapaciteit', ['capaciteit']],
+  ['acceptatie', 'Acceptatie en rapport', ['acceptatie', 'rapport']],
 ];
+const TAB_LABELS = { overzicht: 'Overzicht', controle: 'Datakwaliteit en controle', resultaat: 'Kasstroomopbouw', omzet: 'Omzet', kosten: 'Kosten', cashflow: 'Saldo en kasstroom per kopje', categorieen: 'Categorieën', transacties: 'Transacties', regels: 'Regels', tegenpartijen: 'Tegenpartijen', verbonden: 'Verbonden partijen', verplichtingen: 'Verplichtingen', belasting: 'Belasting', risico: 'Risicomeldingen', signalen: 'E1-signalen', capaciteit: 'Kredietcapaciteit', acceptatie: 'Acceptatiechecklist', rapport: 'Conceptrapport' };
+const TABS = Object.entries(TAB_LABELS);
+const groupOfTab = id => GROUPS.find(([, , tabs]) => tabs.includes(id)) ?? GROUPS[0];
 const tabLabel = (id, label) => overlay === 'prive' && id === 'omzet' ? 'Inkomsten' : overlay === 'prive' && id === 'kosten' ? 'Uitgaven' : label;
-const tabHidden = id => overlay === 'prive' && ['resultaat', 'controle'].includes(id);
+/* in Privé geen kasstroomopbouw of controle; bij een bv in Samen (huishoudoverzicht) geen omzet, kosten en controle */
+const tabHidden = id => (overlay === 'prive' && ['resultaat', 'controle'].includes(id)) || (A?.householdOnly && ['omzet', 'kosten', 'resultaat', 'controle'].includes(id));
 let currentTab = 'overzicht';
 function renderTabs() {
-  const status = { controle: overlay !== 'prive' ? (reviewState().needed ? 'warn' : 'good') : null, signalen: SIGNAL_STATUS() };
-  document.getElementById('tablist').innerHTML = TABS.filter(([id]) => !tabHidden(id)).map(([id, label]) => `<button type="button" role="tab" data-tab="${id}" aria-selected="${id === currentTab}">${status[id] ? `<i class="status-dot ${status[id]}"></i>` : ''}${tabLabel(id, label)}</button>`).join('');
+  const status = { controle: overlay !== 'prive' && !A.householdOnly ? (reviewState().needed ? 'warn' : 'good') : null, signalen: SIGNAL_STATUS(), risico: MODEL?.risks.some(item => item.state.status === 'open' && item.ernst === 'bad') ? 'bad' : MODEL?.risks.some(item => item.state.status === 'open') ? 'warn' : 'good' };
+  const [currentGroup] = groupOfTab(currentTab);
+  const groupStatus = tabs => tabs.map(id => status[id]).find(value => value === 'bad') ?? tabs.map(id => status[id]).find(value => value === 'warn') ?? null;
+  document.getElementById('tablist').innerHTML = GROUPS.map(([id, label, tabs]) => { const first = tabs.find(tab => !tabHidden(tab)) ?? tabs[0]; const dot = groupStatus(tabs); return `<button type="button" role="tab" data-tab="${id === currentGroup && !tabHidden(currentTab) ? currentTab : first}" data-group="${id}" aria-selected="${id === currentGroup}">${dot ? `<i class="status-dot ${dot}"></i>` : ''}${label}</button>`; }).join('');
+  const [, , subTabs] = groupOfTab(currentTab);
+  const visible = subTabs.filter(id => !tabHidden(id));
+  document.getElementById('subtabs').innerHTML = visible.length > 1 ? visible.map(id => `<button type="button" role="tab" data-tab="${id}" aria-selected="${id === currentTab}">${status[id] ? `<i class="status-dot ${status[id]}"></i>` : ''}${tabLabel(id, TAB_LABELS[id])}</button>`).join('') : '';
+  document.getElementById('subtabs').hidden = visible.length <= 1;
 }
 const RENDERERS = {};
 function showTab(id, scroll = false) {
   if (tabHidden(id)) id = 'overzicht';
   currentTab = id;
   document.querySelectorAll('.panel').forEach(panel => { panel.hidden = panel.id !== `panel-${id}`; });
-  document.querySelectorAll('#tablist button').forEach(button => button.setAttribute('aria-selected', String(button.dataset.tab === id)));
+  renderTabs();
   document.getElementById('transactions-button').setAttribute('aria-pressed', String(id === 'transacties'));
   document.getElementById('transactions-count').textContent = A ? A.rows.length : '';
   if (scroll) document.querySelector('.tabbar').scrollIntoView({ block: 'start' });
@@ -178,9 +201,9 @@ function renderAll({ keepDossier = false } = {}) {
   const scroll = window.scrollY;
   A = analyse();
   VIEWS = [];
+  MODEL = buildModel();
   if (keepDossier) syncDossier(); else renderDossier();
   Object.entries(RENDERERS).forEach(([id, render]) => { document.getElementById(`panel-${id}`).innerHTML = tabHidden(id) ? '' : render(); });
-  renderTabs();
   showTab(currentTab);
   document.querySelectorAll('[data-overlay]').forEach(button => { const disabled = button.dataset.overlay !== 'samen' ? !hasRole(button.dataset.overlay) : !(hasRole('zakelijk') && hasRole('prive')); button.disabled = disabled; button.setAttribute('aria-pressed', String(button.dataset.overlay === overlay)); });
   document.getElementById('internal-include').setAttribute('aria-pressed', String(includeInternal));
@@ -218,14 +241,15 @@ async function loadFiles(files) {
   try {
     const dossier = await readDataset(files);
     DOSSIER = dossier;
-    Object.keys(decisions).forEach(key => delete decisions[key]);
-    overlay = hasRole('zakelijk') ? 'zakelijk' : 'prive';
+    resetDossierState();
+    const restored = await restoreState();
+    overlay = hasRole('zakelijk') || hasRole('gemengd') ? 'zakelijk' : 'prive';
     renderAll();
     const checks = dossierChecks();
     const broken = checks.filter(check => !check.balanceOk || check.runningBreaks);
     const analysisNote = DOSSIER.analyses ? ` Analyse-JSON: ${Object.keys(DOSSIER.analyses).map(profile => `${profile} ✓`).join(', ')}.` : '';
     showBanner(broken.length ? 'bad' : 'good', `${DOSSIER.transactions.length} transacties ingeladen (${DOSSIER.source}-formaat, ${DOSSIER.files} bestanden)`,
-      `${DOSSIER.accounts.length} rekening(en), ${windowLabel()}. ${broken.length ? `Saldo sluit niet aan bij ${broken.map(check => formatIban(check.account.iban)).join(', ')}: zie Controle.` : 'Saldi sluiten aan op elke transactie.'}${hasE1() ? ' E1-categorieën gevonden: gebruikt als extra signaal naast de eigen regels.' : ' Geen E1-categorieën: alleen de eigen regels.'}${analysisNote}`);
+      `${DOSSIER.accounts.length} rekening(en), ${windowLabel()}. ${broken.length ? `Saldo sluit niet aan bij ${broken.map(check => formatIban(check.account.iban)).join(', ')}: zie Controle.` : 'Saldi sluiten aan op elke transactie.'}${hasE1() ? ' E1-categorieën gevonden: gebruikt als extra signaal naast de eigen regels.' : ' Geen E1-categorieën: alleen de eigen regels.'}${analysisNote}${restored.restored ? ` <b>Eerder werk hersteld</b> (opgeslagen ${dateNl(restored.savedAt)}).` : ''}${restored.global ? ` ${restored.global} besluiten per IBAN uit eerdere dossiers toegepast.` : ''}${STORE.available ? '' : ' Opslag in de browser niet beschikbaar: wijzigingen verdwijnen bij herladen.'}`);
   } catch (error) {
     showBanner('bad', 'Dataset niet ingeladen', esc(error.message));
   }
@@ -242,7 +266,11 @@ document.addEventListener('click', event => {
   else if (data.overlay) { overlay = data.overlay; renderAll(); }
   else if (data.decide) {
     const key = decisionKey(data.side, data.key);
+    const before = decisions[key] ?? null;
     if (data.decide === 'reset') delete decisions[key]; else decisions[key] = data.decide;
+    audit(`Besluit ${data.side === 'related' ? 'verbonden partij' : sideLabel(data.side).toLowerCase()} ${data.key}`, before, decisions[key] ?? null);
+    saveIbanDecision(key, decisions[key] ?? null);
+    saveState();
     renderAll();
   } else if (data.filter) { transactionFilter = data.filter; transactionLimit = 100; renderAll(); }
   else if (data.taxfilter) { taxListFilter = data.taxfilter; renderAll(); }
@@ -251,7 +279,7 @@ document.addEventListener('click', event => {
   else if (target.id === 'modal-close') closeModal();
   else if (target.id === 'internal-include' || target.id === 'internal-exclude') { includeInternal = target.id === 'internal-include'; renderAll(); }
   else if (target.id === 'load-button') document.getElementById('load-input').click();
-  else if (target.id === 'reset-button') { DOSSIER = buildSampleDossier(); finishBalances(DOSSIER.accounts, DOSSIER.transactions); attachSampleAnalyses(); overlay = 'zakelijk'; Object.keys(decisions).forEach(key => delete decisions[key]); showBanner(); renderAll(); }
+  else if (target.id === 'reset-button') startSample();
 });
 document.addEventListener('change', event => {
   if (event.target.dataset.accountToggle) {
@@ -262,6 +290,8 @@ document.addEventListener('change', event => {
       return;
     }
     account.enabled = event.target.checked;
+    audit(`Rekening ${formatIban(account.iban)} ${account.enabled ? 'meegenomen' : 'uitgezet'}`, !account.enabled, account.enabled);
+    saveState();
     if (!hasRole(overlay === 'samen' ? 'zakelijk' : overlay) || (overlay === 'samen' && !(hasRole('zakelijk') && hasRole('prive')))) { overlay = hasRole('zakelijk') ? 'zakelijk' : 'prive'; renderAll(); return; }
     renderAll({ keepDossier: true });
   }
@@ -275,4 +305,30 @@ document.addEventListener('drop', event => { event.preventDefault(); document.bo
 function attachSampleAnalyses() {
   const view = role => { const accounts = DOSSIER.accounts.filter(account => account.role === role); const ibans = accounts.map(account => account.iban); const rows = DOSSIER.transactions.filter(row => ibans.includes(row.account)); return { ...computeE1Analysis(rows, role, accounts), ...(role === 'zakelijk' ? { companyInfo: DOSSIER.company } : {}) }; };
   DOSSIER.analyses = { corporate: view('zakelijk'), retail: view('prive') };
+}
+
+/* ---------- Dossiermodel: kredietanalyse altijd op de zakelijke weergave, privé ernaast ---------- */
+let MODEL = null;
+function buildModel() {
+  const business = DOSSIER.accounts.some(account => account.enabled !== false && ['zakelijk', 'gemengd'].includes(account.role));
+  const privateAccounts = DOSSIER.accounts.some(account => account.enabled !== false && account.role === 'prive');
+  const Az = !business ? null : overlay === 'zakelijk' ? A : analyseFor('zakelijk');
+  const Ap = !privateAccounts ? null : overlay === 'prive' ? A : analyseFor('prive');
+  const cap = Az ? capacity(Az) : null;
+  const riskList = risks(Az, Ap, cap).concat((INPUT.manualRisks ?? []).map(item => ({ ...item, type: item.type ?? 'risico', ernst: item.ernst ?? 'warn', zekerheid: 100, rows: [], berekening: 'handmatige bevinding analist', state: INPUT.risks[item.id] ?? { status: 'open', toelichting: '' } })));
+  const checks = Az ? checklist(Az, Ap, cap, riskList) : [];
+  return { Az, Ap, cap, risks: riskList, checks };
+}
+async function startSample() {
+  DOSSIER = buildSampleDossier();
+  finishBalances(DOSSIER.accounts, DOSSIER.transactions);
+  attachSampleAnalyses();
+  DOSSIER.members = dedupeMembers(DOSSIER.members, DOSSIER.legalForm);
+  assignOwners(DOSSIER.accounts, DOSSIER.members);
+  DOSSIER.accounts.forEach(account => { account.roleConfirmed = false; });
+  resetDossierState();
+  await restoreState();
+  overlay = 'zakelijk';
+  showBanner();
+  renderAll();
 }

@@ -36,7 +36,7 @@
 <div class="wrap"><div id="load-banner" hidden></div><div id="dossier"></div></div>
 
 <nav class="tabbar" aria-label="Onderdelen van de analyse">
-  <div class="wrap"><div class="segment" role="tablist" id="tablist"></div></div>
+  <div class="wrap"><div class="segment" role="tablist" id="tablist" aria-label="Hoofdonderdelen"></div><div class="segment segment-sub" role="tablist" id="subtabs" aria-label="Tabbladen" hidden></div></div>
 </nav>
 
 <main>
@@ -55,9 +55,13 @@
     <section class="panel" id="panel-tegenpartijen" role="tabpanel" hidden></section>
     <section class="panel" id="panel-transacties" role="tabpanel" hidden></section>
     <section class="panel" id="panel-regels" role="tabpanel" hidden></section>
+    <section class="panel" id="panel-risico" role="tabpanel" hidden></section>
+    <section class="panel" id="panel-capaciteit" role="tabpanel" hidden></section>
+    <section class="panel" id="panel-acceptatie" role="tabpanel" hidden></section>
+    <section class="panel" id="panel-rapport" role="tabpanel" hidden></section>
   </div>
 </main>
-<p class="wrap footer-note">Ontwerpvoorstel in Loanwise-huisstijl. Het voorbeelddossier Mister X is fictief en gegenereerd. Alle cijfers volgen uit de losse transacties met vaste regels; E1 (Enable Now) is alleen een extra signaal. Ingeladen bestanden worden alleen in deze browser verwerkt.</p>
+<p class="wrap footer-note">Loanwise Zakelijk in Loanwise-huisstijl. Het voorbeelddossier Mister X is fictief en gegenereerd. Alle cijfers volgen uit de losse transacties met vaste regels; E1 (Enable Now) is alleen een extra signaal. Ingeladen bestanden, besluiten en invoer blijven in deze browser. Loanwise ondersteunt de analist en neemt geen kredietbesluit.</p>
 
 <div class="modal-backdrop" id="modal" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
@@ -70,6 +74,7 @@
   </div>
 </div>
 
+<script src="config/config.js"></script>
 <script src="js/core/format.js"></script>
 <script src="js/core/tax.js"></script>
 <script src="js/core/e1.js"></script>
@@ -77,9 +82,14 @@
 <script src="js/core/state.js"></script>
 <script src="js/core/rules.js"></script>
 <script src="js/core/analyse.js"></script>
+<script src="js/core/capacity.js"></script>
+<script src="js/core/risk.js"></script>
+<script src="js/core/checklist.js"></script>
+<script src="js/store.js"></script>
 <script src="js/sample.js"></script>
 <script src="js/ui/app.js"></script>
 <script src="js/ui/panels.js"></script>
+<script src="js/ui/modules.js"></script>
 <script src="js/ui/start.js"></script>
 </body>
 </html>

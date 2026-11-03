@@ -1,0 +1,655 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/analysis-jobs",
+    "body": {
+      "reference": "Dossier Mister X retail",
+      "engine": "e1",
+      "profile": "retail",
+      "countryCode": "nl",
+      "input": {
+        "accountIds": [
+          "875d257a-0dff-4428-a233-5332d0e67b86"
+        ]
+      },
+      "metaData": {
+        "internal_ibans": [
+          "NL45 RABO •••• ••17",
+          "NL72 INGB •••• ••63"
+        ]
+      },
+      "dateFrom": "2025-11-01T00:00:00Z",
+      "dateTo": "2026-10-31T23:59:59Z"
+    }
+  },
+  "poll": {
+    "method": "GET",
+    "path": "/analysis-jobs/71ca6c17-d2c9-4c3c-a126-6ea74f1498e2"
+  },
+  "response_200": {
+    "id": "71ca6c17-d2c9-4c3c-a126-6ea74f1498e2",
+    "status": "COMPLETED",
+    "engine": "e1",
+    "profile": "retail",
+    "analysis": {
+      "generalInfo": {
+        "startDate": "2025-11-01",
+        "endDate": "2026-10-31",
+        "startBalance": 4250.0,
+        "endBalance": 41234.72,
+        "accounts": [
+          {
+            "iban": "NL72 INGB •••• ••63",
+            "accountName": "Mister X",
+            "accountId": "875d257a-0dff-4428-a233-5332d0e67b86"
+          }
+        ],
+        "totalInflow": 116324.9,
+        "totalOutflow": 79340.18
+      },
+      "companyInfo": null,
+      "topCounterparties": {
+        "inflow": {
+          "0": {
+            "name": "Mister X Consultancy",
+            "transactionCount": 13,
+            "totalInflow": 71100,
+            "totalOutflow": 0,
+            "categories": [
+              "internal.other"
+            ],
+            "transactionIds": [
+              "97d154c4-8924-4511-b959-0aeabef1c5e4",
+              "e44926bd-a1aa-46e6-8b18-14dbcf59287c",
+              "8eb90623-68bc-43f7-8645-b6f1b0917190",
+              "1f56979b-2e99-498c-92cc-64d51f67a99d",
+              "6350fbb2-226b-4bab-b5a4-8646ab571ee5",
+              "3b97c92b-c29b-47c8-a1a5-34a4fa4fa953",
+              "61cdf504-2b46-4ce2-95cb-b436b6e0d932",
+              "07c8d1ce-de1e-4eac-b202-29e297207333",
+              "abf120ab-7a6b-4345-bcb4-c1c1da75737f",
+              "c8a800c0-84dc-498b-b93d-0d7355f6b8c0",
+              "5c7e2514-d303-4bb0-a336-1337b7821df8",
+              "c42f8fc2-4df4-453d-b881-1c8fa5de6957",
+              "484adec8-4d0b-4633-8d66-07aede84374f"
+            ]
+          },
+          "1": {
+            "name": "Zorggroep Noord",
+            "transactionCount": 12,
+            "totalInflow": 33760,
+            "totalOutflow": 0,
+            "categories": [
+              "income.salary"
+            ],
+            "transactionIds": [
+              "bfd35d74-51b8-45fa-be29-cf8e26de207f",
+              "33d1852b-5ad3-4d24-9ea8-21279b41e9cb",
+              "e1a56da8-d3b4-4c4a-ace4-e148f1cf7aee",
+              "29a23c7a-77fc-46ca-b663-67be422b601a",
+              "6f5aa975-6d5e-4922-9424-e5bf0789c3d7",
+              "666f3285-6520-43a6-bf72-de72e50a471d",
+              "793dc310-260d-4654-88d3-a049699b954c",
+              "2d4d55d1-3e8b-413a-9628-0d6dde8f7a32",
+              "a0f8079d-9de8-49ba-bc04-87de08067547",
+              "e0e27531-d7bd-41ed-9b60-ff9d70d5dec2",
+              "c2f90eed-df8f-4a78-a2ff-11ee3afabb3c",
+              "edde4161-1462-4d32-953b-74b5ff68eeab"
+            ]
+          },
+          "2": {
+            "name": "Notariskantoor Bergsma",
+            "transactionCount": 1,
+            "totalInflow": 10000,
+            "totalOutflow": 0,
+            "categories": [
+              "other.other"
+            ],
+            "transactionIds": [
+              "3f0a9fb6-c106-4cf5-ba03-6f978d689805"
+            ]
+          },
+          "3": {
+            "name": "Sociale Verzekeringsbank",
+            "transactionCount": 4,
+            "totalInflow": 1142.4,
+            "totalOutflow": 0,
+            "categories": [
+              "subsidy.family"
+            ],
+            "transactionIds": [
+              "dea536c3-0b61-4d0a-861b-ffa9f08c530d",
+              "a81b8451-4ae9-4458-b4b9-cefe892aa899",
+              "298b912a-fe97-4427-baff-e9777e484670",
+              "9f0338f3-9797-4354-a461-25d8f6ecca41"
+            ]
+          },
+          "4": {
+            "name": "Persoonlijke Lening Direct B.V.",
+            "transactionCount": 1,
+            "totalInflow": 245,
+            "totalOutflow": 0,
+            "categories": [
+              "loan.other"
+            ],
+            "transactionIds": [
+              "df5d7d15-7d9e-406d-98d7-2af40c3572f3"
+            ]
+          }
+        },
+        "outflow": {
+          "0": {
+            "name": "Hypotheekbank Nederland N.V.",
+            "transactionCount": 12,
+            "totalInflow": 0,
+            "totalOutflow": 16624.8,
+            "categories": [
+              "housing.mortgage"
+            ],
+            "transactionIds": [
+              "7e385cb8-d5d4-4c5e-afcf-855266a8c67a",
+              "0d19b58a-a70f-4f89-a1f9-a39387fd91fd",
+              "474ef7e3-de07-49c3-97de-90d2f2a85023",
+              "68ace638-f3c2-4a5b-b738-94b581d3aec5",
+              "25008867-32d3-4068-a4ad-6604bbef1de6",
+              "a737f3d2-2625-4597-8827-b9f712b2d1ea",
+              "a1dfe517-0db8-4693-8cf0-a4912b2b4746",
+              "f04a8668-f4f5-4e38-806d-991be7c3b95e",
+              "715ce908-cc0c-45fc-800b-fdb9482ae840",
+              "e3a32c2d-6748-4745-a688-8430948f7edb",
+              "b10a4932-9a28-4c5b-9e0d-e2de2b557887",
+              "a46b0d3b-949d-4012-97eb-ea1097b447d9"
+            ]
+          },
+          "1": {
+            "name": "Belastingdienst",
+            "transactionCount": 21,
+            "totalInflow": 0,
+            "totalOutflow": 8724,
+            "categories": [
+              "tax.income",
+              "tax.vehicle"
+            ],
+            "transactionIds": [
+              "f5d8cf36-e9a6-498e-a448-d2f84512263f",
+              "1c362f60-11e1-4431-a953-448e1a7e7a02",
+              "685b4a11-00be-46cc-9acc-8eea0b5c86ad",
+              "f1282adc-2682-4ce5-9197-3f7db7ab60f8",
+              "acccf68f-25ff-42bd-a6cb-6a2f66e22eb7",
+              "3bb48103-eab7-4e33-9942-e453212b6ac4",
+              "01439bd9-afc2-4809-82ab-7590d29142d7",
+              "b6b1a0b7-aa77-4ade-ab89-c03c1be03a97",
+              "77de5b95-6777-4c09-aa12-e97daacc0810",
+              "de79193c-7553-49a6-8033-72a30af73721",
+              "b1a6a75f-657d-40e7-bc27-9e75e57e8dca",
+              "37dc56e3-d7e7-445d-adf7-7bd76943b42a",
+              "bdfa477f-289d-47f4-897f-88f012d0da7a",
+              "80ff1a83-544b-48a0-90b1-4721ebc22748",
+              "c21eff58-db78-4432-a81c-ca619b324436",
+              "ada20444-f8d8-47e5-af04-c866ff7f096c",
+              "b57aa7e2-3773-49b4-95e9-006551e17bee",
+              "f2062e97-031d-4f94-8d8a-01ca8d5b0c99",
+              "e73a7e65-81d2-4f29-92c2-92ee54e64d74",
+              "061c5ecb-7941-4924-a1ac-30232421e762",
+              "0b789f4e-d0c9-4936-b70b-3dec1aa36634"
+            ]
+          },
+          "2": {
+            "name": "Kinderopvang Zonnetje B.V.",
+            "transactionCount": 12,
+            "totalInflow": 0,
+            "totalOutflow": 8640,
+            "categories": [
+              "expense.essential.childcare"
+            ],
+            "transactionIds": [
+              "39951fac-0348-4aa0-ba66-5b136b386952",
+              "b6bbc502-4d43-4da2-8569-65b831d471d2",
+              "7da9815b-5187-446f-9f11-488926e61773",
+              "f220fffb-c1d2-416a-adf3-0aab4f20f729",
+              "e75b73a2-8227-47f7-85a9-23f8fd5e8a1e",
+              "858d2deb-47e9-4f5a-8544-4fe06b088cbd",
+              "5a450df1-a482-4b6b-bd54-e33f216e6d2a",
+              "5e8cc542-5b58-4870-b520-0bc282357dca",
+              "6d82a328-7dc9-42a7-a54e-ba778ae14ac6",
+              "d1bf7171-3e1a-43d4-a1c7-f7c290ff3768",
+              "eeb81e81-27e4-457a-8648-3e08a0c4f054",
+              "25fe3617-02a2-414d-805b-ced17d286935"
+            ]
+          },
+          "3": {
+            "name": "Spaarrekening Oranje",
+            "transactionCount": 12,
+            "totalInflow": 0,
+            "totalOutflow": 7200,
+            "categories": [
+              "investment.savings"
+            ],
+            "transactionIds": [
+              "9fb3414b-670a-4478-b2c6-b3d76d22ecab",
+              "1e9372ad-cee7-4284-8dcb-a9eaec59f373",
+              "201e6472-f809-4aec-90f9-76a4fe8616fa",
+              "b0f5cb72-2acf-4c48-8dfe-ebeade9bc016",
+              "74411bef-0129-48de-ad04-6b2f0e462726",
+              "69d8c1bd-1bf1-402d-8af2-13f30af4d9ea",
+              "83613a96-0efd-4b85-ac89-d02fd024bcbe",
+              "446b8ed4-472f-4218-9a63-787b81a798e2",
+              "78382a3b-432a-476f-a63c-5f1cbd9a70c5",
+              "80ff0061-110c-4baf-a8df-1703f229280a",
+              "011754ff-f1a3-4092-8454-c940b0b0e08e",
+              "c79946d1-37e5-4441-a19a-d0b4131f34a9"
+            ]
+          },
+          "4": {
+            "name": "Creditcard Services B.V.",
+            "transactionCount": 12,
+            "totalInflow": 0,
+            "totalOutflow": 5733.4,
+            "categories": [
+              "loan.credit_card"
+            ],
+            "transactionIds": [
+              "7b8edf28-0f90-4c42-9d8e-6c9b19ee0c49",
+              "e60dde87-99e6-460b-a078-6f1ac6e24515",
+              "b5f15c4d-d78f-407e-b99c-398bdb60e110",
+              "24797ac3-335a-442f-99be-062ac2760a5b",
+              "5a63cc3e-536a-40ba-8556-586b60bb4ce2",
+              "3c4ab2fd-16a0-4fa4-a047-fecb1985c3b1",
+              "55ff52ab-e58c-4fa0-96ce-ad9dbeda5b51",
+              "e9ff0a4b-a12a-4fe0-a7fd-e50c172af8d9",
+              "f9020f50-a50c-490e-80c9-b41142715f3a",
+              "1d4c62b6-50ee-42c9-9ff3-5e943a870d69",
+              "7987c8ac-cd49-4428-abc9-c72eb464aa16",
+              "ac2cff37-7e50-40bc-87c5-1871f8d97160"
+            ]
+          }
+        }
+      },
+      "clientProfile": [
+        {
+          "name": "Internal transactions",
+          "transactionCount": 14,
+          "totalInflow": 71100,
+          "totalOutflow": 2000,
+          "categories": [
+            "internal.other"
+          ],
+          "transactionIds": [
+            "97d154c4-8924-4511-b959-0aeabef1c5e4",
+            "e44926bd-a1aa-46e6-8b18-14dbcf59287c",
+            "8eb90623-68bc-43f7-8645-b6f1b0917190",
+            "c89ec10b-9d0c-45e7-9ddb-cfea56d3e2e0",
+            "1f56979b-2e99-498c-92cc-64d51f67a99d",
+            "6350fbb2-226b-4bab-b5a4-8646ab571ee5",
+            "3b97c92b-c29b-47c8-a1a5-34a4fa4fa953",
+            "61cdf504-2b46-4ce2-95cb-b436b6e0d932",
+            "07c8d1ce-de1e-4eac-b202-29e297207333",
+            "abf120ab-7a6b-4345-bcb4-c1c1da75737f",
+            "c8a800c0-84dc-498b-b93d-0d7355f6b8c0",
+            "5c7e2514-d303-4bb0-a336-1337b7821df8",
+            "c42f8fc2-4df4-453d-b881-1c8fa5de6957",
+            "484adec8-4d0b-4633-8d66-07aede84374f"
+          ]
+        },
+        {
+          "name": "Car",
+          "transactionCount": 42,
+          "totalInflow": 0,
+          "totalOutflow": 3524.48,
+          "categories": [
+            "expense.transport.fuel",
+            "expense.transport.parking",
+            "expense.transport.vehicle",
+            "insurance.vehicle",
+            "tax.vehicle"
+          ],
+          "transactionIds": [
+            "e4d9db09-3dc0-4b0f-9add-faaeb3677db4",
+            "6a25a0c6-fbf2-416d-8fbd-c75a9881683a",
+            "f93a1cf7-f032-4cfd-a110-39002418cddd",
+            "6d9acec3-a7d7-4485-a92a-5b3e67061eef",
+            "dd7569ae-f77b-4b63-8867-38558da48955",
+            "ea52e374-63fc-43e7-a35c-6c652d601250",
+            "1c362f60-11e1-4431-a953-448e1a7e7a02",
+            "6a52225f-7b40-437b-bdeb-a71ed645eb78",
+            "9fe27820-ae72-4968-9107-0b684fabbb42",
+            "067db5a8-9afa-4585-b77d-621ba14e9be6",
+            "4fdc02c6-2100-42c8-8f08-a8f652bebdce",
+            "cd35236e-9950-4661-ac30-c971043a948c",
+            "6217ec6a-9400-4589-ad65-ed7a94db2f17",
+            "9a567450-422a-4d76-a75c-d29c333bed8c",
+            "b7af95da-c27b-4de8-9ebc-9f8f3f48229b",
+            "56ad7c7f-c5ca-460b-baa9-b3d62b64c5a7",
+            "f85867ff-b435-4d41-b98a-0e6487ce72d5",
+            "3bb48103-eab7-4e33-9942-e453212b6ac4",
+            "f688de42-a737-491c-9608-a04fd2f860d6",
+            "172cfeb0-93ba-47f4-b0b3-a0f41b408765",
+            "350897ba-58b6-4e4e-89f1-2bb5704d52d1",
+            "e3ce2bf2-7813-459b-b5af-976fbf4fb3ad",
+            "588c77e7-bf6e-42ad-8761-f567dbaaa8ff",
+            "40c08ca1-e8b3-4bba-b5d6-c79dfa57b532",
+            "8587c463-26ec-495d-9541-eafea65c9233",
+            "7328e6c4-6d6a-4e10-82a5-c9e9b6ff9e41",
+            "fecaefb4-8e05-4ec7-865b-878757aab0e5",
+            "de79193c-7553-49a6-8033-72a30af73721",
+            "88527b40-b78a-44e2-80a3-6e2573f4e464",
+            "67acf0fb-281f-4797-a454-514eca82d6f7",
+            "9ce7a555-4e97-49b2-8f67-dcb9f8433eb8",
+            "3a153502-0065-4b11-bf79-5c9a64d2cdee",
+            "ee63a6ab-f326-4fbe-aec4-2d05bff22dd5",
+            "15c7a8bf-d207-4ac4-bfd9-41f28786b957",
+            "d0105b72-54b7-49a9-89fa-ce98017949f9",
+            "004b0339-c2ee-4367-95c1-0981b5697c47",
+            "a7c060fc-7309-4607-a096-7de27a2e12ec",
+            "c698a15a-c011-4715-a1d3-0bfb465f8415",
+            "b57aa7e2-3773-49b4-95e9-006551e17bee",
+            "efdd5230-1874-49c0-85c4-a122ea10f964",
+            "766967a6-c162-4ccf-aaf1-87118c58dd54",
+            "a379403f-5133-45e9-8727-8dbabbbc7a71"
+          ]
+        },
+        {
+          "name": "Child",
+          "transactionCount": 16,
+          "totalInflow": 1142.4,
+          "totalOutflow": 8640,
+          "categories": [
+            "expense.essential.childcare",
+            "subsidy.family"
+          ],
+          "transactionIds": [
+            "39951fac-0348-4aa0-ba66-5b136b386952",
+            "b6bbc502-4d43-4da2-8569-65b831d471d2",
+            "dea536c3-0b61-4d0a-861b-ffa9f08c530d",
+            "7da9815b-5187-446f-9f11-488926e61773",
+            "f220fffb-c1d2-416a-adf3-0aab4f20f729",
+            "e75b73a2-8227-47f7-85a9-23f8fd5e8a1e",
+            "a81b8451-4ae9-4458-b4b9-cefe892aa899",
+            "858d2deb-47e9-4f5a-8544-4fe06b088cbd",
+            "5a450df1-a482-4b6b-bd54-e33f216e6d2a",
+            "5e8cc542-5b58-4870-b520-0bc282357dca",
+            "298b912a-fe97-4427-baff-e9777e484670",
+            "6d82a328-7dc9-42a7-a54e-ba778ae14ac6",
+            "d1bf7171-3e1a-43d4-a1c7-f7c290ff3768",
+            "eeb81e81-27e4-457a-8648-3e08a0c4f054",
+            "9f0338f3-9797-4354-a461-25d8f6ecca41",
+            "25fe3617-02a2-414d-805b-ced17d286935"
+          ]
+        },
+        {
+          "name": "Divorced",
+          "transactionCount": 0,
+          "totalInflow": 0,
+          "totalOutflow": 0,
+          "categories": [],
+          "transactionIds": []
+        },
+        {
+          "name": "Pension",
+          "transactionCount": 0,
+          "totalInflow": 0,
+          "totalOutflow": 0,
+          "categories": [],
+          "transactionIds": []
+        },
+        {
+          "name": "Unemployed",
+          "transactionCount": 0,
+          "totalInflow": 0,
+          "totalOutflow": 0,
+          "categories": [],
+          "transactionIds": []
+        },
+        {
+          "name": "Loans",
+          "transactionCount": 42,
+          "totalInflow": 245,
+          "totalOutflow": 10782.05,
+          "categories": [
+            "loan.bnpl",
+            "loan.credit_card",
+            "loan.other",
+            "loan.private",
+            "loan.student"
+          ],
+          "transactionIds": [
+            "7b8edf28-0f90-4c42-9d8e-6c9b19ee0c49",
+            "b75b0e3b-ee4b-40c3-aa2e-11ae83223ced",
+            "36fe74a3-cbdb-478a-bc38-feedde947290",
+            "e60dde87-99e6-460b-a078-6f1ac6e24515",
+            "e0799890-3df9-44b6-90f2-10794110411f",
+            "413f26e0-787f-4f06-a581-f51c1a78d659",
+            "b5f15c4d-d78f-407e-b99c-398bdb60e110",
+            "07d5e310-85b4-4cf1-9028-e856b99b7274",
+            "885585ad-fd76-4d15-876e-039eaf8f1234",
+            "24797ac3-335a-442f-99be-062ac2760a5b",
+            "93e4c343-3b8b-4bfb-9092-0d39d034cd51",
+            "7e177165-6919-467a-8622-7f81837495ea",
+            "5a63cc3e-536a-40ba-8556-586b60bb4ce2",
+            "b5db1f4c-5009-49b8-bf7f-f3b8472fa476",
+            "ddc196dc-23f8-4be8-8334-295db5431530",
+            "3c4ab2fd-16a0-4fa4-a047-fecb1985c3b1",
+            "2947b510-3995-4aea-a88e-76d481ffe9fa",
+            "89dfa539-6240-45d3-b33f-11c461768992",
+            "55ff52ab-e58c-4fa0-96ce-ad9dbeda5b51",
+            "a7bc8999-de02-4bc1-8dc8-f8041ac709e2",
+            "d3f5aaca-66b8-46cc-921a-677d86d3d64d",
+            "e9ff0a4b-a12a-4fe0-a7fd-e50c172af8d9",
+            "56ed56ac-185a-430d-b04d-b147e8d7a9d4",
+            "ada2b6ed-5ed5-4824-8069-d874af141095",
+            "df5d7d15-7d9e-406d-98d7-2af40c3572f3",
+            "d4778c04-a9df-47dc-ac4d-7c96e00b1473",
+            "f9020f50-a50c-490e-80c9-b41142715f3a",
+            "88f316fc-6ee0-4ba1-b443-ce88e6dd7a34",
+            "188fe9a0-d6f9-4e0f-85ea-5e9bb7722c12",
+            "4e864faa-f0ee-4f3e-b65b-524c1db62569",
+            "1d4c62b6-50ee-42c9-9ff3-5e943a870d69",
+            "99fb8e85-1a76-4e61-9ee6-5029cadebca6",
+            "25c6e43d-d1c6-4079-87f8-08d7687f910c",
+            "e4e0282c-1543-497c-b042-00ccbac08710",
+            "7987c8ac-cd49-4428-abc9-c72eb464aa16",
+            "19c86757-43d4-4c8a-bf64-24f1c8eee4db",
+            "68a1de73-4c1a-4148-9700-aab898f4ed1b",
+            "d7ba7de2-a5c5-4417-8f90-726a69d325e7",
+            "13b0861c-f33e-4a0a-b9a4-4fd107805282",
+            "ac2cff37-7e50-40bc-87c5-1871f8d97160",
+            "cfda5f52-7c91-49eb-a6eb-c7d7d2c12fb3",
+            "623cf1e6-a6b4-4bda-857a-ac077051623d"
+          ]
+        },
+        {
+          "name": "Debt collection",
+          "transactionCount": 1,
+          "totalInflow": 0,
+          "totalOutflow": 186.5,
+          "categories": [
+            "loan.debt_collection"
+          ],
+          "transactionIds": [
+            "d24d441a-de3c-4a00-8124-15c4c0776d70"
+          ]
+        },
+        {
+          "name": "Salary",
+          "transactionCount": 12,
+          "totalInflow": 33760,
+          "totalOutflow": 0,
+          "categories": [
+            "income.salary"
+          ],
+          "transactionIds": [
+            "bfd35d74-51b8-45fa-be29-cf8e26de207f",
+            "33d1852b-5ad3-4d24-9ea8-21279b41e9cb",
+            "e1a56da8-d3b4-4c4a-ace4-e148f1cf7aee",
+            "29a23c7a-77fc-46ca-b663-67be422b601a",
+            "6f5aa975-6d5e-4922-9424-e5bf0789c3d7",
+            "666f3285-6520-43a6-bf72-de72e50a471d",
+            "793dc310-260d-4654-88d3-a049699b954c",
+            "2d4d55d1-3e8b-413a-9628-0d6dde8f7a32",
+            "a0f8079d-9de8-49ba-bc04-87de08067547",
+            "e0e27531-d7bd-41ed-9b60-ff9d70d5dec2",
+            "c2f90eed-df8f-4a78-a2ff-11ee3afabb3c",
+            "edde4161-1462-4d32-953b-74b5ff68eeab"
+          ]
+        },
+        {
+          "name": "Housing",
+          "transactionCount": 24,
+          "totalInflow": 0,
+          "totalOutflow": 18364.8,
+          "categories": [
+            "housing.mortgage",
+            "housing.other"
+          ],
+          "transactionIds": [
+            "2796b7e7-3ebf-4307-91e2-61bf8bdb1407",
+            "7e385cb8-d5d4-4c5e-afcf-855266a8c67a",
+            "0d19b58a-a70f-4f89-a1f9-a39387fd91fd",
+            "ae0429e7-f59a-486f-9f30-e75391ef173d",
+            "3bfdd724-21cf-4a32-8686-b516c4a6d838",
+            "474ef7e3-de07-49c3-97de-90d2f2a85023",
+            "02083c8a-4b93-41c6-8d03-57e0156fbcfe",
+            "68ace638-f3c2-4a5b-b738-94b581d3aec5",
+            "25008867-32d3-4068-a4ad-6604bbef1de6",
+            "adc786b9-bce3-484b-9cf3-5d481b8b928e",
+            "11ccfa15-6688-48ed-9a8c-578022bc6941",
+            "a737f3d2-2625-4597-8827-b9f712b2d1ea",
+            "0e1b3519-5871-42cf-8694-43a33a221fa8",
+            "a1dfe517-0db8-4693-8cf0-a4912b2b4746",
+            "46f29ce6-10c1-40db-917b-2d9a3aa44409",
+            "f04a8668-f4f5-4e38-806d-991be7c3b95e",
+            "617a8d12-25cb-46c9-ac44-01224f137ee7",
+            "715ce908-cc0c-45fc-800b-fdb9482ae840",
+            "e3a32c2d-6748-4745-a688-8430948f7edb",
+            "f2607c31-c178-4022-b769-8df2f5cf8eec",
+            "9031ba60-1404-462a-81e1-fbfd48e62b2f",
+            "b10a4932-9a28-4c5b-9e0d-e2de2b557887",
+            "10eafe6a-ae2a-4007-b8dc-ced4659a18d2",
+            "a46b0d3b-949d-4012-97eb-ea1097b447d9"
+          ]
+        },
+        {
+          "name": "Other benefits",
+          "transactionCount": 0,
+          "totalInflow": 0,
+          "totalOutflow": 0,
+          "categories": [],
+          "transactionIds": []
+        },
+        {
+          "name": "Fines",
+          "transactionCount": 1,
+          "totalInflow": 0,
+          "totalOutflow": 95,
+          "categories": [
+            "other.fines"
+          ],
+          "transactionIds": [
+            "b7d3dd54-f4ac-49ab-8b4a-1a4247cef7c9"
+          ]
+        },
+        {
+          "name": "Gambling",
+          "transactionCount": 2,
+          "totalInflow": 0,
+          "totalOutflow": 27.5,
+          "categories": [
+            "gambling.lottery"
+          ],
+          "transactionIds": [
+            "86bcbcf3-9da3-42f5-86e1-aebd5a7d0c0c",
+            "de7872ac-99ae-42a8-b1fc-5e5f33b0b5e9"
+          ]
+        },
+        {
+          "name": "Crypto",
+          "transactionCount": 0,
+          "totalInflow": 0,
+          "totalOutflow": 0,
+          "categories": [],
+          "transactionIds": []
+        }
+      ],
+      "flaggedTransactions": [
+        {
+          "name": "Reversal payments",
+          "transactionCount": 1,
+          "totalInflow": 245,
+          "totalOutflow": 0,
+          "categories": [
+            "loan.other"
+          ],
+          "transactionIds": [
+            "df5d7d15-7d9e-406d-98d7-2af40c3572f3"
+          ]
+        },
+        {
+          "name": "Refunds",
+          "transactionCount": 0,
+          "totalInflow": 0,
+          "totalOutflow": 0,
+          "categories": [],
+          "transactionIds": []
+        },
+        {
+          "name": "Payment arrangements",
+          "transactionCount": 5,
+          "totalInflow": 0,
+          "totalOutflow": 1500,
+          "categories": [
+            "tax.income"
+          ],
+          "transactionIds": [
+            "37dc56e3-d7e7-445d-adf7-7bd76943b42a",
+            "80ff1a83-544b-48a0-90b1-4721ebc22748",
+            "ada20444-f8d8-47e5-af04-c866ff7f096c",
+            "e73a7e65-81d2-4f29-92c2-92ee54e64d74",
+            "0b789f4e-d0c9-4936-b70b-3dec1aa36634"
+          ]
+        }
+      ],
+      "lowConfidenceTransactions": [
+        {
+          "name": "Confidence <50%",
+          "transactionCount": 2,
+          "totalInflow": 10000,
+          "totalOutflow": 350,
+          "categories": [
+            "other.other"
+          ],
+          "transactionIds": [
+            "51f8bd28-9abf-4fb1-9f7e-ef4dfffa1a71",
+            "3f0a9fb6-c106-4cf5-ba03-6f978d689805"
+          ]
+        },
+        {
+          "name": "50% <= Confidence <60%",
+          "transactionCount": 1,
+          "totalInflow": 0,
+          "totalOutflow": 275,
+          "categories": [
+            "loan.private"
+          ],
+          "transactionIds": [
+            "68a1de73-4c1a-4148-9700-aab898f4ed1b"
+          ]
+        }
+      ],
+      "otherHighlightedTransactions": [
+        {
+          "name": "Round number",
+          "transactionCount": 1,
+          "totalInflow": 10000,
+          "totalOutflow": 0,
+          "categories": [
+            "other.other"
+          ],
+          "transactionIds": [
+            "3f0a9fb6-c106-4cf5-ba03-6f978d689805"
+          ]
+        }
+      ],
+      "creditQualityMetrics": []
+    }
+  }
+}

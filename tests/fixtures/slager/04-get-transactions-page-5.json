@@ -1,0 +1,1760 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/Transactions",
+    "query": {
+      "ConsentId": "c0a8f3d2-6b1e-4f57-9a3c-2e7d5b9f1a60",
+      "DateFrom": "2024-11-01T00:00:00Z",
+      "DateTo": "2025-10-31T23:59:59Z",
+      "OrderBy": "bookDate",
+      "OrderDirection": "desc",
+      "PageSize": 100,
+      "PageToken": "eyJwYWdlIjo5fQ"
+    }
+  },
+  "response_200": {
+    "data": [
+      {
+        "id": "6df7ddce-c17c-4489-a850-3a5a18696df7",
+        "accountId": "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47",
+        "accountNumber": "NL41 RABO •••• ••82",
+        "description": "Kast",
+        "bookDate": "2024-12-23",
+        "transactionDateTime": "2024-12-23T17:22:00Z",
+        "amount": 877.33,
+        "balanceAfterTransaction": 7065,
+        "currency": "EUR",
+        "counterpartDescription": "A. Kok eo A. Kok-Slager",
+        "counterpartAccountNumber": "NL20 RABO •••• ••29",
+        "normalized": {
+          "description": "kast",
+          "counterpartDescription": "a kok eo a kok-slager"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.87,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "850d3e43-d891-45fb-a9c2-516f78de850d",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 4417",
+        "bookDate": "2024-12-21",
+        "transactionDateTime": "2024-12-21T10:57:00Z",
+        "amount": -386.53,
+        "balanceAfterTransaction": 6203.34,
+        "currency": "EUR",
+        "counterpartDescription": "IJzerwaren Brabant B.V.",
+        "counterpartAccountNumber": "NL76 RABO •••• ••95",
+        "normalized": {
+          "description": "factuur 4417",
+          "counterpartDescription": "ijzerwaren brabant bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "ca4d5fa2-1dd1-4a4f-ae16-96af9a3dca4d",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Zakelijk abonnement",
+        "bookDate": "2024-12-20",
+        "transactionDateTime": "2024-12-20T13:42:00Z",
+        "amount": -84.5,
+        "balanceAfterTransaction": 6589.87,
+        "currency": "EUR",
+        "counterpartDescription": "Telecom Zakelijk B.V.",
+        "counterpartAccountNumber": "NL39 KNAB •••• ••73",
+        "normalized": {
+          "description": "zakelijk abonnement",
+          "counterpartDescription": "telecom zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.telecom",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "bc092d2a-0f8d-496a-ad31-886b67c5bc09",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur administratie kwartaal",
+        "bookDate": "2024-12-15",
+        "transactionDateTime": "2024-12-15T09:38:00Z",
+        "amount": -395,
+        "balanceAfterTransaction": 6674.37,
+        "currency": "EUR",
+        "counterpartDescription": "Administratiekantoor Bakker",
+        "counterpartAccountNumber": "NL29 ABNA •••• ••18",
+        "normalized": {
+          "description": "factuur administratie kwartaal",
+          "counterpartDescription": "administratiekantoor bakker"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.accounting",
+            "confidence": 0.89,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "b8ab03a8-0c2f-4935-acfc-850d3e43b8ab",
+        "accountId": "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47",
+        "accountNumber": "NL41 RABO •••• ••82",
+        "description": "Factuur 20240113",
+        "bookDate": "2024-12-15",
+        "transactionDateTime": "2024-12-15T11:40:00Z",
+        "amount": 2500.07,
+        "balanceAfterTransaction": 6187.67,
+        "currency": "EUR",
+        "counterpartDescription": "Kinderopvang Het Nest B.V.",
+        "counterpartAccountNumber": "NL94 ABNA •••• ••72",
+        "normalized": {
+          "description": "factuur 20240113",
+          "counterpartDescription": "kinderopvang het nest bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "2c15e5f1-7f9a-406b-a432-f878208c2c15",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Termijn energie werkplaats",
+        "bookDate": "2024-12-12",
+        "transactionDateTime": "2024-12-12T12:35:00Z",
+        "amount": -312.4,
+        "balanceAfterTransaction": 7069.37,
+        "currency": "EUR",
+        "counterpartDescription": "Stroomwerk Energie B.V.",
+        "counterpartAccountNumber": "NL88 TRIO •••• ••63",
+        "normalized": {
+          "description": "termijn energie werkplaats",
+          "counterpartDescription": "stroomwerk energie bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.utilities",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "aa66d130-fdeb-4850-ac17-76c90bcbaa66",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Kast slaapkamer",
+        "bookDate": "2024-12-10",
+        "transactionDateTime": "2024-12-10T07:36:00Z",
+        "amount": 1150.25,
+        "balanceAfterTransaction": 7381.77,
+        "currency": "EUR",
+        "counterpartDescription": "P. Mulder",
+        "counterpartAccountNumber": "NL16 KNAB •••• ••19",
+        "normalized": {
+          "description": "kast slaapkamer",
+          "counterpartDescription": "p mulder"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.79,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "8dde6c40-e162-4688-aa4f-5a40a6db8dde",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Advertentiepakket",
+        "bookDate": "2024-12-09",
+        "transactionDateTime": "2024-12-09T11:28:00Z",
+        "amount": -65,
+        "balanceAfterTransaction": 6231.52,
+        "currency": "EUR",
+        "counterpartDescription": "Vakmanplatform B.V.",
+        "counterpartAccountNumber": "NL59 KNAB •••• ••85",
+        "normalized": {
+          "description": "advertentiepakket",
+          "counterpartDescription": "vakmanplatform bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.marketing",
+            "confidence": 0.82,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "2344b7f4-76c9-4fde-a3a5-efa6f28f2344",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 4418",
+        "bookDate": "2024-12-08",
+        "transactionDateTime": "2024-12-08T11:04:00Z",
+        "amount": -1245.25,
+        "balanceAfterTransaction": 6296.52,
+        "currency": "EUR",
+        "counterpartDescription": "Lakfabriek Vos B.V.",
+        "counterpartAccountNumber": "NL67 RABO •••• ••35",
+        "normalized": {
+          "description": "factuur 4418",
+          "counterpartDescription": "lakfabriek vos bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.79,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "c17c31a5-1500-49c2-ad89-8dde6c40c17c",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 4419",
+        "bookDate": "2024-12-06",
+        "transactionDateTime": "2024-12-06T12:11:00Z",
+        "amount": -4857.03,
+        "balanceAfterTransaction": 7541.77,
+        "currency": "EUR",
+        "counterpartDescription": "Houthandel De Vries B.V.",
+        "counterpartAccountNumber": "NL26 TRIO •••• ••99",
+        "normalized": {
+          "description": "factuur 4419",
+          "counterpartDescription": "houthandel de vries bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.75,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "3188ea6c-850d-40c2-a489-fdeb25073188",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Kast",
+        "bookDate": "2024-12-06",
+        "transactionDateTime": "2024-12-06T15:08:00Z",
+        "amount": 1241.09,
+        "balanceAfterTransaction": 12398.8,
+        "currency": "EUR",
+        "counterpartDescription": "A. Kok eo A. Kok-Slager",
+        "counterpartAccountNumber": "NL20 RABO •••• ••29",
+        "normalized": {
+          "description": "kast",
+          "counterpartDescription": "a kok eo a kok-slager"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.78,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "efa6f28f-432b-4ca4-a06b-bc092d2aefa6",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Abonnement boekhouding",
+        "bookDate": "2024-12-05",
+        "transactionDateTime": "2024-12-05T10:21:00Z",
+        "amount": -29,
+        "balanceAfterTransaction": 11157.71,
+        "currency": "EUR",
+        "counterpartDescription": "Boekhoudapp Online B.V.",
+        "counterpartAccountNumber": "NL77 INGB •••• ••40",
+        "normalized": {
+          "description": "abonnement boekhouding",
+          "counterpartDescription": "boekhoudapp online bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.it",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "7f9a39c8-d31e-45a4-a96a-4bfc74637f9a",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Betaalautomaat",
+        "bookDate": "2024-12-04",
+        "transactionDateTime": "2024-12-04T07:24:00Z",
+        "amount": -85.66,
+        "balanceAfterTransaction": 11186.71,
+        "currency": "EUR",
+        "counterpartDescription": "Tankpunt A1 Deventer",
+        "counterpartAccountNumber": "NL87 RABO •••• ••65",
+        "normalized": {
+          "description": "betaalautomaat",
+          "counterpartDescription": "tankpunt a1 deventer"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.fuel",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "cfc0641d-2344-4aa6-ae6d-9c229eb8cfc0",
+        "accountId": "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47",
+        "accountNumber": "NL41 RABO •••• ••82",
+        "description": "Factuur 20240118",
+        "bookDate": "2024-12-03",
+        "transactionDateTime": "2024-12-03T16:15:00Z",
+        "amount": 2476,
+        "balanceAfterTransaction": 3687.6,
+        "currency": "EUR",
+        "counterpartDescription": "Interieurbouw Meijer V.O.F.",
+        "counterpartAccountNumber": "NL82 KNAB •••• ••97",
+        "normalized": {
+          "description": "factuur 20240118",
+          "counterpartDescription": "interieurbouw meijer vof"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "516f78de-a4f3-42c1-a688-1dd1b379516f",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Lease CNC-freesmachine contract 4471",
+        "bookDate": "2024-12-03",
+        "transactionDateTime": "2024-12-03T09:14:00Z",
+        "amount": -412,
+        "balanceAfterTransaction": 11272.37,
+        "currency": "EUR",
+        "counterpartDescription": "Machinefinance Nederland B.V.",
+        "counterpartAccountNumber": "NL15 BUNQ •••• ••80",
+        "normalized": {
+          "description": "lease cnc-freesmachine contract 4471",
+          "counterpartDescription": "machinefinance nederland bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.equipment_lease",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "b337ff2d-06bc-48dd-aca4-7f9a39c8b337",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Leasetermijn VW Crafter dec",
+        "bookDate": "2024-12-02",
+        "transactionDateTime": "2024-12-02T08:07:00Z",
+        "amount": -689.2,
+        "balanceAfterTransaction": 11684.37,
+        "currency": "EUR",
+        "counterpartDescription": "Bedrijfswagen Lease B.V.",
+        "counterpartAccountNumber": "NL38 INGB •••• ••16",
+        "normalized": {
+          "description": "leasetermijn vw crafter dec",
+          "counterpartDescription": "bedrijfswagen lease bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.vehicle_lease",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "d891921a-2c15-4b33-aefa-a4f3ccb5d891",
+        "accountId": "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47",
+        "accountNumber": "NL41 RABO •••• ••82",
+        "description": "Kosten Rabo BedrijfsPakket",
+        "bookDate": "2024-12-01",
+        "transactionDateTime": "2024-12-01T17:46:00Z",
+        "amount": -14.2,
+        "balanceAfterTransaction": 1211.6,
+        "currency": "EUR",
+        "counterpartDescription": "Rabobank",
+        "counterpartAccountNumber": "NL·· RABO bank",
+        "normalized": {
+          "description": "kosten rabo bedrijfspakket",
+          "counterpartDescription": "rabobank"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.bank_fees",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "9c229eb8-efa6-476c-ab33-6884d9539c22",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Huur werkplaats dec",
+        "bookDate": "2024-12-01",
+        "transactionDateTime": "2024-12-01T15:32:00Z",
+        "amount": -1450,
+        "balanceAfterTransaction": 12373.57,
+        "currency": "EUR",
+        "counterpartDescription": "Bedrijfshal Vastgoed Oost B.V.",
+        "counterpartAccountNumber": "NL68 TRIO •••• ••57",
+        "normalized": {
+          "description": "huur werkplaats dec",
+          "counterpartDescription": "bedrijfshal vastgoed oost bv"
+        },
+        "category": {
+          "e1": {
+            "category": "office.rent",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "76c90bcb-ca4d-4516-a8dd-432b466676c9",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Premie AVB polis 50-11829",
+        "bookDate": "2024-12-01",
+        "transactionDateTime": "2024-12-01T18:53:00Z",
+        "amount": -128.4,
+        "balanceAfterTransaction": 13823.57,
+        "currency": "EUR",
+        "counterpartDescription": "Zakelijk Verzekerd B.V.",
+        "counterpartAccountNumber": "NL89 INGB •••• ••82",
+        "normalized": {
+          "description": "premie avb polis 50-11829",
+          "counterpartDescription": "zakelijk verzekerd bv"
+        },
+        "category": {
+          "e1": {
+            "category": "insurance.liability",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "3a5a1869-8dde-4150-a516-06bc53043a5a",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Kosten Rabo BedrijfsPakket",
+        "bookDate": "2024-12-01",
+        "transactionDateTime": "2024-12-01T16:39:00Z",
+        "amount": -32.4,
+        "balanceAfterTransaction": 13951.97,
+        "currency": "EUR",
+        "counterpartDescription": "Rabobank",
+        "counterpartAccountNumber": "NL·· RABO bank",
+        "normalized": {
+          "description": "kosten rabo bedrijfspakket",
+          "counterpartDescription": "rabobank"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.bank_fees",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "1500857c-6884-4efa-a2c1-e162c0171500",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Premie bedrijfsauto polis 50-11830",
+        "bookDate": "2024-12-01",
+        "transactionDateTime": "2024-12-01T07:00:00Z",
+        "amount": -96.1,
+        "balanceAfterTransaction": 13984.37,
+        "currency": "EUR",
+        "counterpartDescription": "Zakelijk Verzekerd B.V.",
+        "counterpartAccountNumber": "NL89 INGB •••• ••82",
+        "normalized": {
+          "description": "premie bedrijfsauto polis 50-11830",
+          "counterpartDescription": "zakelijk verzekerd bv"
+        },
+        "category": {
+          "e1": {
+            "category": "insurance.vehicle",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "3fcd1ce4-9351-41a7-a56e-0c2f577f3fcd",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Aflossing en rente lening 30.12.448",
+        "bookDate": "2024-11-30",
+        "transactionDateTime": "2024-11-30T07:12:00Z",
+        "amount": -520,
+        "balanceAfterTransaction": 14080.47,
+        "currency": "EUR",
+        "counterpartDescription": "Rabobank",
+        "counterpartAccountNumber": "NL·· RABO bank",
+        "normalized": {
+          "description": "aflossing en rente lening 30.12.448",
+          "counterpartDescription": "rabobank"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.bank",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a195a333-f519-47c3-ab8a-6df7ddcea195",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Betalingskenmerk loonheffing",
+        "bookDate": "2024-11-28",
+        "transactionDateTime": "2024-11-28T18:05:00Z",
+        "amount": -834,
+        "balanceAfterTransaction": 14600.47,
+        "currency": "EUR",
+        "counterpartDescription": "Belastingdienst",
+        "counterpartAccountNumber": "NL86 INGB 0002 4455 88",
+        "normalized": {
+          "description": "betalingskenmerk loonheffing",
+          "counterpartDescription": "belastingdienst"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.payroll",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "6a99b44c-be1e-4454-a81a-36fbeee76a99",
+        "accountId": "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47",
+        "accountNumber": "NL41 RABO •••• ••82",
+        "description": "Overboeking naar hoofdrekening",
+        "bookDate": "2024-11-28",
+        "transactionDateTime": "2024-11-28T07:24:00Z",
+        "amount": -17659.46,
+        "balanceAfterTransaction": 1225.8,
+        "currency": "EUR",
+        "counterpartDescription": "Slager maatwerk interieur",
+        "counterpartAccountNumber": "NL20 RABO •••• ••35",
+        "normalized": {
+          "description": "overboeking naar hoofdrekening",
+          "counterpartDescription": "slager maatwerk interieur"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 1,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "08d12dfd-5c55-4e37-a1fe-d533689808d1",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Overboeking van ontvangstrekening",
+        "bookDate": "2024-11-28",
+        "transactionDateTime": "2024-11-28T08:31:00Z",
+        "amount": 17659.46,
+        "balanceAfterTransaction": 15434.47,
+        "currency": "EUR",
+        "counterpartDescription": "Slager maatwerk interieur",
+        "counterpartAccountNumber": "NL41 RABO •••• ••82",
+        "normalized": {
+          "description": "overboeking van ontvangstrekening",
+          "counterpartDescription": "slager maatwerk interieur"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 1,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "cc623a9b-1fe6-4a70-ae37-98c47536cc62",
+        "accountId": "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47",
+        "accountNumber": "NL41 RABO •••• ••82",
+        "description": "Termijn 20240110",
+        "bookDate": "2024-11-27",
+        "transactionDateTime": "2024-11-27T18:17:00Z",
+        "amount": 8409.63,
+        "balanceAfterTransaction": 18885.26,
+        "currency": "EUR",
+        "counterpartDescription": "Van Dijk Projectinrichting B.V.",
+        "counterpartAccountNumber": "NL15 ABNA •••• ••90",
+        "normalized": {
+          "description": "termijn 20240110",
+          "counterpartDescription": "van dijk projectinrichting bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "daa66d13-2e2a-4b54-af1b-a708a7aedaa6",
+        "accountId": "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47",
+        "accountNumber": "NL41 RABO •••• ••82",
+        "description": "Termijn badkamermeubel",
+        "bookDate": "2024-11-26",
+        "transactionDateTime": "2024-11-26T10:21:00Z",
+        "amount": 2351.38,
+        "balanceAfterTransaction": 10475.63,
+        "currency": "EUR",
+        "counterpartDescription": "R. Visser eo S. Visser",
+        "counterpartAccountNumber": "NL37 KNAB •••• ••73",
+        "normalized": {
+          "description": "termijn badkamermeubel",
+          "counterpartDescription": "r visser eo s visser"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.82,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "035e2982-56e2-4de0-a1a7-cfc0641d035e",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Prive",
+        "bookDate": "2024-11-26",
+        "transactionDateTime": "2024-11-26T17:58:00Z",
+        "amount": -1800,
+        "balanceAfterTransaction": -2224.99,
+        "currency": "EUR",
+        "counterpartDescription": "K. Slager",
+        "counterpartAccountNumber": "NL43 BUNQ •••• ••26",
+        "normalized": {
+          "description": "prive",
+          "counterpartDescription": "k slager"
+        },
+        "category": {
+          "e1": {
+            "category": "other.other",
+            "confidence": 0.55,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "be1e0823-11a2-498c-ad53-8a8042bebe1e",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 4405",
+        "bookDate": "2024-11-25",
+        "transactionDateTime": "2024-11-25T14:13:00Z",
+        "amount": -3481.78,
+        "balanceAfterTransaction": -424.99,
+        "currency": "EUR",
+        "counterpartDescription": "Steenhouwerij Jansen",
+        "counterpartAccountNumber": "NL61 ABNA •••• ••78",
+        "normalized": {
+          "description": "factuur 4405",
+          "counterpartDescription": "steenhouwerij jansen"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.82,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "6526afd1-b8ab-43fc-a7c3-3188ea6c6526",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Salaris nov",
+        "bookDate": "2024-11-25",
+        "transactionDateTime": "2024-11-25T16:51:00Z",
+        "amount": -2640.18,
+        "balanceAfterTransaction": 3056.79,
+        "currency": "EUR",
+        "counterpartDescription": "J. de Wit",
+        "counterpartAccountNumber": "NL67 ABNA •••• ••90",
+        "normalized": {
+          "description": "salaris nov",
+          "counterpartDescription": "j de wit"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "1a7389f7-6df7-4f51-a318-e6d5c4921a73",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Betaalautomaat",
+        "bookDate": "2024-11-25",
+        "transactionDateTime": "2024-11-25T10:33:00Z",
+        "amount": -107.64,
+        "balanceAfterTransaction": 5696.97,
+        "currency": "EUR",
+        "counterpartDescription": "Tankpunt A1 Deventer",
+        "counterpartAccountNumber": "NL87 RABO •••• ••65",
+        "normalized": {
+          "description": "betaalautomaat",
+          "counterpartDescription": "tankpunt a1 deventer"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.fuel",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "c6ef3620-1a73-4a19-ade0-935170bbc6ef",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Voorlopige aanslag IB 2024",
+        "bookDate": "2024-11-24",
+        "transactionDateTime": "2024-11-24T15:44:00Z",
+        "amount": -410,
+        "balanceAfterTransaction": 5804.61,
+        "currency": "EUR",
+        "counterpartDescription": "Belastingdienst",
+        "counterpartAccountNumber": "NL86 INGB 0002 4455 88",
+        "normalized": {
+          "description": "voorlopige aanslag ib 2024",
+          "counterpartDescription": "belastingdienst"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.other",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "78dde6c4-cc62-4538-a8ff-4540215f78dd",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Kast slaapkamer",
+        "bookDate": "2024-11-24",
+        "transactionDateTime": "2024-11-24T11:28:00Z",
+        "amount": 1790.75,
+        "balanceAfterTransaction": 6214.61,
+        "currency": "EUR",
+        "counterpartDescription": "P. Mulder",
+        "counterpartAccountNumber": "NL16 KNAB •••• ••19",
+        "normalized": {
+          "description": "kast slaapkamer",
+          "counterpartDescription": "p mulder"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.81,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "28b7bc6f-7c3c-4035-a3fc-f519f70a28b7",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Zakelijk abonnement",
+        "bookDate": "2024-11-20",
+        "transactionDateTime": "2024-11-20T14:37:00Z",
+        "amount": -84.5,
+        "balanceAfterTransaction": 4423.86,
+        "currency": "EUR",
+        "counterpartDescription": "Telecom Zakelijk B.V.",
+        "counterpartAccountNumber": "NL39 KNAB •••• ••73",
+        "normalized": {
+          "description": "zakelijk abonnement",
+          "counterpartDescription": "telecom zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.telecom",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "b54cda26-08d1-48ff-acc6-81af14c1b54c",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 20240105",
+        "bookDate": "2024-11-19",
+        "transactionDateTime": "2024-11-19T13:42:00Z",
+        "amount": 6606.64,
+        "balanceAfterTransaction": 4508.36,
+        "currency": "EUR",
+        "counterpartDescription": "Bouwbedrijf Hendriks B.V.",
+        "counterpartAccountNumber": "NL22 TRIO •••• ••21",
+        "normalized": {
+          "description": "factuur 20240105",
+          "counterpartDescription": "bouwbedrijf hendriks bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "5c5581d4-afd9-436f-a736-28b7bc6f5c55",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 4406",
+        "bookDate": "2024-11-18",
+        "transactionDateTime": "2024-11-18T15:20:00Z",
+        "amount": -1597.23,
+        "balanceAfterTransaction": -2098.28,
+        "currency": "EUR",
+        "counterpartDescription": "Lakfabriek Vos B.V.",
+        "counterpartAccountNumber": "NL67 RABO •••• ••35",
+        "normalized": {
+          "description": "factuur 4406",
+          "counterpartDescription": "lakfabriek vos bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.79,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "538453d7-a708-42e2-a6a9-1fe68e725384",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 20240106",
+        "bookDate": "2024-11-18",
+        "transactionDateTime": "2024-11-18T14:49:00Z",
+        "amount": 2709.6,
+        "balanceAfterTransaction": -501.05,
+        "currency": "EUR",
+        "counterpartDescription": "Interieurbouw Meijer V.O.F.",
+        "counterpartAccountNumber": "NL82 KNAB •••• ••97",
+        "normalized": {
+          "description": "factuur 20240106",
+          "counterpartDescription": "interieurbouw meijer vof"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "8ff34739-e377-46a9-aa70-5c5581d48ff3",
+        "accountId": "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47",
+        "accountNumber": "NL41 RABO •••• ••82",
+        "description": "Factuur 20240108",
+        "bookDate": "2024-11-16",
+        "transactionDateTime": "2024-11-16T16:03:00Z",
+        "amount": 2929.81,
+        "balanceAfterTransaction": 8124.25,
+        "currency": "EUR",
+        "counterpartDescription": "Tandartspraktijk Smit",
+        "counterpartAccountNumber": "NL53 KNAB •••• ••49",
+        "normalized": {
+          "description": "factuur 20240108",
+          "counterpartDescription": "tandartspraktijk smit"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.84,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "3c6ef362-8ff3-4171-a538-08d12dfd3c6e",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Termijn badkamermeubel",
+        "bookDate": "2024-11-16",
+        "transactionDateTime": "2024-11-16T09:14:00Z",
+        "amount": 3751.73,
+        "balanceAfterTransaction": -3210.65,
+        "currency": "EUR",
+        "counterpartDescription": "R. Visser eo S. Visser",
+        "counterpartAccountNumber": "NL37 KNAB •••• ••73",
+        "normalized": {
+          "description": "termijn badkamermeubel",
+          "counterpartDescription": "r visser eo s visser"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.74,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "17156075-6a99-4f1b-a2e2-e3779b101715",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 20240104",
+        "bookDate": "2024-11-15",
+        "transactionDateTime": "2024-11-15T12:35:00Z",
+        "amount": 4999.13,
+        "balanceAfterTransaction": -6962.38,
+        "currency": "EUR",
+        "counterpartDescription": "Bouwbedrijf Hendriks B.V.",
+        "counterpartAccountNumber": "NL22 TRIO •••• ••21",
+        "normalized": {
+          "description": "factuur 20240104",
+          "counterpartDescription": "bouwbedrijf hendriks bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "9e3779b1-f1bb-478d-ab54-6a99b44c9e37",
+        "accountId": "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47",
+        "accountNumber": "NL41 RABO •••• ••82",
+        "description": "Factuur 20240100",
+        "bookDate": "2024-11-14",
+        "transactionDateTime": "2024-11-14T08:07:00Z",
+        "amount": 3968.64,
+        "balanceAfterTransaction": 5194.44,
+        "currency": "EUR",
+        "counterpartDescription": "Keukenstudio Oost B.V.",
+        "counterpartAccountNumber": "NL42 TRIO •••• ••51",
+        "normalized": {
+          "description": "factuur 20240100",
+          "counterpartDescription": "keukenstudio oost bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "1fe68e72-736a-4fa8-a36f-ec48c90d1fe6",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 4404",
+        "bookDate": "2024-11-14",
+        "transactionDateTime": "2024-11-14T13:06:00Z",
+        "amount": -989.75,
+        "balanceAfterTransaction": -11961.51,
+        "currency": "EUR",
+        "counterpartDescription": "IJzerwaren Brabant B.V.",
+        "counterpartAccountNumber": "NL76 RABO •••• ••95",
+        "normalized": {
+          "description": "factuur 4404",
+          "counterpartDescription": "ijzerwaren brabant bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.83,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "e3779b10-36fb-4be1-afa8-afd9d5abe377",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 4402",
+        "bookDate": "2024-11-13",
+        "transactionDateTime": "2024-11-13T11:52:00Z",
+        "amount": -1200.04,
+        "balanceAfterTransaction": -10971.76,
+        "currency": "EUR",
+        "counterpartDescription": "Lakfabriek Vos B.V.",
+        "counterpartAccountNumber": "NL67 RABO •••• ••35",
+        "normalized": {
+          "description": "factuur 4402",
+          "counterpartDescription": "lakfabriek vos bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.89,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "de049695-3188-4b8a-af51-aa66d130de04",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Betaalautomaat",
+        "bookDate": "2024-11-13",
+        "transactionDateTime": "2024-11-13T08:19:00Z",
+        "amount": -65.1,
+        "balanceAfterTransaction": -9771.72,
+        "currency": "EUR",
+        "counterpartDescription": "Tankpunt A1 Deventer",
+        "counterpartAccountNumber": "NL87 RABO •••• ••65",
+        "normalized": {
+          "description": "betaalautomaat",
+          "counterpartDescription": "tankpunt a1 deventer"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.fuel",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "8a8042be-de04-4652-aa19-56e27d598a80",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Termijn energie werkplaats",
+        "bookDate": "2024-11-12",
+        "transactionDateTime": "2024-11-12T13:30:00Z",
+        "amount": -312.4,
+        "balanceAfterTransaction": -9706.62,
+        "currency": "EUR",
+        "counterpartDescription": "Stroomwerk Energie B.V.",
+        "counterpartAccountNumber": "NL88 TRIO •••• ••63",
+        "normalized": {
+          "description": "termijn energie werkplaats",
+          "counterpartDescription": "stroomwerk energie bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.utilities",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "ec48c90d-3fcd-4c6e-a035-b8ab03a8ec48",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Advertentiepakket",
+        "bookDate": "2024-11-09",
+        "transactionDateTime": "2024-11-09T12:23:00Z",
+        "amount": -65,
+        "balanceAfterTransaction": -9394.22,
+        "currency": "EUR",
+        "counterpartDescription": "Vakmanplatform B.V.",
+        "counterpartAccountNumber": "NL59 KNAB •••• ••85",
+        "normalized": {
+          "description": "advertentiepakket",
+          "counterpartDescription": "vakmanplatform bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.marketing",
+            "confidence": 0.82,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "7c3c1046-cfc0-456e-a935-489e4ae17c3c",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Betaalautomaat",
+        "bookDate": "2024-11-09",
+        "transactionDateTime": "2024-11-09T09:26:00Z",
+        "amount": -86.77,
+        "balanceAfterTransaction": -9329.22,
+        "currency": "EUR",
+        "counterpartDescription": "Tankpunt A1 Deventer",
+        "counterpartAccountNumber": "NL87 RABO •••• ••65",
+        "normalized": {
+          "description": "betaalautomaat",
+          "counterpartDescription": "tankpunt a1 deventer"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.fuel",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "2e2ac0ea-81af-408d-a454-fa8cfb852e2a",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Termijn 20240109",
+        "bookDate": "2024-11-09",
+        "transactionDateTime": "2024-11-09T17:10:00Z",
+        "amount": 6452.7,
+        "balanceAfterTransaction": -9242.45,
+        "currency": "EUR",
+        "counterpartDescription": "Van Dijk Projectinrichting B.V.",
+        "counterpartAccountNumber": "NL15 ABNA •••• ••90",
+        "normalized": {
+          "description": "termijn 20240109",
+          "counterpartDescription": "van dijk projectinrichting bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.89,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a708a7ae-fa8c-481a-abe1-736ae249a708",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 4400",
+        "bookDate": "2024-11-06",
+        "transactionDateTime": "2024-11-06T09:38:00Z",
+        "amount": -4285.64,
+        "balanceAfterTransaction": -15695.15,
+        "currency": "EUR",
+        "counterpartDescription": "Steenhouwerij Jansen",
+        "counterpartAccountNumber": "NL61 ABNA •••• ••78",
+        "normalized": {
+          "description": "factuur 4400",
+          "counterpartDescription": "steenhouwerij jansen"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.87,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "81af14c1-d533-45c5-a98c-4e114f5c81af",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 4403",
+        "bookDate": "2024-11-06",
+        "transactionDateTime": "2024-11-06T12:59:00Z",
+        "amount": -1093.58,
+        "balanceAfterTransaction": -11409.51,
+        "currency": "EUR",
+        "counterpartDescription": "Bouwcenter Kuipers B.V.",
+        "counterpartAccountNumber": "NL12 ABNA •••• ••24",
+        "normalized": {
+          "description": "factuur 4403",
+          "counterpartDescription": "bouwcenter kuipers bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4e114f5c-a195-428b-a652-1a7389f74e11",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Abonnement boekhouding",
+        "bookDate": "2024-11-05",
+        "transactionDateTime": "2024-11-05T11:16:00Z",
+        "amount": -29,
+        "balanceAfterTransaction": -10315.93,
+        "currency": "EUR",
+        "counterpartDescription": "Boekhoudapp Online B.V.",
+        "counterpartAccountNumber": "NL77 INGB •••• ••40",
+        "normalized": {
+          "description": "abonnement boekhouding",
+          "counterpartDescription": "boekhoudapp online bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.it",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4540215f-98c4-41fe-a5c5-11a25bfa4540",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Factuur 4401",
+        "bookDate": "2024-11-05",
+        "transactionDateTime": "2024-11-05T10:45:00Z",
+        "amount": -5028.89,
+        "balanceAfterTransaction": -10286.93,
+        "currency": "EUR",
+        "counterpartDescription": "Houthandel De Vries B.V.",
+        "counterpartAccountNumber": "NL26 TRIO •••• ••99",
+        "normalized": {
+          "description": "factuur 4401",
+          "counterpartDescription": "houthandel de vries bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "f1bbcd88-4540-4cc6-a08d-be1e0823f1bb",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Kast slaapkamer",
+        "bookDate": "2024-11-03",
+        "transactionDateTime": "2024-11-03T15:56:00Z",
+        "amount": 2070.21,
+        "balanceAfterTransaction": -5258.04,
+        "currency": "EUR",
+        "counterpartDescription": "P. Mulder",
+        "counterpartAccountNumber": "NL16 KNAB •••• ••19",
+        "normalized": {
+          "description": "kast slaapkamer",
+          "counterpartDescription": "p mulder"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.78,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "afd9d5ab-035e-48a8-ac6e-7c3c1046afd9",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Lease CNC-freesmachine contract 4471",
+        "bookDate": "2024-11-03",
+        "transactionDateTime": "2024-11-03T10:09:00Z",
+        "amount": -412,
+        "balanceAfterTransaction": -7328.25,
+        "currency": "EUR",
+        "counterpartDescription": "Machinefinance Nederland B.V.",
+        "counterpartAccountNumber": "NL15 BUNQ •••• ••80",
+        "normalized": {
+          "description": "lease cnc-freesmachine contract 4471",
+          "counterpartDescription": "machinefinance nederland bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.equipment_lease",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "11a25bfa-6526-4ec4-a28b-de04969511a2",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Leasetermijn VW Crafter nov",
+        "bookDate": "2024-11-02",
+        "transactionDateTime": "2024-11-02T09:02:00Z",
+        "amount": -689.2,
+        "balanceAfterTransaction": -6916.25,
+        "currency": "EUR",
+        "counterpartDescription": "Bedrijfswagen Lease B.V.",
+        "counterpartAccountNumber": "NL38 INGB •••• ••16",
+        "normalized": {
+          "description": "leasetermijn vw crafter nov",
+          "counterpartDescription": "bedrijfswagen lease bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.vehicle_lease",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "fa8cfb85-4e11-4d53-a11a-c6ef3620fa8c",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Huur werkplaats nov",
+        "bookDate": "2024-11-01",
+        "transactionDateTime": "2024-11-01T16:27:00Z",
+        "amount": -1450,
+        "balanceAfterTransaction": -6227.05,
+        "currency": "EUR",
+        "counterpartDescription": "Bedrijfshal Vastgoed Oost B.V.",
+        "counterpartAccountNumber": "NL68 TRIO •••• ••57",
+        "normalized": {
+          "description": "huur werkplaats nov",
+          "counterpartDescription": "bedrijfshal vastgoed oost bv"
+        },
+        "category": {
+          "e1": {
+            "category": "office.rent",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "d5336898-28b7-4afd-aec4-a195a333d533",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Premie AVB polis 50-11829",
+        "bookDate": "2024-11-01",
+        "transactionDateTime": "2024-11-01T07:48:00Z",
+        "amount": -128.4,
+        "balanceAfterTransaction": -4777.05,
+        "currency": "EUR",
+        "counterpartDescription": "Zakelijk Verzekerd B.V.",
+        "counterpartAccountNumber": "NL89 INGB •••• ••82",
+        "normalized": {
+          "description": "premie avb polis 50-11829",
+          "counterpartDescription": "zakelijk verzekerd bv"
+        },
+        "category": {
+          "e1": {
+            "category": "insurance.liability",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "98c47536-ec48-4736-aafd-6526afd198c4",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Kosten Rabo BedrijfsPakket",
+        "bookDate": "2024-11-01",
+        "transactionDateTime": "2024-11-01T17:34:00Z",
+        "amount": -32.4,
+        "balanceAfterTransaction": -4648.65,
+        "currency": "EUR",
+        "counterpartDescription": "Rabobank",
+        "counterpartAccountNumber": "NL·· RABO bank",
+        "normalized": {
+          "description": "kosten rabo bedrijfspakket",
+          "counterpartDescription": "rabobank"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.bank_fees",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "736ae249-c6ef-44e1-a8a8-3fcd1ce4736a",
+        "accountId": "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "accountNumber": "NL20 RABO •••• ••35",
+        "description": "Premie bedrijfsauto polis 50-11830",
+        "bookDate": "2024-11-01",
+        "transactionDateTime": "2024-11-01T08:55:00Z",
+        "amount": -96.1,
+        "balanceAfterTransaction": -4616.25,
+        "currency": "EUR",
+        "counterpartDescription": "Zakelijk Verzekerd B.V.",
+        "counterpartAccountNumber": "NL89 INGB •••• ••82",
+        "normalized": {
+          "description": "premie bedrijfsauto polis 50-11830",
+          "counterpartDescription": "zakelijk verzekerd bv"
+        },
+        "category": {
+          "e1": {
+            "category": "insurance.vehicle",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "36fbeee7-8a80-411a-a4e1-035e298236fb",
+        "accountId": "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47",
+        "accountNumber": "NL41 RABO •••• ••82",
+        "description": "Kosten Rabo BedrijfsPakket",
+        "bookDate": "2024-11-01",
+        "transactionDateTime": "2024-11-01T18:41:00Z",
+        "amount": -14.2,
+        "balanceAfterTransaction": 1225.8,
+        "currency": "EUR",
+        "counterpartDescription": "Rabobank",
+        "counterpartAccountNumber": "NL·· RABO bank",
+        "normalized": {
+          "description": "kosten rabo bedrijfspakket",
+          "counterpartDescription": "rabobank"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.bank_fees",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      }
+    ],
+    "nextPageToken": null
+  }
+}

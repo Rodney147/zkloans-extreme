@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/Accounts",
+    "query": {
+      "ConsentId": "bbdc79ef-c388-417b-bdef-d3cf4e4665d2"
+    }
+  },
+  "response_200": {
+    "data": [
+      {
+        "id": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "iban": "NL27 INGB •••• ••51",
+        "providerAccountId": "ingb-0a765893",
+        "accountHolder": "Lender Spender Zakelijke B.V.",
+        "bban": null,
+        "currency": "EUR",
+        "accountBalance": {
+          "currency": "EUR",
+          "date": "2026-10-31T23:59:59Z",
+          "amount": 67537.28
+        }
+      },
+      {
+        "id": "389eef2f-79d0-4d1d-bf42-840f356fdc04",
+        "iban": "NL63 INGB •••• ••08",
+        "providerAccountId": "ingb-389eef2f",
+        "accountHolder": "Lender Spender Zakelijke B.V.",
+        "bban": null,
+        "currency": "EUR",
+        "accountBalance": {
+          "currency": "EUR",
+          "date": "2026-10-31T23:59:59Z",
+          "amount": 55602.5
+        }
+      }
+    ]
+  }
+}
