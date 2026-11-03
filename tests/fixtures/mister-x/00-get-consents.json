@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/v2/consents"
+  },
+  "response_200": {
+    "data": [
+      {
+        "id": "29be5d21-2981-4b38-a4c2-771116e58928",
+        "status": "ACTIVE",
+        "providerKey": "rabobank",
+        "dateStatusUpdated": "2026-11-02T10:14:00Z",
+        "dateRequested": "2026-11-02T10:14:00Z",
+        "dateExpire": "2027-05-01T10:14:00Z",
+        "dateTransactionsUpdated": "2026-11-02T10:14:3Z",
+        "errors": []
+      },
+      {
+        "id": "297ec9b3-789f-56fd-9ec4-5499df29a5dc",
+        "status": "ACTIVE",
+        "providerKey": "ing",
+        "dateStatusUpdated": "2026-11-02T10:21:00Z",
+        "dateRequested": "2026-11-02T10:21:00Z",
+        "dateExpire": "2027-05-01T10:21:00Z",
+        "dateTransactionsUpdated": "2026-11-02T10:21:3Z",
+        "errors": []
+      }
+    ]
+  },
+  "note": "Eén consent per bank. Statuswaarde ACTIVE is een aanname."
+}

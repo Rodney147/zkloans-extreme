@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/v2/categorization-jobs",
+    "body": {
+      "engine": "e1",
+      "profile": "corporate",
+      "countryCode": "nl",
+      "consentId": "bbdc79ef-c388-417b-bdef-d3cf4e4665d2",
+      "accountIds": [
+        "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "389eef2f-79d0-4d1d-bf42-840f356fdc04"
+      ],
+      "metaData": {
+        "internal_ibans": [
+          "NL27 INGB •••• ••51",
+          "NL63 INGB •••• ••08"
+        ]
+      }
+    }
+  },
+  "response_202": {
+    "data": "2511d009-6d82-4312-9da4-0c537070f832"
+  },
+  "poll": {
+    "method": "GET",
+    "path": "/v2/categorization-jobs/2511d009-6d82-4312-9da4-0c537070f832",
+    "response_200": {
+      "data": {
+        "id": "2511d009-6d82-4312-9da4-0c537070f832",
+        "status": "COMPLETED",
+        "engine": "e1",
+        "profile": "corporate",
+        "countryCode": "nl",
+        "consentId": "bbdc79ef-c388-417b-bdef-d3cf4e4665d2",
+        "userId": null,
+        "externalUserId": null,
+        "accountIds": [
+          "0a765893-8334-4ba8-92a2-94bc602ab29c",
+          "389eef2f-79d0-4d1d-bf42-840f356fdc04"
+        ],
+        "parentId": null,
+        "engineVersion": "e1-2026.10",
+        "metaData": {
+          "internal_ibans": [
+            "NL27 INGB •••• ••51",
+            "NL63 INGB •••• ••08"
+          ]
+        }
+      }
+    }
+  },
+  "note": "Status COMPLETED is een aanname."
+}

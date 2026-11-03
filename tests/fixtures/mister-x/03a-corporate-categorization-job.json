@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/v2/categorization-jobs",
+    "body": {
+      "engine": "e1",
+      "profile": "corporate",
+      "countryCode": "nl",
+      "consentId": "29be5d21-2981-4b38-a4c2-771116e58928",
+      "accountIds": [
+        "9d8ad616-fd35-4f2c-9eaa-3ca931b51313"
+      ],
+      "metaData": {
+        "internal_ibans": [
+          "NL45 RABO •••• ••17",
+          "NL72 INGB •••• ••63"
+        ]
+      }
+    }
+  },
+  "response_202": {
+    "data": "b7d8e67a-06e0-4f71-a88f-037eb941abee"
+  },
+  "poll": {
+    "method": "GET",
+    "path": "/v2/categorization-jobs/b7d8e67a-06e0-4f71-a88f-037eb941abee",
+    "response_200": {
+      "data": {
+        "id": "b7d8e67a-06e0-4f71-a88f-037eb941abee",
+        "status": "COMPLETED",
+        "engine": "e1",
+        "profile": "corporate",
+        "countryCode": "nl",
+        "consentId": "29be5d21-2981-4b38-a4c2-771116e58928",
+        "userId": null,
+        "externalUserId": null,
+        "accountIds": [
+          "9d8ad616-fd35-4f2c-9eaa-3ca931b51313"
+        ],
+        "parentId": null,
+        "engineVersion": "e1-2026.10",
+        "metaData": {
+          "internal_ibans": [
+            "NL45 RABO •••• ••17",
+            "NL72 INGB •••• ••63"
+          ]
+        }
+      }
+    }
+  },
+  "note": "Eén job per rekening met een eigen profiel is een aanname; navragen bij Enable Now."
+}

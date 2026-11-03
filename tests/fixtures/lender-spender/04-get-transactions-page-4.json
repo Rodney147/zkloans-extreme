@@ -1,0 +1,2920 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/Transactions",
+    "query": {
+      "ConsentId": "bbdc79ef-c388-417b-bdef-d3cf4e4665d2",
+      "DateFrom": "2025-11-01T00:00:00Z",
+      "DateTo": "2026-10-31T23:59:59Z",
+      "OrderBy": "bookDate",
+      "OrderDirection": "desc",
+      "PageSize": 100,
+      "PageToken": "pg4"
+    }
+  },
+  "response_200": {
+    "data": [
+      {
+        "id": "8db5a71c-a949-4e33-b6e4-c98ebdbf9279",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Termijn bestelling bureaustoelen",
+        "bookDate": "2026-05-13",
+        "transactionDateTime": "2026-05-13T07:09:00Z",
+        "amount": -318.4,
+        "balanceAfterTransaction": -52588.75,
+        "currency": "EUR",
+        "counterpartDescription": "Achteraf Zakelijk B.V.",
+        "counterpartAccountNumber": "NL84 RABO •••• ••58",
+        "normalized": {
+          "description": "termijn bestelling bureaustoelen",
+          "counterpartDescription": "achteraf zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.bnpl",
+            "confidence": 0.89,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "115b00ec-217f-4c1a-9378-8fc7d88d1941",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Termijn energie kantoor",
+        "bookDate": "2026-05-12",
+        "transactionDateTime": "2026-05-12T07:36:00Z",
+        "amount": -394.48,
+        "balanceAfterTransaction": -52270.35,
+        "currency": "EUR",
+        "counterpartDescription": "Energiebedrijf Zakelijk B.V.",
+        "counterpartAccountNumber": "NL24 KNAB •••• ••22",
+        "normalized": {
+          "description": "termijn energie kantoor",
+          "counterpartDescription": "energiebedrijf zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.utilities",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "da47abf4-6209-497e-a07f-e41a57c15789",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2695",
+        "bookDate": "2026-05-12",
+        "transactionDateTime": "2026-05-12T07:27:00Z",
+        "amount": 4936.64,
+        "balanceAfterTransaction": -51875.87,
+        "currency": "EUR",
+        "counterpartDescription": "Leasepartner Holland B.V.",
+        "counterpartAccountNumber": "NL52 SNSB •••• ••41",
+        "normalized": {
+          "description": "factuur 2026-2695",
+          "counterpartDescription": "leasepartner holland bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "99522020-7ad4-4e4f-abeb-be867ce0c2f8",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2705",
+        "bookDate": "2026-05-12",
+        "transactionDateTime": "2026-05-12T07:18:00Z",
+        "amount": 1180.42,
+        "balanceAfterTransaction": -56812.51,
+        "currency": "EUR",
+        "counterpartDescription": "Vastgoedfinanciering West B.V.",
+        "counterpartAccountNumber": "NL20 KNAB •••• ••26",
+        "normalized": {
+          "description": "factuur 2026-2705",
+          "counterpartDescription": "vastgoedfinanciering west bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "7fcecfb1-ab34-4b16-81ef-5050be313656",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2702",
+        "bookDate": "2026-05-12",
+        "transactionDateTime": "2026-05-12T07:09:00Z",
+        "amount": 2042.41,
+        "balanceAfterTransaction": -57992.93,
+        "currency": "EUR",
+        "counterpartDescription": "Equipment Lease Benelux B.V.",
+        "counterpartAccountNumber": "NL34 INGB •••• ••21",
+        "normalized": {
+          "description": "factuur 2026-2702",
+          "counterpartDescription": "equipment lease benelux bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "36d08c3b-67fe-4c1e-b67f-a2a8af823ac8",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Bestelling kantoorartikelen",
+        "bookDate": "2026-05-11",
+        "transactionDateTime": "2026-05-11T07:09:00Z",
+        "amount": -80.13,
+        "balanceAfterTransaction": -60035.34,
+        "currency": "EUR",
+        "counterpartDescription": "Kantoorartikelen Direct B.V.",
+        "counterpartAccountNumber": "NL52 ABNA •••• ••46",
+        "normalized": {
+          "description": "bestelling kantoorartikelen",
+          "counterpartDescription": "kantoorartikelen direct bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.office_supplies",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "b5fd9637-8699-401e-9f16-32476a14dcd6",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Campagne zoekmachine",
+        "bookDate": "2026-05-09",
+        "transactionDateTime": "2026-05-09T07:18:00Z",
+        "amount": -1251.71,
+        "balanceAfterTransaction": -59955.21,
+        "currency": "EUR",
+        "counterpartDescription": "Online Advertenties B.V.",
+        "counterpartAccountNumber": "NL38 RABO •••• ••27",
+        "normalized": {
+          "description": "campagne zoekmachine",
+          "counterpartDescription": "online advertenties bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.marketing",
+            "confidence": 0.86,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "9227754e-f847-4a79-bd12-5bef110fa868",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Geldopname",
+        "bookDate": "2026-05-09",
+        "transactionDateTime": "2026-05-09T07:09:00Z",
+        "amount": -150,
+        "balanceAfterTransaction": -58703.5,
+        "currency": "EUR",
+        "counterpartDescription": "Geldautomaat Rotterdam",
+        "counterpartAccountNumber": "NL·· geldautomaat",
+        "normalized": {
+          "description": "geldopname",
+          "counterpartDescription": "geldautomaat rotterdam"
+        },
+        "category": {
+          "e1": {
+            "category": "cash.other",
+            "confidence": 0.98,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "5717b021-6d00-4dba-b11b-5ae2a92462f6",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Provisie periode 2690",
+        "bookDate": "2026-05-08",
+        "transactionDateTime": "2026-05-08T07:09:00Z",
+        "amount": 6358.19,
+        "balanceAfterTransaction": -58553.5,
+        "currency": "EUR",
+        "counterpartDescription": "Kredietbank Noord B.V.",
+        "counterpartAccountNumber": "NL45 BUNQ •••• ••19",
+        "normalized": {
+          "description": "provisie periode 2690",
+          "counterpartDescription": "kredietbank noord bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "88c14fee-20c8-4660-bb4d-a0675ca8d8c9",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Laden bedrijfsauto",
+        "bookDate": "2026-05-06",
+        "transactionDateTime": "2026-05-06T07:09:00Z",
+        "amount": -76.74,
+        "balanceAfterTransaction": -64911.69,
+        "currency": "EUR",
+        "counterpartDescription": "Laadpunt Zakelijk B.V.",
+        "counterpartAccountNumber": "NL88 BUNQ •••• ••58",
+        "normalized": {
+          "description": "laden bedrijfsauto",
+          "counterpartDescription": "laadpunt zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.fuel",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "92c88cec-504b-4f5a-b5a9-cdee3883d061",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur mei 2026",
+        "bookDate": "2026-05-05",
+        "transactionDateTime": "2026-05-05T07:18:00Z",
+        "amount": -2963.71,
+        "balanceAfterTransaction": -64834.95,
+        "currency": "EUR",
+        "counterpartDescription": "Data Partners B.V.",
+        "counterpartAccountNumber": "NL47 BUNQ •••• ••13",
+        "normalized": {
+          "description": "factuur mei 2026",
+          "counterpartDescription": "data partners bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.75,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4d2a25a4-f1a0-48b2-87d2-9a8a3beeccbd",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Hosting en licenties",
+        "bookDate": "2026-05-05",
+        "transactionDateTime": "2026-05-05T07:09:00Z",
+        "amount": -364.13,
+        "balanceAfterTransaction": -61871.24,
+        "currency": "EUR",
+        "counterpartDescription": "Cloud Hosting Nederland B.V.",
+        "counterpartAccountNumber": "NL91 RABO •••• ••78",
+        "normalized": {
+          "description": "hosting en licenties",
+          "counterpartDescription": "cloud hosting nederland bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.it",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "5e8b58e9-f3bd-4871-ac72-457b84ca5e70",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Lease laptops contract 2291",
+        "bookDate": "2026-05-03",
+        "transactionDateTime": "2026-05-03T07:27:00Z",
+        "amount": -265,
+        "balanceAfterTransaction": -61507.11,
+        "currency": "EUR",
+        "counterpartDescription": "IT Lease Nederland B.V.",
+        "counterpartAccountNumber": "NL44 SNSB •••• ••92",
+        "normalized": {
+          "description": "lease laptops contract 2291",
+          "counterpartDescription": "it lease nederland bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.equipment_lease",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "21d23b59-18be-47c3-bc78-43c08ab2ecff",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Schoonmaak kantoor",
+        "bookDate": "2026-05-03",
+        "transactionDateTime": "2026-05-03T07:18:00Z",
+        "amount": -320,
+        "balanceAfterTransaction": -61242.11,
+        "currency": "EUR",
+        "counterpartDescription": "Schoonmaakbedrijf Glans B.V.",
+        "counterpartAccountNumber": "NL42 RABO •••• ••22",
+        "normalized": {
+          "description": "schoonmaak kantoor",
+          "counterpartDescription": "schoonmaakbedrijf glans bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.other",
+            "confidence": 0.83,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "2c69d1e1-169c-4b2f-8719-229a1c079478",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2699",
+        "bookDate": "2026-05-03",
+        "transactionDateTime": "2026-05-03T07:09:00Z",
+        "amount": 3554.67,
+        "balanceAfterTransaction": -60922.11,
+        "currency": "EUR",
+        "counterpartDescription": "Groeikapitaal Partners B.V.",
+        "counterpartAccountNumber": "NL77 TRIO •••• ••80",
+        "normalized": {
+          "description": "factuur 2026-2699",
+          "counterpartDescription": "groeikapitaal partners bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.85,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "446ec2e6-02df-4463-bc6c-2cd2c60f63b6",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Leasetermijn Tesla Model 3 mei",
+        "bookDate": "2026-05-02",
+        "transactionDateTime": "2026-05-02T07:18:00Z",
+        "amount": -845.6,
+        "balanceAfterTransaction": -64476.78,
+        "currency": "EUR",
+        "counterpartDescription": "Autolease Zakelijk B.V.",
+        "counterpartAccountNumber": "NL96 KNAB •••• ••37",
+        "normalized": {
+          "description": "leasetermijn tesla model 3 mei",
+          "counterpartDescription": "autolease zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.vehicle_lease",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "2d873679-5619-4301-b77b-e8e5a15d934c",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2704",
+        "bookDate": "2026-05-02",
+        "transactionDateTime": "2026-05-02T07:09:00Z",
+        "amount": 2420.54,
+        "balanceAfterTransaction": -63631.18,
+        "currency": "EUR",
+        "counterpartDescription": "Starterskrediet Stichting",
+        "counterpartAccountNumber": "NL85 TRIO •••• ••77",
+        "normalized": {
+          "description": "factuur 2026-2704",
+          "counterpartDescription": "starterskrediet stichting"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.64,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "f76a33d8-736d-4d4f-8d75-8fca11cc2bef",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Premie autoverzekering kwartaal",
+        "bookDate": "2026-05-01",
+        "transactionDateTime": "2026-05-01T08:54:00Z",
+        "amount": -290.4,
+        "balanceAfterTransaction": -65661.72,
+        "currency": "EUR",
+        "counterpartDescription": "Zakelijk Verzekerd B.V.",
+        "counterpartAccountNumber": "NL52 TRIO •••• ••78",
+        "normalized": {
+          "description": "premie autoverzekering kwartaal",
+          "counterpartDescription": "zakelijk verzekerd bv"
+        },
+        "category": {
+          "e1": {
+            "category": "insurance.vehicle",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "fc072f3d-7558-4329-a8f1-f5ee2be9c2cc",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Servicekosten kwartaal",
+        "bookDate": "2026-05-01",
+        "transactionDateTime": "2026-05-01T08:03:00Z",
+        "amount": -390,
+        "balanceAfterTransaction": -66051.72,
+        "currency": "EUR",
+        "counterpartDescription": "VvE Kantorenpark Rotterdam",
+        "counterpartAccountNumber": "NL43 SNSB •••• ••33",
+        "normalized": {
+          "description": "servicekosten kwartaal",
+          "counterpartDescription": "vve kantorenpark rotterdam"
+        },
+        "category": {
+          "e1": {
+            "category": "office.other",
+            "confidence": 0.84,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "b7930957-d366-4276-b983-682cce5965d6",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Premie verzuimverzekering",
+        "bookDate": "2026-05-01",
+        "transactionDateTime": "2026-05-01T07:45:00Z",
+        "amount": -186.4,
+        "balanceAfterTransaction": -65371.32,
+        "currency": "EUR",
+        "counterpartDescription": "Verzuimverzekeraar Nederland",
+        "counterpartAccountNumber": "NL16 INGB •••• ••12",
+        "normalized": {
+          "description": "premie verzuimverzekering",
+          "counterpartDescription": "verzuimverzekeraar nederland"
+        },
+        "category": {
+          "e1": {
+            "category": "insurance.other",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "401bfb65-4444-43c1-bfe4-a79e3f9b27e8",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Kosten zakelijk betalen",
+        "bookDate": "2026-05-01",
+        "transactionDateTime": "2026-05-01T07:36:00Z",
+        "amount": -38.9,
+        "balanceAfterTransaction": -65184.92,
+        "currency": "EUR",
+        "counterpartDescription": "ING",
+        "counterpartAccountNumber": "NL·· INGB bank",
+        "normalized": {
+          "description": "kosten zakelijk betalen",
+          "counterpartDescription": "ing"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.bank_fees",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "184dc4ce-cf08-4c61-9a90-660e183a3229",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Huur kantoor mei",
+        "bookDate": "2026-05-01",
+        "transactionDateTime": "2026-05-01T07:27:00Z",
+        "amount": -3250,
+        "balanceAfterTransaction": -65146.02,
+        "currency": "EUR",
+        "counterpartDescription": "Kantorenpark Rotterdam B.V.",
+        "counterpartAccountNumber": "NL45 ABNA •••• ••45",
+        "normalized": {
+          "description": "huur kantoor mei",
+          "counterpartDescription": "kantorenpark rotterdam bv"
+        },
+        "category": {
+          "e1": {
+            "category": "office.rent",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "14dceb79-f620-4354-9a2c-240c2f5d25be",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Hypotheek archiefruimte kwartaal",
+        "bookDate": "2026-05-01",
+        "transactionDateTime": "2026-05-01T07:18:00Z",
+        "amount": -560,
+        "balanceAfterTransaction": -61896.02,
+        "currency": "EUR",
+        "counterpartDescription": "Hypotheekbank Zakelijk N.V.",
+        "counterpartAccountNumber": "NL30 BUNQ •••• ••35",
+        "normalized": {
+          "description": "hypotheek archiefruimte kwartaal",
+          "counterpartDescription": "hypotheekbank zakelijk nv"
+        },
+        "category": {
+          "e1": {
+            "category": "office.mortgage",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "0e72b95b-a6e4-420a-a0e8-cc59ba2f6407",
+        "accountId": "389eef2f-79d0-4d1d-bf42-840f356fdc04",
+        "accountNumber": "NL63 INGB •••• ••08",
+        "description": "Kosten spaarrekening",
+        "bookDate": "2026-05-01",
+        "transactionDateTime": "2026-05-01T07:09:00Z",
+        "amount": -12.5,
+        "balanceAfterTransaction": 40221.25,
+        "currency": "EUR",
+        "counterpartDescription": "ING",
+        "counterpartAccountNumber": "NL·· INGB bank",
+        "normalized": {
+          "description": "kosten spaarrekening",
+          "counterpartDescription": "ing"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.bank_fees",
+            "confidence": 0.98,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "f5a7a106-1b37-4a79-aa07-17ad905e09d6",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Aflossing en rente zakelijke lening 66.21.904",
+        "bookDate": "2026-04-30",
+        "transactionDateTime": "2026-04-30T07:18:00Z",
+        "amount": -2100,
+        "balanceAfterTransaction": -61336.02,
+        "currency": "EUR",
+        "counterpartDescription": "ING",
+        "counterpartAccountNumber": "NL·· INGB bank",
+        "normalized": {
+          "description": "aflossing en rente zakelijke lening 66.21.904",
+          "counterpartDescription": "ing"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.bank",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "bc211c3b-88cd-469e-9d8a-86f8626e65ac",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Omzetbelasting Q1 2026 (deel)",
+        "bookDate": "2026-04-30",
+        "transactionDateTime": "2026-04-30T07:09:00Z",
+        "amount": -4000,
+        "balanceAfterTransaction": -59236.02,
+        "currency": "EUR",
+        "counterpartDescription": "Belastingdienst",
+        "counterpartAccountNumber": "NL86 INGB 0002 4455 88",
+        "normalized": {
+          "description": "omzetbelasting q1 2026 (deel)",
+          "counterpartDescription": "belastingdienst"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.vat",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "5fd7740e-9106-4bc1-89f4-b32a86a8be73",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Betalingskenmerk loonheffingen",
+        "bookDate": "2026-04-28",
+        "transactionDateTime": "2026-04-28T07:18:00Z",
+        "amount": -3920,
+        "balanceAfterTransaction": -55236.02,
+        "currency": "EUR",
+        "counterpartDescription": "Belastingdienst",
+        "counterpartAccountNumber": "NL86 INGB 0002 4455 88",
+        "normalized": {
+          "description": "betalingskenmerk loonheffingen",
+          "counterpartDescription": "belastingdienst"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.payroll",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "8af1ba2d-924d-4c22-bf8c-862962d53bee",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Provisie periode 2676",
+        "bookDate": "2026-04-28",
+        "transactionDateTime": "2026-04-28T07:09:00Z",
+        "amount": 3654.42,
+        "balanceAfterTransaction": -51316.02,
+        "currency": "EUR",
+        "counterpartDescription": "Kredietbank Noord B.V.",
+        "counterpartAccountNumber": "NL45 BUNQ •••• ••19",
+        "normalized": {
+          "description": "provisie periode 2676",
+          "counterpartDescription": "kredietbank noord bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "f6b7cb74-face-40f1-a8d0-ce76f9d52922",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Premie pensioenregeling",
+        "bookDate": "2026-04-27",
+        "transactionDateTime": "2026-04-27T07:27:00Z",
+        "amount": -1240,
+        "balanceAfterTransaction": -54970.44,
+        "currency": "EUR",
+        "counterpartDescription": "Pensioenfonds Zakelijk",
+        "counterpartAccountNumber": "NL37 ABNA •••• ••27",
+        "normalized": {
+          "description": "premie pensioenregeling",
+          "counterpartDescription": "pensioenfonds zakelijk"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.pension",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "d3950621-7980-4696-b27d-66a555084540",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Naar spaarrekening",
+        "bookDate": "2026-04-27",
+        "transactionDateTime": "2026-04-27T07:18:00Z",
+        "amount": -2500,
+        "balanceAfterTransaction": -53730.44,
+        "currency": "EUR",
+        "counterpartDescription": "Lender Spender Zakelijke B.V.",
+        "counterpartAccountNumber": "NL63 INGB •••• ••08",
+        "normalized": {
+          "description": "naar spaarrekening",
+          "counterpartDescription": "lender spender zakelijke bv"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 1.0,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "522837d5-1918-4539-a335-ba5e569d6b41",
+        "accountId": "389eef2f-79d0-4d1d-bf42-840f356fdc04",
+        "accountNumber": "NL63 INGB •••• ••08",
+        "description": "Van betaalrekening",
+        "bookDate": "2026-04-27",
+        "transactionDateTime": "2026-04-27T07:09:00Z",
+        "amount": 2500,
+        "balanceAfterTransaction": 40233.75,
+        "currency": "EUR",
+        "counterpartDescription": "Lender Spender Zakelijke B.V.",
+        "counterpartAccountNumber": "NL27 INGB •••• ••51",
+        "normalized": {
+          "description": "van betaalrekening",
+          "counterpartDescription": "lender spender zakelijke bv"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 1.0,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "cea9b93a-88b6-4739-aff3-0d03adebb537",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2685",
+        "bookDate": "2026-04-26",
+        "transactionDateTime": "2026-04-26T07:18:00Z",
+        "amount": 2190.03,
+        "balanceAfterTransaction": -51230.44,
+        "currency": "EUR",
+        "counterpartDescription": "Crowdfunding Platform MKB B.V.",
+        "counterpartAccountNumber": "NL65 BUNQ •••• ••29",
+        "normalized": {
+          "description": "factuur 2026-2685",
+          "counterpartDescription": "crowdfunding platform mkb bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.87,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "885ca2d4-3b5a-4a03-b4bd-b0a9e483c8c7",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2689",
+        "bookDate": "2026-04-26",
+        "transactionDateTime": "2026-04-26T07:09:00Z",
+        "amount": 1826.45,
+        "balanceAfterTransaction": -53420.47,
+        "currency": "EUR",
+        "counterpartDescription": "Vastgoedfinanciering West B.V.",
+        "counterpartAccountNumber": "NL20 KNAB •••• ••26",
+        "normalized": {
+          "description": "factuur 2026-2689",
+          "counterpartDescription": "vastgoedfinanciering west bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "b3676fe0-0447-40ff-9d89-016cdbed3f74",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Salaris apr",
+        "bookDate": "2026-04-25",
+        "transactionDateTime": "2026-04-25T08:54:00Z",
+        "amount": -2540,
+        "balanceAfterTransaction": -55246.92,
+        "currency": "EUR",
+        "counterpartDescription": "T. Peters",
+        "counterpartAccountNumber": "NL24 BUNQ •••• ••11",
+        "normalized": {
+          "description": "salaris apr",
+          "counterpartDescription": "t peters"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a0b33d42-5c5c-4114-b857-479cdd944f1a",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Salaris apr",
+        "bookDate": "2026-04-25",
+        "transactionDateTime": "2026-04-25T07:45:00Z",
+        "amount": -2760,
+        "balanceAfterTransaction": -52706.92,
+        "currency": "EUR",
+        "counterpartDescription": "L. Jansen",
+        "counterpartAccountNumber": "NL73 TRIO •••• ••64",
+        "normalized": {
+          "description": "salaris apr",
+          "counterpartDescription": "l jansen"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4e421212-ba9e-4f3e-8279-bcbfe298afc9",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Salaris apr",
+        "bookDate": "2026-04-25",
+        "transactionDateTime": "2026-04-25T07:36:00Z",
+        "amount": -2980,
+        "balanceAfterTransaction": -49946.92,
+        "currency": "EUR",
+        "counterpartDescription": "R. Yilmaz",
+        "counterpartAccountNumber": "NL19 SNSB •••• ••96",
+        "normalized": {
+          "description": "salaris apr",
+          "counterpartDescription": "r yilmaz"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4aff3333-7147-479b-b337-56af652f5161",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Salaris apr",
+        "bookDate": "2026-04-25",
+        "transactionDateTime": "2026-04-25T07:27:00Z",
+        "amount": -3120,
+        "balanceAfterTransaction": -46966.92,
+        "currency": "EUR",
+        "counterpartDescription": "S. Bakker",
+        "counterpartAccountNumber": "NL51 SNSB •••• ••43",
+        "normalized": {
+          "description": "salaris apr",
+          "counterpartDescription": "s bakker"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "42490efa-13d3-4ab0-87fe-cf2220a5ac65",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Salaris DGA apr",
+        "bookDate": "2026-04-25",
+        "transactionDateTime": "2026-04-25T07:18:00Z",
+        "amount": -4850,
+        "balanceAfterTransaction": -43846.92,
+        "currency": "EUR",
+        "counterpartDescription": "M. de Vries",
+        "counterpartAccountNumber": "NL74 ABNA •••• ••57",
+        "normalized": {
+          "description": "salaris dga apr",
+          "counterpartDescription": "m de vries"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "dae3a964-adc1-4a2d-9091-efcb887fe1be",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2683",
+        "bookDate": "2026-04-25",
+        "transactionDateTime": "2026-04-25T07:09:00Z",
+        "amount": 3467.14,
+        "balanceAfterTransaction": -38996.92,
+        "currency": "EUR",
+        "counterpartDescription": "Factoring Collectief B.V.",
+        "counterpartAccountNumber": "NL72 TRIO •••• ••61",
+        "normalized": {
+          "description": "factuur 2026-2683",
+          "counterpartDescription": "factoring collectief bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "3294d886-d2c6-482a-a571-59619fe15f1d",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Voorlopige aanslag vennootschapsbelasting 2026",
+        "bookDate": "2026-04-24",
+        "transactionDateTime": "2026-04-24T07:09:00Z",
+        "amount": -1850,
+        "balanceAfterTransaction": -42464.06,
+        "currency": "EUR",
+        "counterpartDescription": "Belastingdienst",
+        "counterpartAccountNumber": "NL86 INGB 0002 4455 88",
+        "normalized": {
+          "description": "voorlopige aanslag vennootschapsbelasting 2026",
+          "counterpartDescription": "belastingdienst"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.corporate",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "7b843c75-c15d-4cd0-af1d-3cd1a29945fc",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2682",
+        "bookDate": "2026-04-22",
+        "transactionDateTime": "2026-04-22T07:09:00Z",
+        "amount": 3285.39,
+        "balanceAfterTransaction": -40614.06,
+        "currency": "EUR",
+        "counterpartDescription": "Bedrijfslening Online B.V.",
+        "counterpartAccountNumber": "NL93 ABNA •••• ••49",
+        "normalized": {
+          "description": "factuur 2026-2682",
+          "counterpartDescription": "bedrijfslening online bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "3e59856d-c2c6-40f8-8eb3-c54df038673b",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Parkeren",
+        "bookDate": "2026-04-21",
+        "transactionDateTime": "2026-04-21T07:27:00Z",
+        "amount": -38.5,
+        "balanceAfterTransaction": -43899.45,
+        "currency": "EUR",
+        "counterpartDescription": "Parkeergarage Centrum",
+        "counterpartAccountNumber": "NL15 SNSB •••• ••39",
+        "normalized": {
+          "description": "parkeren",
+          "counterpartDescription": "parkeergarage centrum"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.parking",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "b088d3c5-0e7c-441d-8f38-9687724b84df",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2677",
+        "bookDate": "2026-04-21",
+        "transactionDateTime": "2026-04-21T07:18:00Z",
+        "amount": 4838.17,
+        "balanceAfterTransaction": -43860.95,
+        "currency": "EUR",
+        "counterpartDescription": "Hypotheekhuis Zuid B.V.",
+        "counterpartAccountNumber": "NL77 BUNQ •••• ••14",
+        "normalized": {
+          "description": "factuur 2026-2677",
+          "counterpartDescription": "hypotheekhuis zuid bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4bf1d1d5-efa1-47df-bd17-bd2473e01960",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2688",
+        "bookDate": "2026-04-21",
+        "transactionDateTime": "2026-04-21T07:09:00Z",
+        "amount": 1773.69,
+        "balanceAfterTransaction": -48699.12,
+        "currency": "EUR",
+        "counterpartDescription": "Werkkapitaal Direct B.V.",
+        "counterpartAccountNumber": "NL69 BUNQ •••• ••72",
+        "normalized": {
+          "description": "factuur 2026-2688",
+          "counterpartDescription": "werkkapitaal direct bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "dee7a26a-b706-48e5-9d94-1302dd62ec8f",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Zakelijk abonnement",
+        "bookDate": "2026-04-20",
+        "transactionDateTime": "2026-04-20T07:18:00Z",
+        "amount": -214.5,
+        "balanceAfterTransaction": -50472.81,
+        "currency": "EUR",
+        "counterpartDescription": "Telecom Zakelijk B.V.",
+        "counterpartAccountNumber": "NL68 BUNQ •••• ••47",
+        "normalized": {
+          "description": "zakelijk abonnement",
+          "counterpartDescription": "telecom zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.telecom",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "9b1365fe-38ad-418d-bf6a-b33b72eedef0",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Dividend 2025",
+        "bookDate": "2026-04-20",
+        "transactionDateTime": "2026-04-20T07:09:00Z",
+        "amount": 7500,
+        "balanceAfterTransaction": -50258.31,
+        "currency": "EUR",
+        "counterpartDescription": "LS Deelneming B.V.",
+        "counterpartAccountNumber": "NL15 KNAB •••• ••76",
+        "normalized": {
+          "description": "dividend 2025",
+          "counterpartDescription": "ls deelneming bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.dividend",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "12d26690-fe11-4243-828f-67f9bf002a40",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2681",
+        "bookDate": "2026-04-19",
+        "transactionDateTime": "2026-04-19T07:09:00Z",
+        "amount": 4354.93,
+        "balanceAfterTransaction": -57758.31,
+        "currency": "EUR",
+        "counterpartDescription": "Zakelijk Krediet Plus B.V.",
+        "counterpartAccountNumber": "NL91 INGB •••• ••61",
+        "normalized": {
+          "description": "factuur 2026-2681",
+          "counterpartDescription": "zakelijk krediet plus bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.87,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "dda226f0-d683-4c59-9b4b-35087db3f0ff",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur apr 2026",
+        "bookDate": "2026-04-18",
+        "transactionDateTime": "2026-04-18T07:18:00Z",
+        "amount": -1941.53,
+        "balanceAfterTransaction": -62113.24,
+        "currency": "EUR",
+        "counterpartDescription": "Kredietinfo Services B.V.",
+        "counterpartAccountNumber": "NL75 TRIO •••• ••59",
+        "normalized": {
+          "description": "factuur apr 2026",
+          "counterpartDescription": "kredietinfo services bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.85,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "1d09c13a-45d4-4ebb-935f-b290a69be0e8",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Provisie periode 2675",
+        "bookDate": "2026-04-18",
+        "transactionDateTime": "2026-04-18T07:09:00Z",
+        "amount": 5116.19,
+        "balanceAfterTransaction": -60171.71,
+        "currency": "EUR",
+        "counterpartDescription": "Kredietbank Noord B.V.",
+        "counterpartAccountNumber": "NL45 BUNQ •••• ••19",
+        "normalized": {
+          "description": "provisie periode 2675",
+          "counterpartDescription": "kredietbank noord bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "d1764d18-540b-490a-b6f0-f6fc46cfbe0b",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2678",
+        "bookDate": "2026-04-17",
+        "transactionDateTime": "2026-04-17T07:18:00Z",
+        "amount": 3208.18,
+        "balanceAfterTransaction": -65287.9,
+        "currency": "EUR",
+        "counterpartDescription": "Ondernemersfinanciering Oost B.V.",
+        "counterpartAccountNumber": "NL47 INGB •••• ••38",
+        "normalized": {
+          "description": "factuur 2026-2678",
+          "counterpartDescription": "ondernemersfinanciering oost bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "38eeca5c-5355-4637-801c-c493bd106c57",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2680",
+        "bookDate": "2026-04-17",
+        "transactionDateTime": "2026-04-17T07:09:00Z",
+        "amount": 3071.99,
+        "balanceAfterTransaction": -68496.08,
+        "currency": "EUR",
+        "counterpartDescription": "Autofinance Direct B.V.",
+        "counterpartAccountNumber": "NL96 SNSB •••• ••42",
+        "normalized": {
+          "description": "factuur 2026-2680",
+          "counterpartDescription": "autofinance direct bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "15854715-7041-471e-bdd8-21eea1cdd2f8",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Afschrijving zakelijke creditcard",
+        "bookDate": "2026-04-15",
+        "transactionDateTime": "2026-04-15T07:09:00Z",
+        "amount": -1090.15,
+        "balanceAfterTransaction": -71568.07,
+        "currency": "EUR",
+        "counterpartDescription": "Creditcard Services B.V.",
+        "counterpartAccountNumber": "NL72 BUNQ •••• ••70",
+        "normalized": {
+          "description": "afschrijving zakelijke creditcard",
+          "counterpartDescription": "creditcard services bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.credit_card",
+            "confidence": 0.93,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "26d52e0c-de92-430f-8f86-8e4698a71fb7",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Laden bedrijfsauto",
+        "bookDate": "2026-04-14",
+        "transactionDateTime": "2026-04-14T07:09:00Z",
+        "amount": -81.66,
+        "balanceAfterTransaction": -70477.92,
+        "currency": "EUR",
+        "counterpartDescription": "Laadpunt Zakelijk B.V.",
+        "counterpartAccountNumber": "NL88 BUNQ •••• ••58",
+        "normalized": {
+          "description": "laden bedrijfsauto",
+          "counterpartDescription": "laadpunt zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.transport.fuel",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "19d56c1e-35df-406f-b468-f38db1bbbf18",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Termijn energie kantoor",
+        "bookDate": "2026-04-12",
+        "transactionDateTime": "2026-04-12T07:09:00Z",
+        "amount": -413.07,
+        "balanceAfterTransaction": -70396.26,
+        "currency": "EUR",
+        "counterpartDescription": "Energiebedrijf Zakelijk B.V.",
+        "counterpartAccountNumber": "NL24 KNAB •••• ••22",
+        "normalized": {
+          "description": "termijn energie kantoor",
+          "counterpartDescription": "energiebedrijf zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.utilities",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "73146108-68b4-46c4-bbce-e5cd3a27ba43",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Aankoop 4411",
+        "bookDate": "2026-04-11",
+        "transactionDateTime": "2026-04-11T07:09:00Z",
+        "amount": -890,
+        "balanceAfterTransaction": -69983.19,
+        "currency": "EUR",
+        "counterpartDescription": "Online Marktplaats",
+        "counterpartAccountNumber": "NL53 INGB •••• ••48",
+        "normalized": {
+          "description": "aankoop 4411",
+          "counterpartDescription": "online marktplaats"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.48,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a46ac6c4-d5f0-4770-9660-a4551647fd92",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Campagne zoekmachine",
+        "bookDate": "2026-04-09",
+        "transactionDateTime": "2026-04-09T07:09:00Z",
+        "amount": -1310.69,
+        "balanceAfterTransaction": -69093.19,
+        "currency": "EUR",
+        "counterpartDescription": "Online Advertenties B.V.",
+        "counterpartAccountNumber": "NL38 RABO •••• ••27",
+        "normalized": {
+          "description": "campagne zoekmachine",
+          "counterpartDescription": "online advertenties bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.marketing",
+            "confidence": 0.86,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "43c2f098-72a9-46e1-8c97-6d2e3707f6a6",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Statutenwijziging",
+        "bookDate": "2026-04-08",
+        "transactionDateTime": "2026-04-08T07:18:00Z",
+        "amount": -850,
+        "balanceAfterTransaction": -67782.5,
+        "currency": "EUR",
+        "counterpartDescription": "Notariskantoor Smit",
+        "counterpartAccountNumber": "NL66 SNSB •••• ••55",
+        "normalized": {
+          "description": "statutenwijziging",
+          "counterpartDescription": "notariskantoor smit"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.legal",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "6d6fcddd-af3a-40c8-a644-e781bc10ca4b",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Provisie periode 2674",
+        "bookDate": "2026-04-08",
+        "transactionDateTime": "2026-04-08T07:09:00Z",
+        "amount": 5847.08,
+        "balanceAfterTransaction": -66932.5,
+        "currency": "EUR",
+        "counterpartDescription": "Kredietbank Noord B.V.",
+        "counterpartAccountNumber": "NL45 BUNQ •••• ••19",
+        "normalized": {
+          "description": "provisie periode 2674",
+          "counterpartDescription": "kredietbank noord bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.91,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a17713d4-8c06-428c-a746-6a059c3e6edc",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Termijn flexkrediet",
+        "bookDate": "2026-04-06",
+        "transactionDateTime": "2026-04-06T07:18:00Z",
+        "amount": -2690,
+        "balanceAfterTransaction": -72779.58,
+        "currency": "EUR",
+        "counterpartDescription": "Snelkrediet Zakelijk B.V.",
+        "counterpartAccountNumber": "NL15 INGB •••• ••92",
+        "normalized": {
+          "description": "termijn flexkrediet",
+          "counterpartDescription": "snelkrediet zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.flash",
+            "confidence": 0.86,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "0675c358-2e98-44cf-b9fd-02a1c36d1cf5",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur apr 2026",
+        "bookDate": "2026-04-06",
+        "transactionDateTime": "2026-04-06T07:09:00Z",
+        "amount": -3141.33,
+        "balanceAfterTransaction": -70089.58,
+        "currency": "EUR",
+        "counterpartDescription": "Data Partners B.V.",
+        "counterpartAccountNumber": "NL47 BUNQ •••• ••13",
+        "normalized": {
+          "description": "factuur apr 2026",
+          "counterpartDescription": "data partners bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.75,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "b4bf28cb-4fb7-4119-b51e-17a9aade9855",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur apr 2026",
+        "bookDate": "2026-04-05",
+        "transactionDateTime": "2026-04-05T07:18:00Z",
+        "amount": -5810.3,
+        "balanceAfterTransaction": -66948.25,
+        "currency": "EUR",
+        "counterpartDescription": "Leadpartner Nederland B.V.",
+        "counterpartAccountNumber": "NL48 SNSB •••• ••94",
+        "normalized": {
+          "description": "factuur apr 2026",
+          "counterpartDescription": "leadpartner nederland bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.87,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "861c20f1-e207-40e8-bf8b-c144312a44e6",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Hosting en licenties",
+        "bookDate": "2026-04-05",
+        "transactionDateTime": "2026-04-05T07:09:00Z",
+        "amount": -381.29,
+        "balanceAfterTransaction": -61137.95,
+        "currency": "EUR",
+        "counterpartDescription": "Cloud Hosting Nederland B.V.",
+        "counterpartAccountNumber": "NL91 RABO •••• ••78",
+        "normalized": {
+          "description": "hosting en licenties",
+          "counterpartDescription": "cloud hosting nederland bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.it",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "bf5683c9-f89f-432f-9ff8-d84b57ed0af1",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2686",
+        "bookDate": "2026-04-04",
+        "transactionDateTime": "2026-04-04T07:27:00Z",
+        "amount": 2718.86,
+        "balanceAfterTransaction": -60756.66,
+        "currency": "EUR",
+        "counterpartDescription": "Financieringsadvies Van Dam V.O.F.",
+        "counterpartAccountNumber": "NL60 TRIO •••• ••82",
+        "normalized": {
+          "description": "factuur 2026-2686",
+          "counterpartDescription": "financieringsadvies van dam vof"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4a5bb206-ac39-4f05-8520-1b12a732d115",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2679",
+        "bookDate": "2026-04-04",
+        "transactionDateTime": "2026-04-04T07:18:00Z",
+        "amount": 3208.18,
+        "balanceAfterTransaction": -63475.52,
+        "currency": "EUR",
+        "counterpartDescription": "Ondernemersfinanciering Oost B.V.",
+        "counterpartAccountNumber": "NL47 INGB •••• ••38",
+        "normalized": {
+          "description": "factuur 2026-2679",
+          "counterpartDescription": "ondernemersfinanciering oost bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "41104088-0fff-4c70-b9aa-cffc5c66d37a",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2687",
+        "bookDate": "2026-04-04",
+        "transactionDateTime": "2026-04-04T07:09:00Z",
+        "amount": 2731.58,
+        "balanceAfterTransaction": -66683.7,
+        "currency": "EUR",
+        "counterpartDescription": "Equipment Lease Benelux B.V.",
+        "counterpartAccountNumber": "NL34 INGB •••• ••21",
+        "normalized": {
+          "description": "factuur 2026-2687",
+          "counterpartDescription": "equipment lease benelux bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "c10f7bfd-f667-440b-a741-0e0ce5642bbc",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Lease laptops contract 2291",
+        "bookDate": "2026-04-03",
+        "transactionDateTime": "2026-04-03T07:27:00Z",
+        "amount": -265,
+        "balanceAfterTransaction": -69415.28,
+        "currency": "EUR",
+        "counterpartDescription": "IT Lease Nederland B.V.",
+        "counterpartAccountNumber": "NL44 SNSB •••• ••92",
+        "normalized": {
+          "description": "lease laptops contract 2291",
+          "counterpartDescription": "it lease nederland bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.equipment_lease",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "bba0a2a8-3a1b-4ee0-8c2a-8eca9b28ee10",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Aankoop archiefruimte Kralingen",
+        "bookDate": "2026-04-03",
+        "transactionDateTime": "2026-04-03T07:18:00Z",
+        "amount": -38500,
+        "balanceAfterTransaction": -69150.28,
+        "currency": "EUR",
+        "counterpartDescription": "Notariskantoor Smit",
+        "counterpartAccountNumber": "NL66 SNSB •••• ••55",
+        "normalized": {
+          "description": "aankoop archiefruimte kralingen",
+          "counterpartDescription": "notariskantoor smit"
+        },
+        "category": {
+          "e1": {
+            "category": "investment.real_estate",
+            "confidence": 0.71,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "079fc067-6faa-487a-af77-fda32542aa2a",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Schoonmaak kantoor",
+        "bookDate": "2026-04-03",
+        "transactionDateTime": "2026-04-03T07:09:00Z",
+        "amount": -320,
+        "balanceAfterTransaction": -30650.28,
+        "currency": "EUR",
+        "counterpartDescription": "Schoonmaakbedrijf Glans B.V.",
+        "counterpartAccountNumber": "NL42 RABO •••• ••22",
+        "normalized": {
+          "description": "schoonmaak kantoor",
+          "counterpartDescription": "schoonmaakbedrijf glans bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.other",
+            "confidence": 0.83,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "495649bb-f68f-4539-9b4e-1461126b3c3a",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Leasetermijn Tesla Model 3 apr",
+        "bookDate": "2026-04-02",
+        "transactionDateTime": "2026-04-02T07:18:00Z",
+        "amount": -845.6,
+        "balanceAfterTransaction": -30330.28,
+        "currency": "EUR",
+        "counterpartDescription": "Autolease Zakelijk B.V.",
+        "counterpartAccountNumber": "NL96 KNAB •••• ••37",
+        "normalized": {
+          "description": "leasetermijn tesla model 3 apr",
+          "counterpartDescription": "autolease zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.vehicle_lease",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "8a67899d-83ec-4cc3-8654-38055ebe85ac",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2684",
+        "bookDate": "2026-04-02",
+        "transactionDateTime": "2026-04-02T07:09:00Z",
+        "amount": 2847.31,
+        "balanceAfterTransaction": -29484.68,
+        "currency": "EUR",
+        "counterpartDescription": "Microkrediet Nederland",
+        "counterpartAccountNumber": "NL61 KNAB •••• ••57",
+        "normalized": {
+          "description": "factuur 2026-2684",
+          "counterpartDescription": "microkrediet nederland"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.76,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "f047ebc9-364a-491a-8b97-4a372b21e4fa",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Premie verzuimverzekering",
+        "bookDate": "2026-04-01",
+        "transactionDateTime": "2026-04-01T07:36:00Z",
+        "amount": -186.4,
+        "balanceAfterTransaction": -32331.99,
+        "currency": "EUR",
+        "counterpartDescription": "Verzuimverzekeraar Nederland",
+        "counterpartAccountNumber": "NL16 INGB •••• ••12",
+        "normalized": {
+          "description": "premie verzuimverzekering",
+          "counterpartDescription": "verzuimverzekeraar nederland"
+        },
+        "category": {
+          "e1": {
+            "category": "insurance.other",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "d0641db0-1d69-4541-bc7b-d55a99507d94",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Kosten zakelijk betalen",
+        "bookDate": "2026-04-01",
+        "transactionDateTime": "2026-04-01T07:27:00Z",
+        "amount": -38.9,
+        "balanceAfterTransaction": -32145.59,
+        "currency": "EUR",
+        "counterpartDescription": "ING",
+        "counterpartAccountNumber": "NL·· INGB bank",
+        "normalized": {
+          "description": "kosten zakelijk betalen",
+          "counterpartDescription": "ing"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.bank_fees",
+            "confidence": 0.99,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "26cae097-7e82-41fc-9d75-c992409cd721",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Huur kantoor apr",
+        "bookDate": "2026-04-01",
+        "transactionDateTime": "2026-04-01T07:18:00Z",
+        "amount": -3250,
+        "balanceAfterTransaction": -32106.69,
+        "currency": "EUR",
+        "counterpartDescription": "Kantorenpark Rotterdam B.V.",
+        "counterpartAccountNumber": "NL45 ABNA •••• ••45",
+        "normalized": {
+          "description": "huur kantoor apr",
+          "counterpartDescription": "kantorenpark rotterdam bv"
+        },
+        "category": {
+          "e1": {
+            "category": "office.rent",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "5e675a9f-ba81-4cf8-b661-dbee039080ed",
+        "accountId": "389eef2f-79d0-4d1d-bf42-840f356fdc04",
+        "accountNumber": "NL63 INGB •••• ••08",
+        "description": "Rente spaarrekening",
+        "bookDate": "2026-04-01",
+        "transactionDateTime": "2026-04-01T07:09:00Z",
+        "amount": 146.25,
+        "balanceAfterTransaction": 37733.75,
+        "currency": "EUR",
+        "counterpartDescription": "ING",
+        "counterpartAccountNumber": "NL·· INGB bank",
+        "normalized": {
+          "description": "rente spaarrekening",
+          "counterpartDescription": "ing"
+        },
+        "category": {
+          "e1": {
+            "category": "income.interest",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "aac4eec0-4a24-4c3e-a8f4-6f764e75484f",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Correctie premie werknemersverzekeringen",
+        "bookDate": "2026-03-30",
+        "transactionDateTime": "2026-03-30T07:18:00Z",
+        "amount": -1140,
+        "balanceAfterTransaction": -28856.69,
+        "currency": "EUR",
+        "counterpartDescription": "UWV",
+        "counterpartAccountNumber": "NL28 INGB •••• ••95",
+        "normalized": {
+          "description": "correctie premie werknemersverzekeringen",
+          "counterpartDescription": "uwv"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.social",
+            "confidence": 0.84,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "4b76f684-3d05-4c00-8eb7-e4816cae6f3a",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Aflossing en rente zakelijke lening 66.21.904",
+        "bookDate": "2026-03-30",
+        "transactionDateTime": "2026-03-30T07:09:00Z",
+        "amount": -2100,
+        "balanceAfterTransaction": -27716.69,
+        "currency": "EUR",
+        "counterpartDescription": "ING",
+        "counterpartAccountNumber": "NL·· INGB bank",
+        "normalized": {
+          "description": "aflossing en rente zakelijke lening 66.21.904",
+          "counterpartDescription": "ing"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.bank",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "76bc1bb0-f11e-4e13-b1f9-6ab46efd0748",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Waterschapsbelasting",
+        "bookDate": "2026-03-28",
+        "transactionDateTime": "2026-03-28T07:27:00Z",
+        "amount": -96,
+        "balanceAfterTransaction": -25616.69,
+        "currency": "EUR",
+        "counterpartDescription": "Waterschap Hollandse Delta",
+        "counterpartAccountNumber": "NL38 INGB •••• ••30",
+        "normalized": {
+          "description": "waterschapsbelasting",
+          "counterpartDescription": "waterschap hollandse delta"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.other",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "6eaf2633-796c-493f-824d-6a0e7acb9777",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Betalingskenmerk loonheffingen",
+        "bookDate": "2026-03-28",
+        "transactionDateTime": "2026-03-28T07:18:00Z",
+        "amount": -3920,
+        "balanceAfterTransaction": -25520.69,
+        "currency": "EUR",
+        "counterpartDescription": "Belastingdienst",
+        "counterpartAccountNumber": "NL86 INGB 0002 4455 88",
+        "normalized": {
+          "description": "betalingskenmerk loonheffingen",
+          "counterpartDescription": "belastingdienst"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.payroll",
+            "confidence": 0.97,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "9568e2ed-96f1-4e2d-9a6a-f25a0cbe9d69",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Provisie periode 2661",
+        "bookDate": "2026-03-28",
+        "transactionDateTime": "2026-03-28T07:09:00Z",
+        "amount": 3160.96,
+        "balanceAfterTransaction": -21600.69,
+        "currency": "EUR",
+        "counterpartDescription": "Kredietbank Noord B.V.",
+        "counterpartAccountNumber": "NL45 BUNQ •••• ••19",
+        "normalized": {
+          "description": "provisie periode 2661",
+          "counterpartDescription": "kredietbank noord bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "96c3ec6a-2329-482e-b0f1-e341c4a16b2e",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Premie pensioenregeling",
+        "bookDate": "2026-03-27",
+        "transactionDateTime": "2026-03-27T07:27:00Z",
+        "amount": -1240,
+        "balanceAfterTransaction": -24761.65,
+        "currency": "EUR",
+        "counterpartDescription": "Pensioenfonds Zakelijk",
+        "counterpartAccountNumber": "NL37 ABNA •••• ••27",
+        "normalized": {
+          "description": "premie pensioenregeling",
+          "counterpartDescription": "pensioenfonds zakelijk"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.pension",
+            "confidence": 0.92,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "0be173e9-9b48-40f1-b18f-6b15a16aea7f",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Naar spaarrekening",
+        "bookDate": "2026-03-27",
+        "transactionDateTime": "2026-03-27T07:18:00Z",
+        "amount": -2500,
+        "balanceAfterTransaction": -23521.65,
+        "currency": "EUR",
+        "counterpartDescription": "Lender Spender Zakelijke B.V.",
+        "counterpartAccountNumber": "NL63 INGB •••• ••08",
+        "normalized": {
+          "description": "naar spaarrekening",
+          "counterpartDescription": "lender spender zakelijke bv"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 1.0,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "af01b19a-6898-44b6-9560-e6874fc495c6",
+        "accountId": "389eef2f-79d0-4d1d-bf42-840f356fdc04",
+        "accountNumber": "NL63 INGB •••• ••08",
+        "description": "Van betaalrekening",
+        "bookDate": "2026-03-27",
+        "transactionDateTime": "2026-03-27T07:09:00Z",
+        "amount": 2500,
+        "balanceAfterTransaction": 37587.5,
+        "currency": "EUR",
+        "counterpartDescription": "Lender Spender Zakelijke B.V.",
+        "counterpartAccountNumber": "NL27 INGB •••• ••51",
+        "normalized": {
+          "description": "van betaalrekening",
+          "counterpartDescription": "lender spender zakelijke bv"
+        },
+        "category": {
+          "e1": {
+            "category": "internal.other",
+            "confidence": 1.0,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "fe52bbff-3bc2-4f13-b073-bd2f9245c5db",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Salaris DGA mrt",
+        "bookDate": "2026-03-25",
+        "transactionDateTime": "2026-03-25T08:54:00Z",
+        "amount": -4850,
+        "balanceAfterTransaction": -21021.65,
+        "currency": "EUR",
+        "counterpartDescription": "M. de Vries",
+        "counterpartAccountNumber": "NL74 ABNA •••• ••57",
+        "normalized": {
+          "description": "salaris dga mrt",
+          "counterpartDescription": "m de vries"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a18fc315-d2da-43dc-9026-88bbfa5d738e",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Salaris mrt",
+        "bookDate": "2026-03-25",
+        "transactionDateTime": "2026-03-25T07:45:00Z",
+        "amount": -2540,
+        "balanceAfterTransaction": -16171.65,
+        "currency": "EUR",
+        "counterpartDescription": "T. Peters",
+        "counterpartAccountNumber": "NL24 BUNQ •••• ••11",
+        "normalized": {
+          "description": "salaris mrt",
+          "counterpartDescription": "t peters"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "9f921b8f-de3c-4eeb-96fb-68fa87c1044f",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Salaris mrt",
+        "bookDate": "2026-03-25",
+        "transactionDateTime": "2026-03-25T07:36:00Z",
+        "amount": -2980,
+        "balanceAfterTransaction": -13631.65,
+        "currency": "EUR",
+        "counterpartDescription": "R. Yilmaz",
+        "counterpartAccountNumber": "NL19 SNSB •••• ••96",
+        "normalized": {
+          "description": "salaris mrt",
+          "counterpartDescription": "r yilmaz"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "8f048001-1c9f-496f-b510-f498fe8612b8",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Salaris mrt",
+        "bookDate": "2026-03-25",
+        "transactionDateTime": "2026-03-25T07:27:00Z",
+        "amount": -3120,
+        "balanceAfterTransaction": -10651.65,
+        "currency": "EUR",
+        "counterpartDescription": "S. Bakker",
+        "counterpartAccountNumber": "NL51 SNSB •••• ••43",
+        "normalized": {
+          "description": "salaris mrt",
+          "counterpartDescription": "s bakker"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "1605a4a9-6683-4aeb-8f11-9812007be93f",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Salaris mrt",
+        "bookDate": "2026-03-25",
+        "transactionDateTime": "2026-03-25T07:18:00Z",
+        "amount": -2760,
+        "balanceAfterTransaction": -7531.65,
+        "currency": "EUR",
+        "counterpartDescription": "L. Jansen",
+        "counterpartAccountNumber": "NL73 TRIO •••• ••64",
+        "normalized": {
+          "description": "salaris mrt",
+          "counterpartDescription": "l jansen"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.salary",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "d4b6e790-43a5-43e7-8e9c-4a0473fb9269",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2672",
+        "bookDate": "2026-03-25",
+        "transactionDateTime": "2026-03-25T07:09:00Z",
+        "amount": 2030.88,
+        "balanceAfterTransaction": -4771.65,
+        "currency": "EUR",
+        "counterpartDescription": "Starterskrediet Stichting",
+        "counterpartAccountNumber": "NL85 TRIO •••• ••77",
+        "normalized": {
+          "description": "factuur 2026-2672",
+          "counterpartDescription": "starterskrediet stichting"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.73,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "62edc444-3384-4062-ac0d-a11a1d67aa67",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Voorlopige aanslag vennootschapsbelasting 2026",
+        "bookDate": "2026-03-24",
+        "transactionDateTime": "2026-03-24T07:09:00Z",
+        "amount": -1850,
+        "balanceAfterTransaction": -6802.53,
+        "currency": "EUR",
+        "counterpartDescription": "Belastingdienst",
+        "counterpartAccountNumber": "NL86 INGB 0002 4455 88",
+        "normalized": {
+          "description": "voorlopige aanslag vennootschapsbelasting 2026",
+          "counterpartDescription": "belastingdienst"
+        },
+        "category": {
+          "e1": {
+            "category": "tax.corporate",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "50091ea5-03eb-45c4-8f42-7e547d7643ba",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Rekening-courant",
+        "bookDate": "2026-03-22",
+        "transactionDateTime": "2026-03-22T07:09:00Z",
+        "amount": 25000,
+        "balanceAfterTransaction": -4952.53,
+        "currency": "EUR",
+        "counterpartDescription": "Lender Spender Holding B.V.",
+        "counterpartAccountNumber": "NL63 ABNA •••• ••89",
+        "normalized": {
+          "description": "rekening-courant",
+          "counterpartDescription": "lender spender holding bv"
+        },
+        "category": {
+          "e1": {
+            "category": "other.other",
+            "confidence": 0.51,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "a7f88fac-8183-4d4d-acae-e6c3b4cfc65f",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Zakelijk abonnement",
+        "bookDate": "2026-03-20",
+        "transactionDateTime": "2026-03-20T07:36:00Z",
+        "amount": -214.5,
+        "balanceAfterTransaction": -29952.53,
+        "currency": "EUR",
+        "counterpartDescription": "Telecom Zakelijk B.V.",
+        "counterpartAccountNumber": "NL68 BUNQ •••• ••47",
+        "normalized": {
+          "description": "zakelijk abonnement",
+          "counterpartDescription": "telecom zakelijk bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.operations.telecom",
+            "confidence": 0.95,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "2dfd0111-a151-4b8f-a425-0dbbaba2cebd",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur mrt 2026",
+        "bookDate": "2026-03-20",
+        "transactionDateTime": "2026-03-20T07:27:00Z",
+        "amount": -6739.44,
+        "balanceAfterTransaction": -29738.03,
+        "currency": "EUR",
+        "counterpartDescription": "Leadpartner Nederland B.V.",
+        "counterpartAccountNumber": "NL48 SNSB •••• ••94",
+        "normalized": {
+          "description": "factuur mrt 2026",
+          "counterpartDescription": "leadpartner nederland bv"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.other",
+            "confidence": 0.8,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "8ca9eaa2-fa3e-4f1c-8b10-ddd183d294bb",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2671",
+        "bookDate": "2026-03-20",
+        "transactionDateTime": "2026-03-20T07:18:00Z",
+        "amount": 2294.36,
+        "balanceAfterTransaction": -22998.59,
+        "currency": "EUR",
+        "counterpartDescription": "Werkkapitaal Direct B.V.",
+        "counterpartAccountNumber": "NL69 BUNQ •••• ••72",
+        "normalized": {
+          "description": "factuur 2026-2671",
+          "counterpartDescription": "werkkapitaal direct bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.94,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "03dd2c29-75c7-4238-89f6-90cba813237f",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2665",
+        "bookDate": "2026-03-20",
+        "transactionDateTime": "2026-03-20T07:09:00Z",
+        "amount": 2507.74,
+        "balanceAfterTransaction": -25292.95,
+        "currency": "EUR",
+        "counterpartDescription": "Bedrijfslening Online B.V.",
+        "counterpartAccountNumber": "NL93 ABNA •••• ••49",
+        "normalized": {
+          "description": "factuur 2026-2665",
+          "counterpartDescription": "bedrijfslening online bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.85,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "c51e3ae4-16df-4de4-ac10-130f15beca15",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Aflossing lening",
+        "bookDate": "2026-03-18",
+        "transactionDateTime": "2026-03-18T07:36:00Z",
+        "amount": -750,
+        "balanceAfterTransaction": -27800.69,
+        "currency": "EUR",
+        "counterpartDescription": "J. de Groot",
+        "counterpartAccountNumber": "NL36 BUNQ •••• ••18",
+        "normalized": {
+          "description": "aflossing lening",
+          "counterpartDescription": "j de groot"
+        },
+        "category": {
+          "e1": {
+            "category": "loan.other",
+            "confidence": 0.66,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "f2a9091c-cbb7-4741-8c73-6cc138c2668b",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2662",
+        "bookDate": "2026-03-18",
+        "transactionDateTime": "2026-03-18T07:27:00Z",
+        "amount": 4784.84,
+        "balanceAfterTransaction": -27050.69,
+        "currency": "EUR",
+        "counterpartDescription": "Hypotheekhuis Zuid B.V.",
+        "counterpartAccountNumber": "NL77 BUNQ •••• ••14",
+        "normalized": {
+          "description": "factuur 2026-2662",
+          "counterpartDescription": "hypotheekhuis zuid bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.85,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "b317b68f-2b13-42ac-a2ea-f0a13717a221",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2666",
+        "bookDate": "2026-03-18",
+        "transactionDateTime": "2026-03-18T07:18:00Z",
+        "amount": 2665.22,
+        "balanceAfterTransaction": -31835.53,
+        "currency": "EUR",
+        "counterpartDescription": "Factoring Collectief B.V.",
+        "counterpartAccountNumber": "NL72 TRIO •••• ••61",
+        "normalized": {
+          "description": "factuur 2026-2666",
+          "counterpartDescription": "factoring collectief bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.9,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "95deea89-d853-49e1-951f-b554e1167bbe",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Provisie periode 2660",
+        "bookDate": "2026-03-18",
+        "transactionDateTime": "2026-03-18T07:09:00Z",
+        "amount": 4425.34,
+        "balanceAfterTransaction": -34500.75,
+        "currency": "EUR",
+        "counterpartDescription": "Kredietbank Noord B.V.",
+        "counterpartAccountNumber": "NL45 BUNQ •••• ••19",
+        "normalized": {
+          "description": "provisie periode 2660",
+          "counterpartDescription": "kredietbank noord bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.96,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "1de19f2c-b287-4a13-80e7-1710a5638060",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Factuur 2026-2663",
+        "bookDate": "2026-03-17",
+        "transactionDateTime": "2026-03-17T07:09:00Z",
+        "amount": 4345.65,
+        "balanceAfterTransaction": -38926.09,
+        "currency": "EUR",
+        "counterpartDescription": "Leasepartner Holland B.V.",
+        "counterpartAccountNumber": "NL52 SNSB •••• ••41",
+        "normalized": {
+          "description": "factuur 2026-2663",
+          "counterpartDescription": "leasepartner holland bv"
+        },
+        "category": {
+          "e1": {
+            "category": "income.other",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      },
+      {
+        "id": "0f26db02-20d2-4485-9402-366ca0c71543",
+        "accountId": "0a765893-8334-4ba8-92a2-94bc602ab29c",
+        "accountNumber": "NL27 INGB •••• ••51",
+        "description": "Wft-opleiding 2 medewerkers",
+        "bookDate": "2026-03-16",
+        "transactionDateTime": "2026-03-16T07:18:00Z",
+        "amount": -1950,
+        "balanceAfterTransaction": -43271.74,
+        "currency": "EUR",
+        "counterpartDescription": "Opleidingsinstituut Financieel Advies",
+        "counterpartAccountNumber": "NL47 KNAB •••• ••23",
+        "normalized": {
+          "description": "wft-opleiding 2 medewerkers",
+          "counterpartDescription": "opleidingsinstituut financieel advies"
+        },
+        "category": {
+          "e1": {
+            "category": "expense.education",
+            "confidence": 0.88,
+            "flags": [],
+            "model": {
+              "version": "e1-2026.10",
+              "profile": "corporate",
+              "countryCode": "nl"
+            }
+          }
+        }
+      }
+    ],
+    "nextPageToken": "pg5"
+  }
+}

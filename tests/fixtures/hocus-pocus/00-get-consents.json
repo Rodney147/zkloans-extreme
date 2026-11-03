@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "path": "/v2/consents"
+  },
+  "response_200": {
+    "data": [
+      {
+        "id": "c-ing-7f3a-4b2c-9d1e-000000000010",
+        "providerKey": "ing",
+        "status": "VALID",
+        "dateRequested": "2026-11-03T09:10:00Z",
+        "validUntil": "2027-02-01T00:00:00Z"
+      },
+      {
+        "id": "c-rabo-7f3a-4b2c-9d1e-000000000011",
+        "providerKey": "rabobank",
+        "status": "VALID",
+        "dateRequested": "2026-11-03T09:11:00Z",
+        "validUntil": "2027-02-01T00:00:00Z"
+      },
+      {
+        "id": "c-bunq-7f3a-4b2c-9d1e-000000000012",
+        "providerKey": "bunq",
+        "status": "VALID",
+        "dateRequested": "2026-11-03T09:12:00Z",
+        "validUntil": "2027-02-01T00:00:00Z"
+      },
+      {
+        "id": "c-abn-7f3a-4b2c-9d1e-000000000013",
+        "providerKey": "abn-amro",
+        "status": "VALID",
+        "dateRequested": "2026-11-03T09:13:00Z",
+        "validUntil": "2027-02-01T00:00:00Z"
+      }
+    ]
+  }
+}

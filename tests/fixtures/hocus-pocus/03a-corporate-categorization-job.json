@@ -1,0 +1,28 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/v2/categorization-jobs",
+    "body": {
+      "engine": "e1",
+      "profile": "corporate",
+      "countryCode": "nl",
+      "accountIds": [
+        "a1f0c2d4-5b6e-4c7d-8e9f-0a1b2c3d4e51",
+        "b2e1d3c5-6c7f-4d8e-9fa0-1b2c3d4e5f62",
+        "c3d2e4f6-7d8a-4e9f-a0b1-2c3d4e5f6a73"
+      ],
+      "metaData": {
+        "internal_ibans": [
+          "NL31 INGB •••• ••47",
+          "NL62 RABO •••• ••19",
+          "NL08 BUNQ •••• ••73",
+          "NL57 ABNA •••• ••26",
+          "NL94 INGB •••• ••58"
+        ]
+      }
+    }
+  },
+  "response_202": {
+    "data": "job-corporate-0001"
+  }
+}

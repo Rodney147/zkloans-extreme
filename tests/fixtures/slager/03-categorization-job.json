@@ -1,0 +1,54 @@
+{
+  "request": {
+    "method": "POST",
+    "path": "/v2/categorization-jobs",
+    "body": {
+      "engine": "e1",
+      "profile": "corporate",
+      "countryCode": "nl",
+      "consentId": "c0a8f3d2-6b1e-4f57-9a3c-2e7d5b9f1a60",
+      "accountIds": [
+        "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+        "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47"
+      ],
+      "metaData": {
+        "internal_ibans": [
+          "NL20 RABO •••• ••35",
+          "NL41 RABO •••• ••82"
+        ]
+      }
+    }
+  },
+  "response_202": {
+    "data": "5d2e9b40-1c7a-4e83-b6f2-0a9d4c3e7f15"
+  },
+  "poll": {
+    "method": "GET",
+    "path": "/v2/categorization-jobs/5d2e9b40-1c7a-4e83-b6f2-0a9d4c3e7f15",
+    "response_200": {
+      "data": {
+        "id": "5d2e9b40-1c7a-4e83-b6f2-0a9d4c3e7f15",
+        "status": "COMPLETED",
+        "engine": "e1",
+        "profile": "corporate",
+        "countryCode": "nl",
+        "consentId": "c0a8f3d2-6b1e-4f57-9a3c-2e7d5b9f1a60",
+        "userId": null,
+        "externalUserId": null,
+        "accountIds": [
+          "3f1c6e2a-8d47-4b19-a2c5-71e0d9b84a21",
+          "8b0e4f91-2c3a-4d8e-9f17-5a6b2e3d1c47"
+        ],
+        "parentId": null,
+        "engineVersion": "e1-2026.10",
+        "metaData": {
+          "internal_ibans": [
+            "NL20 RABO •••• ••35",
+            "NL41 RABO •••• ••82"
+          ]
+        }
+      }
+    }
+  },
+  "note": "Statuswaarde COMPLETED is een aanname; de documentatie toont alleen PENDING."
+}
