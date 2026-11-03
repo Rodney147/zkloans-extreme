@@ -1,0 +1,39 @@
+{
+ "request": {
+  "method": "GET",
+  "path": "/Accounts",
+  "query": {
+   "ConsentId": "c-abn-pp-0003"
+  }
+ },
+ "response_200": {
+  "data": [
+   {
+    "id": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "iban": "NL09 ABNA •••• ••18",
+    "providerAccountId": "abn-amro-875d257a",
+    "accountHolder": "M. Milkshake en K. Koekenbakker",
+    "bban": null,
+    "currency": "EUR",
+    "accountBalance": {
+     "currency": "EUR",
+     "date": "2026-10-31T23:59:59Z",
+     "amount": 153.64
+    }
+   },
+   {
+    "id": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "iban": "NL52 ABNA •••• ••35",
+    "providerAccountId": "abn-amro-ae4d6fdf",
+    "accountHolder": "M. Milkshake",
+    "bban": null,
+    "currency": "EUR",
+    "accountBalance": {
+     "currency": "EUR",
+     "date": "2026-10-31T23:59:59Z",
+     "amount": 2794.99
+    }
+   }
+  ]
+ }
+}

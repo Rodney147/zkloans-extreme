@@ -164,6 +164,7 @@ function analyse() {
   const perAccount = visibleAccounts.map(balanceFor);
   const balance = days.map((day, index) => round2(sum(perAccount.map(list => list[index]))));
   const negativeDays = balance.filter(value => value < 0).length;
+  const accountBalances = visibleAccounts.map((account, index) => ({ account, negativeDays: perAccount[index].filter(value => value < 0).length, lowest: Math.min(...perAccount[index]), negativeByMonth: MONTHS.map(key => days.filter((day, position) => day.startsWith(key) && perAccount[index][position] < 0).length) }));
   const negativeDaysByMonth = MONTHS.map(key => days.filter((day, index) => day.startsWith(key) && balance[index] < 0).length);
 
   /* kerncijfers */
@@ -201,7 +202,7 @@ function analyse() {
 
   return {
     MONTHS, rows, byRule, series, revenue, costs, excludedRevenue, debtors, creditors, twoWay, taxRows, taxSummary, taxOf, vatExpected, vatPaid, vatBase,
-    obligations, related, ownerOut, ownerIn, informalDebt, informalDebtRows, days, balance, negativeDays, negativeDaysByMonth, visibleAccounts, lastThree, avg,
+    obligations, related, ownerOut, ownerIn, informalDebt, informalDebtRows, days, balance, negativeDays, accountBalances, negativeDaysByMonth, visibleAccounts, lastThree, avg,
     netCosts, excludedCosts, cashLines, deductionLines, capacityBase, businessTax, privateTaxOnBusiness, groupCosts, groupIncome, groupCostRows, dgaSalary, dgaSalaryRows, drawRows, depositRows, memberDraws,
     ownerNet, freeCash, dscrBefore,
     revenue12, costs12, wages12, bank12, lh12, vatNet12, debtService, operating, dscr, monthly,
@@ -280,12 +281,28 @@ function carryingCapacity({ legal, operating, dgaSalary, ownerOut, ownerIn, memb
     if (fixed.known && leefgeld == null) notes.push(`${member.name}: leefgeld niet ingesteld (norm Risk); alleen vaste privélasten ${eur(fixed.monthly)}/mnd meegenomen.`);
     return { ...member, actual: round2(actual), fixed, needed: needed == null ? null : round2(needed), used: round2(used), basis: used === actual ? 'werkelijke opnamen' : 'privélasten + leefgeld' };
   });
-  const perMonth = round2(sum(perMember.map(member => member.used)));
+  /* leden met een gezamenlijke rekening vormen één huishouden: per huishouden het hoogste van (som opnamen) of (som vaste lasten + één keer leefgeld) */
+  const households = [];
+  perMember.forEach(member => {
+    const linked = DOSSIER.accounts.filter(account => account.coOwners?.includes(member.id)).flatMap(account => account.coOwners);
+    const existing = households.find(group => group.ids.some(id => id === member.id || linked.includes(id)));
+    if (existing) { existing.members.push(member); existing.ids.push(member.id, ...linked); } else households.push({ ids: [member.id, ...linked], members: [member] });
+  });
+  households.forEach(group => {
+    group.actual = round2(sum(group.members.map(member => member.actual)));
+    group.knownAll = group.members.every(member => member.fixed.known);
+    group.fixed = round2(sum(group.members.map(member => member.fixed.monthly)));
+    group.needed = group.knownAll ? round2(group.fixed + (leefgeld ?? 0)) : null;
+    group.used = round2(Math.max(group.actual, group.needed ?? 0));
+    group.basis = group.used === group.actual ? 'werkelijke opnamen' : 'privélasten + leefgeld';
+    if (group.members.length > 1) notes.push(`${group.members.map(member => member.name).join(' en ')} vormen één huishouden (gezamenlijke rekening): opnamen ${eur(group.actual)}/mnd, vaste lasten ${eur(group.fixed)}/mnd; het hoogste telt, één keer.`);
+  });
+  const perMonth = round2(sum(households.map(group => group.used)));
   if (!sum(ownerOut) && !perMember.some(member => member.fixed.known)) notes.push('Geen privé-opnamen zichtbaar en geen privérekening: de draagkracht is te hoog als de eigenaar uit een niet-gedeelde rekening leeft. Privérekening opvragen.');
   return { legal, deduction: operating.map((value, index) => round2(perMonth + privateTaxOnBusiness[index])), perMember, notes, lines: [
     { key: 'ibzvw', label: 'IB en Zvw van de zakelijke rekening', sign: -1, values: privateTaxOnBusiness, how: 'privébelasting, één keer meegenomen' },
-    { key: 'opname', label: 'Benodigde privé-opname', sign: -1, values: operating.map(() => perMonth), how: perMember.map(member => `${member.name}: ${eur(member.used)}/mnd (${member.basis})`).join(' · ') },
-  ] };
+    { key: 'opname', label: 'Benodigde privé-opname', sign: -1, values: operating.map(() => perMonth), how: households.map(group => `${group.members.map(member => member.name).join(' + ')}: ${eur(group.used)}/mnd (${group.basis})`).join(' · ') },
+  ], households };
 }
 
 

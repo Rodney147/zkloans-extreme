@@ -1,0 +1,280 @@
+{
+ "request": {
+  "method": "POST",
+  "path": "/analysis-jobs",
+  "body": {
+   "reference": "Dossier Milkshake-Koekenbakker corporate",
+   "engine": "e1",
+   "profile": "corporate",
+   "countryCode": "nl",
+   "input": {
+    "accountIds": [
+     "29be5d21-2981-0b38-24c2-771116e58928",
+     "9d8ad616-fd35-cf2c-9eaa-3ca931b51313"
+    ]
+   },
+   "metaData": {
+    "internal_ibans": [
+     "NL27 RABO •••• ••41",
+     "NL63 INGB •••• ••72",
+     "NL09 ABNA •••• ••18",
+     "NL52 ABNA •••• ••35",
+     "NL78 INGB •••• ••06"
+    ]
+   },
+   "dateFrom": "2025-11-01T00:00:00Z",
+   "dateTo": "2026-10-31T23:59:59Z"
+  }
+ },
+ "response_200": {
+  "id": "analysis-corporate-pp",
+  "status": "COMPLETED",
+  "engine": "e1",
+  "profile": "corporate",
+  "analysis": {
+   "generalInfo": {
+    "startDate": "2025-11-01",
+    "endDate": "2026-10-31",
+    "startBalance": 20300.0,
+    "endBalance": 44201.84,
+    "accounts": [
+     {
+      "iban": "NL27 RABO •••• ••41",
+      "accountName": "M. Milkshake h.o.d.n. Project Pizza",
+      "accountId": "29be5d21-2981-0b38-24c2-771116e58928"
+     },
+     {
+      "iban": "NL63 INGB •••• ••72",
+      "accountName": "K. Koekenbakker h.o.d.n. Project Patat",
+      "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313"
+     }
+    ],
+    "totalInflow": 661496.24,
+    "totalOutflow": 637594.4
+   },
+   "clientProfile": [
+    {
+     "name": "Taxes",
+     "transactionCount": 36,
+     "totalInflow": 0,
+     "totalOutflow": 72874.6,
+     "transactionIds": [
+      "6ff233a4-e277-d6f9-5ea9-a07509930838",
+      "b634da60-f504-0e33-a737-9bae9906b6d9",
+      "d8553f68-dfaa-7f58-4ff2-42f2d1120317",
+      "acd8ff7f-a834-4b28-3b41-122d007ad597",
+      "c6c0e9b0-e675-2cf9-5211-5e94a8d24b09",
+      "6addade1-4b46-53c5-69c5-694b98f6f736",
+      "16763d41-3ddd-62e1-bf8f-79028c69e4d2",
+      "4fddc18b-2d22-6743-30cd-9b492c840b7c",
+      "bb6b89a9-c8f3-af8e-8731-c9af2f195967",
+      "4012f6f3-d670-d982-518e-d3ab1ce4d575",
+      "653a2f78-0f4a-444e-5847-3cdfac7d6027",
+      "068349a3-9da7-71af-a89d-4627f26dffe8",
+      "04cf1b5f-62f9-e512-b0c4-06cef6af1a32",
+      "779eeb3e-88ae-1d5c-7c24-c38c97e4f0c2",
+      "45a62c11-0f58-50a3-3c89-699a24bb38d6",
+      "52ad5e1a-8c6d-cc7a-686f-146f3fe92a1f",
+      "ae88c77b-a482-750d-818b-1948fb54a9d2",
+      "e1de9271-1062-f0ab-538d-984de894fb36",
+      "b36d7b04-2f3d-72cf-3656-9290a3d8d11a",
+      "fe1e5f01-0159-e4ea-3edb-3e80a95321c1",
+      "0799e73d-dfd7-a086-030a-007397d6d5a3",
+      "b787f9b7-67ef-b9bc-225d-ed0db99a79f6",
+      "9bea21dc-c679-5f8d-0c8b-0d4ba256ad17",
+      "c1dc447f-345f-d857-c607-38d24cf98777",
+      "aadf9875-7e43-0eee-4681-794127dbf33c",
+      "31c1b7ae-197b-5529-fb8c-e114ab42d3e3",
+      "14780d50-76e0-0eb4-a7e3-a31ab78015c1",
+      "afe4009c-8c8e-0141-b9d3-0affa4fbde50",
+      "5576d459-d636-08cd-d625-2c937a0b3d58",
+      "7f9a64da-b7a4-b2c8-a7d7-bfdc61ee18d8",
+      "9dedc677-435e-5569-c103-8992fa3446d7",
+      "05e29eef-85d1-bcb3-03b3-fc73e250c9d6",
+      "55aa59eb-3095-fa24-6bde-b8059c6bb678",
+      "bd3db948-bfd4-aea0-028b-fd40d358de46",
+      "cd19a763-ff50-ffd0-8b01-13ae43f9f295",
+      "37c8fb05-6f1a-fdee-d134-2f6377ea6996"
+     ]
+    },
+    {
+     "name": "Loans",
+     "transactionCount": 0,
+     "totalInflow": 0,
+     "totalOutflow": 0,
+     "transactionIds": []
+    },
+    {
+     "name": "Debt collection",
+     "transactionCount": 1,
+     "totalInflow": 0,
+     "totalOutflow": 248.75,
+     "transactionIds": [
+      "d28a1643-5f6f-441f-4650-47ceed219b3b"
+     ]
+    },
+    {
+     "name": "Equipment Lease",
+     "transactionCount": 25,
+     "totalInflow": 384.0,
+     "totalOutflow": 10572.0,
+     "transactionIds": [
+      "857cad87-5f4c-c889-600e-e5b4a0de0147",
+      "36ac89f2-a318-a8c5-3af3-b986e1428f4c",
+      "ad2cbd9d-1984-299d-6221-e4e067ced0c1",
+      "d03946b7-b735-bfa7-d682-5df335ee5107",
+      "1e1e8eda-d39f-657c-0863-f112ba51af33",
+      "26899329-b522-11c2-ce53-0a5e58a63c76",
+      "28694bc2-c28f-2168-e2f9-ec5148b8ac9e",
+      "e4f05429-0fb7-1299-0359-dd9be7888f12",
+      "f5d806b3-e44a-b127-aea5-57e21de998cc",
+      "1fe5f384-d0ca-b4c4-1ae7-2c700d6bc2b6",
+      "c82c4205-a0fc-118e-0cef-4f2acc95fc5e",
+      "0914cab2-f2e4-85b1-2c5f-0bae983789d3",
+      "9a25d7f0-aac5-5315-4647-c3df97988692",
+      "8044d196-de48-98d5-2495-fcdd7c4568d9",
+      "c06845e5-fed2-cba6-c9e5-c3163dd85c8b",
+      "0b296614-8da4-7cb0-db9c-361e93f6db23",
+      "c3089cf0-09ba-86b6-920e-a23e2675b266",
+      "7193a488-51da-4e1b-ca85-ce2202b4e5b8",
+      "f6ae003b-6420-49cd-c0c5-28323ad7a4b3",
+      "ac1a8ff2-0ae6-4edf-bcb5-ea628a87f3b6",
+      "4c03bb66-1b11-ff5f-3580-4231d186cac5",
+      "0a833422-6d4b-58ae-fd21-7a47fc357686",
+      "b55a5dab-236e-4318-3db2-332506a08ac1",
+      "311d51ee-2bb6-8e12-4a05-169537ccaeb3",
+      "3c9f1485-61f4-d3e9-fe22-35d0791fc6fe"
+     ]
+    },
+    {
+     "name": "Internal transactions",
+     "transactionCount": 48,
+     "totalInflow": 0,
+     "totalOutflow": 97200.0,
+     "transactionIds": [
+      "a5a92940-ce37-a833-f9d4-c96af0e9ac46",
+      "e1199287-4d98-2ad0-b9e9-a8fc7780c932",
+      "1becc473-4dca-8f62-06f9-db2aa58c0fda",
+      "72d70cf5-39b6-8d57-76a8-b4fa82fa0e84",
+      "8f6d9aa1-896f-5805-f79c-0b8e03f5cd44",
+      "c88f7222-f568-d536-6de3-16eb16f097bf",
+      "27586f1d-0fee-65a3-5534-c320fd399606",
+      "3e36f075-8fcb-5eaa-bac5-7f17da70c848",
+      "5080dbae-39f2-43c2-ad2e-0e4fc968cb33",
+      "172dba92-c30b-1d42-cabb-512ce4906b6b",
+      "e58f5146-4d20-d132-2d63-801183bab8eb",
+      "655f63f4-7321-684a-9c8a-e7b75f494b2b",
+      "c5b3e990-5e0d-d5e2-be10-94c739b23976",
+      "195ed239-6545-b128-b269-bd4a095f7e38",
+      "aac1501b-b798-d65a-c569-4cfdb3eea4c0",
+      "f30af3f0-2d7d-6c72-7bc3-c752501c9a61",
+      "49fcb07e-a206-c1dd-520a-3123628855df",
+      "5cacb45e-1ee3-893c-288b-f4cc813e3351",
+      "f13d420b-d5c9-4870-0950-8832d626ea46",
+      "d11819e7-c4ae-c6fb-8456-0b86cbbc437a",
+      "3d170a6a-f864-23c1-6bf7-2ec323d549f2",
+      "da6bd46a-bb86-86b6-5325-3cde8de22104",
+      "a878ae84-695a-5f75-e8e4-d22c565a63ef",
+      "cd5a0d35-fb6d-fcd5-cdd1-f4eb83d5ed3d",
+      "69383046-e582-755a-5ac7-bab250689afd",
+      "cdcac263-4c68-a4d3-cf80-704ce4d2aeec",
+      "ea4d9580-b8e4-1db5-8766-ca04d171100d",
+      "eb468288-d9cf-d70b-a1fa-75cdec2924c1",
+      "e6779f66-2f88-044b-79b6-ddb8a37c4a94",
+      "d187a1f2-6677-9ba6-2fd8-422bd8f2fa59",
+      "659889a0-cb46-7bb1-c218-f017f464a5d9",
+      "03b5bb76-9212-10a4-d62c-4d5f5cc30884",
+      "2d6b6410-7505-97d4-10f9-8bba73b943c3",
+      "48c03b80-f6b3-9497-25af-3ae79d4f3076",
+      "4f6ebed8-c42d-d2f6-5117-dc4209c37a73",
+      "181c4fa2-094a-ce65-e71c-c42e0a287eaf",
+      "b2438d62-1ad4-6ffd-5ab4-c63191dbb12b",
+      "ba91b186-f296-217d-e51b-b742efd165aa",
+      "8f89fbdc-204f-7f38-7588-0b37f130e4af",
+      "2aa05272-bd13-d4aa-48a6-deff376e5c5c",
+      "96ec1a3a-e0e6-8870-8fac-9c097984b073",
+      "65551922-36d3-2eb1-3e9f-8b7443b2c4b0",
+      "9efc7238-ca67-8718-cb97-99de8d207243",
+      "9b0c9ebd-df18-0f15-c9ef-f57e0a7a3253",
+      "36342e6a-9476-4c95-cc29-5e29aedfd531",
+      "e62a7d66-715c-2bb8-3525-79d32461eb2e",
+      "55ea9d1b-f56c-b922-14da-684eb038f187",
+      "711f1644-65f4-d8bf-2fde-e6bd35c58217"
+     ]
+    },
+    {
+     "name": "Gambling",
+     "transactionCount": 0,
+     "totalInflow": 0,
+     "totalOutflow": 0,
+     "transactionIds": []
+    },
+    {
+     "name": "Crypto",
+     "transactionCount": 0,
+     "totalInflow": 0,
+     "totalOutflow": 0,
+     "transactionIds": []
+    }
+   ],
+   "flaggedTransactions": [
+    {
+     "name": "Reversal payments",
+     "transactionCount": 1,
+     "totalInflow": 384.0,
+     "totalOutflow": 0,
+     "transactionIds": [
+      "f5d806b3-e44a-b127-aea5-57e21de998cc"
+     ]
+    },
+    {
+     "name": "Refunds",
+     "transactionCount": 0,
+     "totalInflow": 0,
+     "totalOutflow": 0,
+     "transactionIds": []
+    },
+    {
+     "name": "Payment arrangements",
+     "transactionCount": 6,
+     "totalInflow": 0,
+     "totalOutflow": 3900.0,
+     "transactionIds": [
+      "16763d41-3ddd-62e1-bf8f-79028c69e4d2",
+      "068349a3-9da7-71af-a89d-4627f26dffe8",
+      "ae88c77b-a482-750d-818b-1948fb54a9d2",
+      "fe1e5f01-0159-e4ea-3edb-3e80a95321c1",
+      "9bea21dc-c679-5f8d-0c8b-0d4ba256ad17",
+      "afe4009c-8c8e-0141-b9d3-0affa4fbde50"
+     ]
+    }
+   ],
+   "lowConfidenceTransactions": [
+    {
+     "name": "Confidence <50%",
+     "transactionCount": 0,
+     "totalInflow": 0,
+     "totalOutflow": 0,
+     "transactionIds": []
+    },
+    {
+     "name": "50% <= Confidence <60%",
+     "transactionCount": 0,
+     "totalInflow": 0,
+     "totalOutflow": 0,
+     "transactionIds": []
+    }
+   ],
+   "otherHighlightedTransactions": [
+    {
+     "name": "Round number",
+     "transactionCount": 0,
+     "totalInflow": 0,
+     "totalOutflow": 0,
+     "transactionIds": []
+    }
+   ],
+   "creditQualityMetrics": []
+  }
+ }
+}
