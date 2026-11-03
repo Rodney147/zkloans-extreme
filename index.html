@@ -427,11 +427,12 @@ const TAX_TYPES = {
   ib: { label: 'Inkomstenbelasting', recognition: 'kenmerk pos. 10–11 = 70 of 73', pattern: 'Voorlopige aanslag in gelijke maandtermijnen; definitieve aanslag of teruggaaf achteraf.' },
   zvw: { label: 'Bijdrage Zvw (inkomensafhankelijk)', recognition: 'kenmerk pos. 10–11 = 75 en pos. 16 = 4 of 5', pattern: 'Voorlopige aanslag in gelijke maandtermijnen, naast de inkomstenbelasting.' },
   vpb: { label: 'Vennootschapsbelasting', recognition: 'kenmerk pos. 10–11 = 74, 80–84 of 92–96', pattern: 'Voorlopige aanslag in termijnen; alleen bij een bv.' },
+  mrb: { label: 'Motorrijtuigenbelasting', recognition: 'omschrijving motorrijtuigenbelasting', pattern: 'Per kwartaal of maand, privé of zakelijk voertuig.' },
   hsb: { label: 'Houderschapsbelasting / MOA', recognition: 'kenmerk pos. 10–11 = 76, 78, 87 of 88', pattern: 'Per tijdvak, voor voertuigen op naam van het bedrijf.' },
   lokaal: { label: 'Gemeente- en waterschapsbelastingen', recognition: 'tegenpartij gemeente, waterschap of belastingsamenwerking', pattern: 'Jaarlijkse aanslag, vaak in 8 tot 10 termijnen.' },
   onbekend: { label: 'Belastingdienst, middel onbekend', recognition: 'kenmerk ontbreekt of volgt de formule niet', pattern: 'Gelijke maandbedragen wijzen op een betalingsregeling.' },
 };
-const TAX_ORDER = ['ob', 'lh', 'ib', 'zvw', 'vpb', 'hsb', 'lokaal', 'onbekend'];
+const TAX_ORDER = ['ob', 'lh', 'ib', 'zvw', 'vpb', 'mrb', 'hsb', 'lokaal', 'onbekend'];
 const ASSESSMENT_KIND = { '0': 'Voorlopige aanslag', '6': 'Definitieve aanslag' };
 const PAYMENT_REFERENCE_WEIGHTS = [10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
 function paymentReferenceCheckDigit(body) {
@@ -459,7 +460,12 @@ function classifyTax(row) {
     const type = /omzetbelasting|btw/i.test(text) ? 'ob' : /inkomstenbelasting/i.test(text) ? 'ib' : /zvw|zorgverzekering/i.test(text) ? 'zvw' : 'onbekend';
     return finish({ type, kind: 'Teruggaaf', year: textYear ? Number(textYear[1]) : null, reference: null });
   }
-  if (!decoded) return finish({ type: 'onbekend', kind: /regeling/i.test(text) ? 'Betalingsregeling' : 'Geen betalingskenmerk', year: textYear ? Number(textYear[1]) : null, reference: null });
+  if (!decoded) {
+    /* geen kenmerk: soort uit de omschrijving, met minder zekerheid */
+    const type = /omzetbelasting|\bbtw\b/i.test(text) ? 'ob' : /loonheffing/i.test(text) ? 'lh' : /inkomstenbelasting|\bib\b/i.test(text) ? 'ib' : /\bzvw\b|zorgverzekeringswet/i.test(text) ? 'zvw' : /vennootschapsbelasting|\bvpb\b/i.test(text) ? 'vpb' : /motorrijtuigen|\bmrb\b/i.test(text) ? 'mrb' : 'onbekend';
+    const kind = /regeling/i.test(text) || row.e1?.flags.includes('payment_arrangement') ? 'Betalingsregeling' : /naheffing/i.test(text) ? 'Naheffing' : /voorlopige aanslag/i.test(text) ? 'Voorlopige aanslag' : /definitieve aanslag/i.test(text) ? 'Definitieve aanslag' : type === 'ob' || type === 'lh' ? 'Aangifte' : type === 'onbekend' ? 'Geen betalingskenmerk' : 'Aanslag';
+    return finish({ type, kind, year: textYear ? Number(textYear[1]) : null, reference: null, fromText: type !== 'onbekend' });
+  }
   const { reference, valid } = decoded;
   const twoDigit = reference.slice(9, 11);
   const number = Number(twoDigit);
@@ -688,12 +694,32 @@ function fromLoanwise(row, index) {
 const normalizeE1 = e1 => ({ category: e1.category, confidence: Number(e1.confidence ?? 0), flags: e1.flags ?? [], profile: e1.model?.profile ?? e1.profile ?? null });
 function fromEnableNow(row) {
   return {
-    id: String(row.id), account: normalizeIban(row.accountNumber), accountId: row.accountId ?? null, date: String(row.bookDate).slice(0, 10), amount: round2(Number(row.amount)),
+    id: String(row.id), account: normalizeIban(row.accountNumber), accountId: row.accountId ?? null, date: String(row.bookDate).slice(0, 10), time: row.transactionDateTime ?? '', amount: round2(Number(row.amount)),
     name: row.counterpartDescription || null, counterAccount: normalizeIban(row.counterpartAccountNumber), description: String(row.description ?? ''),
     type: null, balanceAfter: row.balanceAfterTransaction != null ? Number(row.balanceAfterTransaction) : null, e1: row.category?.e1 ? normalizeE1(row.category.e1) : null,
   };
 }
 
+/* Binnen één dag bepaalt het saldo na transactie de volgorde (tijdstempels van banken zijn niet altijd betrouwbaar) */
+function orderBySaldo(accounts, rows) {
+  accounts.forEach(account => {
+    const own = rows.filter(row => row.account === account.iban);
+    if (!own.length || own.some(row => row.balanceAfter == null)) return;
+    let previous = round2((account.balance ?? own.at(-1).balanceAfter) - sum(own.map(row => row.amount)));
+    const ordered = [];
+    groupBy(own, row => row.date).forEach(day => {
+      const left = [...day];
+      while (left.length) {
+        const index = Math.max(0, left.findIndex(row => Math.abs(round2(previous + row.amount) - row.balanceAfter) < 0.01));
+        const [next] = left.splice(index, 1);
+        ordered.push(next);
+        previous = next.balanceAfter;
+      }
+    });
+    ordered.forEach((row, index) => { row.order = index; });
+  });
+  rows.sort((first, second) => first.date.localeCompare(second.date) || first.account.localeCompare(second.account) || first.order - second.order);
+}
 function finishBalances(accounts, rows) {
   accounts.forEach(account => {
     const own = rows.filter(row => row.account === account.iban);
@@ -737,7 +763,9 @@ async function readDataset(files) {
   const withoutAccount = rows.filter(row => !row.account);
   if (withoutAccount.length) throw new Error(`${withoutAccount.length} transacties hebben geen rekeningnummer (account_number of accountNumber).`);
   rows.forEach(row => { if (!accounts.some(account => account.iban === row.account)) accounts.push({ iban: row.account, name: row.account, bank: bankFromIban(row.account), sharedOn: null, balance: null }); });
-  rows.sort((first, second) => first.date.localeCompare(second.date) || first.id.localeCompare(second.id));
+  /* volgorde zoals de bank boekt: datum, dan tijdstip; zonder tijdstip de volgorde in het bestand */
+  rows.forEach((row, index) => { row.order = index; });
+  rows.sort((first, second) => first.date.localeCompare(second.date) || String(first.time ?? '').localeCompare(String(second.time ?? '')) || (format === 'Enable Now' ? second.order - first.order : first.order - second.order));
   found.analyses.forEach(entry => { entry.profile = entry.profile ?? (entry.analysis.companyInfo ? 'corporate' : 'retail'); });
   const analyses = Object.fromEntries(found.analyses.map(entry => [entry.profile, entry.analysis]));
   const company = found.company ?? analyses.corporate?.companyInfo ?? null;
@@ -751,7 +779,8 @@ async function readDataset(files) {
     account.kind = /spaar|deposito/i.test(account.name) ? 'Spaarrekening' : 'Betaalrekening';
     account.enabled = true;
   });
-  const members = found.members.length ? found.members : accounts.filter(account => account.role === 'prive').map(account => String(account.name).trim().match(/^([A-Z])\.?\s+(.+)$/)).filter(Boolean).map(match => ({ initials: `${match[1]}.`, last_name: match[2], derived: true }));
+  const members = found.members.length ? found.members : accounts.filter(account => account.role === 'prive').map(account => String(account.name).trim().match(/^([A-Z])\S*\.?\s+(.+)$/)).filter(Boolean).map(match => ({ initials: `${match[1]}.`, last_name: match[2], derived: true }));
+  orderBySaldo(accounts, rows);
   finishBalances(accounts, rows);
   return {
     source: format, label: company?.name ?? accounts.find(account => account.role === 'zakelijk')?.name ?? 'Ingeladen dossier', files: texts.length,
@@ -784,7 +813,9 @@ const RULES = [
 const ruleName = id => overlay === 'prive' && id === 10 ? 'Inkomsten' : overlay === 'prive' && id === 11 ? 'Uitgaven' : RULES[id - 1].name;
 const ruleRef = id => `<span class="rule-ref"><span class="rule-no">${id}</span>${ruleName(id)}</span>`;
 const BAILIFF_PATTERN = /deurwaarder|incassobureau|incasso b\.?v|flanderijn|\bggn\b|legebeke|intrum|vesting finance/i;
-const FINANCE_PATTERN = /lease|lening|aflossing|krediet|financ|hypothe|obvion/i;
+const FINANCE_NAME_PATTERN = /lease|krediet|lening|financ|hypothe|obvion|creditcard|credit card|achteraf betalen|klarna|\bin3\b|riverty|\bduo\b/i;
+const FINANCE_TEXT_PATTERN = /leasetermijn|aflossing|lening|krediet|hypotheek|studieschuld/i;
+const SAVINGS_PATTERN = /spaarrekening|spaardeposito|\bsparen\b/i;
 const REFUND_PATTERN = /retour|creditnota|terugbetaling|restitutie/i;
 const GAMBLING_PATTERN = /casino|\btoto\b|unibet|bet365|jacks|lotto|loterij|kansino|betcity/i;
 const CRYPTO_PATTERN = /bitvavo|coinbase|binance|kraken|bitonic/i;
@@ -826,12 +857,14 @@ function categorize(row) {
     return { rule: 1, how: 'gedeelde rekening' };
   }
   if (['internal_transfer', 'savings'].includes(row.type) || (name && sharedHolderNames().has(name.toLowerCase()) && row.counterAccount)) return { rule: 1, how: row.type ? `transaction_type ${row.type}` : 'eigen naam, IBAN niet gedeeld', unshared: true };
+  if (SAVINGS_PATTERN.test(name) || (row.e1?.category === 'investment.savings' && /inleg|spaar/i.test(row.description))) return { rule: 1, how: 'spaarrekening, niet gedeeld', unshared: true };
   if (row.type === 'reversal' || /terugboeking|storno|gestorneerd/i.test(row.description) || row.e1?.flags.includes('reversal_payment')) return { rule: 2 };
-  if (TAX_AUTHORITY_IBANS.includes(row.counterAccount) || /belastingdienst/i.test(name) || LOCAL_TAX_PATTERN.test(name)) return { rule: 3, tax: classifyTax(row) };
+  const localTax = LOCAL_TAX_PATTERN.test(name) && (row.amount < 0 || /belasting|aanslag|heffing|teruggaaf/i.test(row.description)) && !REFERENCE_PATTERN.test(row.description.replace(/termijn/i, ''));
+  if (TAX_AUTHORITY_IBANS.includes(row.counterAccount) || /belastingdienst/i.test(name) || localTax) return { rule: 3, tax: classifyTax(row) };
   if (BAILIFF_PATTERN.test(name)) return { rule: 4 };
   const related = relatedRole(name);
   if (related) return { rule: 5, ...related };
-  if (FINANCE_PATTERN.test(text) && row.amount < 0) return { rule: 6 };
+  if (FINANCE_NAME_PATTERN.test(name) || (row.amount < 0 && FINANCE_TEXT_PATTERN.test(row.description))) return { rule: 6, how: row.amount > 0 ? 'opname of uitbetaling krediet' : null };
   if (row.type === 'banking_costs' || (/^(rabobank|ing|abn amro|knab|bunq|triodos|sns|asn)/i.test(name) && /kosten|pakket/i.test(row.description))) return { rule: 7 };
   if (row.type === 'salary' || /\bsalaris|\bloon\b|loonbetaling/i.test(row.description)) return { rule: 8 };
   if (row.type === 'cash_terminal' || /geldautomaat|geldopname|contant/i.test(text)) return { rule: 9 };
@@ -1098,7 +1131,7 @@ const CLIENT_CORPORATE = [
 ];
 const CLIENT_RETAIL = [
   { name: 'Internal transactions', nl: 'Interne overboekingen', rule: 'internal.other', test: isE1('internal.other'), tone: 'info' },
-  { name: 'Car', nl: 'Auto', rule: 'tax.vehicle, transport.*, insurance.vehicle', test: row => /^(tax\.vehicle|expense\.transport\.|insurance\.vehicle)/.test(e1Key(row)), tone: 'info' },
+  { name: 'Car', nl: 'Auto', rule: 'tax.vehicle, transport.vehicle/fuel/parking, insurance.vehicle', test: isE1('tax.vehicle', 'expense.transport.vehicle', 'expense.transport.fuel', 'expense.transport.parking', 'insurance.vehicle'), tone: 'info' },
   { name: 'Child', nl: 'Kinderen', rule: 'essential.childcare, subsidy.family', test: isE1('expense.essential.childcare', 'subsidy.family'), tone: 'info' },
   { name: 'Divorced', nl: 'Alimentatie', rule: 'alimony.*', test: startsWithE1('alimony.'), tone: 'warn' },
   { name: 'Pension', nl: 'Pensioen', rule: 'income.pension.*', test: startsWithE1('income.pension.'), tone: 'info' },
