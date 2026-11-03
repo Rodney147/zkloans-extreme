@@ -46,6 +46,11 @@ const SIGNAALGRENZEN = {
   e1AfwijkingAandeel: 0.10,                         // aandeel bedrag waarop E1 afwijkt                        // inhaalbetaling alleen bij termijnen ≥ € 100 (abonnementen met licenties vallen af)
 };
 
+/* Betaaldienstverleners bundelen betalingen van veel klanten (pin, iDEAL, bezorgbetalingen): geen klantconcentratie.
+   Platforms als Thuisbezorgd en Uber Eats tellen wel mee: dat is een echte afhankelijkheid van één kanaal. */
+const BETAALDIENSTEN = /\b(ccv|worldline|sumup|adyen|mollie|stripe|paypal|buckaroo|pay\.nl|multisafepay|ingenico|payvision|myPOS|zettle|viva wallet)\b/i;
+const isPaymentProcessor = entity => BETAALDIENSTEN.test(entity?.name ?? '');
+
 /* Scenario's bovenop de basis. VOORLOPIG: de definitieve percentages volgen (Risk).
    omzet = verandering omzet; variabele kosten (inkoop, directe kosten) bewegen evenredig mee.
    kosten = extra verandering van alle kosten (bijv. prijsstijging), bovenop het meebewegen. */

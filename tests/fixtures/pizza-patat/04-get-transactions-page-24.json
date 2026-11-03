@@ -1,0 +1,2917 @@
+{
+ "request": {
+  "method": "GET",
+  "path": "/Transactions",
+  "query": {
+   "PageSize": 100,
+   "PageToken": "page-24"
+  }
+ },
+ "response_200": {
+  "data": [
+   {
+    "id": "ebb7db92-2b3b-5eba-9d95-c8f896b5611c",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Termijnbedrag energie",
+    "bookDate": "2026-08-07",
+    "transactionDateTime": "2026-08-07T16:56:00Z",
+    "amount": -780,
+    "balanceAfterTransaction": 19934.66,
+    "currency": "EUR",
+    "counterpartDescription": "Energiedirect Zakelijk B.V.",
+    "counterpartAccountNumber": "NL72 INGB •••• ••61",
+    "normalized": {
+     "description": "termijnbedrag energie",
+     "counterpartDescription": "energiedirect zakelijk bv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.operations.utilities",
+      "confidence": 0.97,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "b3893dd5-1dfe-51a2-ff69-267917f32903",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-07",
+    "transactionDateTime": "2026-08-07T20:09:00Z",
+    "amount": -10.46,
+    "balanceAfterTransaction": 1893.76,
+    "currency": "EUR",
+    "counterpartDescription": "Albert Heijn to go",
+    "counterpartAccountNumber": "NL38 ABNA •••• ••89",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "albert heijn to go"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.94,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "87114d63-0bc0-2603-e32f-3f44901dc6ed",
+    "accountId": "2da62b05-1d4b-ef6f-8221-2f82b3f011ea",
+    "accountNumber": "NL78 INGB •••• ••06",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-07",
+    "transactionDateTime": "2026-08-07T20:48:00Z",
+    "amount": -28.43,
+    "balanceAfterTransaction": 164.61,
+    "currency": "EUR",
+    "counterpartDescription": "Gamma",
+    "counterpartAccountNumber": "NL29 INGB •••• ••62",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "gamma"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.97,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "d963f1da-2296-0792-22b0-12f1521bbc7c",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "CCV pinafrekening 2026-08-07 terminal 4471",
+    "bookDate": "2026-08-08",
+    "transactionDateTime": "2026-08-08T05:10:00Z",
+    "amount": 1073.73,
+    "balanceAfterTransaction": 21008.39,
+    "currency": "EUR",
+    "counterpartDescription": "CCV Payment Services",
+    "counterpartAccountNumber": "NL36 ABNA •••• ••60",
+    "normalized": {
+     "description": "ccv pinafrekening 2026-08-07 terminal 4471",
+     "counterpartDescription": "ccv payment services"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.92,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "0b35b9f1-3392-be0f-ba1a-0c80946c33d0",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "Bioscoop",
+    "bookDate": "2026-08-08",
+    "transactionDateTime": "2026-08-08T06:20:00Z",
+    "amount": -23.62,
+    "balanceAfterTransaction": 1870.14,
+    "currency": "EUR",
+    "counterpartDescription": "Pathé Haarlem",
+    "counterpartAccountNumber": "NL38 ABNA •••• ••82",
+    "normalized": {
+     "description": "bioscoop",
+     "counterpartDescription": "pathé haarlem"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.lifestyle.other",
+      "confidence": 0.96,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "2e8474d0-8d81-606d-1525-95b42141a6d2",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-07",
+    "bookDate": "2026-08-08",
+    "transactionDateTime": "2026-08-08T06:30:00Z",
+    "amount": 975.08,
+    "balanceAfterTransaction": 3983.55,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-07",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.95,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "acfd6cf3-a213-c963-c9a4-4a271bdc44c2",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Bakker",
+    "bookDate": "2026-08-08",
+    "transactionDateTime": "2026-08-08T11:31:00Z",
+    "amount": -44.97,
+    "balanceAfterTransaction": 2055.12,
+    "currency": "EUR",
+    "counterpartDescription": "Bakkerij Vlaar",
+    "counterpartAccountNumber": "NL77 INGB •••• ••20",
+    "normalized": {
+     "description": "bakker",
+     "counterpartDescription": "bakkerij vlaar"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.92,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "c61e30da-f5d8-64b1-ff86-546339c568c6",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Levering week",
+    "bookDate": "2026-08-08",
+    "transactionDateTime": "2026-08-08T12:43:00Z",
+    "amount": -432.74,
+    "balanceAfterTransaction": 20575.65,
+    "currency": "EUR",
+    "counterpartDescription": "Groente & Fruit Kennemerland",
+    "counterpartAccountNumber": "NL83 RABO •••• ••07",
+    "normalized": {
+     "description": "levering week",
+     "counterpartDescription": "groente & fruit kennemerland"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.93,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "7825a0d1-4e9f-b024-f984-f3f3b7613bfd",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-08",
+    "transactionDateTime": "2026-08-08T21:46:00Z",
+    "amount": -66.37,
+    "balanceAfterTransaction": 1988.75,
+    "currency": "EUR",
+    "counterpartDescription": "Shell Schoterweg",
+    "counterpartAccountNumber": "NL12 ABNA •••• ••71",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "shell schoterweg"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.transport.fuel",
+      "confidence": 0.9,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "cb3703a5-2dc9-138a-13af-1d7dc67ce4a5",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "CCV pinafrekening 2026-08-08 terminal 4471",
+    "bookDate": "2026-08-09",
+    "transactionDateTime": "2026-08-09T05:10:00Z",
+    "amount": 1043.86,
+    "balanceAfterTransaction": 21619.51,
+    "currency": "EUR",
+    "counterpartDescription": "CCV Payment Services",
+    "counterpartAccountNumber": "NL36 ABNA •••• ••60",
+    "normalized": {
+     "description": "ccv pinafrekening 2026-08-08 terminal 4471",
+     "counterpartDescription": "ccv payment services"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.87,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "78454cdd-7572-50c7-e759-5c3d48721ed2",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-08",
+    "bookDate": "2026-08-09",
+    "transactionDateTime": "2026-08-09T06:30:00Z",
+    "amount": 1213.91,
+    "balanceAfterTransaction": 5197.46,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-08",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.97,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "9f08efac-b7b5-fb49-869d-beae8f72d344",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Bestelling",
+    "bookDate": "2026-08-09",
+    "transactionDateTime": "2026-08-09T07:26:00Z",
+    "amount": -36.97,
+    "balanceAfterTransaction": 1951.78,
+    "currency": "EUR",
+    "counterpartDescription": "Bol.com",
+    "counterpartAccountNumber": "NL77 INGB •••• ••66",
+    "normalized": {
+     "description": "bestelling",
+     "counterpartDescription": "bolcom"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.95,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "b42b7741-0538-61db-bc03-b8f09c1c16db",
+    "accountId": "2da62b05-1d4b-ef6f-8221-2f82b3f011ea",
+    "accountNumber": "NL78 INGB •••• ••06",
+    "description": "Bestelling",
+    "bookDate": "2026-08-09",
+    "transactionDateTime": "2026-08-09T10:11:00Z",
+    "amount": -29.42,
+    "balanceAfterTransaction": 135.19,
+    "currency": "EUR",
+    "counterpartDescription": "Coolblue",
+    "counterpartAccountNumber": "NL29 INGB •••• ••46",
+    "normalized": {
+     "description": "bestelling",
+     "counterpartDescription": "coolblue"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.87,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "e21dbb97-065c-1127-b054-56926feaf8c1",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Factuur SL4403876",
+    "bookDate": "2026-08-09",
+    "transactionDateTime": "2026-08-09T11:18:00Z",
+    "amount": -801.23,
+    "balanceAfterTransaction": 20818.28,
+    "currency": "EUR",
+    "counterpartDescription": "Sligro Food Group Nederland B.V.",
+    "counterpartAccountNumber": "NL52 RABO •••• ••02",
+    "normalized": {
+     "description": "factuur sl4403876",
+     "counterpartDescription": "sligro food group nederland bv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.89,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "af752dcf-15d0-7756-7c05-337e8655caa1",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Factuur 318530",
+    "bookDate": "2026-08-09",
+    "transactionDateTime": "2026-08-09T11:30:00Z",
+    "amount": -467.37,
+    "balanceAfterTransaction": 20350.91,
+    "currency": "EUR",
+    "counterpartDescription": "Coca-Cola Europacific Partners",
+    "counterpartAccountNumber": "NL48 RABO •••• ••45",
+    "normalized": {
+     "description": "factuur 318530",
+     "counterpartDescription": "coca-cola europacific partners"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.91,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "232ccea8-d2fa-b6e6-a44d-7d57f5a0cf5a",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Autoverzekering",
+    "bookDate": "2026-08-09",
+    "transactionDateTime": "2026-08-09T15:10:00Z",
+    "amount": -98.75,
+    "balanceAfterTransaction": 1853.03,
+    "currency": "EUR",
+    "counterpartDescription": "ANWB Verzekeren",
+    "counterpartAccountNumber": "NL52 ABNA •••• ••74",
+    "normalized": {
+     "description": "autoverzekering",
+     "counterpartDescription": "anwb verzekeren"
+    },
+    "category": {
+     "e1": {
+      "category": "insurance.vehicle",
+      "confidence": 0.89,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "546f6a5a-a2a2-29ed-ca3e-5a03b4af4917",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Factuur 286583",
+    "bookDate": "2026-08-09",
+    "transactionDateTime": "2026-08-09T16:44:00Z",
+    "amount": -471.7,
+    "balanceAfterTransaction": 4725.76,
+    "currency": "EUR",
+    "counterpartDescription": "Van Geloven B.V.",
+    "counterpartAccountNumber": "NL14 ABNA •••• ••88",
+    "normalized": {
+     "description": "factuur 286583",
+     "counterpartDescription": "van geloven bv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.96,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "12a40f1f-6306-d018-5429-6940eb9e1ad1",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-09",
+    "transactionDateTime": "2026-08-09T18:54:00Z",
+    "amount": -103.99,
+    "balanceAfterTransaction": 1749.04,
+    "currency": "EUR",
+    "counterpartDescription": "Albert Heijn 1561",
+    "counterpartAccountNumber": "NL20 INGB •••• ••96",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "albert heijn 1561"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.87,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "02f5aee0-8311-57f2-2d68-656852af048b",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "CCV pinafrekening 2026-08-09 terminal 4471",
+    "bookDate": "2026-08-10",
+    "transactionDateTime": "2026-08-10T05:10:00Z",
+    "amount": 980.79,
+    "balanceAfterTransaction": 21331.7,
+    "currency": "EUR",
+    "counterpartDescription": "CCV Payment Services",
+    "counterpartAccountNumber": "NL36 ABNA •••• ••60",
+    "normalized": {
+     "description": "ccv pinafrekening 2026-08-09 terminal 4471",
+     "counterpartDescription": "ccv payment services"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.88,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "ac1a8ff2-0ae6-4edf-bcb5-ea628a87f3b6",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Leasetermijn pizzaoven contract 55120",
+    "bookDate": "2026-08-10",
+    "transactionDateTime": "2026-08-10T06:08:00Z",
+    "amount": -465.0,
+    "balanceAfterTransaction": 20866.7,
+    "currency": "EUR",
+    "counterpartDescription": "De Lage Landen Leasing N.V.",
+    "counterpartAccountNumber": "NL37 RABO •••• ••77",
+    "normalized": {
+     "description": "leasetermijn pizzaoven contract 55120",
+     "counterpartDescription": "de lage landen leasing nv"
+    },
+    "category": {
+     "e1": {
+      "category": "loan.equipment_lease",
+      "confidence": 0.88,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "eee5e488-5a80-e760-21bb-ba7b48949d1b",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-09",
+    "bookDate": "2026-08-10",
+    "transactionDateTime": "2026-08-10T06:30:00Z",
+    "amount": 1174.6,
+    "balanceAfterTransaction": 5900.36,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-09",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.96,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "44f9c1ce-95cb-d169-3b04-22e3963038c7",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Uitbetaling Thuisbezorgd periode 2026-08 wk2",
+    "bookDate": "2026-08-10",
+    "transactionDateTime": "2026-08-10T12:07:00Z",
+    "amount": 2412.49,
+    "balanceAfterTransaction": 23279.19,
+    "currency": "EUR",
+    "counterpartDescription": "Takeaway.com Payments B.V.",
+    "counterpartAccountNumber": "NL91 INGB •••• ••20",
+    "normalized": {
+     "description": "uitbetaling thuisbezorgd periode 2026-08 wk2",
+     "counterpartDescription": "takeawaycom payments bv"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.91,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "e4129a58-cb94-169c-a1ba-2d5a8e3a1709",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Factuur AV25661",
+    "bookDate": "2026-08-10",
+    "transactionDateTime": "2026-08-10T14:08:00Z",
+    "amount": -367.61,
+    "balanceAfterTransaction": 5532.75,
+    "currency": "EUR",
+    "counterpartDescription": "Aviko Foodservice B.V.",
+    "counterpartAccountNumber": "NL61 ABNA •••• ••08",
+    "normalized": {
+     "description": "factuur av25661",
+     "counterpartDescription": "aviko foodservice bv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.88,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "4c03bb66-1b11-ff5f-3580-4231d186cac5",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Leasetermijn frituurinstallatie",
+    "bookDate": "2026-08-10",
+    "transactionDateTime": "2026-08-10T15:02:00Z",
+    "amount": -384.0,
+    "balanceAfterTransaction": 5148.75,
+    "currency": "EUR",
+    "counterpartDescription": "Equipment Lease Nederland B.V.",
+    "counterpartAccountNumber": "NL33 ABNA •••• ••81",
+    "normalized": {
+     "description": "leasetermijn frituurinstallatie",
+     "counterpartDescription": "equipment lease nederland bv"
+    },
+    "category": {
+     "e1": {
+      "category": "loan.equipment_lease",
+      "confidence": 0.98,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "ba77cd88-b840-073d-036a-46d1b39de5ec",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "SumUp uitbetaling bezorging",
+    "bookDate": "2026-08-10",
+    "transactionDateTime": "2026-08-10T18:58:00Z",
+    "amount": 124.23,
+    "balanceAfterTransaction": 23403.42,
+    "currency": "EUR",
+    "counterpartDescription": "SumUp Payments Limited",
+    "counterpartAccountNumber": "IE91 SUMU •••• ••12",
+    "normalized": {
+     "description": "sumup uitbetaling bezorging",
+     "counterpartDescription": "sumup payments limited"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.93,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "4cedcef3-d7c7-85ac-faf3-d0030d71eef3",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-10",
+    "transactionDateTime": "2026-08-10T20:22:00Z",
+    "amount": -30.01,
+    "balanceAfterTransaction": 1840.13,
+    "currency": "EUR",
+    "counterpartDescription": "Kapsalon Mooi",
+    "counterpartAccountNumber": "NL38 ABNA •••• ••18",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "kapsalon mooi"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.personal_care",
+      "confidence": 0.89,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "27eed1d4-9d7d-3a57-85a4-88b3f3f2d1c7",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Betaalverzoek",
+    "bookDate": "2026-08-10",
+    "transactionDateTime": "2026-08-10T21:13:00Z",
+    "amount": -20.83,
+    "balanceAfterTransaction": 1728.21,
+    "currency": "EUR",
+    "counterpartDescription": "Tikkie",
+    "counterpartAccountNumber": "NL77 INGB •••• ••47",
+    "normalized": {
+     "description": "betaalverzoek",
+     "counterpartDescription": "tikkie"
+    },
+    "category": {
+     "e1": {
+      "category": "other.private_transfer",
+      "confidence": 0.91,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "50291ef1-aaf8-85da-b1a2-cf0277129a9e",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-10",
+    "bookDate": "2026-08-11",
+    "transactionDateTime": "2026-08-11T06:30:00Z",
+    "amount": 835.37,
+    "balanceAfterTransaction": 5984.12,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-10",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.92,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "c05fc03a-3067-6828-9bcb-1951a91d2217",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-11",
+    "transactionDateTime": "2026-08-11T08:32:00Z",
+    "amount": -55.18,
+    "balanceAfterTransaction": 1673.03,
+    "currency": "EUR",
+    "counterpartDescription": "Lidl Haarlem",
+    "counterpartAccountNumber": "NL50 INGB •••• ••98",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "lidl haarlem"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.95,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "b879dd41-e3d2-9145-f5e8-a25309566bad",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Advertenties",
+    "bookDate": "2026-08-11",
+    "transactionDateTime": "2026-08-11T09:33:00Z",
+    "amount": -232.76,
+    "balanceAfterTransaction": 23170.66,
+    "currency": "EUR",
+    "counterpartDescription": "Meta Platforms Ireland",
+    "counterpartAccountNumber": "IE64 CITI •••• ••99",
+    "normalized": {
+     "description": "advertenties",
+     "counterpartDescription": "meta platforms ireland"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.marketing",
+      "confidence": 0.93,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "391f84e9-ec7d-947f-a661-9731e6bbc035",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-11",
+    "transactionDateTime": "2026-08-11T10:21:00Z",
+    "amount": -102.37,
+    "balanceAfterTransaction": 23068.29,
+    "currency": "EUR",
+    "counterpartDescription": "Action",
+    "counterpartAccountNumber": "NL66 INGB •••• ••95",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "action"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.operations.office_supplies",
+      "confidence": 0.87,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "2a694905-937f-9478-5724-d3c8c54a2200",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Factuur 204811",
+    "bookDate": "2026-08-11",
+    "transactionDateTime": "2026-08-11T12:42:00Z",
+    "amount": -331.41,
+    "balanceAfterTransaction": 5652.71,
+    "currency": "EUR",
+    "counterpartDescription": "Remia C.V.",
+    "counterpartAccountNumber": "NL14 ABNA •••• ••57",
+    "normalized": {
+     "description": "factuur 204811",
+     "counterpartDescription": "remia cv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.91,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "b12f6803-331e-76a3-ab79-ae0c52c72e2c",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-11",
+    "transactionDateTime": "2026-08-11T14:28:00Z",
+    "amount": -75.13,
+    "balanceAfterTransaction": 1765.0,
+    "currency": "EUR",
+    "counterpartDescription": "Rituals",
+    "counterpartAccountNumber": "NL97 ABNA •••• ••82",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "rituals"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.clothing",
+      "confidence": 0.97,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "60857e21-5768-2a2a-e447-c54af8cdc3d2",
+    "accountId": "2da62b05-1d4b-ef6f-8221-2f82b3f011ea",
+    "accountNumber": "NL78 INGB •••• ••06",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-11",
+    "transactionDateTime": "2026-08-11T17:49:00Z",
+    "amount": -7.35,
+    "balanceAfterTransaction": 127.84,
+    "currency": "EUR",
+    "counterpartDescription": "Snackbar De Hoek",
+    "counterpartAccountNumber": "NL29 INGB •••• ••66",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "snackbar de hoek"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.lifestyle.restaurants_bars",
+      "confidence": 0.95,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "1f09ca5c-4056-52fc-c1ea-374b2abb42e0",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-11",
+    "transactionDateTime": "2026-08-11T19:28:00Z",
+    "amount": -15.37,
+    "balanceAfterTransaction": 1749.63,
+    "currency": "EUR",
+    "counterpartDescription": "Kapsalon Mooi",
+    "counterpartAccountNumber": "NL38 ABNA •••• ••26",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "kapsalon mooi"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.personal_care",
+      "confidence": 0.94,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "1210375a-38f2-b0ea-71a6-cfbdf6a7904d",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Uber Eats payout 20260811",
+    "bookDate": "2026-08-11",
+    "transactionDateTime": "2026-08-11T19:42:00Z",
+    "amount": 940.1,
+    "balanceAfterTransaction": 24008.39,
+    "currency": "EUR",
+    "counterpartDescription": "Uber Eats Netherlands B.V.",
+    "counterpartAccountNumber": "NL68 INGB •••• ••21",
+    "normalized": {
+     "description": "uber eats payout 20260811",
+     "counterpartDescription": "uber eats netherlands bv"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.97,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "03729609-0cf8-2751-9f7b-99436d492378",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "CCV pinafrekening 2026-08-11 terminal 4471",
+    "bookDate": "2026-08-12",
+    "transactionDateTime": "2026-08-12T05:10:00Z",
+    "amount": 673.03,
+    "balanceAfterTransaction": 24681.42,
+    "currency": "EUR",
+    "counterpartDescription": "CCV Payment Services",
+    "counterpartAccountNumber": "NL36 ABNA •••• ••60",
+    "normalized": {
+     "description": "ccv pinafrekening 2026-08-11 terminal 4471",
+     "counterpartDescription": "ccv payment services"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.89,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "07ea5edf-0b56-2e1e-4ebe-2826baf94838",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-11",
+    "bookDate": "2026-08-12",
+    "transactionDateTime": "2026-08-12T06:30:00Z",
+    "amount": 858.44,
+    "balanceAfterTransaction": 6511.15,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-11",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.95,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "7c543839-bbed-dd44-1fc7-d79cff91c5e3",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-12",
+    "transactionDateTime": "2026-08-12T09:54:00Z",
+    "amount": -15.12,
+    "balanceAfterTransaction": 1734.51,
+    "currency": "EUR",
+    "counterpartDescription": "Albert Heijn to go",
+    "counterpartAccountNumber": "NL38 ABNA •••• ••40",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "albert heijn to go"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.94,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "fd96ffd1-eced-c8db-6c20-0f66f1a43fe1",
+    "accountId": "2da62b05-1d4b-ef6f-8221-2f82b3f011ea",
+    "accountNumber": "NL78 INGB •••• ••06",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-12",
+    "transactionDateTime": "2026-08-12T12:19:00Z",
+    "amount": -67.43,
+    "balanceAfterTransaction": 60.41,
+    "currency": "EUR",
+    "counterpartDescription": "Intersport",
+    "counterpartAccountNumber": "NL72 INGB •••• ••87",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "intersport"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.clothing",
+      "confidence": 0.95,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "79369b8b-f043-028a-f658-e999ea96874f",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Betaalverzoek",
+    "bookDate": "2026-08-12",
+    "transactionDateTime": "2026-08-12T13:44:00Z",
+    "amount": -23.49,
+    "balanceAfterTransaction": 1649.54,
+    "currency": "EUR",
+    "counterpartDescription": "Tikkie",
+    "counterpartAccountNumber": "NL77 INGB •••• ••79",
+    "normalized": {
+     "description": "betaalverzoek",
+     "counterpartDescription": "tikkie"
+    },
+    "category": {
+     "e1": {
+      "category": "other.private_transfer",
+      "confidence": 0.9,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "32d2d7c0-e343-9fef-bfce-4df430e55572",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Factuur PP-202608-01",
+    "bookDate": "2026-08-12",
+    "transactionDateTime": "2026-08-12T15:50:00Z",
+    "amount": 1646.07,
+    "balanceAfterTransaction": 26327.49,
+    "currency": "EUR",
+    "counterpartDescription": "Bedrijfsrestaurant Spaarne B.V.",
+    "counterpartAccountNumber": "NL41 RABO •••• ••14",
+    "normalized": {
+     "description": "factuur pp-202608-01",
+     "counterpartDescription": "bedrijfsrestaurant spaarne bv"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.9,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "98e419fe-9758-40f3-117b-0aecbbab7306",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-12",
+    "transactionDateTime": "2026-08-12T18:28:00Z",
+    "amount": -74.65,
+    "balanceAfterTransaction": 26252.84,
+    "currency": "EUR",
+    "counterpartDescription": "Shell Tankstation Schoterweg",
+    "counterpartAccountNumber": "NL48 RABO •••• ••26",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "shell tankstation schoterweg"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.transport.fuel",
+      "confidence": 0.89,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "7f90bde6-3509-53a3-580c-a2ebbcd4560a",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-12",
+    "transactionDateTime": "2026-08-12T19:24:00Z",
+    "amount": -44.81,
+    "balanceAfterTransaction": 1604.73,
+    "currency": "EUR",
+    "counterpartDescription": "Jumbo Haarlem Zuid",
+    "counterpartAccountNumber": "NL47 ABNA •••• ••97",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "jumbo haarlem zuid"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.87,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "9c844046-5c03-44ce-3477-6c20f3abcacd",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "CCV pinafrekening 2026-08-12 terminal 4471",
+    "bookDate": "2026-08-13",
+    "transactionDateTime": "2026-08-13T05:10:00Z",
+    "amount": 639.18,
+    "balanceAfterTransaction": 26892.02,
+    "currency": "EUR",
+    "counterpartDescription": "CCV Payment Services",
+    "counterpartAccountNumber": "NL36 ABNA •••• ••60",
+    "normalized": {
+     "description": "ccv pinafrekening 2026-08-12 terminal 4471",
+     "counterpartDescription": "ccv payment services"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.87,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "82d83270-4e56-139f-1b20-7e116b03211e",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-12",
+    "bookDate": "2026-08-13",
+    "transactionDateTime": "2026-08-13T06:30:00Z",
+    "amount": 635.55,
+    "balanceAfterTransaction": 7146.7,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-12",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.88,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "e5c7e1aa-d8e2-e92d-2171-e7af2b8ee79b",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Levering frituurolie",
+    "bookDate": "2026-08-13",
+    "transactionDateTime": "2026-08-13T06:54:00Z",
+    "amount": -374.37,
+    "balanceAfterTransaction": 6772.33,
+    "currency": "EUR",
+    "counterpartDescription": "Frituurvet Direct B.V.",
+    "counterpartAccountNumber": "NL90 INGB •••• ••66",
+    "normalized": {
+     "description": "levering frituurolie",
+     "counterpartDescription": "frituurvet direct bv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.86,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "25959545-363b-05dc-bdde-a81af717d485",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Bakker",
+    "bookDate": "2026-08-13",
+    "transactionDateTime": "2026-08-13T10:51:00Z",
+    "amount": -22.78,
+    "balanceAfterTransaction": 1581.95,
+    "currency": "EUR",
+    "counterpartDescription": "Bakkerij Vlaar",
+    "counterpartAccountNumber": "NL77 INGB •••• ••37",
+    "normalized": {
+     "description": "bakker",
+     "counterpartDescription": "bakkerij vlaar"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.9,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "df41889e-2c10-8feb-db57-768795a9b104",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Factuur SL4366531",
+    "bookDate": "2026-08-13",
+    "transactionDateTime": "2026-08-13T11:47:00Z",
+    "amount": -1197.18,
+    "balanceAfterTransaction": 25694.84,
+    "currency": "EUR",
+    "counterpartDescription": "Sligro Food Group Nederland B.V.",
+    "counterpartAccountNumber": "NL52 RABO •••• ••02",
+    "normalized": {
+     "description": "factuur sl4366531",
+     "counterpartDescription": "sligro food group nederland bv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.89,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "cc813519-87a1-a332-2084-b59347e56f73",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "SumUp uitbetaling bezorging",
+    "bookDate": "2026-08-13",
+    "transactionDateTime": "2026-08-13T12:52:00Z",
+    "amount": 285.77,
+    "balanceAfterTransaction": 25980.61,
+    "currency": "EUR",
+    "counterpartDescription": "SumUp Payments Limited",
+    "counterpartAccountNumber": "IE91 SUMU •••• ••12",
+    "normalized": {
+     "description": "sumup uitbetaling bezorging",
+     "counterpartDescription": "sumup payments limited"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.9,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "a0285eec-4ed9-0202-e1e0-13102b0f9d2d",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-13",
+    "transactionDateTime": "2026-08-13T13:59:00Z",
+    "amount": -36.39,
+    "balanceAfterTransaction": 1698.12,
+    "currency": "EUR",
+    "counterpartDescription": "Albert Heijn to go",
+    "counterpartAccountNumber": "NL38 ABNA •••• ••37",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "albert heijn to go"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.93,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "6de5bf21-4f10-9a31-f630-6deebf6b67b6",
+    "accountId": "2da62b05-1d4b-ef6f-8221-2f82b3f011ea",
+    "accountNumber": "NL78 INGB •••• ••06",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-13",
+    "transactionDateTime": "2026-08-13T15:56:00Z",
+    "amount": -21.25,
+    "balanceAfterTransaction": 39.16,
+    "currency": "EUR",
+    "counterpartDescription": "Shell Boulevard",
+    "counterpartAccountNumber": "NL29 INGB •••• ••10",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "shell boulevard"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.transport.fuel",
+      "confidence": 0.94,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "87fceed7-cea4-48bd-5a9e-ed7b688b1363",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "CCV pinafrekening 2026-08-13 terminal 4471",
+    "bookDate": "2026-08-14",
+    "transactionDateTime": "2026-08-14T05:10:00Z",
+    "amount": 660.75,
+    "balanceAfterTransaction": 26641.36,
+    "currency": "EUR",
+    "counterpartDescription": "CCV Payment Services",
+    "counterpartAccountNumber": "NL36 ABNA •••• ••60",
+    "normalized": {
+     "description": "ccv pinafrekening 2026-08-13 terminal 4471",
+     "counterpartDescription": "ccv payment services"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.9,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "57fff49d-17c1-2811-756f-68cc5c4a7747",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-13",
+    "bookDate": "2026-08-14",
+    "transactionDateTime": "2026-08-14T06:30:00Z",
+    "amount": 704.92,
+    "balanceAfterTransaction": 7477.25,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-13",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.96,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "1ca77402-a426-5744-c73b-21cc3425435e",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-14",
+    "transactionDateTime": "2026-08-14T06:48:00Z",
+    "amount": -42.74,
+    "balanceAfterTransaction": 1655.38,
+    "currency": "EUR",
+    "counterpartDescription": "Lunchroom Pip",
+    "counterpartAccountNumber": "NL54 RABO •••• ••83",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "lunchroom pip"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.lifestyle.restaurants_bars",
+      "confidence": 0.98,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "fdecfe7e-07a4-72ed-2ec8-e486b165e264",
+    "accountId": "2da62b05-1d4b-ef6f-8221-2f82b3f011ea",
+    "accountNumber": "NL78 INGB •••• ••06",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-14",
+    "transactionDateTime": "2026-08-14T11:09:00Z",
+    "amount": -14.73,
+    "balanceAfterTransaction": 24.43,
+    "currency": "EUR",
+    "counterpartDescription": "Jumbo Haarlem Zuid",
+    "counterpartAccountNumber": "NL29 INGB •••• ••35",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "jumbo haarlem zuid"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.87,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "767e891c-9289-f6b3-aecc-512092f2fb62",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Zwemles Lotte",
+    "bookDate": "2026-08-14",
+    "transactionDateTime": "2026-08-14T12:27:00Z",
+    "amount": -67.5,
+    "balanceAfterTransaction": 1514.45,
+    "currency": "EUR",
+    "counterpartDescription": "Zwemschool De Waterrat",
+    "counterpartAccountNumber": "NL13 RABO •••• ••35",
+    "normalized": {
+     "description": "zwemles lotte",
+     "counterpartDescription": "zwemschool de waterrat"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.lifestyle.sports",
+      "confidence": 0.89,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "ddca3a7d-c87a-fccb-0a43-288c9dbf10c3",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Factuur AV29976",
+    "bookDate": "2026-08-14",
+    "transactionDateTime": "2026-08-14T14:03:00Z",
+    "amount": -510.65,
+    "balanceAfterTransaction": 6966.6,
+    "currency": "EUR",
+    "counterpartDescription": "Aviko Foodservice B.V.",
+    "counterpartAccountNumber": "NL61 ABNA •••• ••08",
+    "normalized": {
+     "description": "factuur av29976",
+     "counterpartDescription": "aviko foodservice bv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.96,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "b735d50e-36eb-9259-2769-01c8de340d5f",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-14",
+    "transactionDateTime": "2026-08-14T18:00:00Z",
+    "amount": -45.32,
+    "balanceAfterTransaction": 1469.13,
+    "currency": "EUR",
+    "counterpartDescription": "Jumbo Haarlem Zuid",
+    "counterpartAccountNumber": "NL47 ABNA •••• ••97",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "jumbo haarlem zuid"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.93,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "83b144ba-daf9-b1f1-cf2b-705b38a4f50e",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Factuur 629741",
+    "bookDate": "2026-08-14",
+    "transactionDateTime": "2026-08-14T20:33:00Z",
+    "amount": -756.61,
+    "balanceAfterTransaction": 25884.75,
+    "currency": "EUR",
+    "counterpartDescription": "Heineken Nederland Supply",
+    "counterpartAccountNumber": "NL48 RABO •••• ••53",
+    "normalized": {
+     "description": "factuur 629741",
+     "counterpartDescription": "heineken nederland supply"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.9,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "35042daf-6801-48a6-2be4-438ebea43f06",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "CCV pinafrekening 2026-08-14 terminal 4471",
+    "bookDate": "2026-08-15",
+    "transactionDateTime": "2026-08-15T05:10:00Z",
+    "amount": 929.46,
+    "balanceAfterTransaction": 26814.21,
+    "currency": "EUR",
+    "counterpartDescription": "CCV Payment Services",
+    "counterpartAccountNumber": "NL36 ABNA •••• ••60",
+    "normalized": {
+     "description": "ccv pinafrekening 2026-08-14 terminal 4471",
+     "counterpartDescription": "ccv payment services"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.97,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "9b433f20-2700-673c-6092-d89b3104dece",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-14",
+    "bookDate": "2026-08-15",
+    "transactionDateTime": "2026-08-15T06:30:00Z",
+    "amount": 1419.37,
+    "balanceAfterTransaction": 8385.97,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-14",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.91,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "e9fbe2d5-cdfc-f344-2c97-9ecdae941fd9",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Premie bedrijfsverzekeringen",
+    "bookDate": "2026-08-15",
+    "transactionDateTime": "2026-08-15T06:46:00Z",
+    "amount": -214.6,
+    "balanceAfterTransaction": 26599.61,
+    "currency": "EUR",
+    "counterpartDescription": "Interpolis Zakelijk",
+    "counterpartAccountNumber": "NL10 RABO •••• ••30",
+    "normalized": {
+     "description": "premie bedrijfsverzekeringen",
+     "counterpartDescription": "interpolis zakelijk"
+    },
+    "category": {
+     "e1": {
+      "category": "insurance.liability",
+      "confidence": 0.87,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "92ee31e9-2b27-620f-46fd-69555e6cfb88",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Premie bedrijfsverzekeringen",
+    "bookDate": "2026-08-15",
+    "transactionDateTime": "2026-08-15T08:56:00Z",
+    "amount": -162.3,
+    "balanceAfterTransaction": 8223.67,
+    "currency": "EUR",
+    "counterpartDescription": "Nationale-Nederlanden Schadeverzekering",
+    "counterpartAccountNumber": "NL64 INGB •••• ••70",
+    "normalized": {
+     "description": "premie bedrijfsverzekeringen",
+     "counterpartDescription": "nationale-nederlanden schadeverzekering"
+    },
+    "category": {
+     "e1": {
+      "category": "insurance.liability",
+      "confidence": 0.88,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "027cbd21-99b3-3516-7b61-0c8155fcaea4",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "Privé opname",
+    "bookDate": "2026-08-15",
+    "transactionDateTime": "2026-08-15T12:29:00Z",
+    "amount": 3000.0,
+    "balanceAfterTransaction": 4655.38,
+    "currency": "EUR",
+    "counterpartDescription": "M. Milkshake h.o.d.n. Project Pizza",
+    "counterpartAccountNumber": "NL27 RABO •••• ••41",
+    "normalized": {
+     "description": "privé opname",
+     "counterpartDescription": "m milkshake hodn project pizza"
+    },
+    "category": {
+     "e1": {
+      "category": "internal.other",
+      "confidence": 0.99,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "3d382010-c5d2-c722-89a0-dda4700a7530",
+    "accountId": "2da62b05-1d4b-ef6f-8221-2f82b3f011ea",
+    "accountNumber": "NL78 INGB •••• ••06",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-15",
+    "transactionDateTime": "2026-08-15T17:54:00Z",
+    "amount": -23.11,
+    "balanceAfterTransaction": 1.32,
+    "currency": "EUR",
+    "counterpartDescription": "Gamma",
+    "counterpartAccountNumber": "NL29 INGB •••• ••40",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "gamma"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.9,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "56d60602-9d56-f970-e4c9-4e231a7aef61",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Entree",
+    "bookDate": "2026-08-15",
+    "transactionDateTime": "2026-08-15T19:13:00Z",
+    "amount": -38.6,
+    "balanceAfterTransaction": 1430.53,
+    "currency": "EUR",
+    "counterpartDescription": "Kinderboerderij Eindenhout",
+    "counterpartAccountNumber": "NL77 INGB •••• ••35",
+    "normalized": {
+     "description": "entree",
+     "counterpartDescription": "kinderboerderij eindenhout"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.lifestyle.other",
+      "confidence": 0.89,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "f842ee9d-4325-8115-e867-1be14dd40f11",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-15",
+    "transactionDateTime": "2026-08-15T19:18:00Z",
+    "amount": -22.55,
+    "balanceAfterTransaction": 4632.83,
+    "currency": "EUR",
+    "counterpartDescription": "Starbucks Station",
+    "counterpartAccountNumber": "NL38 ABNA •••• ••57",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "starbucks station"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.lifestyle.restaurants_bars",
+      "confidence": 0.95,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "8f89fbdc-204f-7f38-7588-0b37f130e4af",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Privé opname",
+    "bookDate": "2026-08-15",
+    "transactionDateTime": "2026-08-15T20:49:00Z",
+    "amount": -3000.0,
+    "balanceAfterTransaction": 23599.61,
+    "currency": "EUR",
+    "counterpartDescription": "M. Milkshake",
+    "counterpartAccountNumber": "NL52 ABNA •••• ••35",
+    "normalized": {
+     "description": "privé opname",
+     "counterpartDescription": "m milkshake"
+    },
+    "category": {
+     "e1": {
+      "category": "internal.other",
+      "confidence": 0.99,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "afe4009c-8c8e-0141-b9d3-0affa4fbde50",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Betalingsregeling loonheffingen termijn",
+    "bookDate": "2026-08-15",
+    "transactionDateTime": "2026-08-15T21:39:00Z",
+    "amount": -650.0,
+    "balanceAfterTransaction": 7573.67,
+    "currency": "EUR",
+    "counterpartDescription": "Belastingdienst",
+    "counterpartAccountNumber": "NL04 RABO 0200 1122 44",
+    "normalized": {
+     "description": "betalingsregeling loonheffingen termijn",
+     "counterpartDescription": "belastingdienst"
+    },
+    "category": {
+     "e1": {
+      "category": "tax.payroll",
+      "confidence": 0.74,
+      "flags": [
+       "payment_arrangement"
+      ],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "c5accaf3-553b-ade7-09d9-a5f178d7db53",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "CCV pinafrekening 2026-08-15 terminal 4471",
+    "bookDate": "2026-08-16",
+    "transactionDateTime": "2026-08-16T05:10:00Z",
+    "amount": 961.84,
+    "balanceAfterTransaction": 24561.45,
+    "currency": "EUR",
+    "counterpartDescription": "CCV Payment Services",
+    "counterpartAccountNumber": "NL36 ABNA •••• ••60",
+    "normalized": {
+     "description": "ccv pinafrekening 2026-08-15 terminal 4471",
+     "counterpartDescription": "ccv payment services"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.88,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "9a6ad477-1b72-b350-0d5b-d7546dbbf01f",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "Bestelling",
+    "bookDate": "2026-08-16",
+    "transactionDateTime": "2026-08-16T06:20:00Z",
+    "amount": -38.06,
+    "balanceAfterTransaction": 4594.77,
+    "currency": "EUR",
+    "counterpartDescription": "Bol.com",
+    "counterpartAccountNumber": "NL38 ABNA •••• ••22",
+    "normalized": {
+     "description": "bestelling",
+     "counterpartDescription": "bolcom"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.98,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "5077dc96-e873-b634-7ecf-5ecf755ad6cf",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-15",
+    "bookDate": "2026-08-16",
+    "transactionDateTime": "2026-08-16T06:30:00Z",
+    "amount": 1124.79,
+    "balanceAfterTransaction": 8698.46,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-15",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.92,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "5cc2f22f-58f8-3665-83f4-af264a705ea7",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-16",
+    "transactionDateTime": "2026-08-16T10:15:00Z",
+    "amount": -99.52,
+    "balanceAfterTransaction": 1331.01,
+    "currency": "EUR",
+    "counterpartDescription": "Albert Heijn 1561",
+    "counterpartAccountNumber": "NL20 INGB •••• ••96",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "albert heijn 1561"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.97,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "2aa05272-bd13-d4aa-48a6-deff376e5c5c",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Opname privé",
+    "bookDate": "2026-08-16",
+    "transactionDateTime": "2026-08-16T11:51:00Z",
+    "amount": -1300.0,
+    "balanceAfterTransaction": 7398.46,
+    "currency": "EUR",
+    "counterpartDescription": "K. Koekenbakker",
+    "counterpartAccountNumber": "NL78 INGB •••• ••06",
+    "normalized": {
+     "description": "opname privé",
+     "counterpartDescription": "k koekenbakker"
+    },
+    "category": {
+     "e1": {
+      "category": "internal.other",
+      "confidence": 0.99,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "3737c476-4d2f-8cc4-f1cd-a59db8be33a0",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Factuur 279705",
+    "bookDate": "2026-08-16",
+    "transactionDateTime": "2026-08-16T12:31:00Z",
+    "amount": -206.61,
+    "balanceAfterTransaction": 7191.85,
+    "currency": "EUR",
+    "counterpartDescription": "Verpakkingen Direct",
+    "counterpartAccountNumber": "NL14 ABNA •••• ••39",
+    "normalized": {
+     "description": "factuur 279705",
+     "counterpartDescription": "verpakkingen direct"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.98,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "8844683f-bca5-623c-7495-5135a25094a2",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Factuur SL4732780",
+    "bookDate": "2026-08-16",
+    "transactionDateTime": "2026-08-16T16:06:00Z",
+    "amount": -918.41,
+    "balanceAfterTransaction": 23643.04,
+    "currency": "EUR",
+    "counterpartDescription": "Sligro Food Group Nederland B.V.",
+    "counterpartAccountNumber": "NL52 RABO •••• ••02",
+    "normalized": {
+     "description": "factuur sl4732780",
+     "counterpartDescription": "sligro food group nederland bv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.89,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "3fde719b-acc5-8926-3ef0-2a070ab557ca",
+    "accountId": "2da62b05-1d4b-ef6f-8221-2f82b3f011ea",
+    "accountNumber": "NL78 INGB •••• ••06",
+    "description": "Opname privé",
+    "bookDate": "2026-08-16",
+    "transactionDateTime": "2026-08-16T20:17:00Z",
+    "amount": 1300.0,
+    "balanceAfterTransaction": 1301.32,
+    "currency": "EUR",
+    "counterpartDescription": "K. Koekenbakker h.o.d.n. Project Patat",
+    "counterpartAccountNumber": "NL63 INGB •••• ••72",
+    "normalized": {
+     "description": "opname privé",
+     "counterpartDescription": "k koekenbakker hodn project patat"
+    },
+    "category": {
+     "e1": {
+      "category": "internal.other",
+      "confidence": 0.99,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "18e006ef-d1b2-d0e2-c4f2-25d280678ccd",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "CCV pinafrekening 2026-08-16 terminal 4471",
+    "bookDate": "2026-08-17",
+    "transactionDateTime": "2026-08-17T05:10:00Z",
+    "amount": 981.65,
+    "balanceAfterTransaction": 24624.69,
+    "currency": "EUR",
+    "counterpartDescription": "CCV Payment Services",
+    "counterpartAccountNumber": "NL36 ABNA •••• ••60",
+    "normalized": {
+     "description": "ccv pinafrekening 2026-08-16 terminal 4471",
+     "counterpartDescription": "ccv payment services"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.93,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "be56f494-7065-aae2-797a-a7e807062c4d",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-16",
+    "bookDate": "2026-08-17",
+    "transactionDateTime": "2026-08-17T06:30:00Z",
+    "amount": 1237.88,
+    "balanceAfterTransaction": 8429.73,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-16",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.93,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "788520f2-f76e-5cd2-f530-ffdc56a4cdce",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Uitbetaling Thuisbezorgd periode 2026-08 wk3",
+    "bookDate": "2026-08-17",
+    "transactionDateTime": "2026-08-17T08:16:00Z",
+    "amount": 2729.32,
+    "balanceAfterTransaction": 27354.01,
+    "currency": "EUR",
+    "counterpartDescription": "Takeaway.com Payments B.V.",
+    "counterpartAccountNumber": "NL91 INGB •••• ••20",
+    "normalized": {
+     "description": "uitbetaling thuisbezorgd periode 2026-08 wk3",
+     "counterpartDescription": "takeawaycom payments bv"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.88,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "ea0a6001-88ac-abe7-da64-d8c184b1b7f0",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Factuur 155257",
+    "bookDate": "2026-08-17",
+    "transactionDateTime": "2026-08-17T08:39:00Z",
+    "amount": -688.74,
+    "balanceAfterTransaction": 26665.27,
+    "currency": "EUR",
+    "counterpartDescription": "Kaashandel Van der Veen",
+    "counterpartAccountNumber": "NL48 RABO •••• ••17",
+    "normalized": {
+     "description": "factuur 155257",
+     "counterpartDescription": "kaashandel van der veen"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.89,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "b596ef9b-d4e3-8f54-adfd-7d4959c177f7",
+    "accountId": "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "accountNumber": "NL52 ABNA •••• ••35",
+    "description": "OV-chipkaart",
+    "bookDate": "2026-08-17",
+    "transactionDateTime": "2026-08-17T12:34:00Z",
+    "amount": -15.71,
+    "balanceAfterTransaction": 4579.06,
+    "currency": "EUR",
+    "counterpartDescription": "NS Reizigers",
+    "counterpartAccountNumber": "NL38 ABNA •••• ••79",
+    "normalized": {
+     "description": "ov-chipkaart",
+     "counterpartDescription": "ns reizigers"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.transport.public_transport",
+      "confidence": 0.92,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "c6da449a-77d5-f9a2-6964-067982fc7283",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Factuur AV29903",
+    "bookDate": "2026-08-17",
+    "transactionDateTime": "2026-08-17T16:12:00Z",
+    "amount": -439.36,
+    "balanceAfterTransaction": 7990.37,
+    "currency": "EUR",
+    "counterpartDescription": "Aviko Foodservice B.V.",
+    "counterpartAccountNumber": "NL61 ABNA •••• ••08",
+    "normalized": {
+     "description": "factuur av29903",
+     "counterpartDescription": "aviko foodservice bv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.86,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "b7ec6a9a-d02c-b7e8-0a53-be5e0523dfc9",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Netflix",
+    "bookDate": "2026-08-17",
+    "transactionDateTime": "2026-08-17T16:14:00Z",
+    "amount": -15.99,
+    "balanceAfterTransaction": 1315.02,
+    "currency": "EUR",
+    "counterpartDescription": "Netflix International B.V.",
+    "counterpartAccountNumber": "NL31 ADYB •••• ••76",
+    "normalized": {
+     "description": "netflix",
+     "counterpartDescription": "netflix international bv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.lifestyle.streaming",
+      "confidence": 0.94,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "2a38e14e-eb31-a705-57c3-9dc3bad0b44c",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "SumUp uitbetaling bezorging",
+    "bookDate": "2026-08-17",
+    "transactionDateTime": "2026-08-17T19:21:00Z",
+    "amount": 111.54,
+    "balanceAfterTransaction": 26776.81,
+    "currency": "EUR",
+    "counterpartDescription": "SumUp Payments Limited",
+    "counterpartAccountNumber": "IE91 SUMU •••• ••12",
+    "normalized": {
+     "description": "sumup uitbetaling bezorging",
+     "counterpartDescription": "sumup payments limited"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.97,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "0150280f-8d84-fb81-0f15-adbb934d4460",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Entree",
+    "bookDate": "2026-08-17",
+    "transactionDateTime": "2026-08-17T19:44:00Z",
+    "amount": -15.25,
+    "balanceAfterTransaction": 1299.77,
+    "currency": "EUR",
+    "counterpartDescription": "Kinderboerderij Eindenhout",
+    "counterpartAccountNumber": "NL77 INGB •••• ••89",
+    "normalized": {
+     "description": "entree",
+     "counterpartDescription": "kinderboerderij eindenhout"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.lifestyle.other",
+      "confidence": 0.94,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "82b1161a-1a32-1f6f-79fb-bb19539cbc82",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-17",
+    "bookDate": "2026-08-18",
+    "transactionDateTime": "2026-08-18T06:30:00Z",
+    "amount": 755.89,
+    "balanceAfterTransaction": 8746.26,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-17",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.87,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "0562e8a0-056e-2774-a712-f8b79123c2d0",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-18",
+    "transactionDateTime": "2026-08-18T07:26:00Z",
+    "amount": -83.3,
+    "balanceAfterTransaction": 26693.51,
+    "currency": "EUR",
+    "counterpartDescription": "Albert Heijn 1561",
+    "counterpartAccountNumber": "NL66 INGB •••• ••95",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "albert heijn 1561"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.operations.office_supplies",
+      "confidence": 0.89,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "4ac49f31-73e7-4edb-6459-c922ad054628",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Betaalverzoek",
+    "bookDate": "2026-08-18",
+    "transactionDateTime": "2026-08-18T08:59:00Z",
+    "amount": -47.25,
+    "balanceAfterTransaction": 1252.52,
+    "currency": "EUR",
+    "counterpartDescription": "Tikkie",
+    "counterpartAccountNumber": "NL77 INGB •••• ••80",
+    "normalized": {
+     "description": "betaalverzoek",
+     "counterpartDescription": "tikkie"
+    },
+    "category": {
+     "e1": {
+      "category": "other.private_transfer",
+      "confidence": 0.98,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "0ca1dd94-779f-275a-e4bf-eb6151815df8",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-18",
+    "transactionDateTime": "2026-08-18T09:43:00Z",
+    "amount": -60.62,
+    "balanceAfterTransaction": 1191.9,
+    "currency": "EUR",
+    "counterpartDescription": "Kruidvat",
+    "counterpartAccountNumber": "NL40 INGB •••• ••73",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "kruidvat"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.personal_care",
+      "confidence": 0.96,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "78c152c7-35ff-22e5-a696-a43b125f523b",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Factuur PT-202608",
+    "bookDate": "2026-08-18",
+    "transactionDateTime": "2026-08-18T09:47:00Z",
+    "amount": 1082.05,
+    "balanceAfterTransaction": 9828.31,
+    "currency": "EUR",
+    "counterpartDescription": "Strandpaviljoen Zuid B.V.",
+    "counterpartAccountNumber": "NL22 RABO •••• ••43",
+    "normalized": {
+     "description": "factuur pt-202608",
+     "counterpartDescription": "strandpaviljoen zuid bv"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.93,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "fefa168b-fa29-39b7-acf2-80e85fe2deaa",
+    "accountId": "875d257a-0dff-f428-2233-5332d0e67b86",
+    "accountNumber": "NL09 ABNA •••• ••18",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-18",
+    "transactionDateTime": "2026-08-18T11:08:00Z",
+    "amount": -84.04,
+    "balanceAfterTransaction": 1107.86,
+    "currency": "EUR",
+    "counterpartDescription": "Albert Heijn 1561",
+    "counterpartAccountNumber": "NL20 INGB •••• ••96",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "albert heijn 1561"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.94,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "0db041b3-de28-886f-0a49-82b5912bec64",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Uber Eats payout 20260818",
+    "bookDate": "2026-08-18",
+    "transactionDateTime": "2026-08-18T11:23:00Z",
+    "amount": 1040.29,
+    "balanceAfterTransaction": 27733.8,
+    "currency": "EUR",
+    "counterpartDescription": "Uber Eats Netherlands B.V.",
+    "counterpartAccountNumber": "NL68 INGB •••• ••21",
+    "normalized": {
+     "description": "uber eats payout 20260818",
+     "counterpartDescription": "uber eats netherlands bv"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.91,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "cf24b480-efdc-34c5-418b-a0803d984fc4",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Factuur 819557",
+    "bookDate": "2026-08-18",
+    "transactionDateTime": "2026-08-18T12:54:00Z",
+    "amount": -396.45,
+    "balanceAfterTransaction": 9431.86,
+    "currency": "EUR",
+    "counterpartDescription": "Coca-Cola Europacific Partners",
+    "counterpartAccountNumber": "NL14 ABNA •••• ••99",
+    "normalized": {
+     "description": "factuur 819557",
+     "counterpartDescription": "coca-cola europacific partners"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.97,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "9ff38f9a-f9df-1caa-fbc8-009d237cb846",
+    "accountId": "2da62b05-1d4b-ef6f-8221-2f82b3f011ea",
+    "accountNumber": "NL78 INGB •••• ••06",
+    "description": "Betaalpas",
+    "bookDate": "2026-08-18",
+    "transactionDateTime": "2026-08-18T16:40:00Z",
+    "amount": -36.55,
+    "balanceAfterTransaction": 1264.77,
+    "currency": "EUR",
+    "counterpartDescription": "Jumbo Haarlem Zuid",
+    "counterpartAccountNumber": "NL29 INGB •••• ••46",
+    "normalized": {
+     "description": "betaalpas",
+     "counterpartDescription": "jumbo haarlem zuid"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.essential.groceries",
+      "confidence": 0.93,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "4238dcbb-c3dd-bb54-fd3f-15415f681e38",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "CCV pinafrekening 2026-08-18 terminal 4471",
+    "bookDate": "2026-08-19",
+    "transactionDateTime": "2026-08-19T05:10:00Z",
+    "amount": 530.87,
+    "balanceAfterTransaction": 28264.67,
+    "currency": "EUR",
+    "counterpartDescription": "CCV Payment Services",
+    "counterpartAccountNumber": "NL36 ABNA •••• ••60",
+    "normalized": {
+     "description": "ccv pinafrekening 2026-08-18 terminal 4471",
+     "counterpartDescription": "ccv payment services"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.87,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "d16ad9a9-6424-6c19-3849-3272c84d78f2",
+    "accountId": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "accountNumber": "NL63 INGB •••• ••72",
+    "description": "Worldline uitbetaling 2026-08-18",
+    "bookDate": "2026-08-19",
+    "transactionDateTime": "2026-08-19T06:30:00Z",
+    "amount": 737.55,
+    "balanceAfterTransaction": 10169.41,
+    "currency": "EUR",
+    "counterpartDescription": "Worldline Netherlands",
+    "counterpartAccountNumber": "NL58 ABNA •••• ••62",
+    "normalized": {
+     "description": "worldline uitbetaling 2026-08-18",
+     "counterpartDescription": "worldline netherlands"
+    },
+    "category": {
+     "e1": {
+      "category": "income.other",
+      "confidence": 0.97,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "d74b39a6-a929-7709-bd7f-c7b1fd37e9dc",
+    "accountId": "29be5d21-2981-0b38-24c2-771116e58928",
+    "accountNumber": "NL27 RABO •••• ••41",
+    "description": "Hanos factuur 849818",
+    "bookDate": "2026-08-19",
+    "transactionDateTime": "2026-08-19T07:22:00Z",
+    "amount": -1123.31,
+    "balanceAfterTransaction": 27141.36,
+    "currency": "EUR",
+    "counterpartDescription": "Hanos Groothandel B.V.",
+    "counterpartAccountNumber": "NL24 INGB •••• ••05",
+    "normalized": {
+     "description": "hanos factuur 849818",
+     "counterpartDescription": "hanos groothandel bv"
+    },
+    "category": {
+     "e1": {
+      "category": "expense.other",
+      "confidence": 0.96,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "corporate",
+       "countryCode": "nl"
+      }
+     }
+    }
+   },
+   {
+    "id": "4b84d430-b813-80dd-0fca-00e4590b9443",
+    "accountId": "2da62b05-1d4b-ef6f-8221-2f82b3f011ea",
+    "accountNumber": "NL78 INGB •••• ••06",
+    "description": "iDEAL storting",
+    "bookDate": "2026-08-19",
+    "transactionDateTime": "2026-08-19T10:13:00Z",
+    "amount": -16.39,
+    "balanceAfterTransaction": 1248.38,
+    "currency": "EUR",
+    "counterpartDescription": "Toto Sportweddenschappen",
+    "counterpartAccountNumber": "NL36 INGB •••• ••89",
+    "normalized": {
+     "description": "ideal storting",
+     "counterpartDescription": "toto sportweddenschappen"
+    },
+    "category": {
+     "e1": {
+      "category": "gambling.other",
+      "confidence": 0.87,
+      "flags": [],
+      "model": {
+       "version": "e1-2026.10",
+       "profile": "retail",
+       "countryCode": "nl"
+      }
+     }
+    }
+   }
+  ],
+  "nextPageToken": "page-25"
+ }
+}

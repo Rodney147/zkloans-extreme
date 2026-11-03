@@ -1,0 +1,31 @@
+{
+ "request": {
+  "method": "GET",
+  "path": "/v2/consents"
+ },
+ "response_200": {
+  "data": [
+   {
+    "id": "c-rabo-pp-0001",
+    "providerKey": "rabobank",
+    "status": "VALID",
+    "dateRequested": "2026-11-03T09:10:00Z",
+    "validUntil": "2027-02-01T00:00:00Z"
+   },
+   {
+    "id": "c-ing-pp-0002",
+    "providerKey": "ing",
+    "status": "VALID",
+    "dateRequested": "2026-11-03T09:11:00Z",
+    "validUntil": "2027-02-01T00:00:00Z"
+   },
+   {
+    "id": "c-abn-pp-0003",
+    "providerKey": "abn-amro",
+    "status": "VALID",
+    "dateRequested": "2026-11-03T09:12:00Z",
+    "validUntil": "2027-02-01T00:00:00Z"
+   }
+  ]
+ }
+}

@@ -10,7 +10,7 @@ function scorecard() {
   const missed = sum(A.obligations.map(item => item.missed));
   if (overlay !== 'prive') {
     const revenueChange = change3v12(A.revenue);
-    const top = A.debtors[0];
+    const top = A.debtors.find(entity => !isPaymentProcessor(entity));
     const topShare = top ? top.total / A.revenue12 : NaN;
     const band = bandwidth();
     const certainShare = band.revenue.max ? band.revenue.min / band.revenue.max : NaN;

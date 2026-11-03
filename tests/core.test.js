@@ -182,6 +182,30 @@ test('Vof: opnamen per vennoot, partner is vennoot, hoofdelijkheid', async () =>
   Object.entries(want.checklistProposal).forEach(([id, value]) => assert.equal(checks.find(check => check.id === id).voorstel, value, `check ${id}`));
 });
 
+/* ---------- Twee eenmanszaken in één huishouden (Project Pizza en Project Patat) ---------- */
+test('Pizza & Patat: opnamen per eigenaar, huishouden één keer, roodstand per rekening', async () => {
+  const want = expected('pizza-patat');
+  const { core, Az, risks, dossier } = await model('pizza-patat');
+  assert.equal(dossier.transactions.length, want.transactions);
+  Object.entries(want.endBalances).forEach(([iban, balance]) => near(dossier.accounts.find(account => account.iban === iban.replace(/\s/g, '')).balance, balance, 0.01, `eindsaldo ${iban}`));
+  near(Az.revenue12, want.revenue12['Project Pizza'] + want.revenue12['Project Patat'], 0.01, 'omzet beide zaken');
+  assert.equal(JSON.stringify(dossier.accounts.filter(account => account.role !== 'prive').map(account => [account.role, account.owner])), JSON.stringify([['zakelijk', 'onderneming'], ['zakelijk', 'onderneming']]), 'beide zaken zakelijk, niet gemengd');
+  near(Az.memberDraws.find(member => member.name === 'M. Milkshake').out, want.ownerDraws12['M. Milkshake (Pizza)'], 0.01, 'opnamen Milkshake');
+  near(Az.memberDraws.find(member => member.name === 'K. Koekenbakker').out, want.ownerDraws12['K. Koekenbakker (Patat)'], 0.01, 'opnamen Koekenbakker');
+  const households = Az.capacityBase.households;
+  assert.equal(households.length, 1, 'één huishouden');
+  near(households[0].used * 12, (want.ownerDraws12['M. Milkshake (Pizza)'] + want.ownerDraws12['K. Koekenbakker (Patat)']), 1, 'aftrek = opnamen samen, niet dubbel');
+  assert.ok(!risks.some(item => item.id === 'concentratie' && /CCV|Worldline|SumUp/.test(item.wat)), 'pinafrekening is geen klantconcentratie');
+  assert.ok(risks.find(item => item.id === 'roodstand')?.wat.includes('Project Patat'), 'roodstand op de rekening van Patat');
+  want.expectRisks.filter(id => id !== 'rekening-niet-gedeeld' && id !== 'roodstand').forEach(id => assert.ok(risks.some(item => item.id === id), `melding ${id}`));
+  /* per zaak: Pizza sterker dan Patat */
+  const perBusiness = iban => { core.__iban = iban; return run(core, "DOSSIER.accounts.forEach(account => { if (account.role !== 'prive') account.enabled = account.iban === __iban; }); (() => { const result = analyse(); DOSSIER.accounts.forEach(account => { account.enabled = true; }); return { revenue: result.revenue12, operating: result.operating.reduce((s, v) => s + v, 0) }; })()"); };
+  const pizza = perBusiness('NL27RABO••••••41'), patat = perBusiness('NL63INGB••••••72');
+  near(pizza.revenue, want.revenue12['Project Pizza'], 0.01, 'omzet Pizza');
+  near(patat.revenue, want.revenue12['Project Patat'], 0.01, 'omzet Patat');
+  assert.ok(pizza.operating / pizza.revenue > patat.operating / patat.revenue, 'Pizza houdt per euro omzet meer over');
+});
+
 /* ---------- Regressie: de drie sets uit ZK Loans laden en geven stabiele uitkomsten ---------- */
 const baseline = JSON.parse(fs.readFileSync(path.join(__dirname, 'regression-baseline.json'), 'utf8'));
 for (const folder of Object.keys(baseline)) {

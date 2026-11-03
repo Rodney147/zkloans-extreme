@@ -22,11 +22,11 @@ function checklist(Az, Ap, cap, riskList) {
   const memberAccounts = members.map(member => ({ member, accounts: accounts.filter(account => account.owner === member.id && account.role !== 'zakelijk') }));
   const lowShare = sum(Az.rows.filter(row => [10, 11].includes(row.rule) && row.confidence < CONFIDENCE.threshold).map(row => Math.abs(row.amount))) / Math.max(1, sum(Az.rows.map(row => Math.abs(row.amount))));
   const uncatShare = sum(Az.byRule(12).map(row => Math.abs(row.amount))) / Math.max(1, sum(Az.rows.map(row => Math.abs(row.amount))));
-  const top = Az.debtors.find(entity => entity.decision !== 'no');
+  const top = Az.debtors.find(entity => entity.decision !== 'no' && !isPaymentProcessor(entity));
   const topShare = top && Az.revenue12 ? top.total / Az.revenue12 : 0;
   const trend = change3v12Core(Az.revenue);
   const vat = Az.taxOf('ob');
-  const negMonthMax = Math.max(...Az.negativeDaysByMonth);
+  const negMonthMax = Math.max(0, ...Az.accountBalances.flatMap(item => item.negativeByMonth));
   const dgaSalary12 = sum(Az.dgaSalary);
   const openRisks = riskList.filter(item => item.state.status === 'open');
   const P = {

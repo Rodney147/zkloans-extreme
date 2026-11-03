@@ -37,7 +37,7 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(800)
     check(not errors, 'voorbeelddossier start zonder fouten')
 
-    for folder in ['hocus-pocus', 'slager', 'lender-spender', 'mister-x', 'ez-gemengd', 'vof']:
+    for folder in ['hocus-pocus', 'slager', 'lender-spender', 'mister-x', 'ez-gemengd', 'vof', 'pizza-patat']:
         errors.clear()
         load(page, folder)
         for tab in TABS:

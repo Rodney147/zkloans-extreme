@@ -1,0 +1,28 @@
+{
+ "request": {
+  "method": "POST",
+  "path": "/v2/categorization-jobs",
+  "body": {
+   "engine": "e1",
+   "profile": "retail",
+   "countryCode": "nl",
+   "accountIds": [
+    "875d257a-0dff-f428-2233-5332d0e67b86",
+    "ae4d6fdf-bd5b-4fe0-879a-f86c41012b99",
+    "2da62b05-1d4b-ef6f-8221-2f82b3f011ea"
+   ],
+   "metaData": {
+    "internal_ibans": [
+     "NL27 RABO •••• ••41",
+     "NL63 INGB •••• ••72",
+     "NL09 ABNA •••• ••18",
+     "NL52 ABNA •••• ••35",
+     "NL78 INGB •••• ••06"
+    ]
+   }
+  }
+ },
+ "response_202": {
+  "data": "job-retail-pp"
+ }
+}

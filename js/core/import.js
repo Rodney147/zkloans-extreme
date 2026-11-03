@@ -148,7 +148,9 @@ async function readDataset(files) {
     account.roleConfirmed = false;
   });
   /* leden: uit members (Loanwise), anders afgeleid uit de namen op privérekeningen; dubbelen samenvoegen */
-  const rawMembers = found.members.length ? found.members : accounts.filter(account => account.role === 'prive').map(account => String(account.name).trim().match(/^([A-Z])\S*\.?\s+(.+)$/)).filter(Boolean).map(match => ({ initials: `${match[1]}.`, last_name: match[2], derived: true }));
+  /* een gezamenlijke rekening ("M. Milkshake en K. Koekenbakker") levert beide personen op */
+  const personNames = name => String(name).split(/\s+(?:en|eo|e\/o|&)\s+|\s*\/\s*/i).map(part => part.trim()).filter(Boolean);
+  const rawMembers = found.members.length ? found.members : accounts.filter(account => account.role === 'prive').flatMap(account => personNames(account.name)).map(name => name.match(/^([A-Z])\S*\.?\s+(.+)$/)).filter(Boolean).map(match => ({ initials: `${match[1]}.`, last_name: match[2], derived: true }));
   /* eenmanszaak/vof zonder members en zonder privérekening: eigenaar afleiden uit "initiaal + achternaam" van een tegenpartij waarvan de achternaam in de bedrijfsnaam staat */
   if (!rawMembers.length && ['eenmanszaak', 'vof'].includes(legalForm) && company?.name) {
     const companyWords = String(company.name).toLowerCase().split(/[^a-zà-ÿ]+/);
@@ -202,6 +204,9 @@ function assignOwners(accounts, members) {
   accounts.forEach(account => {
     if (account.owner) return;
     account.owner = account.role === 'zakelijk' ? 'onderneming' : ownerForName(account.name, members) ?? members[0]?.id ?? 'onderneming';
+    /* gezamenlijke rekening: alle leden op de naam zijn mede-eigenaar (één huishouden) */
+    const coOwners = String(account.name).split(/\s+(?:en|eo|e\/o|&)\s+|\s*\/\s*/i).map(part => ownerForName(part, members)).filter(Boolean);
+    if (account.role !== 'zakelijk' && new Set(coOwners).size > 1) account.coOwners = [...new Set(coOwners)];
   });
 }
 /* Eenmanszaak met één rekening op eigen naam met zowel klanten als huishouden: voorstel "gemengd" */
@@ -213,6 +218,7 @@ function suggestMixedAccounts(accounts, rows, legalForm, members) {
     const privateRows = own.filter(row => (row.amount < 0 && (GEMENGD.privéUitgaveNaam.test(row.name ?? '') || GEMENGD.privéUitgaveE1.test(row.e1?.category ?? ''))) || (row.amount > 0 && GEMENGD.privéInkomenNaam.test(row.name ?? '')));
     const invoices = own.filter(row => row.amount > 0 && /factuur|nota|\b20\d{2}-\d{2,}/i.test(row.description));
     const onOwnName = ownerForName(account.name, members) || /h\.?o\.?d\.?n/i.test(account.name);
-    if (onOwnName && privateRows.length >= 6 && invoices.length >= 6) { account.role = 'gemengd'; account.roleSuggested = 'gemengd: klanten én huishouden op één rekening'; }
+    const outgoing = own.filter(row => row.amount < 0).length;
+    if (onOwnName && privateRows.length >= 6 && invoices.length >= 6 && privateRows.length / Math.max(1, outgoing) >= 0.15) { account.role = 'gemengd'; account.roleSuggested = 'gemengd: klanten én huishouden op één rekening'; }
   });
 }

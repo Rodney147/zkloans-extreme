@@ -1,0 +1,39 @@
+{
+ "request": {
+  "method": "GET",
+  "path": "/Accounts",
+  "query": {
+   "ConsentId": "c-ing-pp-0002"
+  }
+ },
+ "response_200": {
+  "data": [
+   {
+    "id": "9d8ad616-fd35-cf2c-9eaa-3ca931b51313",
+    "iban": "NL63 INGB •••• ••72",
+    "providerAccountId": "ing-9d8ad616",
+    "accountHolder": "K. Koekenbakker h.o.d.n. Project Patat",
+    "bban": null,
+    "currency": "EUR",
+    "accountBalance": {
+     "currency": "EUR",
+     "date": "2026-10-31T23:59:59Z",
+     "amount": 10035.54
+    }
+   },
+   {
+    "id": "2da62b05-1d4b-ef6f-8221-2f82b3f011ea",
+    "iban": "NL78 INGB •••• ••06",
+    "providerAccountId": "ing-2da62b05",
+    "accountHolder": "K. Koekenbakker",
+    "bban": null,
+    "currency": "EUR",
+    "accountBalance": {
+     "currency": "EUR",
+     "date": "2026-10-31T23:59:59Z",
+     "amount": -34.61
+    }
+   }
+  ]
+ }
+}
