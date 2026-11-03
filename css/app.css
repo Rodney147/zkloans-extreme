@@ -357,3 +357,23 @@ tr.total-row td { border-top: 1px solid var(--chart-line); }
   body.print-report .card { box-shadow: none; border: 0; }
   .report-section { break-inside: avoid; }
 }
+
+/* ---------- Maandoverzicht ---------- */
+.month-wrap { overflow-x: auto; }
+.month-table { font-size: 12px; font-variant-numeric: tabular-nums; }
+.month-table th, .month-table td { padding: 5px 8px; white-space: nowrap; }
+.month-table thead th .muted { margin-left: 2px; font-weight: 400; }
+.month-table tbody tr:nth-child(even) td { background: none; }
+.month-table tbody tr:hover td { background: var(--band); }
+.month-table th:first-child, .month-table td:first-child { position: sticky; left: 0; background: var(--card); z-index: 1; min-width: 260px; max-width: 320px; }
+.month-table td.label { display: flex; align-items: center; gap: 6px; overflow: hidden; text-overflow: ellipsis; }
+.month-table td.label .btn-view { padding: 2px 5px; }
+.month-table td.label > span:first-of-type { overflow: hidden; text-overflow: ellipsis; }
+.month-table td.label .muted { margin-left: auto; font-size: 11px; }
+.month-table .group-head th, .month-table .group-head td { background: var(--head); border-top: 1px solid var(--grid); }
+.month-table .group-head th:first-child { background: var(--head); }
+.group-toggle { border: 0; background: none; padding: 0; font: inherit; font-weight: 600; font-size: 12px; color: var(--navy); cursor: pointer; }
+.month-table td.total, .month-table th.total { border-left: 1px solid var(--grid); }
+.month-table .month-total th { text-align: left; font-weight: 600; background: var(--card); }
+.month-table .month-total tr:first-child th, .month-table .month-total tr:first-child td { border-top: 2px solid var(--chart-line); }
+.month-table .month-total .net th, .month-table .month-total .net td { border-top: 1px solid var(--grid); }
