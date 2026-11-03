@@ -46,24 +46,32 @@ function capacity(A, input = INPUT) {
   const band = bandwidth(A);
   const worstCarrying = carrying - band.revenue.uncertain * (1 - VAT_FACTOR) / months;
   const bestCarrying = carrying + band.costs.uncertain * (1 - VAT_FACTOR * 0.85) / months;
-  /* scenario's: omzet en kosten met een percentage; btw beweegt mee, lonen en vaste lasten niet */
+  /* scenario's: variabele kosten (crediteuren zonder vaste posten: zelfde bedrag ±2% in ≥ 5 van de laatste 6 maanden) bewegen mee met de omzet;
+     vaste lasten (huur, abonnementen, verzekering), lonen en bestaande financiering blijven gelijk. btw beweegt mee. */
   const revenueMonthly = A.revenue12 / months, costsMonthly = A.costs12 / months;
-  const scenario = ({ omzet, kosten }) => {
-    const value = carrying + revenueMonthly * (omzet ?? 0) * (1 - VAT_FACTOR) - costsMonthly * (kosten ?? 0) * (1 - VAT_FACTOR * 0.85);
-    return { carrying: round2(value), dscr: ratio(value, debtAfter), room: round2(value - debtAfter) };
+  const fixedCostsMonthly = Math.min(costsMonthly, sum(A.obligations.filter(item => item.rule === 11 && item.active && item.marks.filter(mark => mark === 'paid').length >= 5).map(item => item.term)));
+  const variableMonthly = Math.max(0, costsMonthly - fixedCostsMonthly);
+  const variableShare = revenueMonthly > 0 ? variableMonthly / revenueMonthly : 0;
+  const net = (revenueChange, costChange) => revenueChange * (1 - VAT_FACTOR) - costChange * (1 - VAT_FACTOR * 0.85);
+  const scenario = ({ omzet = 0, kosten = 0 }) => {
+    const variableChange = variableMonthly * omzet;
+    const extraCosts = (costsMonthly + variableChange) * kosten;
+    const value = carrying + net(revenueMonthly * omzet, variableChange + extraCosts);
+    return { carrying: round2(value), dscr: ratio(value, debtAfter), room: round2(value - debtAfter), revenueMonthly: round2(revenueMonthly * (1 + omzet)) };
   };
-  const scenarios = {
-    basis: { label: 'Basis', omzet: 0, kosten: 0, ...scenario({ omzet: 0, kosten: 0 }) },
-    negatief: { label: 'Negatief', ...input.scenario.negatief, ...scenario(input.scenario.negatief) },
-    positief: { label: 'Positief', ...input.scenario.positief, ...scenario(input.scenario.positief) },
-  };
+  const SCENARIO_LABEL = { negatief: 'Negatief', stress: 'Stress', positief: 'Positief' };
+  const scenarios = { basis: { label: 'Basis', omzet: 0, kosten: 0, ...scenario({}) } };
+  Object.keys(SCENARIO_STANDAARD).forEach(key => { const settings = { ...SCENARIO_STANDAARD[key], ...(input.scenario?.[key] ?? {}) }; scenarios[key] = { label: SCENARIO_LABEL[key] ?? key, ...settings, ...scenario(settings) }; });
+  /* omzet waarbij de DSCR precies 1 is (break-even), met meebewegende variabele kosten */
+  const perPercent = net(revenueMonthly, variableMonthly);
+  const breakEven = perPercent > 0 && debtAfter > 0 ? (debtAfter - carrying) / perPercent : null;
   return {
     loan, input: input.loan, months,
     operating: round2(operating), carrying: round2(carrying), deduction: round2(operating - carrying),
     existingMonthly: round2(existingMonthly), extras, extraMonthly: round2(extraMonthly), newMonthly: round2(newMonthly), debtBefore: round2(debtBefore), debtAfter: round2(debtAfter),
     dscrBefore: ratio(carrying, debtBefore), dscrAfter: ratio(carrying, debtAfter), room: round2(carrying - debtAfter),
     worst: { carrying: round2(worstCarrying), dscr: ratio(worstCarrying, debtAfter) }, best: { carrying: round2(bestCarrying), dscr: ratio(bestCarrying, debtAfter) },
-    scenarios,
+    scenarios, costStructure: { fixedMonthly: round2(fixedCostsMonthly), variableMonthly: round2(variableMonthly), variableShare }, breakEven,
     verdict: {
       dscr: NORMEN.dscrMinimum == null ? null : ratio(carrying, debtAfter) >= NORMEN.dscrMinimum,
       worst: NORMEN.dscrSlechtsteGeval == null ? null : ratio(worstCarrying, debtAfter) >= NORMEN.dscrSlechtsteGeval,

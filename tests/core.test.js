@@ -123,6 +123,19 @@ test('Hocus Pocus: Samen bij een bv is een huishoudoverzicht', async () => {
   assert.equal(analyseView(core, 'zakelijk').householdOnly, false);
 });
 
+test('Scenario’s: variabele kosten bewegen mee met de omzet', async () => {
+  const { cap } = await model('hocus-pocus', { amount: 100000, rate: 7, months: 60, form: 'annuitair' });
+  const share = cap.costStructure.variableShare;
+  assert.ok(share > 0 && share < 1, 'variabel aandeel tussen 0 en 1');
+  const neg = cap.scenarios.negatief;
+  const vat = 21 / 121;
+  const revenueMonthly = cap.scenarios.basis.revenueMonthly;
+  const costsFixed = cap.carrying + revenueMonthly * neg.omzet * (1 - vat);
+  assert.ok(neg.carrying > costsFixed, 'minder omzet = ook minder inkoop');
+  near(cap.carrying + (revenueMonthly * (1 - vat) - cap.costStructure.variableMonthly * (1 - vat * 0.85)) * cap.breakEven, cap.debtAfter, 0.5, 'break-even geeft DSCR 1');
+  assert.ok(['negatief', 'stress', 'positief'].every(key => cap.scenarios[key]), 'drie scenario’s naast basis');
+});
+
 /* ---------- Eenmanszaak met gemengde rekening ---------- */
 test('Eenmanszaak gemengd: privé uit omzet en kosten, draagkracht zonder dubbeltelling', async () => {
   const want = expected('ez-gemengd');

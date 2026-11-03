@@ -46,9 +46,12 @@ const SIGNAALGRENZEN = {
   e1AfwijkingAandeel: 0.10,                         // aandeel bedrag waarop E1 afwijkt                        // inhaalbetaling alleen bij termijnen ≥ € 100 (abonnementen met licenties vallen af)
 };
 
-/* Scenario's bovenop de basis (percentages instelbaar in de module Kredietcapaciteit) */
+/* Scenario's bovenop de basis. VOORLOPIG: de definitieve percentages volgen (Risk).
+   omzet = verandering omzet; variabele kosten (inkoop, directe kosten) bewegen evenredig mee.
+   kosten = extra verandering van alle kosten (bijv. prijsstijging), bovenop het meebewegen. */
 const SCENARIO_STANDAARD = {
-  negatief: { omzet: -0.15, kosten: 0.05 },
+  negatief: { omzet: -0.15, kosten: 0 },
+  stress: { omzet: -0.25, kosten: 0.05 },
   positief: { omzet: 0.10, kosten: 0 },
 };
 

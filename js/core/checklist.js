@@ -72,7 +72,7 @@ function checklist(Az, Ap, cap, riskList) {
     F0: () => ({ voorstel: 'niet_beoordeeld', feiten: `${legal}: ${Az.deductionLines.map(line => `${line.label} ${eur(sum(line.values) / 12)}/mnd`).join(' · ')}` }),
     F1: () => byNorm('dscrMinimum', norm => cap.dscrAfter >= norm, `DSCR ${Number.isFinite(cap.dscrAfter) ? dec(cap.dscrAfter) : '-'} (incl. nieuwe last ${eur(cap.newMonthly)}/mnd)`),
     F2: () => byNorm('dscrSlechtsteGeval', norm => cap.worst.dscr >= norm, `slechtste geval ${Number.isFinite(cap.worst.dscr) ? dec(cap.worst.dscr) : '-'}`),
-    F3: () => facts(cap.scenarios.negatief.room >= 0, 'voldoet', 'voldoet_niet', `negatief scenario (omzet ${pctCore(cap.scenarios.negatief.omzet)}, kosten +${pctCore(cap.scenarios.negatief.kosten)}): ruimte ${eur(cap.scenarios.negatief.room)}/mnd`),
+    F3: () => ({ voorstel: cap.scenarios.negatief.room >= 0 ? 'voldoet' : 'info_nodig', feiten: `negatief scenario (omzet ${pctCore(cap.scenarios.negatief.omzet)}, variabele kosten mee${cap.scenarios.negatief.kosten ? `, extra kosten +${pctCore(cap.scenarios.negatief.kosten)}` : ''}): DSCR ${dec(cap.scenarios.negatief.dscr)}, ruimte ${eur(cap.scenarios.negatief.room)}/mnd · voorlopige percentages` }),
     F4: () => byNorm('ruimtePerMaand', norm => cap.room >= norm, `ruimte na nieuwe last ${eur(cap.room)}/mnd`),
     F5: () => INPUT.loan.months ? byNorm('looptijdMaandenMaximum', norm => INPUT.loan.months <= norm, `looptijd ${INPUT.loan.months} mnd${INPUT.loan.purposeMonths ? ` · levensduur doel ${INPUT.loan.purposeMonths} mnd` : ''}`) : { voorstel: 'niet_beoordeeld', feiten: 'Looptijd niet ingevuld' },
     G1: () => facts(!openRisks.length, 'voldoet', 'niet_beoordeeld', `${openRisks.length} van ${riskList.length} meldingen open`),
