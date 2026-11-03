@@ -377,3 +377,70 @@ RENDERERS.regels = () => `${card('Categorieregels', 'Eerste regel die past, bepa
     ['Tegenrekening', 'counter_party_account', 'counterpartAccountNumber'], ['Soort', 'transaction_type', '-'], ['Saldo na transactie', '- (doorgerekend)', 'balanceAfterTransaction'], ['Categorie', '-', 'category.e1 {category, confidence, flags}'],
     ['Rekening', 'account_number, account_name, account_balance', '/Accounts: iban, accountHolder, accountBalance'], ['Klant', 'members (initials, last_name)', 'companyInfo (kvkNumber, legalForm, SBI)'], ['Bank en deeldatum', 'BIC', '/v2/consents: providerKey, dateRequested'],
   ].map(([label, loanwise, enableNow]) => `<tr><td>${label}</td><td><code>${loanwise}</code></td><td><code>${enableNow}</code></td></tr>`).join('')))}`;
+
+/* ---------- Maandoverzicht: alle kopjes per maand, gegroepeerd onder elkaar ---------- */
+let monthsCollapsed = {};
+RENDERERS.maanden = () => {
+  const rows = A.rows.filter(row => includeInternal || row.rule !== 1);
+  const ins = rows.filter(row => row.amount > 0), outs = rows.filter(row => row.amount < 0);
+  const by = (list, keyOf) => [...groupBy(list, keyOf).entries()].map(([label, items]) => ({ label, items })).sort((first, second) => Math.abs(sum(second.items.map(row => row.amount))) - Math.abs(sum(first.items.map(row => row.amount))));
+  const line = (label, items) => ({ label, items });
+  const privé = overlay === 'prive';
+  const costLabel = row => row.e1 ? e1Label(row.e1.category) : row.refund ? 'Retouren en creditnota’s' : (privé ? 'Overige uitgaven' : 'Overige crediteuren');
+  const relatedLabel = row => `${row.role ?? 'Verbonden partij'}${row.memberId && memberById(row.memberId) ? ` · ${memberById(row.memberId).label}` : ''}`;
+  const groups = [
+    ['Ontvangsten', [
+      line(privé ? 'Inkomsten (regel 10)' : 'Omzet / debiteuren (regel 10)', ins.filter(row => row.rule === 10)),
+      line('Lonen ontvangen (regel 8)', ins.filter(row => row.rule === 8)),
+      ...by(ins.filter(row => row.rule === 5), relatedLabel).map(item => line(`Van ${item.label}`, item.items)),
+      line('Financiering ontvangen (regel 6)', ins.filter(row => row.rule === 6)),
+      line('Belasting teruggaaf (regel 3)', ins.filter(row => row.rule === 3)),
+      line('Terugboekingen (regel 2)', ins.filter(row => row.rule === 2)),
+      line('Retouren en creditnota’s', ins.filter(row => row.rule === 11)),
+      line('Contant gestort (regel 9)', ins.filter(row => row.rule === 9)),
+      line('Ongecategoriseerd (regel 12)', ins.filter(row => row.rule === 12)),
+      line('Intern van eigen rekening (regel 1)', ins.filter(row => row.rule === 1)),
+    ]],
+    [privé ? 'Uitgaven' : 'Bedrijfskosten', [
+      ...by(outs.filter(row => row.rule === 11), costLabel).map(item => line(item.label, item.items)),
+      line('Lonen personeel (regel 8)', outs.filter(row => row.rule === 8)),
+      line('Bankkosten (regel 7)', outs.filter(row => row.rule === 7)),
+      line('Contant opgenomen (regel 9)', outs.filter(row => row.rule === 9)),
+    ]],
+    ['Belastingen', by(outs.filter(row => row.rule === 3), row => TAX_TYPES[row.tax?.type ?? 'onbekend'].label).map(item => line(item.label, item.items))],
+    ['Financiering en achterstand', [
+      ...by(outs.filter(row => row.rule === 6), row => row.name ?? '(geen naam)').map(item => line(item.label, item.items)),
+      line('Deurwaarder en incasso (regel 4)', outs.filter(row => row.rule === 4)),
+    ]],
+    ['Verbonden partijen en privé', by(outs.filter(row => row.rule === 5), relatedLabel).map(item => line(`Naar ${item.label}`, item.items))],
+    ['Intern', [line('Naar eigen rekening (regel 1)', outs.filter(row => row.rule === 1)), line('Ongecategoriseerd (regel 12)', outs.filter(row => row.rule === 12))]],
+  ].map(([title, lines]) => [title, lines.filter(item => item.items.length)]).filter(([, lines]) => lines.length);
+  const values = items => A.monthly(items);
+  const cells = (list, bold = false) => `${list.map(value => `<td class="num ${value < 0 ? 'negative' : ''}">${value ? (bold ? `<b>${eur(value)}</b>` : eur(value)) : '<span class="muted">·</span>'}</td>`).join('')}<td class="num total"><b class="${sum(list) < 0 ? 'negative' : ''}">${eur(sum(list))}</b></td>`;
+  const monthEnd = A.MONTHS.map(key => { const index = A.days.findLastIndex(day => day.startsWith(key)); return index >= 0 ? A.balance[index] : 0; });
+  const body = groups.map(([title, lines], groupIndex) => {
+    const subtotal = A.MONTHS.map((key, index) => round2(sum(lines.map(item => values(item.items)[index]))));
+    const closed = monthsCollapsed[title];
+    return `<tbody class="month-group">
+      <tr class="group-head"><th scope="rowgroup"><button type="button" class="group-toggle" data-month-group="${esc(title)}" aria-expanded="${!closed}">${closed ? '▸' : '▾'} ${esc(title)}</button></th>${cells(subtotal, true)}</tr>
+      ${closed ? '' : lines.map(item => `<tr><td class="label">${viewButton(`${title} · ${item.label}`, item.items, '', '')}<span>${esc(item.label)}</span><span class="muted">${item.items.length}</span></td>${cells(values(item.items))}</tr>`).join('')}
+    </tbody>`;
+  }).join('');
+  const totalIn = values(ins), totalOut = values(outs);
+  const net = A.MONTHS.map((key, index) => round2(totalIn[index] + totalOut[index]));
+  const foot = `<tbody class="month-total">
+      <tr><th scope="row">Totaal ontvangen</th>${cells(totalIn, true)}</tr>
+      <tr><th scope="row">Totaal betaald</th>${cells(totalOut, true)}</tr>
+      <tr class="net"><th scope="row">Netto mutatie</th>${cells(net, true)}</tr>
+      <tr><th scope="row">Saldo einde maand</th>${monthEnd.map(value => `<td class="num ${value < 0 ? 'negative' : ''}">${eur(value)}</td>`).join('')}<td class="num total muted">-</td></tr>
+    </tbody>`;
+  return card('Maandoverzicht', `${weergaveLabel()} · ${windowLabel()} · interne transacties ${includeInternal ? 'inclusief' : 'exclusief'} · klik op een kopje om in of uit te klappen, op het oog voor de transacties`,
+    `<div class="table-wrap month-wrap"><table class="lw-table month-table"><thead><tr><th>Categorie</th>${A.MONTHS.map(key => `<th class="num">${shortMonth(key)}<span class="muted">${key.slice(2, 4)}</span></th>`).join('')}<th class="num">12 mnd</th></tr></thead>${body}${foot}</table></div>`,
+    `<b>Herleiding:</b> elke regel is een kopje uit de categorieregels; kosten zijn uitgesplitst naar de E1-categorie (Enable Now) waar die er is, financiering per schuldeiser en belasting per soort. Totaal ontvangen + totaal betaald = netto mutatie per maand; met interne transacties inclusief sluit die aan op het verschil in eindsaldo.`);
+};
+document.addEventListener('click', event => {
+  const toggle = event.target.closest('[data-month-group]');
+  if (!toggle) return;
+  monthsCollapsed[toggle.dataset.monthGroup] = !monthsCollapsed[toggle.dataset.monthGroup];
+  renderAll();
+});

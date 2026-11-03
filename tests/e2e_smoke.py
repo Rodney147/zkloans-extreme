@@ -9,7 +9,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAGE = 'file://' + os.path.join(ROOT, 'index.html')
-TABS = ['overzicht', 'controle', 'resultaat', 'omzet', 'kosten', 'cashflow', 'categorieen', 'transacties', 'regels', 'tegenpartijen',
+TABS = ['overzicht', 'controle', 'resultaat', 'omzet', 'kosten', 'cashflow', 'categorieen', 'transacties', 'maanden', 'regels', 'tegenpartijen',
         'verbonden', 'verplichtingen', 'belasting', 'risico', 'signalen', 'capaciteit', 'acceptatie', 'rapport']
 failures = []
 

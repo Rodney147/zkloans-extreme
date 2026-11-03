@@ -163,14 +163,14 @@ function renderDossier() {
 const GROUPS = [
   ['dossier', 'Dossieroverzicht', ['overzicht', 'controle']],
   ['financieel', 'Financiële analyse', ['resultaat', 'omzet', 'kosten', 'cashflow', 'categorieen']],
-  ['transacties', 'Transacties en rekeningen', ['transacties', 'regels']],
+  ['transacties', 'Transacties en rekeningen', ['transacties', 'maanden', 'regels']],
   ['klanten', 'Klanten en leveranciers', ['tegenpartijen', 'verbonden']],
   ['verplichtingen', 'Verplichtingen', ['verplichtingen', 'belasting']],
   ['risico', 'Risicoanalyse', ['risico', 'signalen']],
   ['capaciteit', 'Kredietcapaciteit', ['capaciteit']],
   ['acceptatie', 'Acceptatie en rapport', ['acceptatie', 'rapport']],
 ];
-const TAB_LABELS = { overzicht: 'Overzicht', controle: 'Datakwaliteit en controle', resultaat: 'Kasstroomopbouw', omzet: 'Omzet', kosten: 'Kosten', cashflow: 'Saldo en kasstroom per kopje', categorieen: 'Categorieën', transacties: 'Transacties', regels: 'Regels', tegenpartijen: 'Tegenpartijen', verbonden: 'Verbonden partijen', verplichtingen: 'Verplichtingen', belasting: 'Belasting', risico: 'Risicomeldingen', signalen: 'E1-signalen', capaciteit: 'Kredietcapaciteit', acceptatie: 'Acceptatiechecklist', rapport: 'Conceptrapport' };
+const TAB_LABELS = { overzicht: 'Overzicht', controle: 'Datakwaliteit en controle', resultaat: 'Kasstroomopbouw', omzet: 'Omzet', kosten: 'Kosten', cashflow: 'Saldo en kasstroom per kopje', categorieen: 'Categorieën', transacties: 'Transacties', maanden: 'Maandoverzicht', regels: 'Regels', tegenpartijen: 'Tegenpartijen', verbonden: 'Verbonden partijen', verplichtingen: 'Verplichtingen', belasting: 'Belasting', risico: 'Risicomeldingen', signalen: 'E1-signalen', capaciteit: 'Kredietcapaciteit', acceptatie: 'Acceptatiechecklist', rapport: 'Conceptrapport' };
 const TABS = Object.entries(TAB_LABELS);
 const groupOfTab = id => GROUPS.find(([, , tabs]) => tabs.includes(id)) ?? GROUPS[0];
 const tabLabel = (id, label) => overlay === 'prive' && id === 'omzet' ? 'Inkomsten' : overlay === 'prive' && id === 'kosten' ? 'Uitgaven' : label;
