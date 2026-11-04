@@ -1,45 +1,51 @@
 # zkloans-extreme · Loanwise Zakelijk
 
-Werkplek voor zakelijke kredietbeoordeling op banktransacties, in Loanwise-huisstijl. Rekent volledig vanaf losse transacties met vaste regels (geen AI); de analist bevestigt en besluit. Loanwise neemt geen kredietbesluit.
+Analyse van banktransacties voor zakelijk krediet, in Loanwise-huisstijl. Loanwise rekent alles vanaf de losse transacties met vaste regels (geen AI) en **toont**: omzet, kosten, cashflow en risico-indicatoren. De **beoordelaar interpreteert** en besluit. Er zitten geen normen, scores of DSCR in.
+
+## Kernprincipes
+
+1. **Loanwise toont, de beoordelaar oordeelt.** Geen normen of oordeelsgrenzen; lampjes laten zien wat er in de transacties staat.
+2. **Maandoverzicht is het hart.** 12 maanden als kolommen. Omzet − kosten = operationele cashflow; − financieringslasten = netto cashflow (bestedingsvermogen). Wat niet in de cashflow telt (intern, privé-opnamen, loon DGA, IB/Zvw, ontvangen financiering) staat apart; samen sluit het op de netto mutatie van de rekeningen.
+3. **Omzet zuiver.** Eigen rekeningen, privé/DGA, leningen, teruggaaf en terugboekingen tellen niet als omzet.
+4. **Alles klikt door naar transacties.** Elke cel opent de transacties van die maand. Een aangepaste categorie per tegenpartij werkt overal door en blijft bewaard.
+5. **Risico-indicatoren als lampje met bewijs**: gemiste termijnen, terugboekingen, incasso/deurwaarder, belastingachterstand, gokken/crypto (ook privé), dalende omzet, negatieve cashflow, niet-gedeelde rekeningen, uitschieters, data-actualiteit.
+6. **Vaste regels, geen AI.** Categorieregels 1–12 in `js/core/rules.js`.
 
 ## Openen
 
 Statische site, geen build. Direct te hosten (Netlify) of lokaal: open `index.html` in de browser, of `npx serve .`.
-Bestanden, besluiten en invoer blijven in de browser (IndexedDB); er gaat niets naar een server.
+Bestanden en aanpassingen blijven in de browser (IndexedDB); er gaat niets naar een server.
 
 ## Indeling
 
 | Pad | Wat |
 | --- | --- |
 | `index.html`, `css/app.css` | Pagina en huisstijl |
-| `config/config.js` | **NORMEN** (DSCR en leefgeld, standaard `null` = geen oordeel), **SIGNAALGRENZEN** (attentiegrenzen), betaaldienstverleners, E1-vergelijking |
-| `js/core/` | Rekenkern zonder DOM: invoer (Enable Now en Loanwise), categorieregels, belasting, analyse, draagkracht per rechtsvorm, risicomeldingen |
-| `js/store.js` | Opslag in de browser: rekeningrollen, leden, besluiten per IBAN (ook voor volgende dossiers), afhandeling van meldingen en audittrail |
+| `config/config.js` | Gegevensregels (periode ≥ 3 maanden, liefst 12; data niet ouder dan 14 dagen), betaaldiensten, gemengde rekening |
+| `js/core/` | Rekenkern zonder DOM: invoer (Enable Now en Loanwise), categorieregels, belasting, cashflow, risico-indicatoren |
+| `js/store.js` | Opslag in de browser: rekeningrollen, aanpassingen per tegenpartij (ook voor volgende dossiers), audittrail |
 | `js/ui/` | Tabbladen en interactie |
 | `tests/` | Testsets, verwachte uitkomsten en tests |
 
-## Werkwijze in de app
+## Tabbladen
 
-1. **Dataset laden**: zip of JSON, Enable Now (`/Accounts`, `/Transactions`, analyse-job) of Loanwise (`members`, `accounts`, `transactions`, bedragen in centen).
-2. **Dossierkop**: rechtsvorm, leden (eigenaar, DGA of vennoten) en per rekening rol (zakelijk, privé, gemengd) en eigenaar bevestigen.
-3. Zes onderdelen: dossieroverzicht, financiële analyse (kasstroomopbouw, omzet, kosten, saldo), transacties en rekeningen (met maandoverzicht), klanten en leveranciers, verplichtingen, risicoanalyse.
+Overzicht · Maandoverzicht · Omzet · Kosten · Transacties · Risico-indicatoren.
 
-Leidend document (project Loanwise Zakelijk): `categorieregels-verbonden-partijen.md`.
+**Thema:** Auto (volgt het systeem), Licht of Donker, plus een optionele glaslaag (doorschijnende kaarten). De keuze blijft per browser bewaard.
 
 ## Tests
 
 ```bash
-node --test tests/core.test.js          # rekenregels, ijkpunten, regressie (geen dependencies)
-python3 tests/e2e_smoke.py              # browser: alle tabbladen, doorwerking, opslag (Playwright)
-node tests/generators/generate.js       # testsets eenmanszaak-gemengd en vof opnieuw genereren
+node --test tests/core.test.js          # rekenregels, ijkpunten, controle-som, regressie (geen dependencies)
+python3 tests/e2e_smoke.py              # browser: alle tabbladen, doorklikken, aanpassing per tegenpartij, opslag (Playwright)
 ```
 
 | Set | Rechtsvorm | Bron |
 | --- | --- | --- |
-| `hocus-pocus` | bv, 3 zakelijk + 2 privé, 2.132 tx | Enable Now, met 20 ijkpunten in `expected.json` |
-| `ez-gemengd` | eenmanszaak, gemengde rekening, KOR | Loanwise-formaat, gegenereerd met verwachte uitkomsten |
-| `vof` | vof, twee vennoten (echtpaar) | Loanwise-formaat, gegenereerd met verwachte uitkomsten |
-| `pizza-patat` | twee eenmanszaken, gezamenlijk huishouden, 2.993 tx | Enable Now, gegenereerd (`tests/generators/pizza_patat.py`) |
+| `hocus-pocus` | bv, 3 zakelijk + 2 privé, 2.132 tx | Enable Now, ijkpunten in `expected.json` |
+| `ez-gemengd` | eenmanszaak, gemengde rekening | Loanwise-formaat, gegenereerd |
+| `vof` | vof, twee vennoten | Loanwise-formaat, gegenereerd |
+| `pizza-patat` | twee eenmanszaken, gezamenlijk huishouden | Enable Now, gegenereerd (`tests/generators/pizza_patat.py`) |
 | `slager`, `lender-spender`, `mister-x` | uit ZK Loans Light | regressie (`tests/regression-baseline.json`) |
 
-Alle data is fictief.
+Leidend document (project Loanwise Zakelijk): `categorieregels-verbonden-partijen.md`. Alle data is fictief.

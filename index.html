@@ -8,6 +8,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <link rel="stylesheet" href="css/app.css">
+<script>
+/* Thema en glas vóór het tekenen toepassen (geen flits); keuze per browser */
+(() => { try { const theme = localStorage.getItem('lw-theme'); const glass = localStorage.getItem('lw-glass'); if (theme === 'light' || theme === 'dark') document.documentElement.dataset.theme = theme; if (glass === 'on') document.documentElement.dataset.glass = 'on'; } catch { /* geen opslag */ } })();
+</script>
 </head>
 <body>
 <div class="wrap page-head">
@@ -22,11 +26,12 @@
         <button type="button" data-overlay="zakelijk" aria-pressed="true">Zakelijk</button><button type="button" data-overlay="prive" aria-pressed="false">Privé</button><button type="button" data-overlay="samen" aria-pressed="false">Samen</button>
       </div>
     </div>
-    <div class="segment-wrap"><span>Interne transacties</span>
-      <div class="segment" role="group" aria-label="Interne transacties">
-        <button type="button" id="internal-include" aria-pressed="false">Inclusief</button><button type="button" id="internal-exclude" aria-pressed="true">Exclusief</button>
+    <div class="segment-wrap theme-wrap"><span>Thema</span>
+      <div class="segment" role="group" aria-label="Thema">
+        <button type="button" data-theme-choice="system" aria-pressed="true">Auto</button><button type="button" data-theme-choice="light" aria-pressed="false">Licht</button><button type="button" data-theme-choice="dark" aria-pressed="false">Donker</button>
       </div>
     </div>
+    <button type="button" class="btn-outline glass-toggle" id="glass-toggle" aria-pressed="false">Glas</button>
     <button type="button" class="btn-primary" id="load-button">Dataset laden</button>
     <button type="button" class="btn-outline" id="reset-button">Voorbeeld</button>
     <input type="file" id="load-input" accept=".json,.zip,application/json,application/zip" multiple hidden>
@@ -42,24 +47,14 @@
 <main>
   <div class="wrap">
     <section class="panel" id="panel-overzicht" role="tabpanel"></section>
-    <section class="panel" id="panel-controle" role="tabpanel" hidden></section>
+    <section class="panel" id="panel-maanden" role="tabpanel" hidden></section>
     <section class="panel" id="panel-omzet" role="tabpanel" hidden></section>
     <section class="panel" id="panel-kosten" role="tabpanel" hidden></section>
-    <section class="panel" id="panel-resultaat" role="tabpanel" hidden></section>
-    <section class="panel" id="panel-cashflow" role="tabpanel" hidden></section>
-    <section class="panel" id="panel-belasting" role="tabpanel" hidden></section>
-    <section class="panel" id="panel-verplichtingen" role="tabpanel" hidden></section>
-    <section class="panel" id="panel-verbonden" role="tabpanel" hidden></section>
-    <section class="panel" id="panel-signalen" role="tabpanel" hidden></section>
-    <section class="panel" id="panel-categorieen" role="tabpanel" hidden></section>
-    <section class="panel" id="panel-tegenpartijen" role="tabpanel" hidden></section>
     <section class="panel" id="panel-transacties" role="tabpanel" hidden></section>
-    <section class="panel" id="panel-maanden" role="tabpanel" hidden></section>
-    <section class="panel" id="panel-regels" role="tabpanel" hidden></section>
     <section class="panel" id="panel-risico" role="tabpanel" hidden></section>
   </div>
 </main>
-<p class="wrap footer-note">Loanwise Zakelijk in Loanwise-huisstijl. Het voorbeelddossier Mister X is fictief en gegenereerd. Alle cijfers volgen uit de losse transacties met vaste regels; E1 (Enable Now) is alleen een extra signaal. Ingeladen bestanden, besluiten en invoer blijven in deze browser. Loanwise ondersteunt de analist en neemt geen kredietbesluit.</p>
+<p class="wrap footer-note">Loanwise Zakelijk in Loanwise-huisstijl. Het voorbeelddossier Mister X is fictief en gegenereerd. Alle cijfers volgen uit de losse transacties met vaste regels, zonder AI. Ingeladen bestanden en aanpassingen blijven in deze browser. Loanwise toont en signaleert; de beoordelaar interpreteert en besluit.</p>
 
 <div class="modal-backdrop" id="modal" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">

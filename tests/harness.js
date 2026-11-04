@@ -5,7 +5,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 
 const ROOT = path.join(__dirname, '..');
-const CORE = ['config/config.js', 'js/core/format.js', 'js/core/tax.js', 'js/core/e1.js', 'js/core/import.js', 'js/core/state.js', 'js/core/rules.js', 'js/core/analyse.js', 'js/core/capacity.js', 'js/core/risk.js', 'js/core/checklist.js'];
+const CORE = ['config/config.js', 'js/core/format.js', 'js/core/tax.js', 'js/core/e1.js', 'js/core/import.js', 'js/core/state.js', 'js/core/rules.js', 'js/core/analyse.js', 'js/core/risk.js'];
 
 function createCore() {
   const context = vm.createContext({ console, Intl, Math, Date, JSON, Number, String, Object, Array, Map, Set, RegExp, Promise, Error, Infinity, NaN, isFinite, parseFloat, parseInt, window: {} });

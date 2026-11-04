@@ -1,4 +1,4 @@
-/* Layout: Loanwise-huisstijl. Dossierkop met gedeelde rekeningen → navy segment-tabs → per tab enkele kaarten met een Herleiding-regel. Alles rekent vanaf losse transacties; elke rij heeft "bekijken" met controle-som. Eén licht thema. */
+/* Layout: Loanwise-huisstijl. Dossierkop met gedeelde rekeningen → navy segment-tabs → per tab enkele kaarten met een Herleiding-regel. Alles rekent vanaf losse transacties; elke rij heeft "bekijken" met controle-som. Licht en donker thema (systeem of eigen keuze) en een optionele glaslaag. */
 :root {
   --page: #e5e7eb;
   --card: #ffffff;
@@ -33,10 +33,58 @@
   --blue-icon: #50a2ff;
   --primary-tint: #eaf3fb;
   --overlay: rgba(16, 24, 40, 0.45);
+  --card-solid: #ffffff;
+  --shadow: rgba(16, 24, 40, 0.08);
+  --drop: rgba(234, 243, 251, 0.85);
+  --page-art: none;
   --font: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   color-scheme: light;
 }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --page: #0b1220; --card: #121b2c; --card-solid: #121b2c; --band: #0f1827; --row: #18233a; --head: #1a2539; --border: #233049; --input: #34425f;
+  --ink: #e9eef6; --text: #c4ccd9; --muted: #8d99ab; --navy: #2a6ab0; --primary: #4c9ce2; --primary-hover: #6db0ea;
+  --chart-line: #5d6d85; --chart-soft: #3c4b62; --chart-fill: #1a2539; --grid: #1e293c;
+  --green: #22c55e; --green-bg: #0f2a1b; --green-ink: #4ade80; --green-icon: #22c55e;
+  --amber-bg: #2a2111; --amber-line: #4b3b16; --amber-chip: #3a2c10; --amber-ink: #fbbf24; --amber-icon: #f5b301;
+  --red: #f87171; --red-bg: #2d1517; --red-ink: #fca5a5; --red-icon: #f87171; --blue-icon: #60a5fa; --primary-tint: #13263d;
+  --overlay: rgba(0, 0, 0, 0.6); --shadow: rgba(0, 0, 0, 0.35); --drop: rgba(18, 27, 44, 0.9);
+  color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --page: #0b1220; --card: #121b2c; --card-solid: #121b2c; --band: #0f1827; --row: #18233a; --head: #1a2539; --border: #233049; --input: #34425f;
+  --ink: #e9eef6; --text: #c4ccd9; --muted: #8d99ab; --navy: #2a6ab0; --primary: #4c9ce2; --primary-hover: #6db0ea;
+  --chart-line: #5d6d85; --chart-soft: #3c4b62; --chart-fill: #1a2539; --grid: #1e293c;
+  --green: #22c55e; --green-bg: #0f2a1b; --green-ink: #4ade80; --green-icon: #22c55e;
+  --amber-bg: #2a2111; --amber-line: #4b3b16; --amber-chip: #3a2c10; --amber-ink: #fbbf24; --amber-icon: #f5b301;
+  --red: #f87171; --red-bg: #2d1517; --red-ink: #fca5a5; --red-icon: #f87171; --blue-icon: #60a5fa; --primary-tint: #13263d;
+  --overlay: rgba(0, 0, 0, 0.6); --shadow: rgba(0, 0, 0, 0.35); --drop: rgba(18, 27, 44, 0.9);
+  color-scheme: dark;
+}
+
+/* Glas: doorschijnende kaarten met blur boven een zachte kleurverloop-achtergrond */
+:root[data-glass="on"] {
+  --card: rgba(255, 255, 255, 0.58); --band: rgba(255, 255, 255, 0.35); --row: rgba(255, 255, 255, 0.45); --head: rgba(229, 231, 235, 0.55); --border: rgba(255, 255, 255, 0.55);
+  --card-solid: #f4f7fb; --page: #dfe7f2;
+  --page-art: radial-gradient(60vw 50vw at 8% 0%, rgba(0, 94, 162, 0.28), transparent 60%), radial-gradient(50vw 45vw at 100% 20%, rgba(124, 92, 255, 0.22), transparent 60%), radial-gradient(55vw 50vw at 40% 100%, rgba(0, 166, 62, 0.16), transparent 60%);
+}
+@media (prefers-color-scheme: dark) { :root[data-glass="on"]:not([data-theme="light"]) {
+  --card: rgba(22, 32, 52, 0.55); --band: rgba(22, 32, 52, 0.35); --row: rgba(255, 255, 255, 0.04); --head: rgba(255, 255, 255, 0.06); --border: rgba(255, 255, 255, 0.09);
+  --card-solid: #141e31; --page: #070c17;
+  --page-art: radial-gradient(60vw 50vw at 8% 0%, rgba(42, 106, 176, 0.45), transparent 60%), radial-gradient(50vw 45vw at 100% 20%, rgba(124, 92, 255, 0.32), transparent 60%), radial-gradient(55vw 50vw at 40% 100%, rgba(0, 166, 120, 0.22), transparent 60%);
+} }
+:root[data-glass="on"][data-theme="dark"] {
+  --card: rgba(22, 32, 52, 0.55); --band: rgba(22, 32, 52, 0.35); --row: rgba(255, 255, 255, 0.04); --head: rgba(255, 255, 255, 0.06); --border: rgba(255, 255, 255, 0.09);
+  --card-solid: #141e31; --page: #070c17;
+  --page-art: radial-gradient(60vw 50vw at 8% 0%, rgba(42, 106, 176, 0.45), transparent 60%), radial-gradient(50vw 45vw at 100% 20%, rgba(124, 92, 255, 0.32), transparent 60%), radial-gradient(55vw 50vw at 40% 100%, rgba(0, 166, 120, 0.22), transparent 60%);
+}
+:root[data-glass="on"] body { background-image: var(--page-art); background-attachment: fixed; }
+:root[data-glass="on"] .card, :root[data-glass="on"] .modal { -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); border: 1px solid var(--border); box-shadow: 0 8px 32px var(--shadow); }
+:root[data-glass="on"] .tabbar, :root[data-glass="on"] body::before { background: transparent; -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); }
+:root[data-glass="on"] .segment, :root[data-glass="on"] .segment button:not([aria-pressed="true"]):not([aria-selected="true"]), :root[data-glass="on"] .btn-outline, :root[data-glass="on"] .inline-select { background: var(--card); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+:root[data-glass="on"] .modal { background: var(--card-solid); }
+@media (prefers-reduced-transparency: reduce) { :root[data-glass="on"] .card { background: var(--card-solid); } }
+
 body { background: var(--page); color: var(--text); font-family: var(--font); font-size: 13.5px; line-height: 1.5; font-variant-numeric: tabular-nums; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--page); }
 .wrap { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
@@ -61,7 +109,7 @@ button, select { font: inherit; color: inherit; }
 
 main .wrap { padding-block: 0 40px; }
 .panel { display: grid; gap: 20px; }
-.card { background: var(--card); border-radius: 8px; box-shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.08); min-width: 0; overflow: hidden; }
+.card { background: var(--card); border-radius: 8px; box-shadow: 0 1px 2px var(--shadow), 0 1px 3px var(--shadow); min-width: 0; overflow: hidden; }
 .card-head { display: flex; gap: 12px 20px; align-items: flex-start; justify-content: space-between; padding: 18px 24px 16px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
 .card-head h2 { font-size: 14px; font-weight: 600; margin: 0; color: var(--ink); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; text-wrap: balance; }
 .card-head .sub { color: var(--muted); font-size: 12.5px; margin: 3px 0 0; }
@@ -311,7 +359,7 @@ pre.json { background: var(--band); border: 1px solid var(--border); border-radi
 .mark-cell.x2, .mark-cell[class*="x"]:not(.none) { font-weight: 600; }
 .filter .muted { color: inherit; opacity: 0.65; margin-left: 2px; }
 .excluded-row .decide b { font-weight: 600; }
-body.dragging::after { content: "Laat los om de dataset in te laden"; position: fixed; inset: 12px; border: 2px dashed var(--primary); border-radius: 10px; background: rgba(234, 243, 251, 0.85); display: grid; place-items: center; font-size: 16px; font-weight: 600; color: var(--navy); z-index: 60; }
+body.dragging::after { content: "Laat los om de dataset in te laden"; position: fixed; inset: 12px; border: 2px dashed var(--primary); border-radius: 10px; background: var(--drop); display: grid; place-items: center; font-size: 16px; font-weight: 600; color: var(--navy); z-index: 60; }
 
 /* ---------- Navigatie in twee niveaus ---------- */
 .tabbar .segment-sub { margin-top: 8px; }
@@ -344,15 +392,40 @@ tr.total-row td { border-top: 1px solid var(--chart-line); }
 .month-table thead th .muted { margin-left: 2px; font-weight: 400; }
 .month-table tbody tr:nth-child(even) td { background: none; }
 .month-table tbody tr:hover td { background: var(--band); }
-.month-table th:first-child, .month-table td:first-child { position: sticky; left: 0; background: var(--card); z-index: 1; min-width: 260px; max-width: 320px; }
+.month-table th:first-child, .month-table td:first-child { position: sticky; left: 0; background: var(--card-solid); z-index: 1; min-width: 260px; max-width: 320px; }
 .month-table td.label { display: flex; align-items: center; gap: 6px; overflow: hidden; text-overflow: ellipsis; }
 .month-table td.label .btn-view { padding: 2px 5px; }
 .month-table td.label > span:first-of-type { overflow: hidden; text-overflow: ellipsis; }
 .month-table td.label .muted { margin-left: auto; font-size: 11px; }
 .month-table .group-head th, .month-table .group-head td { background: var(--head); border-top: 1px solid var(--grid); }
-.month-table .group-head th:first-child { background: var(--head); }
+.month-table .group-head th:first-child { background: var(--card-solid); box-shadow: inset 0 0 0 999px var(--head); }
 .group-toggle { border: 0; background: none; padding: 0; font: inherit; font-weight: 600; font-size: 12px; color: var(--navy); cursor: pointer; }
 .month-table td.total, .month-table th.total { border-left: 1px solid var(--grid); }
 .month-table .month-total th { text-align: left; font-weight: 600; background: var(--card); }
 .month-table .month-total tr:first-child th, .month-table .month-total tr:first-child td { border-top: 2px solid var(--chart-line); }
 .month-table .month-total .net th, .month-table .month-total .net td { border-top: 1px solid var(--grid); }
+
+/* ---------- Basismodel: lampjes, maandoverzicht, transactiefilters ---------- */
+.lamps { display: grid; }
+.lamp { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 12px; align-items: start; padding: 11px 24px; border-bottom: 1px solid var(--row); }
+.lamp:last-child { border-bottom: 0; }
+.lamp b { display: block; color: var(--ink); font-weight: 600; }
+.lamp span { color: var(--text); font-size: 12.5px; }
+.lamp .icon { margin-top: 2px; }
+.cell-link { border: 0; background: none; padding: 0; font: inherit; color: inherit; cursor: pointer; text-decoration: underline dotted var(--grid); text-underline-offset: 3px; }
+.cell-link:hover, .cell-link:focus-visible { color: var(--primary); text-decoration-color: currentColor; outline: none; }
+.month-table .toggle-space { display: inline-block; width: 10px; }
+.month-table td.label.indent { padding-left: 26px; }
+.month-table tr.sub td { color: var(--muted); }
+.month-table .total-row th, .month-table .total-row td { background: var(--head); border-top: 1px solid var(--chart-line); font-weight: 600; text-align: left; }
+.month-table .total-row td { text-align: right; }
+.month-table .total-row.net th, .month-table .total-row.net td { border-top: 2px solid var(--chart-line); }
+.tx-controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.tx-controls label { display: inline-flex; gap: 6px; align-items: center; font-size: 12.5px; color: var(--muted); }
+.tx-controls input[type="search"] { border: 1px solid var(--input); border-radius: 4px; background: var(--card); color: var(--ink); padding: 4px 8px; font: inherit; font-size: 12.5px; min-width: 0; width: 240px; max-width: 100%; }
+.lw-table td .inline-select { display: block; margin-top: 4px; }
+
+/* Thema en glas: knoppen in de kop */
+.theme-wrap .segment button { padding: 5px 10px; }
+.glass-toggle[aria-pressed="true"], :root[data-glass="on"] .glass-toggle[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
+.month-table .total-row th:first-child { background: var(--card-solid); box-shadow: inset 0 0 0 999px var(--head); }
