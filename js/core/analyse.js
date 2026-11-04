@@ -57,7 +57,7 @@ function analyse() {
     const result = categorize(row);
     const output = { ...row, ...result, monthIndex: monthIndexOf(row.date), key: counterpartyKey(row) };
     output.e1Agree = e1Agrees(output);
-    output.signal = GAMBLING_PATTERN.test(row.name ?? '') || row.e1?.category?.startsWith('gambling') ? 'gokken' : CRYPTO_PATTERN.test(row.name ?? '') || row.e1?.category === 'investment.crypto' ? 'crypto' : null;
+    output.signal = GAMBLING_PATTERN.test(row.name ?? '') || row.e1?.category?.startsWith('gambling') || row.source?.category === 'possible gambling' ? 'gokken' : CRYPTO_PATTERN.test(row.name ?? '') || row.e1?.category === 'investment.crypto' ? 'crypto' : null;
     return output;
   });
   const byRule = id => rows.filter(row => row.rule === id);
@@ -243,8 +243,10 @@ function obligationOf(items, rows, lastSix) {
 
 /* Vaste privélasten per lid: terugkerende afschrijvingen op zijn of haar privérekeningen (≥ 4 van de laatste 6 maanden, ±2%), zonder overboekingen tussen eigen rekeningen */
 function privateFixedCosts(memberId) {
+  /* een gezamenlijke rekening telt bij de eerste eigenaar; de mede-eigenaar is wel "bekend" (niet dubbel tellen in het huishouden) */
+  const coOwned = DOSSIER.accounts.some(account => account.coOwners?.includes(memberId) && account.role === 'prive' && account.enabled !== false);
   const accounts = DOSSIER.accounts.filter(account => account.owner === memberId && account.role === 'prive' && account.enabled !== false);
-  if (!accounts.length) return { known: false, monthly: 0, items: [] };
+  if (!accounts.length) return { known: coOwned, monthly: 0, items: [] };
   const ibans = new Set(accounts.map(account => account.iban));
   const months = analysisWindow(DOSSIER.transactions).slice(6);
   /* zonder overboekingen naar eigen rekeningen en naar andere leden (bijv. bijdrage aan de partner-vennoot) */

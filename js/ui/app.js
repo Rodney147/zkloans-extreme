@@ -21,21 +21,22 @@ function viewButton(title, rows, sub = '', label = 'bekijken') {
 const goButton = (tab, label = 'bekijken') => `<button type="button" class="btn-view" data-go="${tab}">${ICON.eye}${label}</button>`;
 const accountLabel = iban => { const account = accountOf(iban); return account ? `${account.bank ?? ''} ${iban.slice(-4)}`.trim() : maskIban(iban); };
 const confidenceChip = value => value == null ? '' : `<span class="chip ${value >= CONFIDENCE.categoryThreshold ? 'good' : value >= CONFIDENCE.threshold ? 'warn' : 'bad'}">${Math.round(value)}%</span>`;
+const sourceCell = row => row.e1 ? e1Cell(row) : row.source ? `<span class="e1"><span>${esc(sourceLabel(row.source))}</span><span class="muted">${esc(row.source.system)}</span></span>` : '<span class="muted">-</span>';
 const e1Cell = row => row.e1 ? `<span class="e1"><span>${esc(e1Label(row.e1.category))}</span><span class="muted">${dec(row.e1.confidence)}${row.e1Agree === false ? ' · <b class="amber-text">wijkt af</b>' : ''}${row.e1.flags.length ? ` · ${row.e1.flags.map(flag => E1_FLAG_LABEL[flag] ?? flag).join(', ')}` : ''}</span></span>` : '<span class="muted">-</span>';
 function transactionTable(rows, limit = 400) {
   const sorted = [...rows].sort((first, second) => second.date.localeCompare(first.date));
   const shown = sorted.slice(0, limit);
-  const showE1 = hasE1();
+  const showE1 = hasE1() || hasSource();
   return `<div class="table-wrap"><table class="lw-table">
-    <thead><tr><th>Datum</th><th>Rekening</th><th>Tegenpartij</th><th>Omschrijving</th><th>Regel</th><th>Zekerheid</th>${showE1 ? '<th>E1 (Enable Now)</th>' : ''}<th class="num">Bedrag</th></tr></thead>
+    <thead><tr><th>Datum</th><th>Rekening</th><th>Tegenpartij</th><th>Omschrijving</th><th>Regel</th><th>Zekerheid</th>${showE1 ? `<th>${hasE1() ? 'E1 (Enable Now)' : 'Categorie bron'}</th>` : ''}<th class="num">Bedrag</th></tr></thead>
     <tbody>${shown.map(row => `<tr>
       <td>${dateNl(row.date)}</td>
       <td><span class="mono">${esc(accountLabel(row.account))}</span></td>
-      <td>${row.name ? esc(row.name) : '<span class="muted">(geen naam)</span>'}<span class="muted mono">${row.counterAccount ? esc(maskIban(row.counterAccount)) : ''}</span></td>
+      <td>${row.name ? `${esc(row.name)}${row.nameSource ? '<span class="muted" title="Naam afgeleid uit de omschrijving">uit omschrijving</span>' : ''}` : '<span class="muted">(geen naam)</span>'}<span class="muted mono">${row.counterAccount ? esc(maskIban(row.counterAccount)) : ''}</span></td>
       <td><span class="desc" title="${esc(row.description)}">${esc(row.description)}</span>${row.tax ? `<span class="muted">${esc(taxLabel(row.tax))}${row.tax.reference ? ` · kenmerk ${row.tax.valid === false ? '✕' : row.tax.valid ? '✓' : '?'}` : ''}</span>` : row.role ? `<span class="muted">${esc(row.role)}${row.derived === 'own_off' ? ' · rekening uitgezet' : ''}</span>` : ''}</td>
       <td>${ruleRef(row.rule)}</td>
       <td>${confidenceChip(row.confidence)}</td>
-      ${showE1 ? `<td>${e1Cell(row)}</td>` : ''}
+      ${showE1 ? `<td>${sourceCell(row)}</td>` : ''}
       <td class="num ${row.amount < 0 ? 'negative' : ''}">${eurCents(row.amount)}</td></tr>`).join('')}</tbody>
   </table></div>${sorted.length > limit ? `<div class="source">${limit} van ${sorted.length} transacties getoond, nieuwste eerst.</div>` : ''}`;
 }
@@ -247,7 +248,7 @@ async function loadFiles(files) {
     const broken = checks.filter(check => !check.balanceOk || check.runningBreaks);
     const analysisNote = DOSSIER.analyses ? ` Analyse-JSON: ${Object.keys(DOSSIER.analyses).map(profile => `${profile} ✓`).join(', ')}.` : '';
     showBanner(broken.length ? 'bad' : 'good', `${DOSSIER.transactions.length} transacties ingeladen (${DOSSIER.source}-formaat, ${DOSSIER.files} bestanden)`,
-      `${DOSSIER.accounts.length} rekening(en), ${windowLabel()}. ${broken.length ? `Saldo sluit niet aan bij ${broken.map(check => formatIban(check.account.iban)).join(', ')}: zie Controle.` : 'Saldi sluiten aan op elke transactie.'}${hasE1() ? ' E1-categorieën gevonden: gebruikt als extra signaal naast de eigen regels.' : ' Geen E1-categorieën: alleen de eigen regels.'}${analysisNote}${restored.restored ? ` <b>Eerder werk hersteld</b> (opgeslagen ${dateNl(restored.savedAt)}).` : ''}${restored.global ? ` ${restored.global} besluiten per IBAN uit eerdere dossiers toegepast.` : ''}${STORE.available ? '' : ' Opslag in de browser niet beschikbaar: wijzigingen verdwijnen bij herladen.'}`);
+      `${DOSSIER.accounts.length} rekening(en), ${windowLabel()}. ${broken.length ? `Saldo sluit niet aan bij ${broken.map(check => formatIban(check.account.iban)).join(', ')}: zie Controle.` : 'Saldi sluiten aan op elke transactie.'}${hasE1() ? ' E1-categorieën gevonden: gebruikt als extra signaal naast de eigen regels.' : (hasSource() ? ' Loanwise-categorie uit de export gevonden: getoond als tweede mening, de eigen regels blijven leidend.' : ' Geen E1-categorieën: alleen de eigen regels.')}${analysisNote}${restored.restored ? ` <b>Eerder werk hersteld</b> (opgeslagen ${dateNl(restored.savedAt)}).` : ''}${restored.global ? ` ${restored.global} besluiten per IBAN uit eerdere dossiers toegepast.` : ''}${STORE.available ? '' : ' Opslag in de browser niet beschikbaar: wijzigingen verdwijnen bij herladen.'}`);
   } catch (error) {
     showBanner('bad', 'Dataset niet ingeladen', esc(error.message));
   }

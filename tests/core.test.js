@@ -178,6 +178,35 @@ test('Pizza & Patat: opnamen per eigenaar, huishouden één keer, roodstand per 
   assert.ok(pizza.operating / pizza.revenue > patat.operating / patat.revenue, 'Pizza houdt per euro omzet meer over');
 });
 
+/* ---------- Loanwise-CSV zonder kopregel (synthetisch; echte exports horen niet in de repo) ---------- */
+test('CSV-import: kolommen, eigen IBAN, naam uit omschrijving, rollen, leden en saldo', async () => {
+  const { core, Az, dossier } = await model('csv-mini');
+  assert.equal(dossier.source, 'CSV');
+  assert.equal(dossier.transactions.length, 157);
+  const account = iban => dossier.accounts.find(item => item.iban === iban);
+  assert.equal(account('NL22RBRB0000000002').role, 'zakelijk', 'rekening met facturen zakelijk');
+  assert.equal(account('NL11RBRB0000000001').role, 'prive', 'rekening met hypotheek en boodschappen privé');
+  assert.equal(account('NL11RBRB0000000001').name, 'J.P. Jansen e/o M. de Vries', 'houder uit "Naam:" op een andere eigen rekening');
+  assert.equal(JSON.stringify(run(core, 'DOSSIER.members.map(member => memberName(member))')), JSON.stringify(['J. Jansen', 'M. de Vries']));
+  near(account('NL22RBRB0000000002').balance, 33438.6, 0.01, 'eindsaldo zakelijk ondanks andere volgorde in het bestand');
+  near(account('NL33INGB0000000003').balance, -1071.4, 0.01, 'eindsaldo ING');
+  assert.equal(dossier.transactions.filter(row => Math.abs(row.balanceAfter - row.computedBalance) >= 0.01).length, 0, 'saldo sluit per transactie');
+  const names = run(core, "[...new Set(DOSSIER.transactions.map(row => row.name).filter(Boolean))].sort()");
+  ['Action 1325 Panningen', 'CZ groep Zorgverzekeraar', 'Jansen Installatie', 'Lidl 475 Panningen', 'Sligro ZB 5090'].forEach(name => assert.ok(names.includes(name), `naam ${name}`));
+  near(Az.revenue12, 11 * (2400 + 1650.5), 0.01, 'omzet = facturen (venster t/m aug: laatste boeking 22 sep is geen volle maand)');
+  assert.ok(Az.related.some(item => item.role === 'Eigenaar' && item.out === 11 * 900), 'opname naar privé is verbonden partij, niet intern');
+  assert.ok(run(core, "DOSSIER.transactions.some(row => row.source?.category === 'mortgage loans')"), 'Loanwise-categorie bewaard als tweede mening');
+});
+test('CSV met kopregel en puntkomma', async () => {
+  const core = createCore();
+  core.__files = [{ name: 'export.csv', text: async () => 'booking_date;amount;account_number;counter_party_name;counter_party_account;description;transaction_type\n2026-01-05;1.250,00;NL22RBRB0000000002;Klant B.V.;NL44ABNA0000000044;Factuur 1;transfer\n2026-01-06;-45,50;NL22RBRB0000000002;Leverancier B.V.;NL55RABO0000000055;Order 9;ideal\n' }];
+  const dossier = await run(core, 'readDataset(__files)');
+  assert.equal(dossier.transactions.length, 2);
+  assert.equal(dossier.transactions[0].amount, 1250);
+  assert.equal(dossier.transactions[1].amount, -45.5);
+  assert.equal(dossier.transactions[0].name, 'Klant B.V.');
+});
+
 /* ---------- Regressie: de drie sets uit ZK Loans laden en geven stabiele uitkomsten ---------- */
 const baseline = JSON.parse(fs.readFileSync(path.join(__dirname, 'regression-baseline.json'), 'utf8'));
 for (const folder of Object.keys(baseline)) {

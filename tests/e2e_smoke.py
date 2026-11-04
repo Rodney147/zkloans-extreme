@@ -21,7 +21,7 @@ def check(condition, message):
 
 
 def load(page, folder):
-    files = sorted(f for f in glob.glob(os.path.join(ROOT, 'tests', 'fixtures', folder, '*.json')) if not f.endswith('expected.json'))
+    files = sorted(f for f in glob.glob(os.path.join(ROOT, 'tests', 'fixtures', folder, '*')) if f.endswith(('.json', '.csv')) and not f.endswith('expected.json'))
     page.evaluate('showBanner()')
     page.set_input_files('#load-input', files)
     page.wait_for_function('() => !document.getElementById("load-banner").hidden', timeout=15000)
@@ -37,7 +37,7 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(800)
     check(not errors, 'voorbeelddossier start zonder fouten')
 
-    for folder in ['hocus-pocus', 'slager', 'lender-spender', 'mister-x', 'ez-gemengd', 'vof', 'pizza-patat']:
+    for folder in ['hocus-pocus', 'slager', 'lender-spender', 'mister-x', 'ez-gemengd', 'vof', 'pizza-patat', 'csv-mini']:
         errors.clear()
         load(page, folder)
         for tab in TABS:

@@ -20,7 +20,7 @@ Bestanden, besluiten en invoer blijven in de browser (IndexedDB); er gaat niets 
 
 ## Werkwijze in de app
 
-1. **Dataset laden**: zip of JSON, Enable Now (`/Accounts`, `/Transactions`, analyse-job) of Loanwise (`members`, `accounts`, `transactions`, bedragen in centen).
+1. **Dataset laden**: zip, JSON of CSV. Enable Now (`/Accounts`, `/Transactions`, analyse-job), Loanwise-JSON (`members`, `accounts`, `transactions`, bedragen in centen) of Loanwise-CSV (databaseexport met of zonder kopregel; zie `js/core/import.js` voor de kolomvolgorde). Bij de CSV komt de naam van de tegenpartij uit de omschrijving waar dat kan (ING "Naam:", pinbetalingen) en de rekeninghouder uit wat de andere eigen rekeningen over die IBAN zeggen.
 2. **Dossierkop**: rechtsvorm, leden (eigenaar, DGA of vennoten) en per rekening rol (zakelijk, privé, gemengd) en eigenaar bevestigen.
 3. Zes onderdelen: dossieroverzicht, financiële analyse (kasstroomopbouw, omzet, kosten, saldo), transacties en rekeningen (met maandoverzicht), klanten en leveranciers, verplichtingen, risicoanalyse.
 
@@ -40,6 +40,7 @@ node tests/generators/generate.js       # testsets eenmanszaak-gemengd en vof op
 | `ez-gemengd` | eenmanszaak, gemengde rekening, KOR | Loanwise-formaat, gegenereerd met verwachte uitkomsten |
 | `vof` | vof, twee vennoten (echtpaar) | Loanwise-formaat, gegenereerd met verwachte uitkomsten |
 | `pizza-patat` | twee eenmanszaken, gezamenlijk huishouden, 2.993 tx | Enable Now, gegenereerd (`tests/generators/pizza_patat.py`) |
+| `csv-mini` | Loanwise-CSV zonder kopregel, 3 rekeningen, 157 tx | synthetisch; echte exports horen niet in de repo |
 | `slager`, `lender-spender`, `mister-x` | uit ZK Loans Light | regressie (`tests/regression-baseline.json`) |
 
 Alle data is fictief.

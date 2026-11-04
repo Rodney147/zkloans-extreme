@@ -386,7 +386,7 @@ RENDERERS.maanden = () => {
   const by = (list, keyOf) => [...groupBy(list, keyOf).entries()].map(([label, items]) => ({ label, items })).sort((first, second) => Math.abs(sum(second.items.map(row => row.amount))) - Math.abs(sum(first.items.map(row => row.amount))));
   const line = (label, items) => ({ label, items });
   const privé = overlay === 'prive';
-  const costLabel = row => row.e1 ? e1Label(row.e1.category) : row.refund ? 'Retouren en creditnota’s' : (privé ? 'Overige uitgaven' : 'Overige crediteuren');
+  const costLabel = row => row.e1 ? e1Label(row.e1.category) : row.source ? sourceLabel(row.source) : row.refund ? 'Retouren en creditnota’s' : (privé ? 'Overige uitgaven' : 'Overige crediteuren');
   const relatedLabel = row => `${row.role ?? 'Verbonden partij'}${row.memberId && memberById(row.memberId) ? ` · ${memberById(row.memberId).label}` : ''}`;
   const groups = [
     ['Ontvangsten', [

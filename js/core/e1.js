@@ -87,3 +87,4 @@ const receivedAnalysis = () => {
   return (analysis.generalInfo?.accounts ?? []).some(item => accountOf(normalizeIban(item.iban))?.enabled === false) ? null : analysis;
 };
 const hasE1 = () => DOSSIER.transactions.some(row => row.e1);
+const hasSource = () => DOSSIER.transactions.some(row => row.source);
