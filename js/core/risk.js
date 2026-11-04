@@ -1,9 +1,15 @@
 'use strict';
-/* ---------- Risicomeldingen: één lijst, elke melding herleidbaar ----------
-   type: feit (feitelijke constatering) · risico (mogelijk risico) · classificatie (onzekere classificatie)
-         · ontbreekt (ontbrekende informatie) · beleid (beleidsmatige afwijking, zodra Risk normen vaststelt).
-   Een melding op een classificatie onder de drempel is nooit een harde conclusie: zij krijgt type 'classificatie'. */
-const RISK_TYPES = { feit: 'Feitelijke constatering', risico: 'Mogelijk risico', classificatie: 'Onzekere classificatie', ontbreekt: 'Ontbrekende informatie', beleid: 'Beleidsmatige afwijking' };
+/* ---------- Risico-indicatoren: een lampje met de transacties erachter ----------
+   Loanwise toont wat er is gezien; de beoordelaar interpreteert en licht toe in de eigen beoordeling.
+   ernst: 'bad' (rood lampje) · 'warn' (oranje lampje) · 'info' (ter info).
+   De vaste waarden hieronder zijn attentiewaarden om een lampje aan te zetten, geen beleid of oordeel. */
+const LAMPJES = {
+  omzetdaling: 0.10,            // gemiddelde laatste 3 mnd ≥ 10% onder het 12-maandsgemiddelde
+  schommeling: 0.35,            // variatiecoëfficiënt van de maandomzet
+  financieringsstijging: 0.20,  // financieringslasten laatste 3 mnd t.o.v. de 9 maanden ervoor
+  uitschieter: 0.25,            // één post > 25% van de gemiddelde maandomzet
+};
+const INVESTMENT_TEXT = /machine|apparatuur|installatie|investering|auto\b|bus\b|inventaris|verbouwing/i;
 
 /* Analyse in een vaste weergave zonder de huidige weergave te verstoren */
 function analyseFor(view) {
@@ -12,63 +18,56 @@ function analyseFor(view) {
   try { return analyse(); } finally { overlay = previous; }
 }
 
-function risks(Az, Ap) {
+function risks(Az, Ap, today = new Date().toISOString().slice(0, 10)) {
   const list = [];
-  const add = item => list.push({ zekerheid: 95, rows: [], berekening: '', ...item });
-  const months = Az?.MONTHS.length ?? 12;
+  const add = item => list.push({ rows: [], ...item });
+  const base = Az ?? Ap;
+  if (!base) return list;
+
+  /* data: periode en actualiteit */
+  if (base.dataMonths < DATAREGELS.minimaleMaanden) add({ id: 'periode', titel: `Minder dan ${DATAREGELS.minimaleMaanden} maanden data`, ernst: 'bad', wat: `Transacties in ${base.dataMonths} maand(en).` });
+  else if (base.dataMonths < DATAREGELS.gewensteMaanden) add({ id: 'periode', titel: `Minder dan ${DATAREGELS.gewensteMaanden} maanden data`, ernst: 'info', wat: `Transacties in ${base.dataMonths} van de 12 maanden. Gemiddelden over 12 maanden zijn dan minder zeggend.` });
+  const lastBooking = DOSSIER.transactions.at(-1)?.date;
+  const sharedOn = DOSSIER.accounts.map(account => account.sharedOn).filter(Boolean).sort().at(-1) ?? today;
+  const age = lastBooking ? Math.round((Date.parse(sharedOn) - Date.parse(lastBooking)) / 86400000) : null;
+  if (age != null && age > DATAREGELS.maximaleOuderdomDagen) add({ id: 'actualiteit', titel: 'Data niet actueel', ernst: 'warn', wat: `Laatste transactie ${dateNl(lastBooking)}, ${age} dagen vóór ${sharedOn === today ? 'vandaag' : `de deeldatum (${dateNl(sharedOn)})`}.` });
+
   if (Az) {
-    const legal = DOSSIER.legalForm;
-    const trend = change3v12Core(Az.revenue);
-    if (Number.isFinite(trend) && trend <= SIGNAALGRENZEN.omzettrend.warn) add({ id: 'omzetdaling', titel: 'Dalende klantontvangsten', type: 'risico', ernst: trend <= SIGNAALGRENZEN.omzettrend.bad ? 'bad' : 'warn',
-      wat: `Omzet laatste 3 maanden ${eur(sum(Az.lastThree.map(index => Az.revenue[index])) / 3)}/mnd, ${pctCore(trend)} t.o.v. het 12-maandsgemiddelde.`, waarom: 'Een dalende omzet drukt de draagkracht onder het 12-maandsgemiddelde waarmee de DSCR rekent.', onderzoek: 'Seizoen of structureel? Vraag orderportefeuille of prognose op.', zekerheid: 90, rows: Az.byRule(10), berekening: 'regel 10, gemiddelde 3 mnd ÷ gemiddelde 12 mnd − 1' });
-    const values = Az.revenue.map((value, index) => value - Az.excludedRevenue[index]);
+    const values = Az.revenue;
+    const { m3, m12 } = Az.averages(values);
+    if (m12 > 0 && m3 / m12 - 1 <= -LAMPJES.omzetdaling) add({ id: 'omzetdaling', titel: 'Dalende omzet', ernst: 'warn', wat: `Omzet laatste 3 maanden ${eur(m3)}/mnd tegen ${eur(m12)}/mnd over 12 maanden (${signedPct(m3 / m12 - 1)}).`, rows: Az.byRule(10) });
     const mean = sum(values) / values.length;
     const cv = mean > 0 ? Math.sqrt(sum(values.map(value => (value - mean) ** 2)) / values.length) / mean : NaN;
-    if (Number.isFinite(cv) && cv > SIGNAALGRENZEN.volatiliteitOmzet) add({ id: 'volatiliteit', titel: 'Sterke schommelingen in de omzet', type: 'feit', ernst: 'warn', wat: `Variatiecoëfficiënt van de maandomzet ${dec(cv)} (grens ${dec(SIGNAALGRENZEN.volatiliteitOmzet)}). Laagste maand ${eur(Math.min(...values))}, hoogste ${eur(Math.max(...values))}.`, waarom: 'Bij sterke schommelingen kan een gemiddelde de maanden met tekort verbergen.', onderzoek: 'Seizoenspatroon bevestigen; buffer en liquiditeit in de zwakke maanden beoordelen.', rows: Az.byRule(10), berekening: 'standaarddeviatie ÷ gemiddelde van de 12 maandomzetten' });
-    if (sum(Az.freeCash) < 0) add({ id: 'negatieve-kasstroom', titel: 'Negatieve structurele kasstroom', type: 'feit', ernst: 'bad', wat: `Draagkracht over 12 maanden ${eur(sum(Az.freeCash))}.`, waarom: 'Zonder positieve draagkracht is er geen ruimte voor rente en aflossing.', onderzoek: 'Oorzaak (incidentele kosten, investeringen, privé) en verwachting voor komende periode.', zekerheid: 85, berekening: 'kasstroomopbouw: omzet − kosten − lonen − bank − belasting − groep − aftrek per rechtsvorm' });
-    const top = Az.debtors.find(entity => entity.decision !== 'no' && !isPaymentProcessor(entity));
-    const share = top && Az.revenue12 ? top.total / Az.revenue12 : 0;
-    if (share >= SIGNAALGRENZEN.klantconcentratie.warn) add({ id: 'concentratie', titel: 'Afhankelijkheid van één opdrachtgever', type: 'risico', ernst: share >= SIGNAALGRENZEN.klantconcentratie.bad ? 'bad' : 'warn', wat: `${pctCore(share)} van de geïdentificeerde klantontvangsten komt van ${top.name ?? '(geen naam)'} (${eur(top.total)} van ${eur(Az.revenue12)}).`, waarom: 'Wegvallen van deze klant raakt de draagkracht direct.', onderzoek: 'Contract, looptijd en opzegtermijn opvragen; zijn er andere klanten in de pijplijn?', zekerheid: top.effective, rows: top.rows, berekening: 'grootste debiteur ÷ omzet 12 mnd' });
-    /* roodstand per rekening: een positief saldo op de ene rekening verbergt geen tekort op de andere */
-    const negative = Az.accountBalances.filter(item => item.negativeDays);
-    if (negative.length) add({ id: 'roodstand', titel: 'Roodstand', type: 'feit', ernst: negative.some(item => item.negativeDays / Az.days.length > SIGNAALGRENZEN.negatiefSaldoAandeel) ? 'bad' : 'warn', wat: negative.map(item => `${formatIban(item.account.iban)} (${item.account.name}): ${item.negativeDays} dagen onder nul, laagste ${eur(item.lowest)}`).join(' · '), waarom: 'Regelmatige roodstand wijst op krappe liquiditeit.', onderzoek: 'Kredietlimiet bij de bank en gebruik ervan opvragen.', zekerheid: 99, rows: Az.rows.filter(row => negative.some(item => item.account.iban === row.account)), berekening: 'saldo per dag per rekening' });
-    Az.obligations.filter(item => item.missed).forEach(item => add({ id: `gemist-${item.key}`, titel: `Gemiste of teruggeboekte termijn: ${item.name}`, type: item.confirmed ? 'feit' : 'classificatie', ernst: 'bad', wat: `${item.missed}× niet of teruggeboekt in de laatste 6 maanden (termijn ${eur(item.term)}).`, waarom: 'Betalingsachterstand bij een bestaande verplichting.', onderzoek: 'Actuele stand en eventuele achterstand bij de schuldeiser opvragen.', zekerheid: item.confidence, rows: item.rows, berekening: 'patroon 3 van 6 maanden, ±2%' }));
-    const reversals = Az.byRule(2);
-    if (reversals.length) add({ id: 'terugboekingen', titel: 'Terugboekingen van incasso’s', type: 'feit', ernst: 'warn', wat: `${reversals.length}× teruggeboekt, ${eur(inflow(reversals))}.`, waarom: 'Onvoldoende saldo bij incasso’s.', onderzoek: 'Toelichting klant; is de termijn alsnog betaald?', zekerheid: 95, rows: reversals, berekening: 'regel 2' });
-    const bailiffs = Az.byRule(4);
-    if (bailiffs.length) add({ id: 'incasso', titel: 'Incassobureau of deurwaarder', type: 'feit', ernst: 'bad', wat: `${bailiffs.length}× betaald, ${eur(outflow(bailiffs))}.`, waarom: 'Wijst op een vordering die niet op tijd is betaald.', onderzoek: 'Bewijs van volledige betaling en eventuele openstaande vorderingen.', zekerheid: 90, rows: bailiffs, berekening: 'regel 4' });
-    const early = sum(Az.debtService.slice(0, 9)) / 9, late = sum(Az.lastThree.map(index => Az.debtService[index])) / 3;
-    if (early > 0 && late / early - 1 > SIGNAALGRENZEN.financieringslastenStijging) add({ id: 'financieringslasten', titel: 'Stijgende financieringslasten', type: 'risico', ernst: 'warn', wat: `Rente en aflossing laatste 3 mnd ${eur(late)}/mnd tegen ${eur(early)}/mnd daarvoor.`, waarom: 'Nieuwe financiering die mogelijk niet is opgegeven.', onderzoek: 'Welke financiering is erbij gekomen? Opnemen in de opgave.', zekerheid: 85, rows: Az.byRule(6).filter(row => row.amount < 0), berekening: 'regel 6 + leningen verbonden partijen' });
+    if (Number.isFinite(cv) && cv > LAMPJES.schommeling) add({ id: 'schommeling', titel: 'Sterk schommelende omzet', ernst: 'info', wat: `Laagste maand ${eur(Math.min(...values))}, hoogste ${eur(Math.max(...values))}.`, rows: Az.byRule(10) });
+    if (Az.net12 < 0) add({ id: 'negatieve-cashflow', titel: 'Negatieve cashflow', ernst: 'bad', wat: `Netto cashflow over 12 maanden ${eur(Az.net12)}; ${Az.net.filter(value => value < 0).length} van 12 maanden negatief.` });
+    else if (Az.net.filter(value => value < 0).length >= 3) add({ id: 'negatieve-maanden', titel: 'Maanden met negatieve cashflow', ernst: 'info', wat: `${Az.net.filter(value => value < 0).length} van 12 maanden negatief: ${Az.MONTHS.filter((key, index) => Az.net[index] < 0).map(shortMonth).join(', ')}.` });
+    Az.obligations.filter(item => item.missed).forEach(item => add({ id: `gemist-${item.key}`, titel: `Gemiste termijn: ${item.name}`, ernst: 'bad', wat: `${item.missed}× niet betaald of teruggeboekt in de laatste 6 maanden (termijn ${eur(item.term)}).`, rows: item.rows }));
+    const early = sum(Az.financing.values.slice(0, 9)) / 9, late = averageLast(Az.financing.values, 3);
+    if (early < 0 && late / early - 1 > LAMPJES.financieringsstijging) add({ id: 'financieringslasten', titel: 'Stijgende financieringslasten', ernst: 'warn', wat: `Laatste 3 maanden ${eur(-late)}/mnd tegen ${eur(-early)}/mnd daarvoor.`, rows: Az.financing.rows });
     const lateTax = Az.taxRows.filter(row => row.amount < 0 && (row.tax.kind === 'Naheffing' || row.tax.kind === 'Betalingsregeling' || (row.tax.previousYear && row.tax.kind === 'Aangifte')));
-    if (lateTax.length) add({ id: 'belastingachterstand', titel: 'Mogelijke belastingachterstand', type: lateTax.some(row => row.tax.valid) ? 'feit' : 'classificatie', ernst: 'bad', wat: [...new Set(lateTax.map(row => `${taxLabel(row.tax)}${row.tax.kind === 'Aangifte' ? ` betaald op ${dateNl(row.date)}` : ''}`))].join(' · '), waarom: 'Naheffing, betalingsregeling of aangifte over een eerder jaar wijst op achterstand bij de Belastingdienst.', onderzoek: 'Betalingsregeling en actuele stand opvragen (Mijn Belastingdienst Zakelijk).', zekerheid: lateTax.every(row => row.tax.valid) ? 99 : 65, rows: lateTax, berekening: 'regel 3: soort en jaar uit het betalingskenmerk' });
-    const unexplained = Az.rows.filter(row => (row.rule === 12 || ([10, 11].includes(row.rule) && row.confidence < CONFIDENCE.threshold)) && Math.abs(row.amount) >= Math.max(SIGNAALGRENZEN.rondBedrag / 5, SIGNAALGRENZEN.uitschieterMaandomzet * Az.revenue12 / 12 * 0.1));
-    if (unexplained.length) add({ id: 'onverklaard', titel: 'Grote geldstromen met lage zekerheid', type: 'classificatie', ernst: 'warn', wat: `${unexplained.length} posten, samen ${eur(sum(unexplained.map(row => Math.abs(row.amount))))}: ${unexplained.slice(0, 3).map(row => `${row.name ?? '(geen naam)'} ${eurCents(row.amount)}`).join(', ')}${unexplained.length > 3 ? ' …' : ''}.`, waarom: 'Kan omzet, lening, investering of privé zijn; dat verandert de draagkracht.', onderzoek: 'Factuur of toelichting opvragen en de tegenpartij beoordelen in Controle.', zekerheid: 50, rows: unexplained, berekening: 'regel 12, of debiteur/crediteur onder de drempel' });
+    const plans = Az.obligations.filter(item => item.rule === 3 && item.arrangement);
+    if (lateTax.length || plans.length) add({ id: 'belastingachterstand', titel: 'Mogelijke belastingachterstand', ernst: 'bad', wat: [...new Set([...lateTax.map(row => `${taxLabel(row.tax)}${row.tax.kind === 'Aangifte' ? ` betaald op ${dateNl(row.date)}` : ''}`), ...plans.map(item => `betalingsregeling ${eur(item.term)}/mnd`)])].join(' · '), rows: [...lateTax, ...plans.flatMap(item => item.rows)] });
+    const spikes = Az.rows.filter(row => [10, 11].includes(row.rule) && Math.abs(row.amount) > LAMPJES.uitschieter * Az.revenue12 / 12);
+    /* mogelijke investering: eenmalige tegenpartij (hooguit 2 maanden) met een investeringswoord */
+    const oneOff = new Set(Az.creditors.filter(entity => entity.activeMonths <= 2).map(entity => entity.key));
+    const investments = Az.byRule(11).filter(row => oneOff.has(row.key) && INVESTMENT_TEXT.test(`${row.name ?? ''} ${row.description}`) && !spikes.includes(row));
+    if (spikes.length || investments.length) add({ id: 'incidenteel', titel: 'Uitschieters en mogelijke investeringen', ernst: 'info', wat: `${spikes.length} post(en) groter dan ${pct(LAMPJES.uitschieter)} van de gemiddelde maandomzet${investments.length ? `, ${investments.length} mogelijke investering(en)` : ''}. Ze tellen mee in de cijfers.`, rows: [...spikes, ...investments] });
+    const nameless = Az.byRule(10).filter(row => !row.name && Math.abs(row.amount) >= Az.revenue12 / 12 * 0.05);
+    if (nameless.length) add({ id: 'onverklaard', titel: 'Grote bijschrijvingen zonder tegenpartij', ernst: 'warn', wat: `${nameless.length}× samen ${eur(inflow(nameless))}, geteld als omzet.`, rows: nameless });
     const unshared = [...new Set(Az.byRule(1).filter(row => row.unshared && row.counterAccount).map(row => row.counterAccount))];
-    if (unshared.length) add({ id: 'rekening-niet-gedeeld', titel: 'Eigen rekening niet gedeeld', type: 'ontbreekt', ernst: 'warn', wat: `${unshared.map(maskIban).join(', ')} staat op naam van de klant maar is niet gedeeld.`, waarom: 'Geld dat daarheen gaat, kan niet worden beoordeeld.', onderzoek: 'Rekening laten delen.', zekerheid: 90, rows: Az.byRule(1).filter(row => row.unshared), berekening: 'regel 1, eigen naam met niet-gedeelde IBAN' });
-    (Az.capacityBase.notes ?? []).forEach((note, index) => add({ id: `draagkracht-${index}`, titel: 'Privé-opname niet volledig te bepalen', type: 'ontbreekt', ernst: 'warn', wat: note, waarom: 'Bij eenmanszaak en vof bepaalt de privé-opname de draagkracht.', onderzoek: 'Privérekening(en) laten delen of opgave vaste lasten huishouden.', zekerheid: 90, berekening: 'draagkracht per rechtsvorm' }));
-    if (Az.dataMonths < 12) add({ id: 'historie', titel: 'Minder dan 12 maanden data', type: 'ontbreekt', ernst: 'warn', wat: `Data in ${Az.dataMonths} van de 12 maanden.`, waarom: 'Gemiddelden over 12 maanden zijn dan te laag of te hoog.', onderzoek: 'Langere periode laten delen.', zekerheid: 99, berekening: 'maanden met transacties' });
-    const review = reviewState(Az);
-    if (review.needed) add({ id: 'controle', titel: 'Onzekere categorisatie van omzet of kosten', type: 'classificatie', ernst: 'warn', wat: `${review.open.length} tegenpartijen onder ${CONFIDENCE.threshold}%, ${eur(review.band.revenue.uncertain + review.band.costs.uncertain)} onzeker.`, waarom: 'De onzekerheid kan het oordeel laten omslaan.', onderzoek: 'Tegenpartijen beoordelen in Controle (grootste bedrag eerst).', zekerheid: 70, rows: review.open.flatMap(entity => entity.rows), berekening: 'bandbreedte: slechtste en beste geval' });
-    if (legal === 'bv') {
-      const privateTax = Az.taxRows.filter(row => ['ib', 'zvw'].includes(row.tax.type));
-      if (privateTax.length) add({ id: 'vermenging', titel: 'Privébelasting van de bv-rekening', type: 'risico', ernst: 'warn', wat: `${privateTax.length}× IB of Zvw betaald van een rekening van de bv (${eur(outflow(privateTax))}).`, waarom: 'Vermenging van zakelijk en privé; telt als rekening-courant DGA.', onderzoek: 'Toelichting en stand rekening-courant opvragen.', zekerheid: 95, rows: privateTax, berekening: 'regel 3 met IB/Zvw-kenmerk op zakelijke rekening' });
-    }
-    Az.related.filter(item => item.loan && !isOwnerRole(item.role)).forEach(item => add({ id: `lening-${item.key}`, titel: `Lening van verbonden partij: ${item.name}`, type: item.status.startsWith('Bevestigd') ? 'feit' : 'classificatie', ernst: 'info', wat: `${item.role}: ${eur(item.in)} ontvangen, ${eur(item.out)} betaald. Ontvangsten tellen niet als omzet; aflossingen tellen mee in de schuldendienst.`, waarom: 'Onderlinge lening hoort in de verplichtingen.', onderzoek: 'Leningsovereenkomst en aflossingsschema opvragen.', zekerheid: item.status.startsWith('Bevestigd') ? 100 : 70, rows: item.rows, berekening: 'regel 5 met lening/aflossing in de omschrijving' }));
-    const e1Rows = Az.rows.filter(row => row.e1);
-    const disagreeAmount = sum(e1Rows.filter(row => row.e1Agree === false).map(row => Math.abs(row.amount)));
-    const e1Total = sum(e1Rows.map(row => Math.abs(row.amount)));
-    if (e1Total && disagreeAmount / e1Total > SIGNAALGRENZEN.e1AfwijkingAandeel) add({ id: 'e1', titel: 'E1 wijkt af van de eigen regels', type: 'classificatie', ernst: 'info', wat: `Op ${pctCore(disagreeAmount / e1Total)} van het bedrag kiest Enable Now een andere categorie.`, waarom: 'Tweede mening; de eigen regels blijven leidend.', onderzoek: 'Steekproef van de grootste afwijkingen bekijken.', zekerheid: 60, rows: e1Rows.filter(row => row.e1Agree === false), berekening: 'E1-categorie tegenover regel (config E1_NAAR_REGEL)' });
-    const breaks = DOSSIER.accounts.filter(account => account.enabled !== false).map(account => ({ account, own: DOSSIER.transactions.filter(row => row.account === account.iban) })).filter(({ account, own }) => own.length && (own.some(row => Math.abs(row.balanceAfter - row.computedBalance) >= 0.01) || (account.reportedBalance != null && Math.abs(own.at(-1).balanceAfter - account.reportedBalance) >= 0.01)));
-    if (breaks.length) add({ id: 'saldo', titel: 'Saldo sluit niet aan', type: 'feit', ernst: 'bad', wat: breaks.map(({ account }) => formatIban(account.iban)).join(', '), waarom: 'Mogelijk ontbrekende of dubbele transacties.', onderzoek: 'Transacties opnieuw laten delen.', zekerheid: 99, berekening: 'startsaldo + mutaties = eindsaldo' });
+    if (unshared.length) add({ id: 'rekening-niet-gedeeld', titel: 'Eigen rekening niet gedeeld', ernst: 'warn', wat: `${unshared.map(maskIban).join(', ')} staat op naam van de klant maar is niet gedeeld.`, rows: Az.byRule(1).filter(row => row.unshared) });
   }
-  if (Ap) {
-    const gambling = Ap.rows.filter(row => row.signal === 'gokken'), crypto = Ap.rows.filter(row => row.signal === 'crypto');
-    if (gambling.length) add({ id: 'gokken', titel: 'Gokken', type: 'risico', ernst: 'bad', wat: `${gambling.length}× naar een gokaanbieder, ${eur(outflow(gambling))} in 12 maanden; laatste 3 maanden ${eur(outflow(gambling.filter(row => Ap.lastThree.includes(row.monthIndex))))}.`, waarom: 'Risicogedrag privé.', onderzoek: 'Toelichting aanvrager.', zekerheid: 95, rows: gambling, berekening: 'tegenpartij casino/toto/loterij of E1 gambling' });
-    if (crypto.length) add({ id: 'crypto', titel: 'Crypto-aankopen', type: 'feit', ernst: 'info', wat: `${crypto.length}× ${eur(outflow(crypto))}.`, waarom: 'Volatiel vermogen; geen zekerheid.', onderzoek: 'Ter info.', zekerheid: 95, rows: crypto, berekening: 'tegenpartij cryptobeurs of E1 investment.crypto' });
-    const bigIn = Ap.debtors.filter(entity => entity.total >= SIGNAALGRENZEN.rondBedrag && entity.score < 50);
-    if (bigIn.length) add({ id: 'herkomst', titel: 'Grote ontvangst privé zonder verklaring', type: 'ontbreekt', ernst: 'warn', wat: bigIn.map(entity => `${entity.name ?? '(geen naam)'} ${eur(entity.total)}`).join(', '), waarom: 'Herkomst onbekend (schenking, lening, verkoop?).', onderzoek: 'Herkomst en eventuele terugbetalingsplicht vragen.', zekerheid: 60, rows: bigIn.flatMap(entity => entity.rows), berekening: 'privé-inkomsten ≥ rond bedrag met zekerheid < 50%' });
-  }
-  return list.map(item => ({ ...item, state: INPUT.risks[item.id] ?? { status: 'open', toelichting: '' } }));
+  /* betaalgedrag en risicogedrag op alle gedeelde rekeningen (zakelijk en privé) */
+  const all = [...(Az?.rows ?? []), ...(Ap?.rows ?? [])].filter((row, index, array) => array.findIndex(other => other.id === row.id) === index);
+  const recent = rows => rows.filter(row => row.monthIndex >= 9).length;
+  const reversals = all.filter(row => row.rule === 2);
+  if (reversals.length) add({ id: 'terugboekingen', titel: 'Terugboekingen', ernst: recent(reversals) ? 'bad' : 'warn', wat: `${reversals.length}× teruggeboekt (${recent(reversals)}× in de laatste 3 maanden), ${eur(inflow(reversals))}.`, rows: reversals });
+  const bailiffs = all.filter(row => row.rule === 4);
+  if (bailiffs.length) add({ id: 'incasso', titel: 'Incassobureau of deurwaarder', ernst: 'bad', wat: `${bailiffs.length}× betaald, ${eur(outflow(bailiffs))}.`, rows: bailiffs });
+  const gambling = all.filter(row => row.signal === 'gokken');
+  if (gambling.length) add({ id: 'gokken', titel: 'Gokken', ernst: 'bad', wat: `${gambling.length}× naar een gokaanbieder, ${eur(outflow(gambling))} in 12 maanden; laatste 3 maanden ${eur(outflow(gambling.filter(row => row.monthIndex >= 9)))}.`, rows: gambling });
+  const crypto = all.filter(row => row.signal === 'crypto');
+  if (crypto.length) add({ id: 'crypto', titel: 'Crypto', ernst: 'warn', wat: `${crypto.length}× bij een cryptobeurs, ${eur(outflow(crypto))}.`, rows: crypto });
+  const order = ['bad', 'warn', 'info'];
+  return list.sort((first, second) => order.indexOf(first.ernst) - order.indexOf(second.ernst));
 }
-const change3v12Core = values => { const average12 = sum(values) / values.length; return average12 ? sum(values.slice(-3)) / 3 / average12 - 1 : NaN; };
-const pctCore = value => `${Math.round(value * 100)}%`;

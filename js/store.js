@@ -1,8 +1,8 @@
 'use strict';
 /* ---------- Opslag in de browser (IndexedDB), nooit naar een server ----------
-   - dossiers: per dossier (vingerafdruk van rekeningen en transacties) de rekeningrollen, leden, besluiten en
-     de afhandeling van risicomeldingen en eigen bevindingen plus de audittrail.
-   - iban: besluiten per tegenpartij (IBAN), die ook in volgende dossiers gelden.
+   - dossiers: per dossier (vingerafdruk van rekeningen en transacties) de rekeningrollen, de categorie-aanpassingen
+     per tegenpartij en de audittrail.
+   - iban: categorie-aanpassingen per tegenpartij (IBAN), die ook in volgende dossiers gelden.
    Valt IndexedDB weg (privévenster, geblokkeerd), dan werkt alles in het geheugen en verdwijnt het bij herladen. */
 const STORE = { db: null, available: false, error: null };
 function openStore() {
@@ -59,7 +59,7 @@ function saveState() {
     input: JSON.parse(JSON.stringify(INPUT)),
   });
 }
-/* Besluit per IBAN ook bewaren voor volgende dossiers (debiteur, crediteur, verbonden partij) */
+/* Aanpassing per IBAN ook bewaren voor volgende dossiers */
 function saveIbanDecision(key, value) {
   if (value == null) { try { STORE.db?.transaction('iban', 'readwrite').objectStore('iban').delete(key); } catch { /* geen opslag */ } return; }
   if (!key || key.includes('|naam:')) return;

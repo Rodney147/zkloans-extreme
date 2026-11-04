@@ -356,3 +356,23 @@ tr.total-row td { border-top: 1px solid var(--chart-line); }
 .month-table .month-total th { text-align: left; font-weight: 600; background: var(--card); }
 .month-table .month-total tr:first-child th, .month-table .month-total tr:first-child td { border-top: 2px solid var(--chart-line); }
 .month-table .month-total .net th, .month-table .month-total .net td { border-top: 1px solid var(--grid); }
+
+/* ---------- Basismodel: lampjes, maandoverzicht, transactiefilters ---------- */
+.lamps { display: grid; }
+.lamp { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 12px; align-items: start; padding: 11px 24px; border-bottom: 1px solid var(--row); }
+.lamp:last-child { border-bottom: 0; }
+.lamp b { display: block; color: var(--ink); font-weight: 600; }
+.lamp span { color: var(--text); font-size: 12.5px; }
+.lamp .icon { margin-top: 2px; }
+.cell-link { border: 0; background: none; padding: 0; font: inherit; color: inherit; cursor: pointer; text-decoration: underline dotted var(--grid); text-underline-offset: 3px; }
+.cell-link:hover, .cell-link:focus-visible { color: var(--primary); text-decoration-color: currentColor; outline: none; }
+.month-table .toggle-space { display: inline-block; width: 10px; }
+.month-table td.label.indent { padding-left: 26px; }
+.month-table tr.sub td { color: var(--muted); }
+.month-table .total-row th, .month-table .total-row td { background: var(--head); border-top: 1px solid var(--chart-line); font-weight: 600; text-align: left; }
+.month-table .total-row td { text-align: right; }
+.month-table .total-row.net th, .month-table .total-row.net td { border-top: 2px solid var(--chart-line); }
+.tx-controls { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; }
+.tx-controls label { display: inline-flex; gap: 6px; align-items: center; font-size: 12.5px; color: var(--muted); }
+.tx-controls input[type="search"] { border: 1px solid var(--input); border-radius: 4px; background: var(--card); color: var(--ink); padding: 4px 8px; font: inherit; font-size: 12.5px; min-width: 0; width: 240px; max-width: 100%; }
+.lw-table td .inline-select { display: block; margin-top: 4px; }

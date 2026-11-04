@@ -2,13 +2,16 @@
   "_bron": "Ijkpunten uit prompt-loanwise-zakelijk-bouw.md §11, rechtstreeks uit de ruwe transacties nagerekend (niet uit de rekenkern).",
   "legalForm": "bv",
   "transactions": 2132,
-  "endBalances": { "zakelijk": 128792.37, "prive": 23689.34 },
+  "endBalances": {
+    "zakelijk": 128792.37,
+    "prive": 23689.34
+  },
   "startBalanceZakelijk": 56100,
   "dgaSalary": 87000,
   "rcOut": 20000,
   "rcIn": 15000,
   "e1InternalDifference": 92000,
-  "revenue12": 777550.91,
+  "revenue12": 782350.91,
   "holdingLoanIn": 20000,
   "holdingRepayment": 2500,
   "managementFee": 54000,
@@ -17,12 +20,38 @@
   "taxAuthorityOldIban": 17,
   "taxAuthorityNewIban": 26,
   "vatRefund": 2140,
-  "leaseReversals": 1458.30,
-  "debtCollection": 285.50,
-  "lenders": ["Rabobank", "Autolease Premium B.V.", "Leasemaatschappij Zuid B.V."],
+  "leaseReversals": 1458.3,
+  "debtCollection": 285.5,
+  "lenders": [
+    "Rabobank",
+    "Autolease Premium B.V.",
+    "Leasemaatschappij Zuid B.V."
+  ],
   "employeesWithSalary": 3,
-  "gambling": { "count": 5, "total": 795 },
-  "crypto": { "count": 3, "total": 950 },
-  "expectRisks": ["belastingachterstand", "incasso", "terugboekingen", "gokken", "crypto", "herkomst"],
-  "noRisks": ["vermenging", "saldo"]
+  "gambling": {
+    "count": 5,
+    "total": 795
+  },
+  "crypto": {
+    "count": 3,
+    "total": 950
+  },
+  "expectRisks": [
+    "belastingachterstand",
+    "incasso",
+    "terugboekingen",
+    "gokken",
+    "crypto",
+    "onverklaard",
+    "incidenteel"
+  ],
+  "noRisks": [
+    "negatieve-cashflow",
+    "periode"
+  ],
+  "_omzet": "E1 income.other 802.350,91 − 20.000 lening holding. De € 4.800 zonder tegenpartij telt mee als omzet, met het lampje 'onverklaard'.",
+  "investment": {
+    "name": "Online Veilinghuis",
+    "amount": -2380
+  }
 }

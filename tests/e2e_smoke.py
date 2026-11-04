@@ -1,7 +1,8 @@
 """Rooktest van de gebruikersstromen in een echte browser (Playwright, Chromium).
 Draaien: python3 tests/e2e_smoke.py   (pip install playwright && playwright install chromium)
-Controleert: inladen per dataset, alle tabbladen zonder JavaScript-fouten, een besluit in Controle dat
-doorwerkt tot de DSCR, en dat besluiten en de afhandeling van meldingen bewaard blijven na herladen."""
+Controleert: inladen per dataset, alle tabbladen en weergaven zonder JavaScript-fouten, doorklikken van een
+cel in het maandoverzicht, een categorie-aanpassing per tegenpartij die overal doorwerkt, en dat die
+aanpassing bewaard blijft na herladen."""
 import glob
 import os
 import sys
@@ -9,8 +10,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAGE = 'file://' + os.path.join(ROOT, 'index.html')
-TABS = ['overzicht', 'controle', 'resultaat', 'omzet', 'kosten', 'cashflow', 'categorieen', 'transacties', 'maanden', 'regels', 'tegenpartijen',
-        'verbonden', 'verplichtingen', 'belasting', 'risico', 'signalen']
+TABS = ['overzicht', 'maanden', 'omzet', 'kosten', 'transacties', 'risico']
 failures = []
 
 
@@ -40,33 +40,36 @@ with sync_playwright() as playwright:
     for folder in ['hocus-pocus', 'slager', 'lender-spender', 'mister-x', 'ez-gemengd', 'vof', 'pizza-patat']:
         errors.clear()
         load(page, folder)
-        for tab in TABS:
-            page.evaluate(f"showTab('{tab}')")
-        for view in ['prive', 'samen', 'zakelijk']:
+        for view in ['zakelijk', 'prive', 'samen']:
             page.evaluate(f"(() => {{ const button = document.querySelector('[data-overlay={view}]'); if (!button.disabled) button.click(); }})()")
+            for tab in TABS:
+                page.evaluate(f"showTab('{tab}')")
+        page.evaluate("document.querySelector('[data-overlay=zakelijk]').click()")
         check(not errors, f'{folder}: alle tabbladen en weergaven zonder fouten {errors[:1]}')
 
-    # Kredietcapaciteit en doorwerking op Hocus Pocus
     load(page, 'hocus-pocus')
-    dscr_before = page.evaluate('A.dscr')
-    page.evaluate("showTab('controle')")
-    page.evaluate("decisions[decisionKey('debtor', A.debtors[0].key)] = 'no'; renderAll();")
-    check(page.evaluate('A.dscr') < dscr_before, 'besluit "geen omzet" verlaagt de DSCR')
-    page.evaluate("delete decisions[decisionKey('debtor', A.debtors[0].key)]; renderAll();")
-    check(page.evaluate("document.querySelectorAll('#panel-capaciteit, #panel-acceptatie, #panel-rapport').length") == 0, 'kredietcapaciteit, acceptatie en rapport verwijderd')
+    page.evaluate("showTab('maanden')")
+    page.click('#panel-maanden .cell-link')
+    check(page.is_visible('#modal') and page.evaluate("document.querySelectorAll('#modal-body tbody tr').length") > 0, 'cel in maandoverzicht opent de transacties')
+    page.evaluate('closeModal()')
+    page.click('[data-month-line="kosten"]')
+    check(page.evaluate("document.querySelectorAll('#panel-maanden tr.sub').length") > 0, 'kosten uitklappen naar tegenpartijen')
 
-    # Bewaren in de browser
-    page.evaluate("showTab('risico')")
-    risk_id = page.evaluate('MODEL.risks[0].id')
-    page.select_option(f'[data-risk-status="{risk_id}"]', 'beoordeeld')
+    # categorie per tegenpartij: grootste debiteur naar privé
+    revenue_before = page.evaluate('A.revenue12')
+    key = page.evaluate('A.debtors[0].key')
+    page.evaluate("showTab('omzet')")
+    page.select_option(f'#panel-omzet [data-override="{key}"]', 'prive')
     page.wait_for_timeout(300)
+    check(page.evaluate('A.revenue12') < revenue_before, 'aanpassing "privé" verlaagt de omzet')
+    check(page.evaluate(f"A.rows.filter(row => row.key === '{key}').every(row => row.rule === 5)"), 'aanpassing geldt voor alle transacties van die tegenpartij')
     if page.evaluate('STORE.available'):
         page.reload()
         page.wait_for_timeout(800)
         load(page, 'hocus-pocus')
         page.wait_for_timeout(300)
-        check(page.evaluate(f"INPUT.risks['{risk_id}']?.status") == 'beoordeeld', 'afhandeling melding hersteld na herladen')
-        check(page.evaluate('INPUT.audit.length') > 0, 'audittrail bewaard')
+        check(page.evaluate(f"decisions[decisionKey('cat', '{key}')]") == 'prive', 'aanpassing hersteld na herladen')
+        page.evaluate(f"delete decisions[decisionKey('cat', '{key}')]; saveIbanDecision(decisionKey('cat', '{key}'), null); saveState(); renderAll();")
     else:
         print('let op: IndexedDB niet beschikbaar in deze browsercontext; opslag niet getest')
 
