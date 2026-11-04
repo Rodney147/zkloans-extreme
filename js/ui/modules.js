@@ -31,3 +31,25 @@ document.addEventListener('click', event => {
   monthsOpen[toggle.dataset.monthLine] = !monthsOpen[toggle.dataset.monthLine];
   renderAll();
 });
+
+/* ---------- Thema (auto, licht, donker) en glas: per browser bewaard ---------- */
+function applyLook() {
+  const root = document.documentElement;
+  const theme = root.dataset.theme ?? 'system';
+  document.querySelectorAll('[data-theme-choice]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.themeChoice === theme)));
+  document.getElementById('glass-toggle')?.setAttribute('aria-pressed', String(root.dataset.glass === 'on'));
+}
+document.addEventListener('click', event => {
+  const root = document.documentElement;
+  const choice = event.target.closest('[data-theme-choice]');
+  if (choice) {
+    const theme = choice.dataset.themeChoice;
+    if (theme === 'system') delete root.dataset.theme; else root.dataset.theme = theme;
+    try { localStorage.setItem('lw-theme', theme); } catch { /* geen opslag */ }
+  } else if (event.target.closest('#glass-toggle')) {
+    if (root.dataset.glass === 'on') delete root.dataset.glass; else root.dataset.glass = 'on';
+    try { localStorage.setItem('lw-glass', root.dataset.glass ?? 'off'); } catch { /* geen opslag */ }
+  } else return;
+  applyLook();
+});
+applyLook();

@@ -31,6 +31,8 @@ Bestanden en aanpassingen blijven in de browser (IndexedDB); er gaat niets naar 
 
 Overzicht · Maandoverzicht · Omzet · Kosten · Transacties · Risico-indicatoren.
 
+**Thema:** Auto (volgt het systeem), Licht of Donker, plus een optionele glaslaag (doorschijnende kaarten). De keuze blijft per browser bewaard.
+
 ## Tests
 
 ```bash
