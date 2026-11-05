@@ -464,3 +464,38 @@ tr.total-row td { border-top: 1px solid var(--chart-line); }
 .positive { color: var(--green-ink); }
 @media (max-width: 900px) { .tax-cards { grid-template-columns: minmax(0, 1fr); } }
 .tax-table th[scope="row"] { text-align: left; white-space: normal; }
+
+/* ---------- Verloop: interactieve staafjes met hover-kaart ---------- */
+.spark-live { display: inline-flex; align-items: flex-end; gap: 2px; height: 26px; width: 108px; vertical-align: middle; }
+.spark-bar { flex: 1; height: 100%; border: 0; padding: 0; background: none; display: flex; align-items: flex-end; cursor: pointer; border-radius: 2px; }
+.spark-bar i { display: block; width: 100%; border-radius: 1px 1px 0 0; opacity: 0.85; }
+.spark-bar:hover, .spark-bar:focus-visible { background: var(--primary-tint); outline: none; }
+.spark-bar:hover i, .spark-bar:focus-visible i { opacity: 1; }
+.tip { position: fixed; z-index: 60; width: max-content; max-width: min(340px, calc(100vw - 16px)); background: var(--card-solid); color: var(--text); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 30px var(--shadow); padding: 10px 12px; display: grid; gap: 3px; font-size: 12px; pointer-events: none; }
+.tip b { color: var(--ink); font-weight: 600; }
+.tip-total { font-weight: 600; color: var(--ink); margin-bottom: 3px; font-variant-numeric: tabular-nums; }
+.tip-row { display: flex; justify-content: space-between; gap: 14px; font-variant-numeric: tabular-nums; }
+.tip-row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
+.tip-row i { color: var(--muted); font-style: normal; }
+.tip-hint { margin-top: 3px; font-size: 11px; }
+.tip .negative, .tip-total.negative { color: var(--red); }
+
+/* ---------- Risico-indicatoren als checklijst ---------- */
+.checks { display: grid; }
+.check-group { padding: 6px 0 4px; border-bottom: 1px solid var(--border); }
+.check-group:last-child { border-bottom: 0; }
+.check-group h3 { margin: 0; padding: 12px 24px 6px; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.check-group h3 .muted, .check-group h3 .chip { text-transform: none; letter-spacing: 0; font-weight: 500; }
+.check { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 4px 12px; align-items: start; padding: 8px 24px; }
+.check .icon { margin-top: 2px; }
+.check b { display: block; color: var(--ink); font-weight: 500; }
+.check.good b { font-weight: 400; }
+.check span { display: block; font-size: 12.5px; color: var(--text); }
+.check.good span { color: var(--muted); }
+.check small { display: none; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.check:hover small, .check:focus-within small { display: block; }
+.btn-view.muted-view { background: var(--row); color: var(--muted); }
+.btn-view.muted-view:hover { background: var(--head); color: var(--ink); }
+.check-toggle { border-top: 1px solid var(--border); padding-block: 12px; }
+.link-button { border: 0; background: none; padding: 0; font: inherit; font-size: 12.5px; color: var(--primary); cursor: pointer; }
+.link-button:hover, .link-button:focus-visible { text-decoration: underline; outline: none; }

@@ -78,6 +78,23 @@ with sync_playwright() as playwright:
     page.click('#panel-belasting .tax-table .cell-link')
     check(page.evaluate("MODAL.rows.length > 0 && MODAL.rows.every(row => row.rule === 3)"), 'belastingen: bedrag opent de betalingen')
     page.evaluate('closeModal()')
+    # verloop: hover toont de inhoud, klik opent de transacties van die maand
+    page.evaluate("showTab('kosten')")
+    bar = page.locator('#panel-kosten .spark-bar:not([tabindex])').first
+    bar.hover()
+    check(page.is_visible('#tip') and '€' in page.inner_text('#tip'), 'verloop: hover toont maand, bedrag en tegenpartijen')
+    month = int(bar.get_attribute('data-month'))
+    bar.click()
+    check(page.evaluate(f"MODAL.rows.length > 0 && MODAL.rows.every(row => row.monthIndex === {month})"), 'verloop: klik opent de transacties van die maand')
+    page.evaluate('closeModal()')
+    # risico-indicatoren: alle checks, succesvolle verbergen en weer tonen
+    page.evaluate("showTab('risico')")
+    total = page.evaluate("document.querySelectorAll('#panel-risico .check').length")
+    page.click('[data-toggle-checks]')
+    hidden = page.evaluate("document.querySelectorAll('#panel-risico .check').length")
+    check(total > hidden and page.evaluate("document.querySelectorAll('#panel-risico .check.good').length") == 0, 'risico: verberg succesvolle checks')
+    page.click('[data-toggle-checks]')
+    check(page.evaluate("document.querySelectorAll('#panel-risico .check').length") == total, 'risico: toon alles')
     load(page, 'csv-tegenpartij')
     page.evaluate("showTab('transacties')")
     check('Diensten' in page.inner_text('#panel-transacties'), 'CSV: Loanwise-categorie in de transactietabel')

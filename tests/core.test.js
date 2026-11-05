@@ -12,7 +12,7 @@ const near = (actual, wanted, tolerance = 0.01, label = '') => assert.ok(Math.ab
 async function model(folder) {
   const core = createCore();
   await loadFixture(core, folder);
-  run(core, "overlay = 'zakelijk'; A = analyse(); globalThis.Az = A; globalThis.Ap = DOSSIER.accounts.some(account => account.role === 'prive') ? analyseFor('prive') : null; globalThis.RISKS = risks(Az, Ap, '2026-11-04');");
+  run(core, "overlay = 'zakelijk'; A = analyse(); globalThis.Az = A; globalThis.Ap = DOSSIER.accounts.some(account => account.role === 'prive') ? analyseFor('prive') : null; globalThis.RISKS = riskHits(risks(Az, Ap, '2026-11-04'));");
   return { core, Az: run(core, 'Az'), Ap: run(core, 'Ap'), risks: run(core, 'RISKS'), dossier: run(core, 'DOSSIER') };
 }
 /* elke set: netto cashflow + niet in de cashflow = netto mutatie op de rekeningen */
@@ -28,6 +28,25 @@ test('geen normen of oordeelsgrenzen in de configuratie', () => {
   const core = createCore();
   assert.equal(run(core, "typeof NORMEN"), 'undefined');
   assert.equal(run(core, 'JSON.stringify(DATAREGELS)'), JSON.stringify({ minimaleMaanden: 3, gewensteMaanden: 12, maximaleOuderdomDagen: 14 }));
+});
+test('checklijst: alle checks altijd aanwezig, gegroepeerd, met regel', async () => {
+  const { core } = await model('hocus-pocus');
+  const checks = run(core, "risks(Az, Ap, '2026-11-04')");
+  ['gokken', 'incasso', 'terugboekingen', 'minileningen', 'achterstanden', 'achterstand-wonen', 'beslag', 'financiele-verplichtingen', 'internationaal', 'betaalverzoeken', 'grote-bedragen', 'betalingsregelingen', 'notaris-advocaat', 'saldo-trend']
+    .forEach(id => assert.ok(checks.some(item => item.id === id), `check ${id}`));
+  assert.ok(checks.every(item => item.groep && item.regel && item.titel && item.wat), 'elke check heeft groep, regel en uitkomst');
+  assert.ok(checks.some(item => item.ernst === 'good'), 'er zijn succesvolle checks');
+});
+test('belasting: soort zo veel mogelijk herkend', () => {
+  const core = createCore();
+  const type = (description, name = 'Belastingdienst', amount = -100) => run(core, `classifyTax({ date: '2026-03-01', amount: ${amount}, name: ${JSON.stringify(name)}, description: ${JSON.stringify(description)} }).type`);
+  assert.equal(type('Omzetbelasting Q1 2026'), 'ob');
+  assert.equal(type('Betalingskenmerk loonheffingen'), 'lh');
+  assert.equal(type('Voorlopige aanslag IB 2026'), 'ib');
+  assert.equal(type('Aangifte dividendbelasting 2026'), 'dividend');
+  assert.equal(type('Terugvordering kinderopvangtoeslag', 'Dienst Toeslagen'), 'toeslag');
+  assert.equal(type('Betalingsregeling 1084 1123 0457'), 'regeling');
+  assert.equal(type('Overboeking'), 'onbekend');
 });
 test('categorieregels: spaar, contant, zonder tegenpartij', () => {
   const core = createCore();
@@ -119,7 +138,7 @@ test('Eenmanszaak gemengd: privé uit omzet en kosten', async () => {
   assert.equal(Az.obligations.find(item => item.name === want.lease.name).missed, want.lease.missed, 'gemiste leasetermijn');
   reconciles(Az);
   want.expectRisks.forEach(id => assert.ok(risks.some(item => item.id === id), `lampje ${id}`));
-  assert.ok(risks.some(item => item.id === `gemist-${Az.obligations.find(entry => entry.name === want.lease.name).key}`), 'lampje gemiste termijn');
+  assert.ok(risks.find(item => item.id === 'achterstand-wonen')?.rows.some(row => row.name === want.lease.name), 'lampje achterstand woonlasten en leningen (gemiste leasetermijn)');
 });
 
 /* ---------- Vof met twee vennoten ---------- */

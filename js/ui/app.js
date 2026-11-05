@@ -152,10 +152,48 @@ function balanceChart() {
   A.MONTHS.forEach((key, index) => { const dayIndex = A.days.indexOf(`${key}-01`); svg += `<text x="${x(dayIndex) + 18}" y="${height - 8}" text-anchor="middle" class="t-ink">${shortMonth(key)}</text>`; });
   return `${svg}</svg>`;
 }
-function sparkBars(values, color = 'var(--chart-line)') {
+/* Verloop per maand: elk staafje toont bij hover de maand, het bedrag en de tegenpartijen; klikken opent de transacties */
+let TIPS = [];
+function sparkBars(values, color = 'var(--chart-line)', rows = null, title = '') {
   const maximum = Math.max(...values.map(Math.abs), 1);
-  return `<svg class="spark" width="96" height="22" viewBox="0 0 96 22" aria-hidden="true">${values.map((value, index) => `<rect x="${index * 8}" y="${22 - Math.abs(value) / maximum * 20}" width="6" height="${Math.max(Math.abs(value) / maximum * 20, value ? 1 : 0)}" fill="${color}"/>`).join('')}</svg>`;
+  if (!rows) return `<svg class="spark" width="96" height="22" viewBox="0 0 96 22" aria-hidden="true">${values.map((value, index) => `<rect x="${index * 8}" y="${22 - Math.abs(value) / maximum * 20}" width="6" height="${Math.max(Math.abs(value) / maximum * 20, value ? 1 : 0)}" fill="${color}"/>`).join('')}</svg>`;
+  const view = VIEWS.push({ title, rows, sub: '' }) - 1;
+  return `<span class="spark spark-live" role="group" aria-label="Verloop ${esc(title)}">${values.map((value, index) => {
+    const tip = TIPS.push({ title, month: index, rows: rows.filter(row => row.monthIndex === index), value }) - 1;
+    const height = value ? Math.max(Math.abs(value) / maximum * 100, 6) : 0;
+    return `<button type="button" class="spark-bar" data-view="${view}" data-month="${index}" data-tip="${tip}" aria-label="${shortMonth(A.MONTHS[index])}: ${eur(value)}" ${value ? '' : 'tabindex="-1"'}><i style="height:${height}%;background:${color}"></i></button>`;
+  }).join('')}</span>`;
 }
+function tipHtml(tip) {
+  const rows = tip.rows;
+  const total = sum(rows.map(row => row.amount));
+  const head = `<b>${esc(tip.title)} · ${monthName(A.MONTHS[tip.month])}</b><span class="tip-total ${total < 0 ? 'negative' : ''}">${eurCents(total)} · ${rows.length} transactie${rows.length === 1 ? '' : 's'}</span>`;
+  if (!rows.length) return `${head}<span class="muted">Geen transacties</span>`;
+  const groups = [...groupBy(rows, row => row.name ?? '(geen naam)').entries()].map(([name, items]) => ({ name, items, amount: sum(items.map(row => row.amount)) })).sort((first, second) => Math.abs(second.amount) - Math.abs(first.amount));
+  /* één tegenpartij: de losse transacties; meerdere: per tegenpartij opgeteld */
+  const lines = groups.length === 1
+    ? rows.slice().sort((first, second) => first.date.localeCompare(second.date)).slice(0, 6).map(row => `<span class="tip-row"><span>${dateNl(row.date).slice(0, 5)} ${esc(row.description.slice(0, 34))}</span><b class="${row.amount < 0 ? 'negative' : ''}">${eurCents(row.amount)}</b></span>`)
+    : groups.slice(0, 6).map(group => `<span class="tip-row"><span>${esc(group.name)}${group.items.length > 1 ? ` <i>${group.items.length}×</i>` : ''}</span><b class="${group.amount < 0 ? 'negative' : ''}">${eurCents(group.amount)}</b></span>`);
+  const rest = groups.length === 1 ? rows.length - 6 : groups.length - 6;
+  return `${head}${lines.join('')}${rest > 0 ? `<span class="muted">+ ${rest} ${groups.length === 1 ? 'transacties' : 'tegenpartijen'}</span>` : ''}<span class="muted tip-hint">Klik voor de transacties</span>`;
+}
+function showTip(target) {
+  const tip = TIPS[Number(target.dataset.tip)];
+  if (!tip) return;
+  let box = document.getElementById('tip');
+  if (!box) { box = Object.assign(document.createElement('div'), { id: 'tip', className: 'tip', role: 'tooltip' }); document.body.appendChild(box); }
+  box.innerHTML = tipHtml(tip);
+  box.hidden = false;
+  const rect = target.getBoundingClientRect(), width = box.offsetWidth, height = box.offsetHeight;
+  const left = Math.min(Math.max(8, rect.left + rect.width / 2 - width / 2), window.innerWidth - width - 8);
+  const top = rect.top - height - 8 < 8 ? rect.bottom + 8 : rect.top - height - 8;
+  box.style.left = `${left}px`; box.style.top = `${top}px`;
+}
+const hideTip = () => { const box = document.getElementById('tip'); if (box) box.hidden = true; };
+document.addEventListener('mouseover', event => { const target = event.target.closest('[data-tip]'); if (target) showTip(target); else if (!event.target.closest('#tip')) hideTip(); });
+document.addEventListener('focusin', event => { const target = event.target.closest('[data-tip]'); if (target) showTip(target); else hideTip(); });
+document.addEventListener('scroll', hideTip, true);
+document.addEventListener('click', event => { if (event.target.closest('[data-tip]')) hideTip(); });
 const legend = items => `<div class="legend">${items.map(([label, color]) => `<span><i class="swatch" style="background:${color}"></i>${label}</span>`).join('')}</div>`;
 const card = (title, sub, body, source = '', head = '') => `<div class="card"><div class="card-head"><div><h2>${title}</h2>${sub ? `<p class="sub">${sub}</p>` : ''}</div>${head}</div>${body}${source ? `<div class="source">${source}</div>` : ''}</div>`;
 const table = (headers, rowsHtml, foot = '') => `<div class="table-wrap"><table class="lw-table"><thead><tr>${headers.map(header => `<th${/^(num:)/.test(header) ? ' class="num"' : ''}>${header.replace(/^num:/, '')}</th>`).join('')}</tr></thead><tbody>${rowsHtml}</tbody>${foot ? `<tfoot>${foot}</tfoot>` : ''}</table></div>`;
@@ -212,7 +250,7 @@ const tabHidden = () => false;
 let currentTab = 'overzicht';
 function renderTabs() {
   const taxTones = MODEL?.tax?.lines.filter(line => TAX_FOCUS.includes(line.type)).map(line => line.status.tone) ?? [];
-  const status = { risico: MODEL?.risks.some(item => item.ernst === 'bad') ? 'bad' : MODEL?.risks.some(item => item.ernst === 'warn') ? 'warn' : null, belasting: taxTones.includes('warn') ? 'warn' : null };
+  const status = { risico: MODEL?.hits.some(item => item.ernst === 'bad') ? 'bad' : MODEL?.hits.some(item => item.ernst === 'warn') ? 'warn' : null, belasting: taxTones.includes('warn') ? 'warn' : null };
   const [currentGroup] = groupOfTab(currentTab);
   const groupStatus = tabs => tabs.map(id => status[id]).find(value => value === 'bad') ?? tabs.map(id => status[id]).find(value => value === 'warn') ?? null;
   document.getElementById('tablist').innerHTML = GROUPS.map(([id, label, tabs]) => { const first = tabs.find(tab => !tabHidden(tab)) ?? tabs[0]; const dot = groupStatus(tabs); return `<button type="button" role="tab" data-tab="${id === currentGroup && !tabHidden(currentTab) ? currentTab : first}" data-group="${id}" aria-selected="${id === currentGroup}">${dot ? `<i class="status-dot ${dot}"></i>` : ''}${tabLabel(id, label)}</button>`; }).join('');
@@ -235,6 +273,7 @@ function renderAll({ keepDossier = false } = {}) {
   const scroll = window.scrollY;
   A = analyse();
   VIEWS = [];
+  TIPS = [];
   MODEL = buildModel();
   if (keepDossier) syncDossier(); else renderDossier();
   Object.entries(RENDERERS).forEach(([id, render]) => { document.getElementById(`panel-${id}`).innerHTML = tabHidden(id) ? '' : render(); });
@@ -335,7 +374,8 @@ function buildModel() {
   const privateAccounts = DOSSIER.accounts.some(account => account.enabled !== false && account.role === 'prive');
   const Az = !business ? null : overlay === 'zakelijk' ? A : analyseFor('zakelijk');
   const Ap = !privateAccounts ? null : overlay === 'prive' ? A : analyseFor('prive');
-  return { Az, Ap, risks: risks(Az, Ap), tax: taxOverview(Az, Ap) };
+  const checks = risks(Az, Ap);
+  return { Az, Ap, checks, hits: riskHits(checks), tax: taxOverview(Az, Ap) };
 }
 async function startSample() {
   DOSSIER = buildSampleDossier();

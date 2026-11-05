@@ -25,7 +25,7 @@ function analyse() {
   const visible = new Set(visibleAccounts.map(account => account.iban));
   const rows = DOSSIER.transactions.filter(row => visible.has(row.account) && monthIndexOf(row.date) >= 0).map(row => {
     const output = { ...row, ...categorize(row), monthIndex: monthIndexOf(row.date), key: counterpartyKey(row) };
-    output.signal = GAMBLING_PATTERN.test(row.name ?? '') || row.e1?.category?.startsWith('gambling') || ['possible gambling', 'online gaming'].includes(row.source?.category) ? 'gokken' : CRYPTO_PATTERN.test(row.name ?? '') || row.e1?.category === 'investment.crypto' ? 'crypto' : null;
+    output.signal = GAMBLING_PATTERN.test(row.name ?? '') || row.e1?.category?.startsWith('gambling') || row.source?.category === 'possible gambling' ? 'gokken' : CRYPTO_PATTERN.test(row.name ?? '') || row.e1?.category === 'investment.crypto' ? 'crypto' : null;
     return output;
   });
   /* regel 10: een structurele bijschrijving bij een leverancier (≥ 3 van 6 maanden, ±2%) is geen losse retour maar een debiteur */
@@ -173,6 +173,6 @@ function obligationOf(items, rows, lastSix) {
   const last = marks.length - 1 - [...marks].reverse().findIndex(mark => mark !== 'none');
   const missed = marks.slice(first, last + 1).filter(mark => mark === 'none').length + marks.filter(mark => mark === 'reversal').length;
   const group = sample.rule === 6 ? 'Leningen en leases' : sample.rule === 3 ? 'Belastingen in termijnen' : sample.rule === 4 ? 'Deurwaarder' : 'Overige vaste lasten';
-  const arrangement = items.some(row => row.e1?.flags.includes('payment_arrangement') || /regeling/i.test(row.description)) || (sample.rule === 3 && sample.tax?.type === 'onbekend');
+  const arrangement = items.some(row => row.e1?.flags.includes('payment_arrangement') || /regeling/i.test(row.description)) || (sample.rule === 3 && ['onbekend', 'regeling'].includes(sample.tax?.type));
   return { key: sample.key, name: sample.name ?? '(geen naam)', rule: sample.rule, group, term: round2(term), marks, missed, arrangement, active: marks[5] !== 'none' || marks[4] !== 'none', rows: items, tax: sample.tax ?? null };
 }

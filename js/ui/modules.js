@@ -13,6 +13,14 @@ document.addEventListener('change', event => {
     renderAll();
   }
 });
+/* Risico-indicatoren: succesvolle checks verbergen of alles tonen */
+document.addEventListener('click', event => {
+  if (!event.target.closest('[data-toggle-checks]')) return;
+  hideGoodChecks = !hideGoodChecks;
+  try { localStorage.setItem('lw-hide-good', hideGoodChecks ? '1' : '0'); } catch { /* geen opslag */ }
+  renderAll();
+});
+try { hideGoodChecks = localStorage.getItem('lw-hide-good') === '1'; } catch { /* geen opslag */ }
 /* Maandoverzicht: tegenpartijen onder een post in- en uitklappen */
 document.addEventListener('click', event => {
   const toggle = event.target.closest('[data-month-line]');

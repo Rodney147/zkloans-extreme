@@ -8,7 +8,7 @@ Analyse van banktransacties voor zakelijk krediet, in Loanwise-huisstijl. Loanwi
 2. **Maandoverzicht is het hart.** 12 maanden als kolommen. Omzet − kosten = operationele cashflow; − financieringslasten = netto cashflow (bestedingsvermogen). Wat niet in de cashflow telt (intern, privé-opnamen, loon DGA, IB/Zvw, ontvangen financiering) staat apart; samen sluit het op de netto mutatie van de rekeningen.
 3. **Omzet zuiver.** Eigen rekeningen, privé/DGA, leningen, teruggaaf en terugboekingen tellen niet als omzet.
 4. **Alles klikt door naar transacties.** Een maand, een post of een cel opent de transacties; in de pop-up kun je zoeken, filteren op categorie en richting, en sorteren op elke kolom.
-5. **Risico-indicatoren als lampje met bewijs**: gemiste termijnen, terugboekingen, incasso/deurwaarder, belastingachterstand, gokken/crypto (ook privé), dalende omzet, negatieve cashflow, niet-gedeelde rekeningen, uitschieters, data-actualiteit.
+5. **Risico-indicatoren als checklijst met bewijs**: elke check staat er altijd (groen = niets gevonden), gegroepeerd in betaalgedrag en achterstanden, leningen en verplichtingen, belastingen, risicogedrag, bijzondere geldstromen, omzet/cashflow/saldo en data. Succesvolle checks zijn te verbergen. De attentiewaarden staan in `LAMPJES` in `js/core/risk.js`.
 6. **Vaste regels, geen AI.** Categorieregels 1–12 in `js/core/rules.js`.
 
 ## Data inladen
