@@ -97,16 +97,6 @@ test('Hocus Pocus: omzet per rekening sluit aan op het geheel', async () => {
   near(total(accounts.map(iban => total(Az.rows.filter(row => row.account === iban && row.rule === 10).map(row => row.amount)))), Az.revenue12, 0.01, 'omzet per rekening');
   near(total(Az.byRule(1).map(row => row.amount)), 0, 0.01, 'interne boekingen tussen gedeelde zakelijke rekeningen sluiten');
 });
-test('Hocus Pocus: aanpassing per tegenpartij werkt overal door', async () => {
-  const { core } = await model('hocus-pocus');
-  const before = run(core, "overlay = 'zakelijk'; A = analyse(); ({ revenue: A.revenue12, net: A.net12, key: A.debtors[0].key, amount: A.debtors[0].total })");
-  core.__key = before.key;
-  const after = run(core, "decisions[decisionKey('cat', __key)] = 'prive'; A = analyse(); ({ revenue: A.revenue12, net: A.net12, rules: [...new Set(A.rows.filter(row => row.key === __key).map(row => row.rule))], deposits: A.depositRows.filter(row => row.key === __key).length })");
-  near(after.revenue, before.revenue - before.amount, 0.01, 'omzet daalt met die tegenpartij');
-  assert.ok(after.net < before.net, 'netto cashflow daalt mee');
-  assert.equal(JSON.stringify(after.rules), '[5]', 'alle transacties van de tegenpartij verplaatst');
-  assert.ok(after.deposits > 0, 'telt als privéstorting, niet in de cashflow');
-});
 test('Hocus Pocus: Samen bij een bv is een huishoudoverzicht', async () => {
   const { core } = await model('hocus-pocus');
   assert.equal(analyseView(core, 'samen').householdOnly, true);
@@ -157,6 +147,50 @@ test('Pizza & Patat: omzet per zaak en lampjes', async () => {
   const perBusiness = iban => { core.__iban = iban; return run(core, "DOSSIER.accounts.forEach(account => { if (account.role !== 'prive') account.enabled = account.iban === __iban; }); (() => { const result = analyse(); DOSSIER.accounts.forEach(account => { account.enabled = true; }); return result.revenue12; })()"); };
   near(perBusiness('NL27RABO••••••41'), want.revenue12['Project Pizza'], 0.01, 'omzet Pizza');
   near(perBusiness('NL63INGB••••••72'), want.revenue12['Project Patat'], 0.01, 'omzet Patat');
+});
+
+/* ---------- Loanwise-CSV (synthetisch; echte exports horen niet in de repo) ---------- */
+test('CSV 18 kolommen: eigen IBAN, naam uit omschrijving, rollen, leden en saldo', async () => {
+  const { core, Az, dossier } = await model('csv-mini');
+  assert.equal(dossier.source, 'CSV');
+  assert.equal(dossier.transactions.length, 157);
+  const account = iban => dossier.accounts.find(item => item.iban === iban);
+  assert.equal(account('NL22RBRB0000000002').role, 'zakelijk', 'rekening met facturen zakelijk');
+  assert.equal(account('NL11RBRB0000000001').role, 'prive', 'rekening met hypotheek en boodschappen privé');
+  assert.equal(account('NL11RBRB0000000001').name, 'J.P. Jansen e/o M. de Vries', 'houder uit "Naam:" op een andere eigen rekening');
+  near(account('NL22RBRB0000000002').balance, 33438.6, 0.01, 'eindsaldo ondanks andere volgorde in het bestand');
+  assert.equal(dossier.transactions.filter(row => Math.abs(row.balanceAfter - row.computedBalance) >= 0.01).length, 0, 'saldo sluit per transactie');
+  const names = run(core, "[...new Set(DOSSIER.transactions.map(row => row.name).filter(Boolean))]");
+  ['Action 1325 Panningen', 'Lidl 475 Panningen', 'Sligro ZB 5090'].forEach(name => assert.ok(names.includes(name), `naam ${name}`));
+  near(Az.revenue12, 11 * (2400 + 1650.5), 0.01, 'omzet = mogelijk inkomen');
+  near(-total(Az.drawRows.map(row => row.amount)), 11 * 900, 0.01, 'opname naar privé is geen interne boeking');
+  reconciles(Az);
+});
+test('CSV 19 kolommen met tegenpartij: Loanwise-categorie is leidend', async () => {
+  const { Az, Ap, risks, dossier } = await model('csv-tegenpartij');
+  assert.equal(dossier.transactions.length, 125);
+  assert.ok(dossier.transactions.every(row => row.name), 'tegenpartijnaam uit de eigen kolom');
+  assert.equal(dossier.accounts.find(account => account.iban === 'NL11RBRB0000000111').role, 'prive');
+  near(dossier.accounts.find(account => account.iban === 'NL22RBRB0000000222').balance, 34596, 0.01, 'eindsaldo zakelijk');
+  const kosten = Az.expenses.find(item => item.key === 'kosten');
+  assert.deepEqual([...kosten.split.map(part => part.label)].sort(), ['Brandstof', 'Diensten', 'Ongecategoriseerd', 'Telefoon en internet'], 'kosten uitgesplitst naar Loanwise-categorie');
+  near(Az.revenue12, 12 * (3150 + 1875.5), 0.01, 'omzet = mogelijk inkomen');
+  near(Az.financing12, 12 * 385, 0.01, 'consumer loans = financieringslasten');
+  near(-total(Az.expenses.find(item => item.key === 'belasting').values), 3 * 2150, 0.01, 'other taxes = belasting');
+  near(-total(Az.expenses.find(item => item.key === 'bank').values), 12 * 12.5, 0.01, 'bank fees = bankkosten');
+  near(-total(Az.drawRows.map(row => row.amount)), 12 * 1000, 0.01, 'naar privérekening = privé-opname');
+  assert.ok(Ap.byRule(6).some(row => /Obvion/.test(row.name)), 'hypotheek privé = financiering privé');
+  assert.ok(risks.some(item => item.id === 'gokken'), 'possible gambling geeft lampje');
+  reconciles(Az);
+});
+test('CSV met kopregel volgens de Loanwise-API (centen, puntkomma, members)', async () => {
+  const { core, Az, dossier } = await model('csv-api');
+  assert.equal(dossier.transactions.length, 36);
+  assert.equal(dossier.accounts[0].name, 'Bakker Groen', 'account_name');
+  assert.equal(JSON.stringify(run(core, 'DOSSIER.members.map(memberName)')), JSON.stringify(['K. Bakker']), 'members uit de CSV');
+  near(dossier.transactions.find(row => row.name === 'Hovenier Klant B.V.').amount, 4250, 0.001, 'transaction_amount.amount in centen');
+  assert.ok(Az.drawRows.length > 0 && Az.byRule(1).length === 0, 'naar de aanvrager is privé-opname, geen interne boeking');
+  reconciles(Az);
 });
 
 /* ---------- Regressie: de drie sets uit ZK Loans ---------- */

@@ -5,7 +5,7 @@ const isPrivate = () => overlay === 'prive';
 const revenueLabel = () => isPrivate() ? 'Inkomsten' : 'Omzet';
 const costLabel = () => isPrivate() ? 'Uitgaven' : 'Kosten';
 const total = values => sum(values);
-const overrideSelect = key => `<select class="inline-select" data-override="${esc(key)}" aria-label="Categorie tegenpartij">${OVERRIDE_LABELS.map(([value, label]) => `<option value="${value}" ${(decisions[decisionKey('cat', key)] ?? '') === value ? 'selected' : ''}>${label}</option>`).join('')}</select>`;
+const averageSub = values => { const average = A.averages(values); return `gem. <b>${eur(average.m12)}</b>/mnd · laatste 3 mnd <b>${eur(average.m3)}</b>/mnd`; };
 const lampIcon = ernst => ICON[ernst] ?? ICON.info;
 function averagesTable(lines) {
   const head = ['', 'num:Gem. 3 mnd', 'num:Gem. 6 mnd', 'num:Gem. 12 mnd', 'num:3 mnd t.o.v. 12 mnd', 'num:Totaal 12 mnd'];
@@ -18,11 +18,10 @@ function averagesTable(lines) {
 
 /* ---------- Overzicht ---------- */
 RENDERERS.overzicht = () => {
-  const revenueAverage = A.averages(A.revenue), netAverage = A.averages(A.net);
   const tiles = [
-    tile(`${revenueLabel()} 12 mnd`, eur(A.revenue12), '', `gem. <b>${eur(revenueAverage.m12)}</b>/mnd · laatste 3 mnd <b>${eur(revenueAverage.m3)}</b>/mnd`),
-    tile(`${costLabel()} 12 mnd`, eur(A.costs12), '', `${pct(A.revenue12 ? A.costs12 / A.revenue12 : NaN)} van de ${revenueLabel().toLowerCase()} · lonen, belasting en bank inbegrepen`),
-    tile('Netto cashflow 12 mnd', eur(A.net12), '', `gem. <b>${eur(netAverage.m12)}</b>/mnd · na <b>${eur(A.financing12)}</b> financieringslasten`),
+    tile(`${revenueLabel()} 12 mnd`, eur(A.revenue12), '', averageSub(A.revenue)),
+    tile(`${costLabel()} 12 mnd`, eur(A.costs12), '', averageSub(A.costs)),
+    tile('Netto cashflow 12 mnd', eur(A.net12), '', averageSub(A.net)),
     tile('Saldo nu', eur(A.balance.at(-1)), '', `${A.visibleAccounts.length} rekening(en) · laagste <b>${eur(Math.min(...A.balance))}</b>`),
   ];
   const lamps = MODEL.risks;
@@ -49,12 +48,14 @@ RENDERERS.maanden = () => {
     return `${values.map(cell).join('')}<td class="num total"><b class="${total(values) < 0 ? 'negative' : ''}">${eur(total(values))}</b></td><td class="num">${eur(total(values) / 12)}</td>`;
   };
   const titled = (title, rows) => { if (rows) VIEWS[VIEWS.length - 1].title = title; };
+  /* postnaam klikbaar: alle transacties van die post over 12 maanden */
+  const labelLink = (title, rows, label = title) => `<button type="button" class="cell-link label-link" data-view="${VIEWS.push({ title, rows, sub: `${windowLabel()} · ${weergaveLabel()}` }) - 1}">${esc(label)}</button>`;
   const lineRow = (item, indent = false) => {
     const open = monthsOpen[item.key];
     const toggle = item.split && item.split.length > 1 ? `<button type="button" class="group-toggle" data-month-line="${esc(item.key)}" aria-expanded="${!!open}">${open ? '▾' : '▸'}</button>` : '<span class="toggle-space"></span>';
-    const main = `<tr><td class="label${indent ? ' indent' : ''}">${toggle}<span>${esc(item.label)}</span><span class="muted">${item.rows.length}</span></td>${cells(item.values, item.rows)}</tr>`;
+    const main = `<tr><td class="label${indent ? ' indent' : ''}">${toggle}${labelLink(item.label, item.rows)}<span class="muted">${item.rows.length}</span></td>${cells(item.values, item.rows)}</tr>`;
     titled(item.label, item.rows);
-    const sub = open && item.split ? item.split.slice(0, 15).map(part => { const html = `<tr class="sub"><td class="label indent"><span>${esc(part.label)}</span><span class="muted">${part.rows.length}</span></td>${cells(part.values, part.rows)}</tr>`; titled(`${item.label} · ${part.label}`, part.rows); return html; }).join('') + (item.split.length > 15 ? `<tr class="sub"><td class="label indent muted" colspan="15">+ ${item.split.length - 15} kleinere tegenpartijen, zie Transacties</td></tr>` : '') : '';
+    const sub = open && item.split ? item.split.slice(0, 20).map(part => { const html = `<tr class="sub"><td class="label indent">${labelLink(`${item.label} · ${part.label}`, part.rows, part.label)}<span class="muted">${part.rows.length}</span></td>${cells(part.values, part.rows)}</tr>`; titled(`${item.label} · ${part.label}`, part.rows); return html; }).join('') + (item.split.length > 20 ? `<tr class="sub"><td class="label indent muted" colspan="15">+ ${item.split.length - 20} kleinere posten, klik op ${esc(item.label)} voor alles</td></tr>` : '') : '';
     return main + sub;
   };
   const totalRow = (label, values, extra = '') => `<tr class="total-row${extra}"><th scope="row">${label}</th>${cells(values, null, true)}</tr>`;
@@ -68,14 +69,14 @@ RENDERERS.maanden = () => {
     </tbody>
     <tbody class="month-group">
       <tr class="group-head"><th scope="rowgroup"><button type="button" class="group-toggle" data-month-line="apart" aria-expanded="${!!apartOpen}">${apartOpen ? '▾' : '▸'} Niet in de cashflow</button></th>${cells(A.MONTHS.map((key, index) => round2(sum(A.apart.map(item => item.values[index])))), null, true)}</tr>
-      ${apartOpen ? A.apart.map(item => { const html = `<tr><td class="label indent"><span>${esc(item.label)}</span><span class="muted">${item.rows.length}</span></td>${cells(item.values, item.rows)}</tr>`; titled(item.label, item.rows); return html; }).join('') : ''}
+      ${apartOpen ? A.apart.map(item => { const html = `<tr><td class="label indent">${labelLink(item.label, item.rows)}<span class="muted">${item.rows.length}</span></td>${cells(item.values, item.rows)}</tr>`; titled(item.label, item.rows); return html; }).join('') : ''}
     </tbody>
     <tbody class="month-total">
       <tr><th scope="row">Netto mutatie rekeningen</th>${cells(A.mutation, null, true)}</tr>
       <tr><th scope="row">Saldo einde maand</th>${A.monthEnd.map(value => `<td class="num ${value < 0 ? 'negative' : ''}">${eur(value)}</td>`).join('')}<td class="num total muted">-</td><td></td></tr>
     </tbody>`;
-  return card('Maandoverzicht', `${weergaveLabel()} · ${windowLabel()} · klik op ▸ voor de tegenpartijen, op een bedrag voor de transacties van die maand`,
-    `<div class="table-wrap month-wrap"><table class="lw-table month-table"><thead><tr><th>Post</th>${A.MONTHS.map(key => `<th class="num">${shortMonth(key)}<span class="muted">${key.slice(2, 4)}</span></th>`).join('')}<th class="num">12 mnd</th><th class="num">Gem./mnd</th></tr></thead>${body}</table></div>`,
+  return card('Maandoverzicht', `${weergaveLabel()} · ${windowLabel()} · klik op een maand, een post of een bedrag voor de transacties; ▸ klapt de post uit`,
+    `<div class="table-wrap month-wrap"><table class="lw-table month-table"><thead><tr><th>Post</th>${A.MONTHS.map((key, index) => `<th class="num"><button type="button" class="cell-link month-link" data-view="${VIEWS.push({ title: `Alle transacties ${monthName(key)}`, rows: A.rows.filter(row => row.monthIndex === index), sub: `${monthName(key)} · ${weergaveLabel()}` }) - 1}" title="Alle transacties van ${monthName(key)}">${shortMonth(key)}<span class="muted">${key.slice(2, 4)}</span></button></th>`).join('')}<th class="num">12 mnd</th><th class="num">Gem./mnd</th></tr></thead>${body}</table></div>`,
     `<b>Herleiding:</b> ${revenueLabel().toLowerCase()} (${ruleRef(10)}) min ${costLabel().toLowerCase()} = operationele cashflow; min financieringslasten (${ruleRef(6)} en ${ruleRef(4)}) = netto cashflow, het bestedingsvermogen. Interne boekingen, privé-opnamen, loon DGA, IB/Zvw en ontvangen financiering staan onder <b>Niet in de cashflow</b>. Netto cashflow + niet in de cashflow = netto mutatie op de rekeningen (controle-som).`);
 };
 
@@ -93,7 +94,7 @@ function accountRevenueCard() {
     ${card(`Wat niet als ${revenueLabel().toLowerCase()} telt`, 'Bijschrijvingen die door een eerdere regel zijn afgevangen', `<div class="excluded">${excluded.map(([rule, list]) => `<div class="excluded-row"><div><b>${ruleRef(Number(rule))}</b><span class="why">${list.length} bijschrijvingen · ${[...new Set(list.map(row => row.name ?? '(geen naam)'))].slice(0, 4).map(esc).join(', ')}</span></div><div class="decide"><b>${eur(inflow(list))}</b>${viewButton(ruleName(Number(rule)), list)}</div></div>`).join('') || '<div class="card-body">Geen.</div>'}</div>`)}`;
 }
 function entityTable(list, side, base) {
-  const rows = list.map(entity => `<tr><td><b>${esc(entity.name ?? '(geen naam)')}</b><span class="muted mono">${esc(maskIban(entity.iban))}${isPaymentProcessor(entity) ? ' · betaaldienst (veel klanten)' : ''}</span></td><td class="num">${entity.count}</td><td class="num">${entity.activeMonths}</td><td>${sparkBars(entity.months, side === 'debtor' ? 'var(--primary)' : 'var(--chart-line)')}</td><td class="num">${eur(side === 'debtor' ? entity.total : total(entity.months))}</td><td class="num">${pct(base ? (side === 'debtor' ? entity.total : total(entity.months)) / base : NaN)}</td><td>${overrideSelect(entity.key)}</td><td class="action">${viewButton(entity.name ?? '(geen naam)', entity.rows)}</td></tr>`).join('');
+  const rows = list.map(entity => `<tr><td><b>${esc(entity.name ?? '(geen naam)')}</b><span class="muted mono">${esc(maskIban(entity.iban))}${isPaymentProcessor(entity) ? ' · betaaldienst (veel klanten)' : ''}</span></td><td class="num">${entity.count}</td><td class="num">${entity.activeMonths}</td><td>${sparkBars(entity.months, side === 'debtor' ? 'var(--primary)' : 'var(--chart-line)')}</td><td class="num">${eur(side === 'debtor' ? entity.total : total(entity.months))}</td><td class="num">${pct(base ? (side === 'debtor' ? entity.total : total(entity.months)) / base : NaN)}</td><td>${entity.category ? esc(entity.category) : '<span class="muted">-</span>'}</td><td class="action">${viewButton(entity.name ?? '(geen naam)', entity.rows)}</td></tr>`).join('');
   return table(['Tegenpartij', 'num:Aantal', 'num:Maanden', 'Verloop', 'num:12 mnd', 'num:Aandeel', 'Categorie', ''], rows || '<tr><td colspan="8">Geen.</td></tr>');
 }
 RENDERERS.omzet = () => {
@@ -106,7 +107,7 @@ RENDERERS.omzet = () => {
       <div class="figure"><b>${pct(A.revenue12 ? sum(top5.map(entity => entity.total)) / A.revenue12 : NaN)}</b><span>aandeel grootste 5 tegenpartijen</span></div></div></div>
     ${card(`${revenueLabel()} per maand`, `${windowLabel()} · lijn = gemiddelde over 12 maanden`, `<div class="card-body scroll-x">${barChart([{ label: revenueLabel(), color: SERIES_COLORS.revenue, values: A.revenue }], { line: { label: 'Gemiddelde 12 mnd', color: 'var(--amber-icon)', values: A.MONTHS.map(() => round2(average.m12)) } })}</div>`, `<b>Herleiding:</b> som van ${ruleRef(10)} per maand.`)}
     ${card(isPrivate() ? 'Inkomsten per tegenpartij' : 'Debiteuren', `${A.debtors.length} tegenpartijen · per IBAN, anders per naam`, entityTable(A.debtors, 'debtor', A.revenue12),
-      'Pas de categorie van een tegenpartij aan als die niet klopt (bijv. privé of financiering). Dat geldt voor al zijn transacties, werkt overal door en blijft bewaard voor volgende dossiers.')}
+      'Categorie = de Loanwise-categorie uit de data.')}
     ${accountRevenueCard()}`;
 };
 
@@ -120,20 +121,20 @@ RENDERERS.kosten = () => {
 };
 
 /* ---------- Transacties ---------- */
-const TX = { month: '', rule: '', text: '', quick: 'all', limit: 150 };
-const QUICK = [['all', 'Alle', () => true], ['in', 'Bijschrijvingen', row => row.amount > 0], ['out', 'Afschrijvingen', row => row.amount < 0], ['internal', 'Intern', row => row.rule === 1], ['nameless', 'Zonder tegenpartij', row => !row.name], ['override', 'Aangepast', row => !!row.override]];
+const TX = { month: '', category: '', text: '', quick: 'all', limit: 150 };
+const QUICK = [['all', 'Alle', () => true], ['in', 'Bijschrijvingen', row => row.amount > 0], ['out', 'Afschrijvingen', row => row.amount < 0], ['internal', 'Intern', row => row.rule === 1], ['nameless', 'Zonder tegenpartij', row => !row.name]];
 RENDERERS.transacties = () => {
   const [, , quick] = QUICK.find(([id]) => id === TX.quick) ?? QUICK[0];
   const text = TX.text.trim().toLowerCase();
-  const list = A.rows.filter(row => quick(row) && (TX.month === '' || row.monthIndex === Number(TX.month)) && (TX.rule === '' || row.rule === Number(TX.rule)) && (!text || `${row.name ?? ''} ${row.description} ${row.counterAccount ?? ''}`.toLowerCase().includes(text)));
+  const list = A.rows.filter(row => quick(row) && (TX.month === '' || row.monthIndex === Number(TX.month)) && (TX.category === '' || categoryOf(row) === TX.category) && (!text || `${row.name ?? ''} ${row.description} ${row.counterAccount ?? ''}`.toLowerCase().includes(text)));
   const controls = `<div class="card-body tx-controls">
       <label>Maand <select class="inline-select" id="tx-month">${['', ...A.MONTHS.map((key, index) => String(index))].map(value => `<option value="${value}" ${TX.month === value ? 'selected' : ''}>${value === '' ? 'Alle maanden' : monthName(A.MONTHS[Number(value)])}</option>`).join('')}</select></label>
-      <label>Categorie <select class="inline-select" id="tx-rule"><option value="">Alle</option>${RULES.map(rule => `<option value="${rule.id}" ${TX.rule === String(rule.id) ? 'selected' : ''}>${rule.id} · ${ruleName(rule.id)}</option>`).join('')}</select></label>
+      <label>Categorie <select class="inline-select" id="tx-category"><option value="">Alle</option>${[...new Set(A.rows.map(categoryOf))].sort((first, second) => first.localeCompare(second, 'nl')).map(label => `<option value="${esc(label)}" ${TX.category === label ? 'selected' : ''}>${esc(label)}</option>`).join('')}</select></label>
       <label>Zoeken <input type="search" id="tx-text" value="${esc(TX.text)}" placeholder="Tegenpartij, omschrijving of IBAN"></label>
       <div class="filters">${QUICK.map(([id, label, filter]) => `<button type="button" class="filter" data-quick="${id}" aria-pressed="${TX.quick === id}">${label} <span class="muted">${A.rows.filter(filter).length}</span></button>`).join('')}</div></div>`;
   return card('Transacties', `${weergaveLabel()} · ${list.length} van ${A.rows.length} · in ${eurCents(inflow(list))} · uit ${eurCents(-outflow(list))}`,
-    `${controls}${transactionTable(list, TX.limit, true)}${list.length > TX.limit ? '<div class="card-body"><button type="button" class="btn-outline" data-more>Toon 300 meer</button></div>' : ''}`,
-    'Categorie aanpassen geldt per tegenpartij (IBAN, anders naam) voor al zijn transacties en werkt direct door in alle cijfers.');
+    `${controls}${transactionTable(list, TX.limit, 'tab')}${list.length > TX.limit ? '<div class="card-body"><button type="button" class="btn-outline" data-more>Toon 300 meer</button></div>' : ''}`,
+    'Categorie = de Loanwise-categorie uit de data; daaronder waar de transactie in de analyse telt. Klik op een kolomkop om te sorteren.');
 };
 
 /* ---------- Risico-indicatoren ---------- */

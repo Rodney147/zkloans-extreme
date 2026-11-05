@@ -20,19 +20,34 @@ function viewButton(title, rows, sub = '', label = 'bekijken') {
 }
 const goButton = (tab, label = 'bekijken') => `<button type="button" class="btn-view" data-go="${tab}">${ICON.eye}${label}</button>`;
 const accountLabel = iban => { const account = accountOf(iban); return account ? `${account.bank ?? ''} ${iban.slice(-4)}`.trim() : maskIban(iban); };
-function transactionTable(rows, limit = 400, editable = false) {
-  const sorted = [...rows].sort((first, second) => second.date.localeCompare(first.date));
+/* Categorie zoals de beoordelaar die ziet: de Loanwise-categorie als die er is, anders het kopje uit de vaste regels */
+const categoryOf = row => row.source ? sourceLabel(row.source) : ruleName(row.rule);
+/* In de analyse telt de transactie als … (kopje van het maandoverzicht) */
+const countsAs = row => row.rule === 10 ? revenueLabel() : [7, 8, 11].includes(row.rule) ? costLabel() : row.rule === 3 ? (PRIVATE_TAX.includes(row.tax?.type) ? 'Niet in de cashflow' : costLabel()) : row.rule === 6 ? (row.amount < 0 ? 'Financieringslasten' : 'Niet in de cashflow') : row.rule === 4 ? 'Financieringslasten' : row.rule === 5 && row.role === 'Groepsmaatschappij' && /management ?fee|managementvergoeding/i.test(row.description) ? costLabel() : 'Niet in de cashflow';
+const SORTS = {
+  date: (first, second) => first.date.localeCompare(second.date) || first.amount - second.amount,
+  account: (first, second) => accountLabel(first.account).localeCompare(accountLabel(second.account), 'nl'),
+  name: (first, second) => (first.name ?? '').localeCompare(second.name ?? '', 'nl'),
+  category: (first, second) => categoryOf(first).localeCompare(categoryOf(second), 'nl'),
+  amount: (first, second) => first.amount - second.amount,
+};
+const SORT_STATE = { tab: { key: 'date', desc: true }, modal: { key: 'date', desc: true } };
+const sortRows = (rows, scope) => { const { key, desc } = SORT_STATE[scope]; const sorted = [...rows].sort(SORTS[key]); return desc ? sorted.reverse() : sorted; };
+function transactionTable(rows, limit = 400, scope = 'modal') {
+  const sorted = sortRows(rows, scope);
   const shown = sorted.slice(0, limit);
+  const { key, desc } = SORT_STATE[scope];
+  const head = (id, label, numeric = false) => `<th${numeric ? ' class="num"' : ''} aria-sort="${key === id ? (desc ? 'descending' : 'ascending') : 'none'}"><button type="button" class="sort" data-sort="${id}" data-sort-scope="${scope}">${label}<span aria-hidden="true">${key === id ? (desc ? ' ↓' : ' ↑') : ''}</span></button></th>`;
   return `<div class="table-wrap"><table class="lw-table">
-    <thead><tr><th>Datum</th><th>Rekening</th><th>Tegenpartij</th><th>Omschrijving</th><th>Categorie</th><th class="num">Bedrag</th></tr></thead>
+    <thead><tr>${head('date', 'Datum')}${head('account', 'Rekening')}${head('name', 'Tegenpartij')}<th>Omschrijving</th>${head('category', 'Categorie')}${head('amount', 'Bedrag', true)}</tr></thead>
     <tbody>${shown.map(row => `<tr>
       <td>${dateNl(row.date)}</td>
       <td><span class="mono">${esc(accountLabel(row.account))}</span></td>
       <td>${row.name ? esc(row.name) : '<span class="muted">(geen naam)</span>'}<span class="muted mono">${row.counterAccount ? esc(maskIban(row.counterAccount)) : ''}</span></td>
-      <td><span class="desc" title="${esc(row.description)}">${esc(row.description)}</span>${row.tax ? `<span class="muted">${esc(taxLabel(row.tax))}${row.tax.reference ? ` · kenmerk ${row.tax.valid === false ? '✕' : row.tax.valid ? '✓' : '?'}` : ''}</span>` : row.role ? `<span class="muted">${esc(row.role)}${row.derived === 'own_off' ? ' · rekening uitgezet' : ''}</span>` : ''}</td>
-      <td>${ruleRef(row.rule)}${row.how ? `<span class="muted">${esc(row.how)}</span>` : ''}${editable && !(row.counterAccount && accountOf(row.counterAccount)) ? overrideSelect(row.key) : ''}</td>
+      <td><span class="desc" title="${esc(row.description)}">${esc(row.description)}</span>${row.tax ? `<span class="muted">${esc(taxLabel(row.tax))}${row.tax.reference ? ` · kenmerk ${row.tax.valid === false ? '✕' : row.tax.valid ? '✓' : '?'}` : ''}</span>` : ''}</td>
+      <td>${esc(categoryOf(row))}<span class="muted">${esc(countsAs(row))}</span></td>
       <td class="num ${row.amount < 0 ? 'negative' : ''}">${eurCents(row.amount)}</td></tr>`).join('')}</tbody>
-  </table></div>${sorted.length > limit ? `<div class="source">${limit} van ${sorted.length} transacties getoond, nieuwste eerst.</div>` : ''}`;
+  </table></div>${sorted.length > limit ? `<div class="source">${limit} van ${sorted.length} transacties getoond. Verfijn met de filters.</div>` : ''}`;
 }
 function openModal(title, sub, bodyHtml, footHtml) {
   document.getElementById('modal-title').textContent = title;
@@ -42,14 +57,55 @@ function openModal(title, sub, bodyHtml, footHtml) {
   document.getElementById('modal').hidden = false;
   document.getElementById('modal-close').focus();
 }
-const closeModal = () => { document.getElementById('modal').hidden = true; };
+const closeModal = () => { document.getElementById('modal').hidden = true; MODAL.rows = null; };
+
+/* Pop-up met transacties: zoeken, filter op categorie en richting, sorteren op de kolomkoppen */
+const MODAL = { rows: null, title: '', sub: '', text: '', category: '', direction: '', limit: 500 };
 function showView(index, month = null) {
   const view = VIEWS[index];
   const rows = month == null ? view.rows : view.rows.filter(row => row.monthIndex === month);
-  const total = sum(rows.map(row => row.amount));
-  openModal(view.title, view.sub || `${month == null ? windowLabel() : monthName(A.MONTHS[month])} · ${weergaveLabel()}`, rows.length ? transactionTable(rows) : '<div class="card-body">Geen transacties in deze selectie.</div>',
-    `<span>${rows.length} transacties · in ${eurCents(inflow(rows))} · uit ${eurCents(-outflow(rows))}</span><span class="check-ok">✓ Σ ${eurCents(total)}</span>`);
+  showRows(view.title, view.sub || `${month == null ? windowLabel() : monthName(A.MONTHS[month])} · ${weergaveLabel()}`, rows);
 }
+function showRows(title, sub, rows) {
+  Object.assign(MODAL, { rows, title, sub, text: '', category: '', direction: '', limit: 500 });
+  SORT_STATE.modal = { key: 'date', desc: true };
+  openModal(title, sub, '', '');
+  renderModal();
+}
+function modalFiltered() {
+  const text = MODAL.text.trim().toLowerCase();
+  return MODAL.rows.filter(row => (!MODAL.category || categoryOf(row) === MODAL.category) && (!MODAL.direction || (MODAL.direction === 'in' ? row.amount > 0 : row.amount < 0)) && (!text || `${row.name ?? ''} ${row.description} ${row.counterAccount ?? ''} ${categoryOf(row)}`.toLowerCase().includes(text)));
+}
+function renderModal() {
+  if (!MODAL.rows) return;
+  const categories = [...groupBy(MODAL.rows, categoryOf).entries()].sort((first, second) => first[0].localeCompare(second[0], 'nl'));
+  const list = modalFiltered();
+  const controls = MODAL.rows.length ? `<div class="card-body tx-controls modal-controls">
+      <label>Zoeken <input type="search" id="modal-text" value="${esc(MODAL.text)}" placeholder="Tegenpartij, omschrijving of IBAN"></label>
+      <label>Categorie <select class="inline-select" id="modal-category"><option value="">Alle (${MODAL.rows.length})</option>${categories.map(([label, items]) => `<option value="${esc(label)}" ${MODAL.category === label ? 'selected' : ''}>${esc(label)} (${items.length})</option>`).join('')}</select></label>
+      <label>Richting <select class="inline-select" id="modal-direction"><option value="">Bij en af</option><option value="in" ${MODAL.direction === 'in' ? 'selected' : ''}>Bijschrijvingen</option><option value="out" ${MODAL.direction === 'out' ? 'selected' : ''}>Afschrijvingen</option></select></label>
+    </div>` : '';
+  const body = document.getElementById('modal-body');
+  const focused = document.activeElement?.id;
+  body.innerHTML = MODAL.rows.length ? `${controls}${list.length ? transactionTable(list, MODAL.limit, 'modal') : '<div class="card-body">Geen transacties met deze filters.</div>'}` : '<div class="card-body">Geen transacties in deze selectie.</div>';
+  if (focused === 'modal-text') { const input = document.getElementById('modal-text'); input.focus(); input.setSelectionRange(input.value.length, input.value.length); }
+  document.getElementById('modal-foot').innerHTML = `<span>${list.length}${list.length !== MODAL.rows.length ? ` van ${MODAL.rows.length}` : ''} transacties · in ${eurCents(inflow(list))} · uit ${eurCents(-outflow(list))}</span><span class="check-ok">✓ Σ ${eurCents(sum(list.map(row => row.amount)))}</span>`;
+}
+document.addEventListener('input', event => {
+  if (event.target.id === 'modal-text') { MODAL.text = event.target.value; renderModal(); }
+});
+document.addEventListener('change', event => {
+  if (event.target.id === 'modal-category') { MODAL.category = event.target.value; renderModal(); }
+  else if (event.target.id === 'modal-direction') { MODAL.direction = event.target.value; renderModal(); }
+});
+document.addEventListener('click', event => {
+  const button = event.target.closest('[data-sort]');
+  if (!button) return;
+  const scope = button.dataset.sortScope, key = button.dataset.sort;
+  const state = SORT_STATE[scope];
+  SORT_STATE[scope] = { key, desc: state.key === key ? !state.desc : key === 'date' || key === 'amount' };
+  if (scope === 'modal') renderModal(); else renderAll();
+});
 
 /* ---------- Grafieken ---------- */
 function barChart(series, { height = 240, stacked = false, labels = A.MONTHS.map(shortMonth), line = null } = {}) {
@@ -119,7 +175,7 @@ function renderDossier() {
       ${company.industryCode ? `<span>SBI <b>${esc(company.industryCode)}</b> ${esc(String(company.industryDescription ?? '').toLowerCase())}</span>` : ''}
       ${company.numberOfEmployees != null ? `<span><b>${company.numberOfEmployees}</b> werkzame personen${company.startDate ? ` · sinds <b>${dateNl(company.startDate)}</b>` : ''}</span>` : ''}
       ${company.address ? `<span>${esc(company.address)}</span>` : ''}`
-    : overlay === 'prive' ? '<span>Privérekening van de aanvrager · E1-profiel <b>retail</b> · geen KvK-gegevens</span>' : `<span>Rechtsvorm <b>${esc(DOSSIER.legalForm)}</b> · geen <code>companyInfo</code></span>`;
+    : overlay === 'prive' ? '<span>Privérekening(en) van de aanvrager</span>' : '';
   const rows = DOSSIER.accounts.map(account => {
     const count = DOSSIER.transactions.filter(row => row.account === account.iban).length;
     return `<tr class="${account.enabled === false ? 'off' : ''}" data-account-row="${account.iban}">
@@ -141,10 +197,6 @@ function renderDossier() {
     </div>
     <details class="accounts" ${DOSSIER.accounts.length > 1 ? 'open' : ''}><summary>Gedeelde rekeningen <span class="muted" id="accounts-summary">${DOSSIER.accounts.filter(account => account.enabled !== false).length} van ${DOSSIER.accounts.length} tellen mee</span></summary>
       ${table(['Mee', 'Rekening', 'Bank', 'Rol', 'Eigenaar', 'Gedeeld op', 'num:Transacties', 'num:Saldo'], rows)}
-      <div class="members">
-        <span class="muted">Rechtsvorm</span> <select class="inline-select" data-legal-form aria-label="Rechtsvorm">${[['eenmanszaak', 'Eenmanszaak'], ['vof', 'Vof'], ['bv', 'Bv']].map(([value, label]) => `<option value="${value}" ${DOSSIER.legalForm === value ? 'selected' : ''}>${label}</option>`).join('')}</select>
-        <span class="muted">Aanvrager</span> ${(DOSSIER.members ?? []).map(member => `<span class="chip outline">${esc(memberName(member))} · ${esc(member.role)}</span>`).join(' ') || '<span class="muted">onbekend</span>'}
-      </div>
       <div class="source">Rol en eigenaar per rekening zijn een voorstel; pas ze aan als ze niet kloppen. Geld tussen rekeningen van <b>dezelfde eigenaar</b> is intern (${ruleRef(1)}); tussen zakelijk en privé is het een verbonden partij (${ruleRef(5)}) en telt het niet in de cashflow. Gemengd = zakelijk en privé op één rekening: classificatie per transactie. Zet een rekening uit en alles rekent opnieuw.${unshared.length ? ` <b>Niet gedeeld:</b> ${unshared.map(iban => `<span class="mono">${esc(maskIban(iban))}</span>`).join(', ')} staat op naam van de klant maar is niet gedeeld (vermoedelijk spaarrekening).` : ''}</div>
     </details></div>`;
 }
