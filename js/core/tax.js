@@ -12,10 +12,29 @@ const TAX_TYPES = {
   vpb: { label: 'Vennootschapsbelasting', recognition: 'kenmerk pos. 10–11 = 74, 80–84 of 92–96', pattern: 'Voorlopige aanslag in termijnen; alleen bij een bv.' },
   mrb: { label: 'Motorrijtuigenbelasting', recognition: 'omschrijving motorrijtuigenbelasting', pattern: 'Per kwartaal of maand, privé of zakelijk voertuig.' },
   hsb: { label: 'Houderschapsbelasting / MOA', recognition: 'kenmerk pos. 10–11 = 76, 78, 87 of 88', pattern: 'Per tijdvak, voor voertuigen op naam van het bedrijf.' },
+  bpm: { label: 'BPM', recognition: 'omschrijving bpm of belasting personenauto', pattern: 'Eenmalig bij registratie van een voertuig.' },
+  erf: { label: 'Erf- of schenkbelasting', recognition: 'omschrijving erfbelasting of schenkbelasting', pattern: 'Eenmalige aanslag.' },
+  dividend: { label: 'Dividendbelasting', recognition: 'omschrijving dividendbelasting', pattern: 'Bij een dividenduitkering van de bv.' },
+  toeslag: { label: 'Toeslagen (terugbetaling)', recognition: 'Dienst Toeslagen of omschrijving toeslag', pattern: 'Terugvordering van een te hoog voorschot, vaak in termijnen.' },
+  regeling: { label: 'Betalingsregeling Belastingdienst', recognition: 'omschrijving betalingsregeling zonder soort', pattern: 'Gelijke maandtermijnen voor een achterstand; de soort staat niet in de omschrijving.' },
   lokaal: { label: 'Gemeente- en waterschapsbelastingen', recognition: 'tegenpartij gemeente, waterschap of belastingsamenwerking', pattern: 'Jaarlijkse aanslag, vaak in 8 tot 10 termijnen.' },
-  onbekend: { label: 'Belastingdienst, middel onbekend', recognition: 'kenmerk ontbreekt of volgt de formule niet', pattern: 'Gelijke maandbedragen wijzen op een betalingsregeling.' },
+  onbekend: { label: 'Belastingdienst, soort onbekend', recognition: 'geen kenmerk, geen herkenbare omschrijving en geen Loanwise-categorie', pattern: 'Niet te bepalen uit de transactie.' },
 };
-const TAX_ORDER = ['ob', 'lh', 'ib', 'zvw', 'vpb', 'mrb', 'hsb', 'lokaal', 'onbekend'];
+const TAX_ORDER = ['ob', 'lh', 'ib', 'zvw', 'vpb', 'mrb', 'hsb', 'bpm', 'erf', 'dividend', 'toeslag', 'regeling', 'lokaal', 'onbekend'];
+/* soort uit de omschrijving (en de Loanwise-categorie): zo veel mogelijk herkennen, pas 'onbekend' als niets past */
+const TAX_TEXT = [
+  ['ob', /omzetbelasting|omzetbel\b|\bbtw\b|\bob\b\s*\d|\bvat\b/i],
+  ['lh', /loonheffing|loonbelasting|loonbel\b|\blh\b\s*\d|premies? (?:volksverzekering|werknemersverzekering)/i],
+  ['zvw', /\bzvw\b|zorgverzekeringswet|inkomensafhankelijke bijdrage/i],
+  ['ib', /inkomstenbelasting|\bib\b|\bib\/|\binkomstenbel/i],
+  ['vpb', /vennootschapsbelasting|\bvpb\b|vennootschapsbel/i],
+  ['mrb', /motorrijtuigen|\bmrb\b|wegenbelasting/i],
+  ['bpm', /\bbpm\b|belasting (?:van )?personenauto/i],
+  ['erf', /erfbelasting|schenkbelasting|successierecht/i],
+  ['dividend', /dividendbelasting/i],
+  ['toeslag', /toeslag|dienst toeslagen|terugvordering/i],
+];
+const TAX_FROM_SOURCE = { 'road taxes': 'mrb', 'income taxes': 'ib', 'municipal taxes': 'lokaal' };
 const ASSESSMENT_KIND = { '0': 'Voorlopige aanslag', '6': 'Definitieve aanslag' };
 const PAYMENT_REFERENCE_WEIGHTS = [10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
 function paymentReferenceCheckDigit(body) {
@@ -37,17 +56,23 @@ function classifyTax(row) {
   const textYear = text.match(/\b(20\d{2})\b/);
   const bookingMonth = Number(row.date.slice(5, 7));
   const finish = result => ({ period: null, valid: null, ...result, previousYear: result.year !== null && result.year < bookingYear && !(result.kind === 'Aangifte' && bookingMonth <= 2 && result.year === bookingYear - 1) });
-  if (LOCAL_TAX_PATTERN.test(row.name ?? '')) return finish({ type: 'lokaal', kind: /termijn/i.test(text) ? 'Aanslag in termijnen' : 'Aanslag', year: textYear ? Number(textYear[1]) : null, reference: null });
+  if (LOCAL_TAX_PATTERN.test(row.name ?? '') || row.source?.category === 'municipal taxes') return finish({ type: 'lokaal', kind: /termijn/i.test(text) ? 'Aanslag in termijnen' : 'Aanslag', year: textYear ? Number(textYear[1]) : null, reference: null });
   const decoded = decodePaymentReference(text);
+  const textType = () => {
+    const searchable = `${text} ${row.name ?? ''}`;
+    return TAX_TEXT.find(([, pattern]) => pattern.test(searchable))?.[0] ?? TAX_FROM_SOURCE[row.source?.category] ?? (/dienst toeslagen/i.test(row.name ?? '') ? 'toeslag' : null);
+  };
+  const textKind = type => /dwangbevel/i.test(text) ? 'Dwangbevel' : /aanmaning|herinnering/i.test(text) ? 'Aanmaning' : /regeling/i.test(text) || row.e1?.flags.includes('payment_arrangement') ? 'Betalingsregeling' : /naheffing/i.test(text) ? 'Naheffing' : /voorlopige aanslag/i.test(text) ? 'Voorlopige aanslag' : /definitieve aanslag/i.test(text) ? 'Definitieve aanslag' : type === 'ob' || type === 'lh' ? 'Aangifte' : type === 'toeslag' ? 'Terugbetaling' : 'Aanslag';
   if (row.amount > 0 && !decoded) {
-    const type = /omzetbelasting|btw/i.test(text) ? 'ob' : /inkomstenbelasting/i.test(text) ? 'ib' : /zvw|zorgverzekering/i.test(text) ? 'zvw' : 'onbekend';
-    return finish({ type, kind: 'Teruggaaf', year: textYear ? Number(textYear[1]) : null, reference: null });
+    const type = textType() ?? 'onbekend';
+    return finish({ type, kind: type === 'toeslag' ? 'Toeslag ontvangen' : 'Teruggaaf', year: textYear ? Number(textYear[1]) : null, reference: null, fromText: type !== 'onbekend' });
   }
   if (!decoded) {
-    /* geen kenmerk: soort uit de omschrijving, met minder zekerheid */
-    const type = /omzetbelasting|\bbtw\b/i.test(text) ? 'ob' : /loonheffing/i.test(text) ? 'lh' : /inkomstenbelasting|\bib\b/i.test(text) ? 'ib' : /\bzvw\b|zorgverzekeringswet/i.test(text) ? 'zvw' : /vennootschapsbelasting|\bvpb\b/i.test(text) ? 'vpb' : /motorrijtuigen|\bmrb\b/i.test(text) ? 'mrb' : 'onbekend';
-    const kind = /regeling/i.test(text) || row.e1?.flags.includes('payment_arrangement') ? 'Betalingsregeling' : /naheffing/i.test(text) ? 'Naheffing' : /voorlopige aanslag/i.test(text) ? 'Voorlopige aanslag' : /definitieve aanslag/i.test(text) ? 'Definitieve aanslag' : type === 'ob' || type === 'lh' ? 'Aangifte' : type === 'onbekend' ? 'Geen betalingskenmerk' : 'Aanslag';
-    return finish({ type, kind, year: textYear ? Number(textYear[1]) : null, reference: null, fromText: type !== 'onbekend' });
+    /* geen kenmerk: soort uit de omschrijving of de Loanwise-categorie; een regeling zonder soort heeft een eigen regel */
+    const found = textType();
+    const kind = textKind(found);
+    const type = found ?? (kind === 'Betalingsregeling' ? 'regeling' : 'onbekend');
+    return finish({ type, kind: type === 'onbekend' ? 'Geen betalingskenmerk' : kind, year: textYear ? Number(textYear[1]) : null, reference: null, fromText: type !== 'onbekend' });
   }
   const { reference, valid } = decoded;
   const twoDigit = reference.slice(9, 11);
@@ -60,6 +85,8 @@ function classifyTax(row) {
   if (['76', '78', '87', '88'].includes(twoDigit)) return finish({ type: 'hsb', kind: ['76', '88'].includes(twoDigit) ? 'Naheffing' : 'Aangifte', year: yearAt(11), reference, valid: null });
   const middel = reference.charAt(9);
   if (['0', '1', '5', '6'].includes(middel)) return finish({ type: ['1', '5'].includes(middel) ? 'ob' : 'lh', kind: row.amount > 0 ? 'Teruggaaf' : ['0', '5'].includes(middel) ? 'Naheffing' : 'Aangifte', year: yearAt(10), period: reference.slice(13, 15), reference, valid });
-  return finish({ type: 'onbekend', kind: 'Kenmerk niet herleidbaar', year: null, reference, valid });
+  /* kenmerk wel aanwezig, maar middel niet te herleiden: dan alsnog de omschrijving proberen */
+  const found = textType();
+  return finish({ type: found ?? 'onbekend', kind: found ? textKind(found) : 'Kenmerk niet herleidbaar', year: textYear ? Number(textYear[1]) : null, reference, valid, fromText: !!found });
 }
 const taxLabel = tax => `${TAX_TYPES[tax.type].label} · ${tax.kind}${tax.year ? ` ${tax.year}` : ''}`;

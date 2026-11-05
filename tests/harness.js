@@ -17,7 +17,7 @@ const run = (core, code) => vm.runInContext(code, core);
 /* Een map met JSON-bestanden inladen zoals de uploadknop dat doet */
 async function loadFixture(core, folder) {
   const dir = path.join(ROOT, 'tests', 'fixtures', folder);
-  const files = fs.readdirSync(dir).filter(name => name.endsWith('.json') && name !== 'expected.json').sort().map(name => ({ name, text: async () => fs.readFileSync(path.join(dir, name), 'utf8') }));
+  const files = fs.readdirSync(dir).filter(name => (name.endsWith('.json') || name.endsWith('.csv')) && name !== 'expected.json').sort().map(name => ({ name, text: async () => fs.readFileSync(path.join(dir, name), 'utf8') }));
   core.__files = files;
   const dossier = await run(core, 'readDataset(__files)');
   core.__dossier = dossier;

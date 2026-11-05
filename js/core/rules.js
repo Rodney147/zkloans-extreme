@@ -70,9 +70,8 @@ function categorize(row) {
     if (!sameOwner && overlay !== 'samen') return { rule: 5, ...otherRole(), how: 'gedeelde rekening van een andere eigenaar', derived: 'owner_transfer' };
     return { rule: 1, how: sameOwner ? 'gedeelde rekening, zelfde eigenaar' : 'gedeelde rekening (weergave Samen)' };
   }
-  /* aanpassing van de beoordelaar per tegenpartij (IBAN, anders naam): geldt voor al zijn transacties */
-  const override = decisions[decisionKey('cat', counterpartyKey(row))];
-  if (override && OVERRIDES[override]) return { ...OVERRIDES[override](row, own), how: 'aangepast door beoordelaar', override };
+  /* Loanwise-categorie (CSV of Loanwise-JSON) is leidend; 'uncategorized' valt terug op de vaste regels */
+  if (row.source && row.source.category !== 'uncategorized') return fromLoanwiseCategory(row, own);
   if (['internal_transfer', 'savings'].includes(row.type) || (name && sharedHolderNames().has(name.toLowerCase()) && row.counterAccount)) return { rule: 1, how: row.type ? `transaction_type ${row.type}` : 'eigen naam, IBAN niet gedeeld', unshared: true };
   if (SAVINGS_PATTERN.test(name) || SAVINGS_PATTERN.test(row.description) || row.e1?.category === 'investment.savings') return { rule: 1, how: 'spaarrekening of sparen', unshared: true };
   if (row.type === 'reversal' || /terugboeking|storno|gestorneerd/i.test(row.description) || row.e1?.flags.includes('reversal_payment')) return { rule: 2 };
@@ -98,14 +97,24 @@ function categorize(row) {
   return { rule: row.amount > 0 ? 10 : 11 };
 }
 
-/* Keuzes van de beoordelaar per tegenpartij */
-const OVERRIDES = {
-  handel: row => ({ rule: row.amount > 0 ? 10 : 11 }),
-  prive: (row, own) => ({ rule: 5, role: row.amount > 0 ? 'Privé-inkomen' : 'Privé-uitgave', memberId: own.owner === 'onderneming' ? (DOSSIER.members?.[0]?.id ?? null) : own.owner }),
-  financiering: () => ({ rule: 6 }),
-  intern: () => ({ rule: 1, unshared: true }),
-};
-const OVERRIDE_LABELS = [['', 'Automatisch'], ['handel', 'Omzet / kosten'], ['prive', 'Privé'], ['financiering', 'Financiering'], ['intern', 'Eigen rekening']];
+/* Kopje uit de Loanwise-categorie (config LOANWISE_NAAR_REGEL); niet genoemd = op richting */
+function fromLoanwiseCategory(row, own) {
+  const category = row.source.category;
+  const how = `Loanwise: ${sourceLabel(row.source)}`;
+  const mapped = LOANWISE_NAAR_REGEL[category];
+  /* naar de aanvrager of DGA zelf (initiaal + achternaam) is geen eigen rekening van de zaak maar een privé-opname */
+  if (mapped === 1) { const related = relatedRole(row.name); return related ? { rule: 5, ...related, how } : { rule: 1, how, unshared: true }; }
+  if (mapped === 3) return { rule: 3, how, tax: classifyTax(row) };
+  if (mapped === 5) {
+    if (category === 'possible related bank accounts') return { rule: 5, role: 'Mogelijk verbonden rekening', how };
+    return { rule: 5, role: 'Privé-inkomen', memberId: own.owner === 'onderneming' ? (DOSSIER.members?.[0]?.id ?? null) : own.owner, how };
+  }
+  if (mapped === 9 && row.amount > 0) return { rule: 10, how };
+  if (mapped === 8 && row.amount > 0) return { rule: 8, how };
+  if (mapped) return { rule: mapped, how };
+  if (row.type === 'reversal') return { rule: 2, how };
+  return { rule: row.amount > 0 ? 10 : 11, how };
+}
 
 /* E1 als extra signaal: welke E1-categorieën passen bij welke eigen regel */
 const E1_COMPATIBLE = {

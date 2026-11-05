@@ -22,3 +22,18 @@ const GEMENGD = {
   privéUitgaveE1: /^(expense\.essential\.|expense\.lifestyle\.|housing\.|insurance\.health|gambling\.|investment\.crypto|alimony\.)/,
   privéUitgaveNaam: /albert heijn|jumbo|lidl|aldi|plus supermarkt|kinderopvang|hypothe|zorgverzeker|casino/i,
 };
+
+/* Loanwise-categorie → kopje in de analyse. De Loanwise-categorie uit de CSV is leidend; alleen een gedeelde eigen
+   rekening als tegenrekening gaat voor (bv ↔ DGA is geen interne boeking). Niet genoemd = op richting: bij = 10, af = 11.
+   'uncategorized' (en een transactie zonder categorie) valt terug op de vaste regels. */
+const LOANWISE_NAAR_REGEL = {
+  'checking accounts': 1, 'savings': 1,
+  'other taxes': 3, 'municipal taxes': 3, 'road taxes': 3, 'income taxes': 3,
+  'debt collection': 4,
+  'possible related bank accounts': 5, 'disability benefits': 5, 'housing benefits': 5, 'health insurance benefits': 5, 'child benefits': 5, 'benefits': 5,
+  'consumer loans': 6, 'mortgage loans': 6,
+  'bank fees': 7,
+  'salary': 8,
+  'cash withdrawals': 9,
+  'possible income': 10,
+};

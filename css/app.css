@@ -429,3 +429,73 @@ tr.total-row td { border-top: 1px solid var(--chart-line); }
 .theme-wrap .segment button { padding: 5px 10px; }
 .glass-toggle[aria-pressed="true"], :root[data-glass="on"] .glass-toggle[aria-pressed="true"] { background: var(--navy); border-color: var(--navy); color: #fff; }
 .month-table .total-row th:first-child { background: var(--card-solid); box-shadow: inset 0 0 0 999px var(--head); }
+/* Sorteerbare kolomkoppen en klikbare maand- en postnamen */
+.lw-table th .sort { border: 0; background: none; padding: 0; font: inherit; color: inherit; text-transform: inherit; letter-spacing: inherit; cursor: pointer; }
+.lw-table th .sort:hover, .lw-table th .sort:focus-visible { color: var(--primary); outline: none; }
+.month-table .label-link { text-decoration: none; text-align: left; overflow: hidden; text-overflow: ellipsis; }
+.month-table .label-link:hover, .month-table .label-link:focus-visible { text-decoration: underline; }
+.month-table .month-link { display: inline-grid; justify-items: end; text-decoration: none; text-transform: inherit; font-weight: inherit; letter-spacing: inherit; }
+.month-table .month-link:hover, .month-table .month-link:focus-visible { color: var(--primary); }
+.modal-controls { border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--card-solid); z-index: 2; }
+
+/* ---------- Belastingen ---------- */
+.tax-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.tax-card { background: var(--card); border-radius: 8px; box-shadow: 0 1px 2px var(--shadow), 0 1px 3px var(--shadow); padding: 18px 20px; display: grid; gap: 6px; align-content: start; min-width: 0; }
+:root[data-glass="on"] .tax-card { -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); border: 1px solid var(--border); }
+.tax-card-head { display: flex; justify-content: space-between; gap: 8px; align-items: center; color: var(--ink); }
+.tax-card-value { font-size: 22px; font-weight: 600; color: var(--ink); letter-spacing: -0.02em; }
+.tax-card-value small { font-size: 12px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+.tax-card-sub { font-size: 12.5px; color: var(--text); }
+.tax-note { font-size: 12.5px; color: var(--amber-ink); display: inline-flex; gap: 6px; align-items: center; }
+.tax-note .icon { width: 14px; height: 14px; }
+.tax-quarters { display: grid; grid-template-columns: repeat(auto-fit, minmax(64px, 1fr)); gap: 6px; margin: 6px 0 4px; }
+.tax-q { display: grid; gap: 1px; padding: 6px 8px; border-radius: 6px; background: var(--row); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.tax-q small { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+.tax-q.paid { background: var(--green-bg); color: var(--green-ink); font-weight: 600; }
+.tax-q.missing { background: var(--amber-bg); color: var(--amber-ink); font-weight: 600; box-shadow: inset 0 0 0 1px var(--amber-line); }
+.tax-card .btn-view { justify-self: start; }
+.tax-table th[scope="row"] .muted { display: block; font-weight: 400; font-size: 11px; }
+.tax-table .q-head { text-align: center; font-weight: 600; color: var(--ink); }
+.tax-table .q1 { background: var(--band); }
+.tax-table thead .q1 { background: var(--head); }
+.tax-table .q-total { border-left: 1px dashed var(--grid); font-weight: 600; }
+.tax-table th, .tax-table td { vertical-align: middle; }
+.tax-missing { display: inline-block; padding: 1px 6px; border-radius: 4px; background: var(--amber-bg); color: var(--amber-ink); font-size: 11px; font-weight: 600; }
+.positive { color: var(--green-ink); }
+@media (max-width: 900px) { .tax-cards { grid-template-columns: minmax(0, 1fr); } }
+.tax-table th[scope="row"] { text-align: left; white-space: normal; }
+
+/* ---------- Verloop: interactieve staafjes met hover-kaart ---------- */
+.spark-live { display: inline-flex; align-items: flex-end; gap: 2px; height: 26px; width: 108px; vertical-align: middle; }
+.spark-bar { flex: 1; height: 100%; border: 0; padding: 0; background: none; display: flex; align-items: flex-end; cursor: pointer; border-radius: 2px; }
+.spark-bar i { display: block; width: 100%; border-radius: 1px 1px 0 0; opacity: 0.85; }
+.spark-bar:hover, .spark-bar:focus-visible { background: var(--primary-tint); outline: none; }
+.spark-bar:hover i, .spark-bar:focus-visible i { opacity: 1; }
+.tip { position: fixed; z-index: 60; width: max-content; max-width: min(340px, calc(100vw - 16px)); background: var(--card-solid); color: var(--text); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 10px 30px var(--shadow); padding: 10px 12px; display: grid; gap: 3px; font-size: 12px; pointer-events: none; }
+.tip b { color: var(--ink); font-weight: 600; }
+.tip-total { font-weight: 600; color: var(--ink); margin-bottom: 3px; font-variant-numeric: tabular-nums; }
+.tip-row { display: flex; justify-content: space-between; gap: 14px; font-variant-numeric: tabular-nums; }
+.tip-row span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
+.tip-row i { color: var(--muted); font-style: normal; }
+.tip-hint { margin-top: 3px; font-size: 11px; }
+.tip .negative, .tip-total.negative { color: var(--red); }
+
+/* ---------- Risico-indicatoren als checklijst ---------- */
+.checks { display: grid; }
+.check-group { padding: 6px 0 4px; border-bottom: 1px solid var(--border); }
+.check-group:last-child { border-bottom: 0; }
+.check-group h3 { margin: 0; padding: 12px 24px 6px; font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.check-group h3 .muted, .check-group h3 .chip { text-transform: none; letter-spacing: 0; font-weight: 500; }
+.check { display: grid; grid-template-columns: 18px minmax(0, 1fr) auto; gap: 4px 12px; align-items: start; padding: 8px 24px; }
+.check .icon { margin-top: 2px; }
+.check b { display: block; color: var(--ink); font-weight: 500; }
+.check.good b { font-weight: 400; }
+.check span { display: block; font-size: 12.5px; color: var(--text); }
+.check.good span { color: var(--muted); }
+.check small { display: none; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+.check:hover small, .check:focus-within small { display: block; }
+.btn-view.muted-view { background: var(--row); color: var(--muted); }
+.btn-view.muted-view:hover { background: var(--head); color: var(--ink); }
+.check-toggle { border-top: 1px solid var(--border); padding-block: 12px; }
+.link-button { border: 0; background: none; padding: 0; font: inherit; font-size: 12.5px; color: var(--primary); cursor: pointer; }
+.link-button:hover, .link-button:focus-visible { text-decoration: underline; outline: none; }

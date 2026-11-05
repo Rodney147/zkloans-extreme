@@ -25,11 +25,11 @@ function analyse() {
   const visible = new Set(visibleAccounts.map(account => account.iban));
   const rows = DOSSIER.transactions.filter(row => visible.has(row.account) && monthIndexOf(row.date) >= 0).map(row => {
     const output = { ...row, ...categorize(row), monthIndex: monthIndexOf(row.date), key: counterpartyKey(row) };
-    output.signal = GAMBLING_PATTERN.test(row.name ?? '') || row.e1?.category?.startsWith('gambling') ? 'gokken' : CRYPTO_PATTERN.test(row.name ?? '') || row.e1?.category === 'investment.crypto' ? 'crypto' : null;
+    output.signal = GAMBLING_PATTERN.test(row.name ?? '') || row.e1?.category?.startsWith('gambling') || row.source?.category === 'possible gambling' ? 'gokken' : CRYPTO_PATTERN.test(row.name ?? '') || row.e1?.category === 'investment.crypto' ? 'crypto' : null;
     return output;
   });
   /* regel 10: een structurele bijschrijving bij een leverancier (≥ 3 van 6 maanden, ±2%) is geen losse retour maar een debiteur */
-  [...groupBy(rows.filter(row => row.rule === 11 && row.refund && !row.override), row => row.key).values()].forEach(list => {
+  [...groupBy(rows.filter(row => row.rule === 11 && row.refund && !row.source), row => row.key).values()].forEach(list => {
     const term = median(list.map(row => row.amount));
     const hitMonths = new Set(list.filter(row => Math.abs(row.amount / term - 1) <= 0.02 && row.monthIndex >= 6).map(row => row.monthIndex));
     if (hitMonths.size >= 3) list.forEach(row => { row.rule = 10; row.refund = false; row.how = 'structurele bijschrijving bij een leverancier'; });
@@ -45,7 +45,7 @@ function analyse() {
     const names = items.map(row => row.name).filter(Boolean);
     const name = names.length ? names.sort((first, second) => names.filter(item => item === second).length - names.filter(item => item === first).length)[0] : null;
     const total = round2(Math.abs(sum(items.map(row => row.amount))));
-    return { key, side, name, iban: items[0].counterAccount, rows: items, total, count: items.length, months: monthly(items, row => Math.abs(row.amount) * (side === 'creditor' && row.amount > 0 ? -1 : 1)), activeMonths: new Set(items.map(row => row.monthIndex)).size, override: decisions[decisionKey('cat', key)] ?? '' };
+    return { key, side, name, iban: items[0].counterAccount, rows: items, total, count: items.length, months: monthly(items, row => Math.abs(row.amount) * (side === 'creditor' && row.amount > 0 ? -1 : 1)), activeMonths: new Set(items.map(row => row.monthIndex)).size, category: items[0].source ? sourceLabel(items[0].source) : null };
   }).sort((first, second) => second.total - first.total);
   const debtors = makeEntities(byRule(10), 'debtor');
   const creditors = makeEntities(byRule(11), 'creditor');
@@ -101,7 +101,8 @@ function analyse() {
     const split = splitBy ? [...groupBy(list, splitBy).entries()].map(([name, items]) => ({ label: name, rows: items, values: monthly(items) })).sort((first, second) => Math.abs(sum(second.values)) - Math.abs(sum(first.values))) : null;
     return { key, label, rows: list, values, sign, how, split };
   };
-  const counterpartyName = row => row.name ?? '(geen naam)';
+  /* posten uitsplitsen: naar Loanwise-categorie als de data die heeft, anders naar tegenpartij */
+  const counterpartyName = DOSSIER.transactions.some(row => row.source) ? row => row.source ? sourceLabel(row.source) : 'Zonder Loanwise-categorie' : row => row.name ?? '(geen naam)';
   const businessTaxRows = taxRows.filter(row => !PRIVATE_TAX.includes(row.tax.type));
   const income = [line('omzet', overlay === 'prive' ? 'Inkomsten' : 'Omzet', byRule(10), 1, 'regel 10', counterpartyName)];
   const expenses = [
@@ -172,6 +173,6 @@ function obligationOf(items, rows, lastSix) {
   const last = marks.length - 1 - [...marks].reverse().findIndex(mark => mark !== 'none');
   const missed = marks.slice(first, last + 1).filter(mark => mark === 'none').length + marks.filter(mark => mark === 'reversal').length;
   const group = sample.rule === 6 ? 'Leningen en leases' : sample.rule === 3 ? 'Belastingen in termijnen' : sample.rule === 4 ? 'Deurwaarder' : 'Overige vaste lasten';
-  const arrangement = items.some(row => row.e1?.flags.includes('payment_arrangement') || /regeling/i.test(row.description)) || (sample.rule === 3 && sample.tax?.type === 'onbekend');
+  const arrangement = items.some(row => row.e1?.flags.includes('payment_arrangement') || /regeling/i.test(row.description)) || (sample.rule === 3 && ['onbekend', 'regeling'].includes(sample.tax?.type));
   return { key: sample.key, name: sample.name ?? '(geen naam)', rule: sample.rule, group, term: round2(term), marks, missed, arrangement, active: marks[5] !== 'none' || marks[4] !== 'none', rows: items, tax: sample.tax ?? null };
 }

@@ -10,7 +10,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAGE = 'file://' + os.path.join(ROOT, 'index.html')
-TABS = ['overzicht', 'maanden', 'omzet', 'kosten', 'transacties', 'risico']
+TABS = ['overzicht', 'maanden', 'omzet', 'kosten', 'belasting', 'transacties', 'risico']
 failures = []
 
 
@@ -21,7 +21,7 @@ def check(condition, message):
 
 
 def load(page, folder):
-    files = sorted(f for f in glob.glob(os.path.join(ROOT, 'tests', 'fixtures', folder, '*.json')) if not f.endswith('expected.json'))
+    files = sorted(f for f in glob.glob(os.path.join(ROOT, 'tests', 'fixtures', folder, '*')) if f.endswith(('.json', '.csv')) and not f.endswith('expected.json'))
     page.evaluate('showBanner()')
     page.set_input_files('#load-input', files)
     page.wait_for_function('() => !document.getElementById("load-banner").hidden', timeout=15000)
@@ -37,7 +37,7 @@ with sync_playwright() as playwright:
     page.wait_for_timeout(800)
     check(not errors, 'voorbeelddossier start zonder fouten')
 
-    for folder in ['hocus-pocus', 'slager', 'lender-spender', 'mister-x', 'ez-gemengd', 'vof', 'pizza-patat']:
+    for folder in ['hocus-pocus', 'slager', 'lender-spender', 'mister-x', 'ez-gemengd', 'vof', 'pizza-patat', 'csv-mini', 'csv-tegenpartij', 'csv-api']:
         errors.clear()
         load(page, folder)
         for view in ['zakelijk', 'prive', 'samen']:
@@ -55,23 +55,49 @@ with sync_playwright() as playwright:
     page.click('[data-month-line="kosten"]')
     check(page.evaluate("document.querySelectorAll('#panel-maanden tr.sub').length") > 0, 'kosten uitklappen naar tegenpartijen')
 
-    # categorie per tegenpartij: grootste debiteur naar privé
-    revenue_before = page.evaluate('A.revenue12')
-    key = page.evaluate('A.debtors[0].key')
-    page.evaluate("showTab('omzet')")
-    page.select_option(f'#panel-omzet [data-override="{key}"]', 'prive')
-    page.wait_for_timeout(300)
-    check(page.evaluate('A.revenue12') < revenue_before, 'aanpassing "privé" verlaagt de omzet')
-    check(page.evaluate(f"A.rows.filter(row => row.key === '{key}').every(row => row.rule === 5)"), 'aanpassing geldt voor alle transacties van die tegenpartij')
-    if page.evaluate('STORE.available'):
-        page.reload()
-        page.wait_for_timeout(800)
-        load(page, 'hocus-pocus')
-        page.wait_for_timeout(300)
-        check(page.evaluate(f"decisions[decisionKey('cat', '{key}')]") == 'prive', 'aanpassing hersteld na herladen')
-        page.evaluate(f"delete decisions[decisionKey('cat', '{key}')]; saveIbanDecision(decisionKey('cat', '{key}'), null); saveState(); renderAll();")
-    else:
-        print('let op: IndexedDB niet beschikbaar in deze browsercontext; opslag niet getest')
+    # maand en post klikbaar
+    page.click('#panel-maanden .month-link')
+    check(page.evaluate("MODAL.rows.length") == page.evaluate("A.rows.filter(row => row.monthIndex === 0).length"), 'maandkop opent alle transacties van die maand')
+    page.evaluate('closeModal()')
+    page.click('#panel-maanden .label-link')
+    check(page.evaluate("MODAL.rows.length") == page.evaluate("A.income[0].rows.length"), 'postnaam opent alle transacties van de post')
+    # filteren en sorteren in de pop-up
+    page.fill('#modal-text', 'Gemeente')
+    check(all('gemeente' in t.lower() for t in page.eval_on_selector_all('#modal-body tbody tr', 'rows => rows.map(row => row.innerText)')), 'zoeken in de pop-up')
+    page.fill('#modal-text', '')
+    page.click('#modal-body [data-sort="amount"]')
+    amounts = page.evaluate("sortRows(modalFiltered(), 'modal').map(row => row.amount)")
+    check(amounts == sorted(amounts, reverse=True), 'sorteren op bedrag')
+    page.select_option('#modal-direction', 'out')
+    check(page.evaluate("modalFiltered().every(row => row.amount < 0)"), 'filter op richting')
+    page.evaluate('closeModal()')
+    check(page.evaluate("document.querySelectorAll('[data-override], [data-legal-form]').length") == 0, 'geen categorie-aanpassing en geen rechtsvorm meer')
+    page.evaluate("showTab('belasting')")
+    check(page.evaluate("document.querySelectorAll('#panel-belasting .tax-card').length") == 3, 'belastingen: kaartjes voor btw, loonheffing en IB')
+    check(page.evaluate("document.querySelectorAll('#panel-belasting .q-head').length") >= 4, 'belastingen: kwartalen in het jaaroverzicht')
+    page.click('#panel-belasting .tax-table .cell-link')
+    check(page.evaluate("MODAL.rows.length > 0 && MODAL.rows.every(row => row.rule === 3)"), 'belastingen: bedrag opent de betalingen')
+    page.evaluate('closeModal()')
+    # verloop: hover toont de inhoud, klik opent de transacties van die maand
+    page.evaluate("showTab('kosten')")
+    bar = page.locator('#panel-kosten .spark-bar:not([tabindex])').first
+    bar.hover()
+    check(page.is_visible('#tip') and '€' in page.inner_text('#tip'), 'verloop: hover toont maand, bedrag en tegenpartijen')
+    month = int(bar.get_attribute('data-month'))
+    bar.click()
+    check(page.evaluate(f"MODAL.rows.length > 0 && MODAL.rows.every(row => row.monthIndex === {month})"), 'verloop: klik opent de transacties van die maand')
+    page.evaluate('closeModal()')
+    # risico-indicatoren: alle checks, succesvolle verbergen en weer tonen
+    page.evaluate("showTab('risico')")
+    total = page.evaluate("document.querySelectorAll('#panel-risico .check').length")
+    page.click('[data-toggle-checks]')
+    hidden = page.evaluate("document.querySelectorAll('#panel-risico .check').length")
+    check(total > hidden and page.evaluate("document.querySelectorAll('#panel-risico .check.good').length") == 0, 'risico: verberg succesvolle checks')
+    page.click('[data-toggle-checks]')
+    check(page.evaluate("document.querySelectorAll('#panel-risico .check').length") == total, 'risico: toon alles')
+    load(page, 'csv-tegenpartij')
+    page.evaluate("showTab('transacties')")
+    check('Diensten' in page.inner_text('#panel-transacties'), 'CSV: Loanwise-categorie in de transactietabel')
 
     browser.close()
 
