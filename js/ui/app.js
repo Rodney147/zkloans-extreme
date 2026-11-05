@@ -203,7 +203,7 @@ function renderDossier() {
 
 /* ---------- Tabbladen ---------- */
 /* Navigatie: zes onderdelen, elk één tabblad */
-const TAB_LABELS = { overzicht: 'Overzicht', maanden: 'Maandoverzicht', omzet: 'Omzet', kosten: 'Kosten', transacties: 'Transacties', risico: 'Risico-indicatoren' };
+const TAB_LABELS = { overzicht: 'Overzicht', maanden: 'Maandoverzicht', omzet: 'Omzet', kosten: 'Kosten', belasting: 'Belastingen', transacties: 'Transacties', risico: 'Risico-indicatoren' };
 const GROUPS = Object.entries(TAB_LABELS).map(([id, label]) => [id, label, [id]]);
 const TABS = Object.entries(TAB_LABELS);
 const groupOfTab = id => GROUPS.find(([, , tabs]) => tabs.includes(id)) ?? GROUPS[0];
@@ -211,7 +211,8 @@ const tabLabel = (id, label) => overlay === 'prive' && id === 'omzet' ? 'Inkomst
 const tabHidden = () => false;
 let currentTab = 'overzicht';
 function renderTabs() {
-  const status = { risico: MODEL?.risks.some(item => item.ernst === 'bad') ? 'bad' : MODEL?.risks.some(item => item.ernst === 'warn') ? 'warn' : null };
+  const taxTones = MODEL?.tax?.lines.filter(line => TAX_FOCUS.includes(line.type)).map(line => line.status.tone) ?? [];
+  const status = { risico: MODEL?.risks.some(item => item.ernst === 'bad') ? 'bad' : MODEL?.risks.some(item => item.ernst === 'warn') ? 'warn' : null, belasting: taxTones.includes('warn') ? 'warn' : null };
   const [currentGroup] = groupOfTab(currentTab);
   const groupStatus = tabs => tabs.map(id => status[id]).find(value => value === 'bad') ?? tabs.map(id => status[id]).find(value => value === 'warn') ?? null;
   document.getElementById('tablist').innerHTML = GROUPS.map(([id, label, tabs]) => { const first = tabs.find(tab => !tabHidden(tab)) ?? tabs[0]; const dot = groupStatus(tabs); return `<button type="button" role="tab" data-tab="${id === currentGroup && !tabHidden(currentTab) ? currentTab : first}" data-group="${id}" aria-selected="${id === currentGroup}">${dot ? `<i class="status-dot ${dot}"></i>` : ''}${tabLabel(id, label)}</button>`; }).join('');
@@ -334,7 +335,7 @@ function buildModel() {
   const privateAccounts = DOSSIER.accounts.some(account => account.enabled !== false && account.role === 'prive');
   const Az = !business ? null : overlay === 'zakelijk' ? A : analyseFor('zakelijk');
   const Ap = !privateAccounts ? null : overlay === 'prive' ? A : analyseFor('prive');
-  return { Az, Ap, risks: risks(Az, Ap) };
+  return { Az, Ap, risks: risks(Az, Ap), tax: taxOverview(Az, Ap) };
 }
 async function startSample() {
   DOSSIER = buildSampleDossier();

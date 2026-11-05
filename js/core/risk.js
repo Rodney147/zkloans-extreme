@@ -68,6 +68,67 @@ function risks(Az, Ap, today = new Date().toISOString().slice(0, 10)) {
   if (gambling.length) add({ id: 'gokken', titel: 'Gokken', ernst: 'bad', wat: `${gambling.length}× naar een gokaanbieder, ${eur(outflow(gambling))} in 12 maanden; laatste 3 maanden ${eur(outflow(gambling.filter(row => row.monthIndex >= 9)))}.`, rows: gambling });
   const crypto = all.filter(row => row.signal === 'crypto');
   if (crypto.length) add({ id: 'crypto', titel: 'Crypto', ernst: 'warn', wat: `${crypto.length}× bij een cryptobeurs, ${eur(outflow(crypto))}.`, rows: crypto });
+  taxLamps(Az, Ap).forEach(add);
   const order = ['bad', 'warn', 'info'];
   return list.sort((first, second) => order.indexOf(first.ernst) - order.indexOf(second.ernst));
+}
+
+/* ---------- Belastingdienst over het hele jaar, per kwartaal ----------
+   Alle gedeelde rekeningen samen (zakelijk en privé), zodat ook IB en Zvw van een privérekening meetellen.
+   Loanwise toont wat er betaald is en waar een betaling ontbreekt; of dat klopt (KOR, geen personeel, aanslag nog niet opgelegd) beoordeelt de beoordelaar. */
+const TAX_FOCUS = ['ob', 'lh', 'ib'];
+function taxOverview(Az, Ap) {
+  const base = Az ?? Ap;
+  if (!base) return null;
+  const MONTHS = base.MONTHS;
+  const seen = new Set();
+  const rows = [...(Az?.taxRows ?? []), ...(Ap?.taxRows ?? [])].filter(row => !seen.has(row.id) && seen.add(row.id) && row.tax.type !== 'lokaal');
+  /* kalenderkwartalen binnen het venster; een kwartaal aan de rand kan korter zijn */
+  const quarters = [];
+  MONTHS.forEach((key, index) => {
+    const label = `K${Math.ceil(Number(key.slice(5, 7)) / 3)} ${key.slice(0, 4)}`;
+    const last = quarters.at(-1);
+    if (last?.label === label) last.months.push(index); else quarters.push({ label, months: [index] });
+  });
+  quarters.forEach(quarter => { quarter.full = quarter.months.length === 3; });
+  const present = TAX_ORDER.filter(type => type !== 'lokaal' && rows.some(row => row.tax.type === type));
+  const types = [...TAX_FOCUS, ...present.filter(type => !TAX_FOCUS.includes(type))];
+  const hasWages = (Az?.byRule(8) ?? []).some(row => row.amount < 0);
+  const lines = types.map(type => {
+    const list = rows.filter(row => row.tax.type === type).sort((first, second) => first.date.localeCompare(second.date));
+    const paidRows = list.filter(row => row.amount < 0), refundRows = list.filter(row => row.amount > 0);
+    const paid = MONTHS.map((key, index) => round2(-sum(paidRows.filter(row => row.monthIndex === index).map(row => row.amount))));
+    const refund = MONTHS.map((key, index) => round2(sum(refundRows.filter(row => row.monthIndex === index).map(row => row.amount))));
+    const paidMonths = paid.map((value, index) => value > 0 ? index : -1).filter(index => index >= 0);
+    /* ritme: omzetbelasting per kwartaal; loonheffing, IB, Zvw en Vpb per maand zodra er in ≥ 3 maanden betaald is; overige los */
+    const cadence = type === 'ob' ? 'kwartaal' : ['lh', 'ib', 'zvw', 'vpb'].includes(type) && paidMonths.length >= 3 ? 'maand' : paidMonths.length ? 'los' : 'geen';
+    const perQuarter = quarters.map(quarter => ({ ...quarter, paid: round2(sum(quarter.months.map(index => paid[index]))), refund: round2(sum(quarter.months.map(index => refund[index]))), rows: list.filter(row => quarter.months.includes(row.monthIndex)) }));
+    const missingQuarters = type === 'ob' && paidRows.length ? perQuarter.filter(quarter => quarter.full && !quarter.paid && !quarter.refund) : [];
+    const missingMonths = cadence === 'maand' ? MONTHS.map((key, index) => index).filter(index => index > paidMonths[0] && index < paidMonths.at(-1) && !paid[index]) : [];
+    const kinds = [...groupBy(list, row => row.tax.kind).entries()].map(([kind, items]) => ({ kind, count: items.length, amount: round2(sum(items.map(row => row.amount))), rows: items }));
+    const roles = [...new Set(list.map(row => accountOf(row.account)?.role).filter(Boolean))];
+    const fullQuarters = perQuarter.filter(quarter => quarter.full);
+    const status = !list.length ? { tone: type === 'lh' && !hasWages ? 'info' : 'warn', text: type === 'lh' && !hasWages ? 'Geen loonheffing en geen lonen gezien' : 'Geen betaling gezien' }
+      : type === 'ob' ? { tone: missingQuarters.length ? 'warn' : 'good', text: `Betaald in ${fullQuarters.filter(quarter => quarter.paid || quarter.refund).length} van ${fullQuarters.length} volle kwartalen` }
+      : cadence === 'maand' ? { tone: missingMonths.length ? 'warn' : 'good', text: `Betaald in ${paidMonths.length} van 12 maanden${missingMonths.length ? `, ${missingMonths.length} maand(en) overgeslagen` : ''}` }
+      : { tone: 'info', text: `${paidRows.length}× betaald${refundRows.length ? `, ${refundRows.length}× teruggaaf` : ''}` };
+    const special = list.filter(row => ['Naheffing', 'Betalingsregeling'].includes(row.tax.kind) || row.tax.previousYear);
+    return { type, label: TAX_TYPES[type].label, pattern: TAX_TYPES[type].pattern, rows: list, paid, refund, perQuarter, cadence, paidMonths, missingQuarters, missingMonths, kinds, roles, status, special, total: round2(sum(paid)), refunds: round2(sum(refund)), last: paidRows.at(-1) ?? null };
+  });
+  return { MONTHS, quarters, lines, rows, hasWages };
+}
+/* lampjes over het betalen van omzetbelasting, loonheffing en inkomstenbelasting */
+function taxLamps(Az, Ap) {
+  const overview = taxOverview(Az, Ap);
+  if (!overview) return [];
+  const lamps = [];
+  const line = type => overview.lines.find(item => item.type === type);
+  const ob = line('ob'), lh = line('lh'), ib = line('ib');
+  if (Az && !ob.rows.length && Az.revenue12 > 0) lamps.push({ id: 'btw-ontbreekt', titel: 'Geen omzetbelasting betaald gezien', ernst: 'warn', wat: `Wel ${eur(Az.revenue12)} omzet in 12 maanden. Mogelijk KOR, vrijgestelde omzet of betaling via een niet-gedeelde rekening.`, rows: [] });
+  if (ob.missingQuarters.length) lamps.push({ id: 'btw-kwartaal', titel: 'Omzetbelasting: kwartaal zonder betaling', ernst: 'warn', wat: `Geen betaling of teruggaaf in ${ob.missingQuarters.map(quarter => quarter.label).join(', ')}.`, rows: ob.rows });
+  if (overview.hasWages && !lh.rows.length) lamps.push({ id: 'lh-ontbreekt', titel: 'Lonen betaald, geen loonheffing gezien', ernst: 'warn', wat: `Wel ${eur(outflow(Az.byRule(8)))} aan lonen in 12 maanden.`, rows: Az.byRule(8) });
+  if (lh.missingMonths.length) lamps.push({ id: 'lh-maand', titel: 'Loonheffing: maand overgeslagen', ernst: 'warn', wat: `Geen betaling in ${lh.missingMonths.map(index => monthName(overview.MONTHS[index])).join(', ')}.`, rows: lh.rows });
+  if (!ib.rows.length) lamps.push({ id: 'ib-ontbreekt', titel: 'Geen inkomstenbelasting gezien', ernst: 'info', wat: 'Geen voorlopige of definitieve aanslag IB op de gedeelde rekeningen. Mogelijk betaald via een niet-gedeelde rekening, of geen aanslag opgelegd.', rows: [] });
+  if (ib.missingMonths.length) lamps.push({ id: 'ib-maand', titel: 'Inkomstenbelasting: termijn overgeslagen', ernst: 'warn', wat: `Geen termijn in ${ib.missingMonths.map(index => monthName(overview.MONTHS[index])).join(', ')}.`, rows: ib.rows });
+  return lamps;
 }

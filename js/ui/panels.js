@@ -149,3 +149,42 @@ RENDERERS.risico = () => {
     ${card('Vaste lasten', `Laatste 6 maanden (${shortMonth(A.MONTHS[6])} – ${monthName(A.MONTHS[11])}) · ● betaald ○ niet betaald ↺ teruggeboekt`, table(['Tegenpartij', 'num:Termijn', 'Patroon', '', ''], obligations || '<tr><td colspan="5">Geen terugkerende lasten gevonden.</td></tr>'),
       '<b>Herkenning:</b> zelfde tegenpartij, bedrag binnen ±2%, in ten minste 3 van de laatste 6 maanden. Een lege maand tussen betalingen of een terugboeking = gemiste termijn.')}`;
 };
+
+/* ---------- Belastingen: betaalt de klant omzetbelasting, loonheffing en inkomstenbelasting? ---------- */
+const TAX_TONE = { good: ['good', 'In orde'], warn: ['warn', 'Let op'], info: ['', 'Ter info'] };
+RENDERERS.belasting = () => {
+  const overview = MODEL.tax;
+  if (!overview) return '<div class="card"><div class="card-body">Geen rekeningen in de analyse.</div></div>';
+  const { MONTHS, quarters, lines } = overview;
+  const view = (title, rows) => rows.length ? VIEWS.push({ title, rows, sub: `${windowLabel()} · alle gedeelde rekeningen` }) - 1 : null;
+  const money = (title, rows, paidValue, refundValue, missing) => {
+    if (!paidValue && !refundValue) return missing ? '<span class="tax-missing" title="Geen betaling gezien">geen</span>' : '<span class="muted">·</span>';
+    const index = view(title, rows);
+    const text = `${paidValue ? eur(paidValue) : ''}${paidValue && refundValue ? '<br>' : ''}${refundValue ? `<span class="positive">+${eur(refundValue)}</span>` : ''}`;
+    return index == null ? text : `<button type="button" class="cell-link" data-view="${index}">${text}</button>`;
+  };
+  /* kaartjes: de drie belastingen waar het om gaat */
+  const focus = lines.filter(line => TAX_FOCUS.includes(line.type)).map(line => {
+    const [tone, label] = TAX_TONE[line.status.tone];
+    const special = line.special.length ? `<span class="tax-note">${ICON.warn} ${[...new Set(line.special.map(row => row.tax.previousYear && !['Naheffing', 'Betalingsregeling'].includes(row.tax.kind) ? `over ${row.tax.year}` : row.tax.kind.toLowerCase()))].join(', ')}</span>` : '';
+    return `<div class="tax-card"><div class="tax-card-head"><b>${esc(line.label)}</b><span class="chip ${tone}">${label}</span></div>
+      <div class="tax-card-value">${line.total ? eur(line.total) : '€ 0'}<small> betaald in 12 mnd</small></div>
+      <div class="tax-card-sub">${esc(line.status.text)}${line.refunds ? ` · teruggaaf ${eur(line.refunds)}` : ''}</div>
+      <div class="tax-card-sub">${line.last ? `Laatste betaling ${dateNl(line.last.date)} · ${eur(-line.last.amount)}` : 'Geen betaling op de gedeelde rekeningen'}${line.roles.length ? ` · ${line.roles.map(role => ({ zakelijk: 'zakelijke', prive: 'privé', gemengd: 'gemengde' })[role]).join(' en ')} rekening` : ''}</div>
+      ${special}
+      <div class="tax-quarters">${line.perQuarter.map(quarter => `<span class="tax-q ${quarter.paid || quarter.refund ? 'paid' : line.type === 'ob' && quarter.full && line.rows.length ? 'missing' : ''}" title="${quarter.label}${quarter.full ? '' : ' (deels in de periode)'}"><small>${quarter.label}</small>${quarter.paid ? eur(quarter.paid) : quarter.refund ? `+${eur(quarter.refund)}` : '–'}</span>`).join('')}</div>
+      ${line.rows.length ? viewButton(line.label, line.rows, `${windowLabel()} · alle gedeelde rekeningen`) : ''}</div>`;
+  }).join('');
+  /* jaaroverzicht: maanden gegroepeerd per kwartaal, met kwartaaltotaal */
+  const head1 = `<tr><th rowspan="2">Soort</th>${quarters.map((quarter, position) => `<th colspan="${quarter.months.length + 1}" class="q-head q${position % 2}">${quarter.label}${quarter.full ? '' : ' <span class="muted">(deels)</span>'}</th>`).join('')}<th rowspan="2" class="num">12 mnd</th></tr>`;
+  const head2 = `<tr>${quarters.map((quarter, position) => `${quarter.months.map(index => `<th class="num q${position % 2}">${shortMonth(MONTHS[index])}</th>`).join('')}<th class="num q-total q${position % 2}">Totaal</th>`).join('')}</tr>`;
+  const body = lines.map(line => `<tr><th scope="row"><b>${esc(line.label)}</b><span class="muted">${esc(line.status.text)}</span></th>${line.perQuarter.map((quarter, position) => `${quarter.months.map(index => `<td class="num q${position % 2}">${money(`${line.label} · ${monthName(MONTHS[index])}`, line.rows.filter(row => row.monthIndex === index), line.paid[index], line.refund[index], line.missingMonths.includes(index))}</td>`).join('')}<td class="num q-total q${position % 2}">${money(`${line.label} · ${quarter.label}`, quarter.rows, quarter.paid, quarter.refund, line.missingQuarters.includes(quarter))}</td>`).join('')}<td class="num total"><b>${eur(line.total)}</b>${line.refunds ? `<br><span class="positive">+${eur(line.refunds)}</span>` : ''}</td></tr>`).join('');
+  const totals = MONTHS.map((key, index) => round2(sum(lines.map(line => line.paid[index]))));
+  const foot = `<tr class="total-row"><th scope="row">Totaal betaald</th>${quarters.map((quarter, position) => `${quarter.months.map(index => `<td class="num q${position % 2}">${totals[index] ? eur(totals[index]) : '<span class="muted">·</span>'}</td>`).join('')}<td class="num q-total q${position % 2}"><b>${eur(sum(quarter.months.map(index => totals[index])))}</b></td>`).join('')}<td class="num total"><b>${eur(sum(totals))}</b></td></tr>`;
+  /* per soort: wat voor betalingen het zijn */
+  const kindRows = lines.filter(line => line.rows.length).map(line => `<tr><td><b>${esc(line.label)}</b><span class="muted">${esc(line.pattern)}</span></td><td>${line.kinds.map(kind => `<span class="chip ${['Naheffing', 'Betalingsregeling'].includes(kind.kind) ? 'warn' : kind.kind === 'Teruggaaf' ? 'good' : 'outline'}">${esc(kind.kind)} ${kind.count}×</span>`).join(' ')}</td><td class="num">${eur(line.total)}</td><td class="action">${viewButton(line.label, line.rows, `${windowLabel()} · alle gedeelde rekeningen`)}</td></tr>`).join('');
+  return `<div class="tax-cards">${focus}</div>
+    ${card('Belastingdienst over het jaar', `${windowLabel()} · per maand, kwartalen uitgelicht · alle gedeelde rekeningen (zakelijk en privé)`, `<div class="table-wrap month-wrap"><table class="lw-table month-table tax-table"><thead>${head1}${head2}</thead><tbody>${body}${foot}</tbody></table></div>`,
+      `<b>Herleiding:</b> ${ruleRef(3)}, soort uit het betalingskenmerk of de omschrijving. Bedragen = betaald aan de Belastingdienst, <span class="positive">+</span> = teruggaaf. <span class="tax-missing">geen</span> = een kwartaal zonder btw-betaling, of een maand zonder termijn tussen twee betaalde maanden. Omzetbelasting wordt meestal betaald in de maand na het kwartaal, dus een betaling in januari hoort bij K4. Gemeente- en waterschapsbelastingen staan niet in dit overzicht.`)}
+    ${card('Soorten betalingen', 'Aangifte, voorlopige aanslag, naheffing, betalingsregeling en teruggaaf', kindRows ? table(['Belasting', 'Soorten', 'num:Betaald 12 mnd', ''], kindRows) : '<div class="card-body">Geen betalingen aan de Belastingdienst gezien.</div>')}`;
+};

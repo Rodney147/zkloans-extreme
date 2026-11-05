@@ -10,7 +10,7 @@ from playwright.sync_api import sync_playwright
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAGE = 'file://' + os.path.join(ROOT, 'index.html')
-TABS = ['overzicht', 'maanden', 'omzet', 'kosten', 'transacties', 'risico']
+TABS = ['overzicht', 'maanden', 'omzet', 'kosten', 'belasting', 'transacties', 'risico']
 failures = []
 
 
@@ -72,6 +72,12 @@ with sync_playwright() as playwright:
     check(page.evaluate("modalFiltered().every(row => row.amount < 0)"), 'filter op richting')
     page.evaluate('closeModal()')
     check(page.evaluate("document.querySelectorAll('[data-override], [data-legal-form]').length") == 0, 'geen categorie-aanpassing en geen rechtsvorm meer')
+    page.evaluate("showTab('belasting')")
+    check(page.evaluate("document.querySelectorAll('#panel-belasting .tax-card').length") == 3, 'belastingen: kaartjes voor btw, loonheffing en IB')
+    check(page.evaluate("document.querySelectorAll('#panel-belasting .q-head').length") >= 4, 'belastingen: kwartalen in het jaaroverzicht')
+    page.click('#panel-belasting .tax-table .cell-link')
+    check(page.evaluate("MODAL.rows.length > 0 && MODAL.rows.every(row => row.rule === 3)"), 'belastingen: bedrag opent de betalingen')
+    page.evaluate('closeModal()')
     load(page, 'csv-tegenpartij')
     page.evaluate("showTab('transacties')")
     check('Diensten' in page.inner_text('#panel-transacties'), 'CSV: Loanwise-categorie in de transactietabel')

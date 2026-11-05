@@ -39,7 +39,9 @@ Bestanden en aanpassingen blijven in de browser (IndexedDB); er gaat niets naar 
 
 ## Tabbladen
 
-Overzicht · Maandoverzicht · Omzet · Kosten · Transacties · Risico-indicatoren.
+Overzicht · Maandoverzicht · Omzet · Kosten · Belastingen · Transacties · Risico-indicatoren.
+
+**Belastingen:** omzetbelasting, loonheffing en inkomstenbelasting over 12 maanden, per maand met de kalenderkwartalen uitgelicht (zakelijke én privérekeningen). Een kwartaal zonder btw-betaling of een overgeslagen termijn wordt gemarkeerd en geeft een lampje.
 
 **Thema:** Auto (volgt het systeem), Licht of Donker, plus een optionele glaslaag (doorschijnende kaarten). De keuze blijft per browser bewaard.
 
